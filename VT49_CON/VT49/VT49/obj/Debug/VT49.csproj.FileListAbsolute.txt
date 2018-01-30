@@ -1,0 +1,9 @@
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49\VT49\bin\Debug\VT49.exe.config
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49\VT49\bin\Debug\VT49.exe
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49\VT49\bin\Debug\VT49.pdb
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49\VT49\bin\Debug\OpenTK.dll
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49\VT49\bin\Debug\OpenTK.xml
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49\VT49\obj\Debug\VT49.csprojResolveAssemblyReference.cache
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49\VT49\obj\Debug\VT49.csproj.CoreCompileInputs.cache
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49\VT49\obj\Debug\VT49.exe
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49\VT49\obj\Debug\VT49.pdb

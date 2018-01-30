@@ -1,0 +1,111 @@
+﻿  Validating architecture
+  Validating sources
+  Copying sources remotely to '192.168.1.78'
+  Starting remote build
+  Compiling sources:
+  VT49.cpp
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(55,13): warning : address of local variable ‘mPoints’ returned [-Wreturn-local-addr]
+  Linking objects
+  /home/pi/projects/VT49/obj/ARM/Release/VT49.o: In function `render_text(SDL_Renderer*, int, int, char const*, _TTF_Font*, SDL_Rect, SDL_Color*)':
+  /home/pi/projects/VT49/VT49.cpp:137: undefined reference to `TTF_RenderText_Solid'
+  /home/pi/projects/VT49/VT49.cpp:138: undefined reference to `SDL_CreateTextureFromSurface'
+  /home/pi/projects/VT49/VT49.cpp:143: undefined reference to `SDL_FreeSurface'
+  /home/pi/projects/VT49/VT49.cpp:144: undefined reference to `SDL_RenderCopy'
+  /home/pi/projects/VT49/VT49.cpp:145: undefined reference to `SDL_DestroyTexture'
+  /home/pi/projects/VT49/obj/ARM/Release/VT49.o: In function `handleUI(SDL_Event)':
+  /home/pi/projects/VT49/VT49.cpp:158: undefined reference to `SDL_GetMouseState'
+  /home/pi/projects/VT49/obj/ARM/Release/VT49.o: In function `init()':
+  /home/pi/projects/VT49/VT49.cpp:200: undefined reference to `SDL_Init'
+  /home/pi/projects/VT49/VT49.cpp:202: undefined reference to `SDL_CreateWindow'
+  /home/pi/projects/VT49/VT49.cpp:205: undefined reference to `SDL_CreateRenderer'
+  /home/pi/projects/VT49/VT49.cpp:208: undefined reference to `SDL_GetWindowSurface'
+  /home/pi/projects/VT49/VT49.cpp:200: undefined reference to `SDL_GetError'
+  /home/pi/projects/VT49/VT49.cpp:203: undefined reference to `SDL_GetError'
+  /home/pi/projects/VT49/VT49.cpp:206: undefined reference to `SDL_GetError'
+  /home/pi/projects/VT49/obj/ARM/Release/VT49.o: In function `setRenderColor(unsigned char, unsigned char, unsigned char, unsigned char)':
+  /home/pi/projects/VT49/VT49.cpp:218: undefined reference to `SDL_SetRenderDrawColor'
+  /home/pi/projects/VT49/obj/ARM/Release/VT49.o: In function `setRenderColor(SDL_Color)':
+  /home/pi/projects/VT49/VT49.cpp:224: undefined reference to `SDL_SetRenderDrawColor'
+  /home/pi/projects/VT49/obj/ARM/Release/VT49.o: In function `render()':
+  /home/pi/projects/VT49/VT49.cpp:240: undefined reference to `SDL_SetRenderDrawColor'
+  /home/pi/projects/VT49/VT49.cpp:241: undefined reference to `SDL_RenderClear'
+  /home/pi/projects/VT49/VT49.cpp:242: undefined reference to `SDL_RenderPresent'
+  /home/pi/projects/VT49/obj/ARM/Release/VT49.o: In function `close()':
+  /home/pi/projects/VT49/VT49.cpp:249: undefined reference to `SDL_DestroyTexture'
+  /home/pi/projects/VT49/VT49.cpp:253: undefined reference to `SDL_DestroyRenderer'
+  /home/pi/projects/VT49/VT49.cpp:254: undefined reference to `SDL_DestroyWindow'
+  /home/pi/projects/VT49/VT49.cpp:259: undefined reference to `Mix_FreeMusic'
+  /home/pi/projects/VT49/VT49.cpp:263: undefined reference to `Mix_Quit'
+  /home/pi/projects/VT49/VT49.cpp:264: undefined reference to `IMG_Quit'
+  /home/pi/projects/VT49/VT49.cpp:265: undefined reference to `TTF_Quit'
+  /home/pi/projects/VT49/VT49.cpp:266: undefined reference to `SDL_Quit'
+  /home/pi/projects/VT49/obj/ARM/Release/VT49.o: In function `main':
+  /home/pi/projects/VT49/VT49.cpp:81: undefined reference to `SDL_GetTicks'
+  /home/pi/projects/VT49/VT49.cpp:93: undefined reference to `SDL_GetTicks'
+  /home/pi/projects/VT49/VT49.cpp:95: undefined reference to `SDL_PollEvent'
+  /home/pi/projects/VT49/VT49.cpp:95: undefined reference to `SDL_PollEvent'
+  /home/pi/projects/VT49/obj/ARM/Release/VT49.o: In function `render()':
+  /home/pi/projects/VT49/VT49.cpp:240: undefined reference to `SDL_SetRenderDrawColor'
+  /home/pi/projects/VT49/VT49.cpp:241: undefined reference to `SDL_RenderClear'
+  /home/pi/projects/VT49/VT49.cpp:242: undefined reference to `SDL_RenderPresent'
+  /home/pi/projects/VT49/obj/ARM/Release/VT49.o: In function `main':
+  /home/pi/projects/VT49/VT49.cpp:104: undefined reference to `SDL_GetTicks'
+  /home/pi/projects/VT49/VT49.cpp:110: undefined reference to `SDL_GetTicks'
+  /home/pi/projects/VT49/VT49.cpp:113: undefined reference to `SDL_Delay'
+  /home/pi/projects/VT49/obj/ARM/Release/VT49.o: In function `handleUI(SDL_Event)':
+  /home/pi/projects/VT49/VT49.cpp:158: undefined reference to `SDL_GetMouseState'
+  /home/pi/projects/VT49/obj/ARM/Release/VT49.o: In function `main':
+  /home/pi/projects/VT49/VT49.cpp:108: undefined reference to `SDL_GetTicks'
+  collect2: error: ld returned 1 exit status
+  
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\obj\ARM\Release\VT49.o : error : 
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(137): error : undefined reference to `TTF_RenderText_Solid'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(138): error : undefined reference to `SDL_CreateTextureFromSurface'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(143): error : undefined reference to `SDL_FreeSurface'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(144): error : undefined reference to `SDL_RenderCopy'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(145): error : undefined reference to `SDL_DestroyTexture'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\obj\ARM\Release\VT49.o : error : 
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(158): error : undefined reference to `SDL_GetMouseState'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\obj\ARM\Release\VT49.o : error : 
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(200): error : undefined reference to `SDL_Init'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(202): error : undefined reference to `SDL_CreateWindow'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(205): error : undefined reference to `SDL_CreateRenderer'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(208): error : undefined reference to `SDL_GetWindowSurface'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(200): error : undefined reference to `SDL_GetError'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(203): error : undefined reference to `SDL_GetError'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(206): error : undefined reference to `SDL_GetError'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\obj\ARM\Release\VT49.o : error : 
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(218): error : undefined reference to `SDL_SetRenderDrawColor'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\obj\ARM\Release\VT49.o : error : 
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(224): error : undefined reference to `SDL_SetRenderDrawColor'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\obj\ARM\Release\VT49.o : error : 
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(240): error : undefined reference to `SDL_SetRenderDrawColor'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(241): error : undefined reference to `SDL_RenderClear'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(242): error : undefined reference to `SDL_RenderPresent'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\obj\ARM\Release\VT49.o : error : 
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(249): error : undefined reference to `SDL_DestroyTexture'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(253): error : undefined reference to `SDL_DestroyRenderer'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(254): error : undefined reference to `SDL_DestroyWindow'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(259): error : undefined reference to `Mix_FreeMusic'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(263): error : undefined reference to `Mix_Quit'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(264): error : undefined reference to `IMG_Quit'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(265): error : undefined reference to `TTF_Quit'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(266): error : undefined reference to `SDL_Quit'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\obj\ARM\Release\VT49.o : error : 
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(81): error : undefined reference to `SDL_GetTicks'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(93): error : undefined reference to `SDL_GetTicks'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(95): error : undefined reference to `SDL_PollEvent'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(95): error : undefined reference to `SDL_PollEvent'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\obj\ARM\Release\VT49.o : error : 
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(240): error : undefined reference to `SDL_SetRenderDrawColor'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(241): error : undefined reference to `SDL_RenderClear'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(242): error : undefined reference to `SDL_RenderPresent'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\obj\ARM\Release\VT49.o : error : 
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(104): error : undefined reference to `SDL_GetTicks'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(110): error : undefined reference to `SDL_GetTicks'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(113): error : undefined reference to `SDL_Delay'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\obj\ARM\Release\VT49.o : error : 
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(158): error : undefined reference to `SDL_GetMouseState'
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\obj\ARM\Release\VT49.o : error : 
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(108): error : undefined reference to `SDL_GetTicks'
+collect2 : error : ld returned 1 exit status
