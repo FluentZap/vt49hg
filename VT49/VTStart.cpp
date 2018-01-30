@@ -1,23 +1,21 @@
-#include <SDL.h>
-#include <glew.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
-#include <SDL_opengl.h>
-#include <GL\GLU.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_opengl.h>
 #include <stdio.h>
+#include <wiringPi.h>
 #include <string>
 #include <sstream>
-
+#include <ws2811.h>
 
 using namespace std;
 
 bool init();
-bool initGL();
 bool loadResources();
 void render();
-void renderGL();
 void close();
+bool init_ws();
 
 
 SDL_Texture* loadTexture(std::string path);
@@ -26,19 +24,19 @@ SDL_Renderer* gRenderer = NULL;
 SDL_Surface* gScreenSurface = NULL;
 SDL_Surface* gXOut = NULL;
 SDL_Texture* gTexture = NULL;
-SDL_GLContext gContext;
 
 
-const int SCREEN_WIDTH = 1920;
-const int SCREEN_HEIGHT = 1080;
+const int SCREEN_WIDTH = 600;
+const int SCREEN_HEIGHT = 600;
 const int SCREEN_FPS = 60;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
-	
+
 void handleUI(SDL_Event);
 void render_text(SDL_Renderer, int, int, const char, TTF_Font, SDL_Rect, SDL_Color);
 SDL_Color setColor (Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 Mix_Music *gMusic = NULL;
+
 
 //SDL Render Window
 
@@ -47,7 +45,22 @@ SDL_Event e;
 SDL_Color textcolor = {0, 0, 0, 255};
 
 TTF_Font *gFont = NULL;
-int angle;
+
+
+ws2811_t ledstring = {};
+/*
+ws2811_t ledstring =
+{
+    0,
+    0,
+    800,
+    10,
+	
+    12, 0, 50, 255, WS2811_STRIP_GBR,
+    0
+
+};
+*/
 
 
 //SDL_Point Points[400];
@@ -60,7 +73,7 @@ public:
 		{
 
 		SDL_Point mPoints[400];
-		
+
 		for (int x=0; x < 400; x++)
 		{
 			mPoints[x].x = Points[x].x;
@@ -76,21 +89,24 @@ public:
 
 StarMap starmap;
 
-int pitch, yaw;
-	
 int main(int argc, char **argv)
 {
+
+if (wiringPiSetup () == -1)
+	return 1 ;
+	
+init_ws();
 	
 	if( init() )
 	{
-		
+
 			Uint32 startTicks;
 			Uint32 fpsTicks;
 			int fps;
 			fpsTicks = SDL_GetTicks();
 			//While application is running
-			
-			
+
+
 			for (int x = 0; x < 400; x++)
 			{
 				starmap.Points[x].x = rand() % 1000;
@@ -107,13 +123,7 @@ int main(int argc, char **argv)
 				}
 					
 					
-				//render();
-				renderGL();
-				
-				glFlush();
-				
-				SDL_GL_SwapWindow( gWindow );
-				
+				render();
 				fps++;
 				
 				if (SDL_GetTicks() >= fpsTicks + 1000)
@@ -171,10 +181,59 @@ void handleUI(SDL_Event e)
 		int x, y;
 		SDL_GetMouseState(&x, &y);
 	}
+//Blue Red Green
 	if( e.type == SDL_KEYDOWN)
 	{
-			angle = angle + 10;
+		if( e.key.keysym.sym == SDLK_1 )
+			{
+				//pinMode (0, OUTPUT);
+				//digitalWrite (0, 1);
+				for(int x = 0; x < 50; x++){
+					ledstring.channel[0].leds[x] = 0x00000080;
+				}
+				
+				ws2811_render(&ledstring);
+			}
+			if( e.key.keysym.sym == SDLK_2 )
+			{
+				//pinMode (0, OUTPUT);
+				//digitalWrite (0, 1);
+				for(int x = 25; x < 50; x++){
+					ledstring.channel[0].leds[x] = 0x00ff0000;
+				}
+				
+				ws2811_render(&ledstring);
+			}
+			if( e.key.keysym.sym == SDLK_3 )
+			{
+				//pinMode (0, OUTPUT);
+				//digitalWrite (0, 1);
+				for(int x = 0; x < 50; x++){
+					ledstring.channel[0].leds[x] = 0x0000ff00;
+				}
+				
+				ws2811_render(&ledstring);
+			}
 	}
+
+	if( e.type == SDL_KEYUP)
+	{
+
+		if( e.key.keysym.sym == SDLK_1 )
+			{
+				//pinMode (0, OUTPUT);
+				//digitalWrite (0, 0);
+				for(int x = 0; x < 50; x++){
+					ledstring.channel[0].leds[x] = 0x00000000;
+				}
+				ws2811_render(&ledstring);
+			}
+	}
+
+
+
+	
+	if( e.type == SDL_KEYDOWN ) if( e.key.keysym.sym == SDLK_ESCAPE ) quit = true;
 	
 	//Quit if escape is detected
 	if( e.type == SDL_QUIT )
@@ -185,40 +244,50 @@ void handleUI(SDL_Event e)
 bool init()
 {
 	//Init SDL
-	SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 2 );
-	SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 1 );
-	
 	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() ); return false;}	
-	gWindow = SDL_CreateWindow( "Screen App", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-	if( gWindow == NULL ) {printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() ); return false;}	
 
-	gContext = SDL_GL_CreateContext( gWindow );
-	SDL_GL_SetSwapInterval( 1 );
-	initGL();
+	gWindow = SDL_CreateWindow( "Screen App", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_BORDERLESS);
+	if( gWindow == NULL ) {printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() ); return false;}		
+	
+	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
+	if( gRenderer == NULL ) {printf( "Renderer could not be created! SDL_Error: %s\n", SDL_GetError() ); return false;}
 
+	gScreenSurface = SDL_GetWindowSurface( gWindow );
 
-
-
+	//SDL_GL_SetSwapInterval( 1 );
+	
 	return true;
 }
 
 
-bool initGL()
+bool init_ws()
 {
-    GLenum error = GL_NO_ERROR;
-
-    //Initialize Projection Matrix
-    glEnable ( GL_DEPTH_TEST );
-	glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-
-    //Initialize Modelview Matrix
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();
-
-	glClearColor( 0.f, 0.f, 0.f, 1.f );
-    
+	
+	ws2811_return_t ret;
+	
+	ledstring.freq = WS2811_TARGET_FREQ;
+	ledstring.dmanum = 10;
+	
+	ledstring.channel[0].gpionum = 12;
+	ledstring.channel[0].count = 50;
+	ledstring.channel[0].invert = 0;
+	ledstring.channel[0].brightness = 255;
+	ledstring.channel[0].strip_type = WS2811_STRIP_GBR;
+	/*
+	ledstring.channel[1].gpionum = 0;
+	ledstring.channel[1].count = 0;
+	ledstring.channel[1].invert = 0;
+	ledstring.channel[1].brightness = 0;
+	*/
+	ws2811_init(&ledstring);
+	
+	return true;
 }
+
+
+
+
+
 
 
 void setRenderColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
@@ -244,113 +313,11 @@ SDL_Color setColor (Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 }
 
 
-void renderGL()
+void render()
 {
-	
-	 //Clear color buffer
-	glClearDepth( 1.0 );
-	glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    //glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
-	//gluLookAt( 0, 0, 0, x2, y2, z2, x3, y3, z3)
-	
-	glMatrixMode(GL_PROJECTION); 
-	glLoadIdentity(); 
-	//gluPerspective(50.0, 1.0, 3.0, 7.0); 
-	glMatrixMode(GL_MODELVIEW); 
-	glLoadIdentity(); 
-	//gluLookAt(0.0, 0.0, 5.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-
-
-    //Render quad
-	//glBegin( GL_QUADS );
-	//	glVertex2f( -0.5f, -0.5f );
-	//	glVertex2f( 0.5f, -0.5f );
-	//	glVertex2f( 0.5f, 0.5f );
-	//	glVertex2f( -0.5f, 0.5f );
-	//glEnd();
-
-	glLoadIdentity();
-	gluPerspective(1.3f, SCREEN_WIDTH / SCREEN_HEIGHT, 2.0f, 400.0f);
-	
-	
-	//glScalef(1.0, 1.0, 1.0);
-	glTranslatef(0, 0, -75);
-	glRotatef( angle, 1.0, 0.0, 0.0 );
-	glRotatef( angle, 0.0, 1.0, 0.0 );
-	//glTranslatef(0.0, 0.0, -1.0);
-	angle+=1;
-
-	glBegin(GL_POINTS);
-		glColor3f(1.0,0.0,0.1);
-		glPointSize(100);
-		glVertex3f(0.5f, 0.5f, 0.5f);
-		glVertex3f(0.5f, 0.6f, 0.5f);
-		glVertex3f(0.5f, 0.7f, 0.5f);
-		glVertex3f(0.5f, 0.8f, 0.5f);
-	glEnd();
-
-	
-/*
-	glBegin(GL_POLYGON);
-		glColor3f( 1.0, 0.0, 0.0 );     glVertex3f(  0.5, -0.5, -0.5 );      // P1 is red
-		glColor3f( 0.0, 1.0, 0.0 );     glVertex3f(  0.5,  0.5, -0.5 );      // P2 is green
-		glColor3f( 0.0, 0.0, 1.0 );     glVertex3f( -0.5,  0.5, -0.5 );      // P3 is blue
-		glColor3f( 1.0, 0.0, 1.0 );     glVertex3f( -0.5, -0.5, -0.5 );      // P4 is purple
-	glEnd();
-*/
-
-
-
-glBegin(GL_POLYGON);
-glColor3f(   1.0,  1.0, 1.0 );
-glVertex3f(  0.5, -0.5, 0.5 );
-glVertex3f(  0.5,  0.5, 0.5 );
-glVertex3f( -0.5,  0.5, 0.5 );
-glVertex3f( -0.5, -0.5, 0.5 );
-glEnd();
- 
-// Purple side - RIGHT
-glBegin(GL_POLYGON);
-glColor3f(  1.0,  0.0,  1.0 );
-glVertex3f( 0.5, -0.5, -0.5 );
-glVertex3f( 0.5,  0.5, -0.5 );
-glVertex3f( 0.5,  0.5,  0.5 );
-glVertex3f( 0.5, -0.5,  0.5 );
-glEnd();
- 
-// Green side - LEFT
-glBegin(GL_POLYGON);
-glColor3f(   0.0,  1.0,  0.0 );
-glVertex3f( -0.5, -0.5,  0.5 );
-glVertex3f( -0.5,  0.5,  0.5 );
-glVertex3f( -0.5,  0.5, -0.5 );
-glVertex3f( -0.5, -0.5, -0.5 );
-glEnd();
- 
-// Blue side - TOP
-glBegin(GL_POLYGON);
-glColor3f(   0.0,  0.0,  1.0 );
-glVertex3f(  0.5,  0.5,  0.5 );
-glVertex3f(  0.5,  0.5, -0.5 );
-glVertex3f( -0.5,  0.5, -0.5 );
-glVertex3f( -0.5,  0.5,  0.5 );
-glEnd();
- 
-// Red side - BOTTOM
-glBegin(GL_POLYGON);
-glColor3f(   1.0,  0.0,  0.0 );
-glVertex3f(  0.5, -0.5, -0.5 );
-glVertex3f(  0.5, -0.5,  0.5 );
-glVertex3f( -0.5, -0.5,  0.5 );
-glVertex3f( -0.5, -0.5, -0.5 );
-glEnd();
-
-//glEnable(GL_DEPTH_TEST);
-
-
+	SDL_SetRenderDrawColor(gRenderer, 40, 40, 40, 255);
+	SDL_RenderClear(gRenderer);
+	SDL_RenderPresent(gRenderer);
 }
 
 
@@ -370,9 +337,13 @@ void close()
 	Mix_FreeMusic( gMusic );
     gMusic = NULL;
 	
+	//Quit Ws2811
+	ws2811_fini(&ledstring);
+	
 	//Quit SDL subsystems
 	Mix_Quit();
 	IMG_Quit();
 	TTF_Quit();
 	SDL_Quit();
+	
 }
