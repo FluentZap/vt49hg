@@ -1,0 +1,1 @@
+g++ -o "/home/pi/projects/VT49/bin/ARM/Debug/VT49.out" -Wl,--no-undefined -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack /home/pi/projects/VT49/obj/ARM/Debug/VT49.o -lm -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer

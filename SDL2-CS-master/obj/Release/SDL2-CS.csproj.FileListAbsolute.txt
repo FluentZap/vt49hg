@@ -1,0 +1,4 @@
+C:\Users\Toad\Documents\VT49\SDL2-CS-master\bin\Release\SDL2-CS.dll.config
+C:\Users\Toad\Documents\VT49\SDL2-CS-master\bin\Release\SDL2-CS.dll
+C:\Users\Toad\Documents\VT49\SDL2-CS-master\obj\Release\SDL2-CS.csproj.CoreCompileInputs.cache
+C:\Users\Toad\Documents\VT49\SDL2-CS-master\obj\Release\SDL2-CS.dll

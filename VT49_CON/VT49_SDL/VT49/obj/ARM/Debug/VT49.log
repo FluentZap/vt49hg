@@ -1,0 +1,11 @@
+﻿  Cleaning remote project directory
+  Validating architecture
+  Validating sources
+  Copying sources remotely to '192.168.1.78'
+  Starting remote build
+  Compiling sources:
+  VT49.cpp
+C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\VT49.cpp(55,13): warning : address of local variable ‘mPoints’ returned [-Wreturn-local-addr]
+  Linking objects
+  VT49.vcxproj -> C:\Users\Toad\Documents\VT49\VT49_CON\VT49_SDL\VT49\bin\ARM\Debug\VT49.out
+  Invoking 'gpio export 17 out', working directory: '/home/pi/projects/VT49'
