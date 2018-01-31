@@ -1,0 +1,7 @@
+﻿  Building Custom Rule C:/Users/Toad/Documents/VT49/qu3e-master/demo/CMakeLists.txt
+  CMake does not need to re-run because C:/Users/Toad/Documents/VT49/qtbin/demo/CMakeFiles/generate.stamp is up-to-date.
+  Clock.cpp
+  Demo.cpp
+  main.cpp
+  Generating Code...
+  demo.vcxproj -> C:\Users\Toad\Documents\VT49\qu3e-master\bin\Release\demo.exe

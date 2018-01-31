@@ -2,16 +2,21 @@
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 #include "SDL_mixer.h"
+#include "SDL_net.h"
 #include <stdio.h>
 #include <string>
 #include <sstream>
+//#include "q3.h"
+#include "reactphysics3d.h"
 #include "VTStart.h"
 
+
 using namespace std;
+using namespace reactphysics3d;
 
 
-const int SCREEN_WIDTH = 720;
-const int SCREEN_HEIGHT = 1280;
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 720;
 const int SCREEN_FPS = 60;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
@@ -19,15 +24,80 @@ const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 bool quit = false;
 int framsPerSec;
 
+rp3d::DynamicsWorld* world;
+rp3d::RigidBody* body;
+
 
 SDL_Rect rect1, rect2;
 double dist1;
 
+void init_setup()
+{
+	loadResources();
+	
+	//rp3d::Vector3 gravity(0.0, -9.81, 0.0);
+	rp3d::Vector3 gravity(-10.0, 0.0, 0.0);
+	
+	world = new DynamicsWorld(gravity);
+		
+	rp3d::Vector3 initPosition(0.0, 3.0, 0.0);
+	rp3d::Quaternion initOrientation = rp3d::Quaternion::identity();
+	rp3d::Transform transform(initPosition, initOrientation);
+	body = world->createRigidBody(transform);
+	
+	body->setType(rp3d::BodyType::DYNAMIC);
+	
+	// Force vector (in Newton) 
 
+	// Apply a force to the center of the body 
+	//body->applyForceToCenter(force);
+	//Vector3 force(10.0, 10.0, 10.0); 
+	//body->applyForceToCenterOfMass(force);
+/*
+	scene = new q3Scene( 1.0 / 60.0 );
+	//q3Scene scene( 1.0 / 60.0 );
+	q3BodyDef bodyDef;
+	bodyDef.position.Set( 0.0f, 3.0f, 0.0f);
+		
+	bodyDef.axis.Set( q3RandomFloat( -1.0f, 1.0f ), q3RandomFloat( -1.0f, 1.0f ), q3RandomFloat( -1.0f, 1.0f ) );
+	bodyDef.angle = q3PI * q3RandomFloat( -1.0f, 1.0f );
+	bodyDef.bodyType = eDynamicBody;
+	bodyDef.angularVelocity.Set( q3RandomFloat( 1.0f, 3.0f ), q3RandomFloat( 1.0f, 3.0f ), q3RandomFloat( 1.0f, 3.0f ) );
+	bodyDef.angularVelocity *= q3Sign( q3RandomFloat( -1.0f, 1.0f ) );
+	bodyDef.linearVelocity.Set( q3RandomFloat( 1.0f, 3.0f ), q3RandomFloat( 1.0f, 3.0f ), q3RandomFloat( 1.0f, 3.0f ) );
+	bodyDef.linearVelocity *= q3Sign( q3RandomFloat( -1.0f, 1.0f ) );
+
+	body = scene->CreateBody( bodyDef );
+	
+
+	q3BoxDef boxDef; // See q3Box.h for settings details
+	q3Transform localSpace; // Contains position and orientation, see q3Transform.h for details
+	q3Identity( localSpace ); // Specify the origin, and identity orientation
+	
+	// Create a box at the origin with width, height, depth = (1.0, 1.0, 1.0)
+	// and add it to a rigid body. The transform is defined relative to the owning body
+	
+	boxDef.Set( localSpace, q3Vec3( 1.0, 1.0, 1.0 ) );
+	
+	body->AddBox( boxDef );
+	
+	/*
+	q3BoxDef boxDef; // See q3Box.h for settings details
+	q3Transform localSpace; // Contains position and orientation, see q3Transform.h for details
+	q3Identity( localSpace ); // Specify the origin, and identity orientation
+	
+	// Create a box at the origin with width, height, depth = (1.0, 1.0, 1.0)
+	// and add it to a rigid body. The transform is defined relative to the owning body
+	boxDef.Set( localSpace, q3Vec3( 1.0, 1.0, 1.0 ) );
+	body->AddBox( boxDef );
+	*/
+}
 
 void main_loop()
 {
 	while (SDL_PollEvent(&e) != 0) { handleUI(e); }
+	//scene->Step();
+	world->update( 1.0 / 60.0 );
 	render();
 }
 
@@ -51,12 +121,25 @@ void handleUI(SDL_Event e)
 		
 		if (e.key.keysym.sym == SDLK_LEFT)
 		{
-				rect1.x--;
+			Vector3 force(-10000.0, 0.0, 0.0); 
+			
+			body->applyForceToCenterOfMass(force);
+			/*
+			q3Vec3 point = {1.0, 1.0, 1.0};
+			q3Vec3 force = {1.0, 1.0, 1.0};
+			
+			point.x = 1.0;
+			body->ApplyForceAtWorldPoint(force, point);
+			body->ApplyLinearImpulse(point);
+			 */
+			//rect1.x--;
 		}
 		
 		if (e.key.keysym.sym == SDLK_RIGHT)
 		{
-				rect1.x++;
+			Vector3 force(10000.0, 0.0, 0.0); 
+			body->applyForceToCenterOfMass(force);
+				//rect1.x++;
 		}
 		
 	}
@@ -82,19 +165,31 @@ void render()
 	SDL_RenderClear(gRenderer);
 	
 	setRenderColor(255, 255, 255, 255);
-	SDL_Rect rect = {100, 100, 900, 900};
+	SDL_Color color = setColor(255, 255, 255, 255);
+	/*
+	SDL_Rect rect = {100, 100, 200, 200};
 	SDL_RenderDrawRect(gRenderer, &rect);
 	
 	SDL_RenderDrawRect(gRenderer, &rect1);
 	
-	SDL_Color color = setColor(255, 255, 255, 255);
+	
 	render_text(gRenderer, 0, 0, "VT-49 OS TEST BUILD 0.0.1", gFontAure, &color);
 	render_text(gRenderer, 80, 30, "VT-49 OS TEST BUILD 0.0.1", gFontAG, &color);
 	render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
-	
+	color = setColor(130, 60, 60, 255);
 	render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
 	dist1 += 0.000001;
 	if (dist1 > 10000) dist1 = -10000;
+	 */
+	//q3Vec3 vec;
+	//body->GetWorldVector(vec);
+	//body->enableGravity(false);
+	Transform transform = body->getTransform();
+	Vector3 vec = transform.getPosition();
+	render_text(gRenderer, vec.x + SCREEN_WIDTH / 2, vec.y + SCREEN_HEIGHT / 2, "0", gFontAG, &color);
+	
+	
+	
 	SDL_RenderPresent(gRenderer);
 }
 
@@ -183,7 +278,9 @@ int main(int argc, char **argv)
 		Uint32 fpsTicks;
 		int fps;
 		
-		loadResources();
+		init_setup();
+
+		//loadResources();
 		
 		fpsTicks = SDL_GetTicks();
 		

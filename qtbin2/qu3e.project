@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeLite_Project Name="qu3e" InternalType="">
+	<VirtualDirectory Name="src">
+		<VirtualDirectory Name="qu3e-master">
+			<VirtualDirectory Name="demo">
+				<File Name="../qu3e-master/demo/Clock.cpp"/>
+				<File Name="../qu3e-master/demo/Demo.cpp"/>
+				<File Name="../qu3e-master/demo/main.cpp"/>
+			</VirtualDirectory>
+			<VirtualDirectory Name="freeglut">
+				<File Name="../qu3e-master/freeglut/freeglut_callbacks.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_cursor.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_display.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_ext.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_font.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_font_data.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_gamemode.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_geometry.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_glutfont_definitions.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_init.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_input_devices.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_joystick.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_main.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_menu.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_misc.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_overlay.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_spaceball.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_state.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_stroke_mono_roman.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_stroke_roman.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_structure.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_teapot.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_videoresize.c"/>
+				<File Name="../qu3e-master/freeglut/freeglut_window.c"/>
+			</VirtualDirectory>
+			<VirtualDirectory Name="imgui">
+				<File Name="../qu3e-master/imgui/imgui.cpp"/>
+			</VirtualDirectory>
+			<VirtualDirectory Name="src">
+				<VirtualDirectory Name="broadphase">
+					<File Name="../qu3e-master/src/broadphase/q3BroadPhase.cpp"/>
+					<File Name="../qu3e-master/src/broadphase/q3DynamicAABBTree.cpp"/>
+				</VirtualDirectory>
+				<VirtualDirectory Name="collision">
+					<File Name="../qu3e-master/src/collision/q3Box.cpp"/>
+					<File Name="../qu3e-master/src/collision/q3Collide.cpp"/>
+				</VirtualDirectory>
+				<VirtualDirectory Name="common">
+					<File Name="../qu3e-master/src/common/q3Geometry.cpp"/>
+					<File Name="../qu3e-master/src/common/q3Memory.cpp"/>
+				</VirtualDirectory>
+				<VirtualDirectory Name="dynamics">
+					<File Name="../qu3e-master/src/dynamics/q3Body.cpp"/>
+					<File Name="../qu3e-master/src/dynamics/q3Contact.cpp"/>
+					<File Name="../qu3e-master/src/dynamics/q3ContactManager.cpp"/>
+					<File Name="../qu3e-master/src/dynamics/q3ContactSolver.cpp"/>
+					<File Name="../qu3e-master/src/dynamics/q3Island.cpp"/>
+				</VirtualDirectory>
+				<VirtualDirectory Name="math">
+					<File Name="../qu3e-master/src/math/q3Mat3.cpp"/>
+					<File Name="../qu3e-master/src/math/q3Quaternion.cpp"/>
+					<File Name="../qu3e-master/src/math/q3Vec3.cpp"/>
+				</VirtualDirectory>
+				<VirtualDirectory Name="scene">
+					<File Name="../qu3e-master/src/scene/q3Scene.cpp"/>
+				</VirtualDirectory>
+			</VirtualDirectory>
+		</VirtualDirectory>
+	</VirtualDirectory>
+	<VirtualDirectory Name="include">
+		<VirtualDirectory Name="qu3e-master">
+			<VirtualDirectory Name="demo">
+				<File Name="../qu3e-master/demo/BoxStack.h"/>
+				<File Name="../qu3e-master/demo/Clock.h"/>
+				<File Name="../qu3e-master/demo/Demo.h"/>
+				<File Name="../qu3e-master/demo/DropBoxes.h"/>
+				<File Name="../qu3e-master/demo/RayPush.h"/>
+				<File Name="../qu3e-master/demo/Test.h"/>
+			</VirtualDirectory>
+			<VirtualDirectory Name="freeglut">
+				<File Name="../qu3e-master/freeglut/freeglut.h"/>
+				<File Name="../qu3e-master/freeglut/freeglut_ext.h"/>
+				<File Name="../qu3e-master/freeglut/freeglut_internal.h"/>
+				<File Name="../qu3e-master/freeglut/freeglut_std.h"/>
+				<File Name="../qu3e-master/freeglut/freeglut_teapot_data.h"/>
+			</VirtualDirectory>
+			<VirtualDirectory Name="imgui">
+				<File Name="../qu3e-master/imgui/imconfig.h"/>
+				<File Name="../qu3e-master/imgui/imgui.h"/>
+				<File Name="../qu3e-master/imgui/stb_textedit.h"/>
+			</VirtualDirectory>
+			<VirtualDirectory Name="src">
+				<VirtualDirectory Name="broadphase">
+					<File Name="../qu3e-master/src/broadphase/q3BroadPhase.h"/>
+					<File Name="../qu3e-master/src/broadphase/q3DynamicAABBTree.h"/>
+					<File Name="../qu3e-master/src/broadphase/q3DynamicAABBTree.inl"/>
+				</VirtualDirectory>
+				<VirtualDirectory Name="collision">
+					<File Name="../qu3e-master/src/collision/q3Box.h"/>
+					<File Name="../qu3e-master/src/collision/q3Box.inl"/>
+					<File Name="../qu3e-master/src/collision/q3Collide.h"/>
+				</VirtualDirectory>
+				<VirtualDirectory Name="common">
+					<File Name="../qu3e-master/src/common/q3Geometry.h"/>
+					<File Name="../qu3e-master/src/common/q3Geometry.inl"/>
+					<File Name="../qu3e-master/src/common/q3Memory.h"/>
+					<File Name="../qu3e-master/src/common/q3Settings.h"/>
+					<File Name="../qu3e-master/src/common/q3Types.h"/>
+				</VirtualDirectory>
+				<VirtualDirectory Name="debug">
+					<File Name="../qu3e-master/src/debug/q3Render.h"/>
+				</VirtualDirectory>
+				<VirtualDirectory Name="dynamics">
+					<File Name="../qu3e-master/src/dynamics/q3Body.h"/>
+					<File Name="../qu3e-master/src/dynamics/q3Contact.h"/>
+					<File Name="../qu3e-master/src/dynamics/q3ContactManager.h"/>
+					<File Name="../qu3e-master/src/dynamics/q3ContactSolver.h"/>
+					<File Name="../qu3e-master/src/dynamics/q3Island.h"/>
+				</VirtualDirectory>
+				<VirtualDirectory Name="math">
+					<File Name="../qu3e-master/src/math/q3Mat3.h"/>
+					<File Name="../qu3e-master/src/math/q3Mat3.inl"/>
+					<File Name="../qu3e-master/src/math/q3Math.h"/>
+					<File Name="../qu3e-master/src/math/q3Math.inl"/>
+					<File Name="../qu3e-master/src/math/q3Quaternion.h"/>
+					<File Name="../qu3e-master/src/math/q3Transform.h"/>
+					<File Name="../qu3e-master/src/math/q3Transform.inl"/>
+					<File Name="../qu3e-master/src/math/q3Vec3.h"/>
+					<File Name="../qu3e-master/src/math/q3Vec3.inl"/>
+				</VirtualDirectory>
+				<File Name="../qu3e-master/src/q3.h"/>
+				<VirtualDirectory Name="scene">
+					<File Name="../qu3e-master/src/scene/q3Scene.h"/>
+				</VirtualDirectory>
+			</VirtualDirectory>
+		</VirtualDirectory>
+	</VirtualDirectory>
+	<Settings Type="">
+		<Configuration Name="NoConfig" CompilerType="gnu g++" DebuggerType="GNU gdb debugger" Type="" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+			<Compiler Options="-g" Required="yes" PreCompiledHeader="">
+				<IncludePath Value="."/>
+			</Compiler>
+			<Linker Options="" Required="yes"/>
+			<ResourceCompiler Options="" Required="no"/>
+			<General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./" Command="./$(ProjectName)" CommandArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes"/>
+			<Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="">
+				<PostConnectCommands/>
+				<StartupCommands/>
+			</Debugger>
+			<PreBuild/>
+			<PostBuild/>
+			<CustomBuild Enabled="yes">
+				<RebuildCommand>C:/TDM-GCC-64/bin/mingw32-make.exe -j 16 clean &amp;&amp; C:/TDM-GCC-64/bin/mingw32-make.exe -j 16</RebuildCommand>
+				<CleanCommand>C:/TDM-GCC-64/bin/mingw32-make.exe -j 16 clean</CleanCommand>
+				<BuildCommand>C:/TDM-GCC-64/bin/mingw32-make.exe -j 16</BuildCommand>
+				<SingleFileCommand>C:/TDM-GCC-64/bin/mingw32-make.exe -f$(ProjectPath)/Makefile $(CurrentFileName).cpp.o</SingleFileCommand>
+				<PreprocessFileCommand/>
+				<WorkingDirectory>$(WorkspacePath)</WorkingDirectory>
+			</CustomBuild>
+			<AdditionalRules>
+				<CustomPostBuild/>
+				<CustomPreBuild/>
+			</AdditionalRules>
+		</Configuration>
+		<GlobalSettings>
+			<Compiler Options="">
+				<IncludePath Value="."/>
+			</Compiler>
+			<Linker Options="">
+				<LibraryPath Value="."/>
+			</Linker>
+			<ResourceCompiler Options=""/>
+		</GlobalSettings>
+	</Settings>
+</CodeLite_Project>
