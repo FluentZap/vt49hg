@@ -3,6 +3,8 @@
 
 
 #include "SDL.h"
+#include "reactphysics3d.h"
+//#include "q3.h"
 
 using namespace std;
 
@@ -45,6 +47,16 @@ SDL_Color setColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 
 void main_loop();
+void init_setup();
 
+//3dScenePhysics
+/*
+q3Scene * scene;
+q3BodyDef bodyDef;
+q3Body* body;
+
+q3BoxDef boxDef;
+q3Transform localSpace;
+*/
 
 #endif

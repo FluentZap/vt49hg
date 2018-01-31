@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Toad
-Date                   :=29/01/2018
+Date                   :=30/01/2018
 CodeLitePath           :="C:/Program Files/CodeLite"
 LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
 SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
@@ -37,13 +37,13 @@ PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :=C:/TDM-GCC-64/bin/windres.exe
-LinkOptions            :=  -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lopengl32 -lglu32
-IncludePath            := $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\glew\include  $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2 $(IncludeSwitch). 
+LinkOptions            :=  -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lreactphysics3d
+IncludePath            := $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\glew\include  $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2 $(IncludeSwitch)C:\Users\Toad\Documents\VT49\VT49\q3 $(IncludeSwitch)C:\Users\Toad\Documents\VT49\VT49\reactphysics3d\src $(IncludeSwitch)C:\Users\Toad\Documents\VT49\reactphysics3d-master\src $(IncludeSwitch). 
 IncludePCH             := 
 RcIncludePath          := 
 Libs                   := 
 ArLibs                 :=  
-LibPath                :=$(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\glew\lib\Release\Win32  $(LibraryPathSwitch). $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Extra\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\glew\lib\Release\Win32 
+LibPath                :=$(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\glew\lib\Release\Win32  $(LibraryPathSwitch). $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Extra\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\glew\lib\Release\Win32 $(LibraryPathSwitch)C:\Users\Toad\Documents\VT49\qu3e-master\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\VT49\reactphysics3d-master\Build\lib 
 
 ##
 ## Common variables
