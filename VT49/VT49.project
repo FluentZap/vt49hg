@@ -10,6 +10,8 @@
   <VirtualDirectory Name="src">
     <File Name="VTStart.cpp"/>
     <File Name="VTStart.h"/>
+    <File Name="VTNetwork.h"/>
+    <File Name="VTNetwork.cpp"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
@@ -28,12 +30,13 @@
       <Compiler Options="-g;-O0;-std=c++14;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
         <IncludePath Value="."/>
       </Compiler>
-      <Linker Options="-lmingw32;-lSDL2main;-lSDL2;-lSDL2_ttf;-lSDL2_image;-lSDL2_mixer;-lreactphysics3d" Required="yes">
+      <Linker Options="-lmingw32;-lSDL2main;-lSDL2;-lSDL2_ttf;-lSDL2_image;-lSDL2_mixer;-lreactphysics3d;-lserial" Required="yes">
         <LibraryPath Value="C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib"/>
         <LibraryPath Value="C:\Users\Toad\Documents\SDL2\SDL2Extra\x86_64-w64-mingw32\lib"/>
         <LibraryPath Value="C:\Users\Toad\Documents\SDL2\glew\lib\Release\Win32"/>
         <LibraryPath Value="C:\Users\Toad\Documents\VT49\qu3e-master\lib"/>
         <LibraryPath Value="C:\Users\Toad\Documents\VT49\reactphysics3d-master\Build\lib"/>
+        <LibraryPath Value="C:\Users\Toad\Documents\VT49\VT49\lib"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>

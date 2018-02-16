@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Toad
-Date                   :=30/01/2018
+Date                   :=16/02/2018
 CodeLitePath           :="C:/Program Files/CodeLite"
 LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
 SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
@@ -37,13 +37,13 @@ PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :=C:/TDM-GCC-64/bin/windres.exe
-LinkOptions            :=  -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lreactphysics3d
+LinkOptions            :=  -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lreactphysics3d -lserial
 IncludePath            := $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\glew\include  $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2 $(IncludeSwitch)C:\Users\Toad\Documents\VT49\VT49\q3 $(IncludeSwitch)C:\Users\Toad\Documents\VT49\VT49\reactphysics3d\src $(IncludeSwitch)C:\Users\Toad\Documents\VT49\reactphysics3d-master\src $(IncludeSwitch). 
 IncludePCH             := 
 RcIncludePath          := 
 Libs                   := 
 ArLibs                 :=  
-LibPath                :=$(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\glew\lib\Release\Win32  $(LibraryPathSwitch). $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Extra\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\glew\lib\Release\Win32 $(LibraryPathSwitch)C:\Users\Toad\Documents\VT49\qu3e-master\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\VT49\reactphysics3d-master\Build\lib 
+LibPath                :=$(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\glew\lib\Release\Win32  $(LibraryPathSwitch). $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Extra\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\glew\lib\Release\Win32 $(LibraryPathSwitch)C:\Users\Toad\Documents\VT49\qu3e-master\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\VT49\reactphysics3d-master\Build\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\VT49\VT49\lib 
 
 ##
 ## Common variables
@@ -62,7 +62,7 @@ AS       := C:/TDM-GCC-64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) 
 
 
 
@@ -100,6 +100,14 @@ $(IntermediateDirectory)/VTStart.cpp$(DependSuffix): VTStart.cpp
 
 $(IntermediateDirectory)/VTStart.cpp$(PreprocessSuffix): VTStart.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTStart.cpp$(PreprocessSuffix) VTStart.cpp
+
+$(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix): VTNetwork.cpp $(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTNetwork.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix): VTNetwork.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix) -MM VTNetwork.cpp
+
+$(IntermediateDirectory)/VTNetwork.cpp$(PreprocessSuffix): VTNetwork.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTNetwork.cpp$(PreprocessSuffix) VTNetwork.cpp
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

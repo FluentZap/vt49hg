@@ -2,17 +2,21 @@
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 #include "SDL_mixer.h"
-#include "SDL_net.h"
+//#include <stdlib.h>
 #include <stdio.h>
+//#include <unistd.h>
 #include <string>
-#include <sstream>
-//#include "q3.h"
-#include "reactphysics3d.h"
+//#include <sstream>
+
+#include <serial/serial.h>
+
+//#include "reactphysics3d.h"
 #include "VTStart.h"
+//#include "VTNetwork.h"
 
 
 using namespace std;
-using namespace reactphysics3d;
+//using namespace reactphysics3d;
 
 
 const int SCREEN_WIDTH = 1280;
@@ -24,83 +28,72 @@ const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 bool quit = false;
 int framsPerSec;
 
-rp3d::DynamicsWorld* world;
-rp3d::RigidBody* body;
+//VTNetwork* net;
+
+
+//DynamicsWorld* world;
+//RigidBody* body;
 
 
 SDL_Rect rect1, rect2;
 double dist1;
+
+serial::Serial* consol;
+string test_string;
+
+string string_pos = "12";
 
 void init_setup()
 {
 	loadResources();
 	
 	//rp3d::Vector3 gravity(0.0, -9.81, 0.0);
-	rp3d::Vector3 gravity(-10.0, 0.0, 0.0);
+	//Vector3 gravity(0.0, 0.0, 0.0);
 	
-	world = new DynamicsWorld(gravity);
+	//world = new DynamicsWorld(gravity);
 		
-	rp3d::Vector3 initPosition(0.0, 3.0, 0.0);
-	rp3d::Quaternion initOrientation = rp3d::Quaternion::identity();
-	rp3d::Transform transform(initPosition, initOrientation);
-	body = world->createRigidBody(transform);
+	//Vector3 initPosition(0.0, 3.0, 0.0);
+	//Quaternion initOrientation = Quaternion::identity();
+	//Transform transform(initPosition, initOrientation);
+	//body = world->createRigidBody(transform);
 	
-	body->setType(rp3d::BodyType::DYNAMIC);
-	
-	// Force vector (in Newton) 
-
-	// Apply a force to the center of the body 
-	//body->applyForceToCenter(force);
-	//Vector3 force(10.0, 10.0, 10.0); 
-	//body->applyForceToCenterOfMass(force);
-/*
-	scene = new q3Scene( 1.0 / 60.0 );
-	//q3Scene scene( 1.0 / 60.0 );
-	q3BodyDef bodyDef;
-	bodyDef.position.Set( 0.0f, 3.0f, 0.0f);
-		
-	bodyDef.axis.Set( q3RandomFloat( -1.0f, 1.0f ), q3RandomFloat( -1.0f, 1.0f ), q3RandomFloat( -1.0f, 1.0f ) );
-	bodyDef.angle = q3PI * q3RandomFloat( -1.0f, 1.0f );
-	bodyDef.bodyType = eDynamicBody;
-	bodyDef.angularVelocity.Set( q3RandomFloat( 1.0f, 3.0f ), q3RandomFloat( 1.0f, 3.0f ), q3RandomFloat( 1.0f, 3.0f ) );
-	bodyDef.angularVelocity *= q3Sign( q3RandomFloat( -1.0f, 1.0f ) );
-	bodyDef.linearVelocity.Set( q3RandomFloat( 1.0f, 3.0f ), q3RandomFloat( 1.0f, 3.0f ), q3RandomFloat( 1.0f, 3.0f ) );
-	bodyDef.linearVelocity *= q3Sign( q3RandomFloat( -1.0f, 1.0f ) );
-
-	body = scene->CreateBody( bodyDef );
-	
-
-	q3BoxDef boxDef; // See q3Box.h for settings details
-	q3Transform localSpace; // Contains position and orientation, see q3Transform.h for details
-	q3Identity( localSpace ); // Specify the origin, and identity orientation
-	
-	// Create a box at the origin with width, height, depth = (1.0, 1.0, 1.0)
-	// and add it to a rigid body. The transform is defined relative to the owning body
-	
-	boxDef.Set( localSpace, q3Vec3( 1.0, 1.0, 1.0 ) );
-	
-	body->AddBox( boxDef );
-	
-	/*
-	q3BoxDef boxDef; // See q3Box.h for settings details
-	q3Transform localSpace; // Contains position and orientation, see q3Transform.h for details
-	q3Identity( localSpace ); // Specify the origin, and identity orientation
-	
-	// Create a box at the origin with width, height, depth = (1.0, 1.0, 1.0)
-	// and add it to a rigid body. The transform is defined relative to the owning body
-	boxDef.Set( localSpace, q3Vec3( 1.0, 1.0, 1.0 ) );
-	body->AddBox( boxDef );
-	*/
+	//body->setType(BodyType::DYNAMIC);
+	Serial_Connect();	
 }
 
 void main_loop()
-{
+{		
 	while (SDL_PollEvent(&e) != 0) { handleUI(e); }
 	//scene->Step();
-	world->update( 1.0 / 60.0 );
+	//world->update( 1.0 / 60.0 );
+	Serial_Read();
 	render();
 }
 
+
+void Serial_Connect()
+{
+	//open("/dev/ttyACM0")
+	//serial::Serial consol("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
+	//serial::Serial consol("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));
+	
+	consol = new serial::Serial("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(10));	
+	//consol.open();
+	
+}
+
+void Serial_Read()
+{
+	
+	if (consol->isOpen())
+	{
+		if (consol->available() > 0)
+		{
+			string_pos = consol->read(string_pos.length() + 1);
+		}
+	}
+	
+}
 
 
 void handleUI(SDL_Event e)
@@ -109,21 +102,20 @@ void handleUI(SDL_Event e)
 	{
 		if (e.key.keysym.sym == SDLK_1)
 		{
-			Mix_PlayChannel( 2, sfx1, 0 );
-			Mix_SetPanning(2, 120, 0);
+			//Mix_PlayChannel( 2, sfx1, 0 );
+			//Mix_SetPanning(2, 120, 0);
 		}
 		if (e.key.keysym.sym == SDLK_2)
 		{
-			Mix_PlayChannel( 1, sfx2, 0 );
-			Mix_SetPanning(1, 0, 120);
+			//Mix_PlayChannel( 1, sfx2, 0 );
+			//Mix_SetPanning(1, 0, 120);
 		}
 		
 		
 		if (e.key.keysym.sym == SDLK_LEFT)
 		{
-			Vector3 force(-10000.0, 0.0, 0.0); 
-			
-			body->applyForceToCenterOfMass(force);
+			//Vector3 force(-10000.0, 0.0, 0.0); 			
+			//body->applyForceToCenterOfMass(force);
 			/*
 			q3Vec3 point = {1.0, 1.0, 1.0};
 			q3Vec3 force = {1.0, 1.0, 1.0};
@@ -137,8 +129,22 @@ void handleUI(SDL_Event e)
 		
 		if (e.key.keysym.sym == SDLK_RIGHT)
 		{
-			Vector3 force(10000.0, 0.0, 0.0); 
-			body->applyForceToCenterOfMass(force);
+			//Vector3 force(10000.0, 0.0, 0.0); 
+			//body->applyForceToCenterOfMass(force);
+				//rect1.x++;
+		}
+		
+		if (e.key.keysym.sym == SDLK_UP)
+		{
+			//Vector3 force(0.0, -10000.0, 0.0); 
+			//body->applyForceToCenterOfMass(force);
+				//rect1.x++;
+		}
+		
+		if (e.key.keysym.sym == SDLK_DOWN)
+		{
+			//Vector3 force(0.0, 10000.0, 0.0); 
+			//body->applyForceToCenterOfMass(force);
 				//rect1.x++;
 		}
 		
@@ -164,32 +170,54 @@ void render()
 	SDL_SetRenderDrawColor(gRenderer, 10, 10, 10, 255);
 	SDL_RenderClear(gRenderer);
 	
-	setRenderColor(255, 255, 255, 255);
-	SDL_Color color = setColor(255, 255, 255, 255);
-	/*
+	setRenderColor(80, 130, 240, 255);	//Blue (50, 160, 240, 255);
+										//Orange (220, 140, 40, 255);
+	//setRenderColor(255, 255, 255, 255);
+	SDL_Color color = setColor(80, 130, 240, 255);
+	color = setColor(220, 140, 40, 255);
+	
+	//color = setColor(50, 160, 240, 255);
+	
 	SDL_Rect rect = {100, 100, 200, 200};
 	SDL_RenderDrawRect(gRenderer, &rect);
+	//SDL_RenderDrawRect(gRenderer, &rect1);
 	
-	SDL_RenderDrawRect(gRenderer, &rect1);
 	
 	
-	render_text(gRenderer, 0, 0, "VT-49 OS TEST BUILD 0.0.1", gFontAure, &color);
+	
+	color = setColor(220, 140, 40, 255);
+	render_text(gRenderer, 0, 0, "p", gFontAure, &color);
+	
+	color = setColor(50, 160, 240, 255);
+	render_text(gRenderer, 40, 0, "vt-49 os test build 0.0.1", gFontAure, &color);
 	render_text(gRenderer, 80, 30, "VT-49 OS TEST BUILD 0.0.1", gFontAG, &color);
 	render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
 	color = setColor(130, 60, 60, 255);
 	render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
+		
+	render_text(gRenderer, 40, 0, string_pos.c_str(), gFontAG, &color);
+	
+	if (consol->isOpen())
+	{
+		render_text(gRenderer, 40, 300, "Open", gFontAG, &color);		
+	}
+	else
+	{
+		render_text(gRenderer, 40, 300, "Closed", gFontAG, &color);
+	}
+	
 	dist1 += 0.000001;
 	if (dist1 > 10000) dist1 = -10000;
-	 */
+	
+	
 	//q3Vec3 vec;
 	//body->GetWorldVector(vec);
 	//body->enableGravity(false);
-	Transform transform = body->getTransform();
-	Vector3 vec = transform.getPosition();
-	render_text(gRenderer, vec.x + SCREEN_WIDTH / 2, vec.y + SCREEN_HEIGHT / 2, "0", gFontAG, &color);
+	//Transform transform = body->getTransform();
+	//Vector3 vec = transform.getPosition();
+	//render_text(gRenderer, vec.x + SCREEN_WIDTH / 2, vec.y + SCREEN_HEIGHT / 2, "0", gFontAG, &color);
 	
-	
-	
+		
 	SDL_RenderPresent(gRenderer);
 }
 
@@ -213,6 +241,10 @@ bool init()
 	
 	if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0 ) {printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() ); return false;}	
 	
+	//Setup Network
+	//net = new VTNetwork();
+	
+	//Diable Cursor
 	SDL_ShowCursor(SDL_DISABLE);
 	return true;
 }
@@ -235,6 +267,9 @@ bool loadResources()
 	//gMusic = Mix_LoadMUS( "BEEP.mp3" );
 	sfx1 = Mix_LoadWAV( "BEEP.wav" );
 	sfx2 = Mix_LoadWAV( "WELD2.wav" );
+	
+	string_pos = "12";
+	
 	return success;
 }
 
@@ -250,6 +285,7 @@ void close()
 
 	gWindow = NULL;
 	gRenderer = NULL;
+	//net = NULL;
 
 	Mix_FreeChunk(sfx1);
 	Mix_FreeChunk(sfx2);
@@ -279,8 +315,6 @@ int main(int argc, char **argv)
 		int fps;
 		
 		init_setup();
-
-		//loadResources();
 		
 		fpsTicks = SDL_GetTicks();
 		
