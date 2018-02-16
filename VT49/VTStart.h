@@ -3,7 +3,7 @@
 
 
 #include "SDL.h"
-#include "reactphysics3d.h"
+//#include "reactphysics3d.h"
 //#include "q3.h"
 
 using namespace std;
@@ -15,6 +15,8 @@ bool loadResources();
 void render();
 void close();
 
+void Serial_Connect();
+void Serial_Read();
 
 SDL_Texture* loadTexture(std::string path);
 SDL_Window* gWindow = NULL;
