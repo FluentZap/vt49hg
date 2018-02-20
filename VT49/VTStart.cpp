@@ -4,11 +4,11 @@
 #include "SDL_mixer.h"
 //#include <stdlib.h>
 #include <stdio.h>
-//#include <unistd.h>
+#include <unistd.h>
+#include "SerialClass.h"
 #include <string>
 //#include <sstream>
 
-#include <serial/serial.h>
 
 //#include "reactphysics3d.h"
 #include "VTStart.h"
@@ -38,10 +38,10 @@ int framsPerSec;
 SDL_Rect rect1, rect2;
 double dist1;
 
-serial::Serial* consol;
-string test_string;
+//serial::Serial* consol;
+Serial* SP;
 
-string string_pos = "12";
+char incomingData[256] = "";
 
 void init_setup()
 {
@@ -58,7 +58,7 @@ void init_setup()
 	//body = world->createRigidBody(transform);
 	
 	//body->setType(BodyType::DYNAMIC);
-	Serial_Connect();	
+	Serial_Connect();
 }
 
 void main_loop()
@@ -66,18 +66,20 @@ void main_loop()
 	while (SDL_PollEvent(&e) != 0) { handleUI(e); }
 	//scene->Step();
 	//world->update( 1.0 / 60.0 );
-	Serial_Read();
+	//Serial_Read();
 	render();
 }
 
 
 void Serial_Connect()
 {
+	
+	//Serial* SP = new Serial("COM4");
 	//open("/dev/ttyACM0")
 	//serial::Serial consol("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
 	//serial::Serial consol("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));
 	
-	consol = new serial::Serial("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(10));	
+	//consol = new serial::Serial("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(10));	
 	//consol.open();
 	
 }
@@ -85,12 +87,12 @@ void Serial_Connect()
 void Serial_Read()
 {
 	
-	if (consol->isOpen())
+	if (SP->IsConnected())
 	{
-		if (consol->available() > 0)
-		{
-			string_pos = consol->read(string_pos.length() + 1);
-		}
+		//if (SP->status.cbInQue > 0)
+		//{
+			SP->ReadData(incomingData, 255);			
+		//}
 	}
 	
 }
@@ -191,12 +193,13 @@ void render()
 	color = setColor(50, 160, 240, 255);
 	render_text(gRenderer, 40, 0, "vt-49 os test build 0.0.1", gFontAure, &color);
 	render_text(gRenderer, 80, 30, "VT-49 OS TEST BUILD 0.0.1", gFontAG, &color);
-	render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
+	//render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
 	color = setColor(130, 60, 60, 255);
-	render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
+	//render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
 		
-	render_text(gRenderer, 40, 0, string_pos.c_str(), gFontAG, &color);
+	//render_text(gRenderer, 40, 0, incomingData, gFontAG, &color);
 	
+	/*
 	if (consol->isOpen())
 	{
 		render_text(gRenderer, 40, 300, "Open", gFontAG, &color);		
@@ -205,7 +208,7 @@ void render()
 	{
 		render_text(gRenderer, 40, 300, "Closed", gFontAG, &color);
 	}
-	
+	*/
 	dist1 += 0.000001;
 	if (dist1 > 10000) dist1 = -10000;
 	
@@ -268,7 +271,6 @@ bool loadResources()
 	sfx1 = Mix_LoadWAV( "BEEP.wav" );
 	sfx2 = Mix_LoadWAV( "WELD2.wav" );
 	
-	string_pos = "12";
 	
 	return success;
 }
