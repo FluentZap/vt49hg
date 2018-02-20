@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Toad
-Date                   :=19/02/2018
+Date                   :=20/02/2018
 CodeLitePath           :="C:/Program Files/CodeLite"
 LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
 SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
@@ -37,7 +37,7 @@ PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :=C:/TDM-GCC-64/bin/windres.exe
-LinkOptions            :=  -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lreactphysics3d
+LinkOptions            :=  -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lreactphysics3d -lserial
 IncludePath            := $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\glew\include  $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2 $(IncludeSwitch)C:\Users\Toad\Documents\VT49\VT49\q3 $(IncludeSwitch)C:\Users\Toad\Documents\VT49\VT49\reactphysics3d\src $(IncludeSwitch)C:\Users\Toad\Documents\VT49\reactphysics3d-master\src $(IncludeSwitch). 
 IncludePCH             := 
 RcIncludePath          := 
@@ -62,7 +62,7 @@ AS       := C:/TDM-GCC-64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IntermediateDirectory)/Serial.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) 
 
 
 
@@ -108,14 +108,6 @@ $(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix): VTNetwork.cpp
 
 $(IntermediateDirectory)/VTNetwork.cpp$(PreprocessSuffix): VTNetwork.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTNetwork.cpp$(PreprocessSuffix) VTNetwork.cpp
-
-$(IntermediateDirectory)/Serial.cpp$(ObjectSuffix): Serial.cpp $(IntermediateDirectory)/Serial.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/Serial.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Serial.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/Serial.cpp$(DependSuffix): Serial.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Serial.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Serial.cpp$(DependSuffix) -MM Serial.cpp
-
-$(IntermediateDirectory)/Serial.cpp$(PreprocessSuffix): Serial.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Serial.cpp$(PreprocessSuffix) Serial.cpp
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
