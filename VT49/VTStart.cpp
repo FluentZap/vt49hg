@@ -5,7 +5,7 @@
 //#include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "SerialClass.h"
+#include <serial/serial.h>
 #include <string>
 //#include <sstream>
 
@@ -38,13 +38,24 @@ int framsPerSec;
 SDL_Rect rect1, rect2;
 double dist1;
 
-//serial::Serial* consol;
-Serial* SP;
+serial::Serial* consol;
 
-char incomingData[256] = "";
+//char incomingData[256] = "";
+
+//Current OS Windows Or Linux
+enum OS_Types {WIN, LINUX};
+OS_Types CurrentOS;
+string teststring = " ";
+
 
 void init_setup()
 {
+	#ifdef _WIN32 || _WIN64
+    CurrentOS = WIN;
+	#endif
+	#ifdef __linux__
+    CurrentOS = LINUX;
+	#endif
 	loadResources();
 	
 	//rp3d::Vector3 gravity(0.0, -9.81, 0.0);
@@ -66,7 +77,7 @@ void main_loop()
 	while (SDL_PollEvent(&e) != 0) { handleUI(e); }
 	//scene->Step();
 	//world->update( 1.0 / 60.0 );
-	//Serial_Read();
+	Serial_Read();
 	render();
 }
 
@@ -74,9 +85,14 @@ void main_loop()
 void Serial_Connect()
 {
 	
-	//Serial* SP = new Serial("COM4");
+	
 	//open("/dev/ttyACM0")
 	//serial::Serial consol("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
+	
+	if (CurrentOS == LINUX) consol = new serial::Serial("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
+	if (CurrentOS == WIN) consol = new serial::Serial("COM4", 9600, serial::Timeout::simpleTimeout(1000));		
+		
+	
 	//serial::Serial consol("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));
 	
 	//consol = new serial::Serial("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(10));	
@@ -87,12 +103,12 @@ void Serial_Connect()
 void Serial_Read()
 {
 	
-	if (SP->IsConnected())
+	if (consol->isOpen())
 	{
-		//if (SP->status.cbInQue > 0)
-		//{
-			SP->ReadData(incomingData, 255);			
-		//}
+		if (consol->available() > 0)
+		{			
+			consol->read(teststring, 8);
+		}
 	}
 	
 }
@@ -195,9 +211,10 @@ void render()
 	render_text(gRenderer, 80, 30, "VT-49 OS TEST BUILD 0.0.1", gFontAG, &color);
 	//render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
 	color = setColor(130, 60, 60, 255);
+	
 	//render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
 		
-	//render_text(gRenderer, 40, 0, incomingData, gFontAG, &color);
+	render_text(gRenderer, 0, 100, teststring.c_str(), gFontAG, &color);
 	
 	/*
 	if (consol->isOpen())

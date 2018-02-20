@@ -1,0 +1,7 @@
+[
+{
+  "directory": "C:/Users/Toad/Documents/VT49/cmake-build-Debug/serial",
+  "command": "C:\\TDM-GCC-64\\bin\\g++.exe  -Dserial_EXPORTS @CMakeFiles/serial.dir/includes_CXX.rsp   -g  -g -o CMakeFiles\\serial.dir\\C_\\Users\\Toad\\Desktop\\wjwwood-serial-1.2.1-29-g5a354ea\\wjwwood-serial-5a354ea\\src\\serial.cc.obj -c C:\\Users\\Toad\\Desktop\\wjwwood-serial-1.2.1-29-g5a354ea\\wjwwood-serial-5a354ea\\src\\serial.cc",
+  "file": "C:/Users/Toad/Desktop/wjwwood-serial-1.2.1-29-g5a354ea/wjwwood-serial-5a354ea/src/serial.cc"
+}
+]
