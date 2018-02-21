@@ -48,7 +48,6 @@ void setRenderColor(SDL_Color c);
 SDL_Color setColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 
-void main_loop();
 void init_setup();
 
 //3dScenePhysics
