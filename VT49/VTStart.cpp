@@ -12,6 +12,7 @@
 
 //#include "reactphysics3d.h"
 #include "VTStart.h"
+#include "VTSerialPhraser.h"
 //#include "VTNetwork.h"
 
 
@@ -28,6 +29,9 @@ const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 bool quit = false;
 int framsPerSec;
 
+size_t fpsTicks;
+size_t fpsStart;
+		
 //VTNetwork* net;
 
 
@@ -38,15 +42,17 @@ int framsPerSec;
 SDL_Rect rect1, rect2;
 double dist1;
 
-serial::Serial* consol;
+serial::Serial* console;
+
+VTSerialPhraser* phraser;
 
 //char incomingData[256] = "";
 
 //Current OS Windows Or Linux
 enum OS_Types {WIN, LINUX};
 OS_Types CurrentOS;
-string teststring = " ";
-
+uint8_t tempb[12];
+string buff;
 
 void init_setup()
 {
@@ -69,45 +75,39 @@ void init_setup()
 	//body = world->createRigidBody(transform);
 	
 	//body->setType(BodyType::DYNAMIC);
+	phraser = new VTSerialPhraser();
 	Serial_Connect();
 }
 
-void main_loop()
-{		
-	while (SDL_PollEvent(&e) != 0) { handleUI(e); }
-	//scene->Step();
-	//world->update( 1.0 / 60.0 );
-	Serial_Read();
-	render();
-}
 
 
 void Serial_Connect()
 {
 	
 	
-	//open("/dev/ttyACM0")
-	//serial::Serial consol("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
+	//serial::Serial console("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
 	
-	if (CurrentOS == LINUX) consol = new serial::Serial("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
-	if (CurrentOS == WIN) consol = new serial::Serial("COM4", 9600, serial::Timeout::simpleTimeout(1000));		
-		
-	
-	//serial::Serial consol("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));
-	
-	//consol = new serial::Serial("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(10));	
-	//consol.open();
-	
+	if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 115200, serial::Timeout::simpleTimeout(10));	
+	if (CurrentOS == WIN) console = new serial::Serial("COM3", 115200, serial::Timeout::simpleTimeout(10));				
 }
 
 void Serial_Read()
 {
 	
-	if (consol->isOpen())
+	if (console->isOpen())
 	{
-		if (consol->available() > 0)
+		if (console->available() > 0)
 		{			
-			consol->read(teststring, 8);
+			//console->read(teststring, 8);
+			//if (console->available() >= 12) 
+			//{
+				//console->read(phraser->DataBuffer, 12);
+				//phraser->ReadDataStream();
+			//}
+			
+			buff = "";
+			console->readline(buff, 100, "H");
+			console->read(tempb, 13);
 		}
 	}
 	
@@ -204,17 +204,39 @@ void render()
 	
 	
 	color = setColor(220, 140, 40, 255);
-	render_text(gRenderer, 0, 0, "p", gFontAure, &color);
+	//render_text(gRenderer, 0, 0, "p", gFontAure, &color);
 	
 	color = setColor(50, 160, 240, 255);
-	render_text(gRenderer, 40, 0, "vt-49 os test build 0.0.1", gFontAure, &color);
-	render_text(gRenderer, 80, 30, "VT-49 OS TEST BUILD 0.0.1", gFontAG, &color);
-	//render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
+	//render_text(gRenderer, 40, 0, "vt-49 os test build 0.0.1", gFontAure, &color);
+	//render_text(gRenderer, 80, 30, "VT-49 OS TEST BUILD 0.0.1", gFontAG, &color);
+	render_text(gRenderer, 0, 0, to_string(fpsStart).c_str(), gFontAG, &color);
+	render_text(gRenderer, 0, 60, to_string(SDL_GetTicks()).c_str(), gFontAG, &color);
+	
+	render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
 	color = setColor(130, 60, 60, 255);
 	
 	//render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
 		
-	render_text(gRenderer, 0, 100, teststring.c_str(), gFontAG, &color);
+	if (phraser->ConsoleButtons.LTog[0]) render_text(gRenderer, 0, 200, "0", gFontAG, &color);
+	if (phraser->ConsoleButtons.LTog[1]) render_text(gRenderer, 20, 200, "0", gFontAG, &color);
+	if (phraser->ConsoleButtons.LTog[2]) render_text(gRenderer, 40, 200, "0", gFontAG, &color);
+	if (phraser->ConsoleButtons.LTog[3]) render_text(gRenderer, 60, 200, "0", gFontAG, &color);
+	if (phraser->ConsoleButtons.LTog[4]) render_text(gRenderer, 0, 220, "0", gFontAG, &color);
+	if (phraser->ConsoleButtons.LTog[5]) render_text(gRenderer, 20, 220, "0", gFontAG, &color);
+	if (phraser->ConsoleButtons.LTog[6]) render_text(gRenderer, 40, 220, "0", gFontAG, &color);
+	if (phraser->ConsoleButtons.LTog[7]) render_text(gRenderer, 60, 220, "0", gFontAG, &color);
+	
+	//if (tempb[0] == 1) render_text(gRenderer, 60, 220, "Woopadoop", gFontAG, &color);
+	if (tempb[2] & 0b0000'0001) render_text(gRenderer, 00, 220, "1", gFontAG, &color);
+	if (tempb[2] & 0b0000'0010) render_text(gRenderer, 20, 220, "2", gFontAG, &color);
+	if (tempb[2] & 0b0000'0100) render_text(gRenderer, 40, 220, "3", gFontAG, &color);
+	if (tempb[2] & 0b0000'1000) render_text(gRenderer, 60, 220, "4", gFontAG, &color);
+	
+	if (tempb[3] & 0b0000'0001) render_text(gRenderer, 00, 260, "1", gFontAG, &color);
+	if (tempb[3] & 0b0000'0010) render_text(gRenderer, 20, 260, "2", gFontAG, &color);
+	if (tempb[3] & 0b0000'0100) render_text(gRenderer, 40, 260, "3", gFontAG, &color);
+	if (tempb[3] & 0b0000'1000) render_text(gRenderer, 60, 260, "4", gFontAG, &color);
+	//if (buff.length() > 1) render_text(gRenderer, 00, 220, buff.c_str(), gFontAG, &color);
 	
 	/*
 	if (consol->isOpen())
@@ -259,7 +281,7 @@ bool init()
 
 	gScreenSurface = SDL_GetWindowSurface(gWindow);
 	
-	if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0 ) {printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() ); return false;}	
+	//if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0 ) {printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() ); return false;}	
 	
 	//Setup Network
 	//net = new VTNetwork();
@@ -328,36 +350,46 @@ int main(int argc, char **argv)
 	
 	if (init())
 	{
-		
-		Uint32 startTicks;
-		Uint32 fpsTicks;
+		init_setup();
+				
 		int fps;
 		
-		init_setup();
-		
 		fpsTicks = SDL_GetTicks();
-		
 		//While application is running
+		
 		while (!quit)
-		{
-			startTicks = SDL_GetTicks();
+		{			
+			//startTicks = SDL_GetTicks();
 			
-			main_loop();
-			fps++;
-
-			if (SDL_GetTicks() >= fpsTicks + 1000)
+			while (SDL_PollEvent(&e) != 0) { handleUI(e); }
+			//scene->Step();
+			//world->update( 1.0 / 60.0 );	
+			Serial_Read();
+			
+						
+			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
 			{
+				render();
+				fps++;
+				fpsTicks = SDL_GetTicks();				
+			}
+			
+			if (fpsStart + 1000 < SDL_GetTicks())
+			{				
 				framsPerSec = fps;
 				fps = 0;
-				fpsTicks = SDL_GetTicks();
+				fpsStart = SDL_GetTicks();
 			}
-			int frameTicks = SDL_GetTicks() - startTicks;
-			if (frameTicks < SCREEN_TICKS_PER_FRAME)
-			{
-				SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
-			}
+			
+			
+			//int frameTicks = SDL_GetTicks() - startTicks;			
+			//if (frameTicks < SCREEN_TICKS_PER_FRAME)
+			//{
+			//SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
+			//}
 		}
 
+			
 	}
 	else printf("Failed to initialize!\n");
 	

@@ -62,7 +62,7 @@ AS       := C:/TDM-GCC-64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) 
 
 
 
@@ -108,6 +108,14 @@ $(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix): VTNetwork.cpp
 
 $(IntermediateDirectory)/VTNetwork.cpp$(PreprocessSuffix): VTNetwork.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTNetwork.cpp$(PreprocessSuffix) VTNetwork.cpp
+
+$(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix): VTSerialPhraser.cpp $(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTSerialPhraser.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix): VTSerialPhraser.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix) -MM VTSerialPhraser.cpp
+
+$(IntermediateDirectory)/VTSerialPhraser.cpp$(PreprocessSuffix): VTSerialPhraser.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTSerialPhraser.cpp$(PreprocessSuffix) VTSerialPhraser.cpp
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

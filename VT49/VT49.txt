@@ -1,1 +1,1 @@
-./Debug/VTStart.cpp.o ./Debug/VTNetwork.cpp.o   
+./Debug/VTStart.cpp.o ./Debug/VTNetwork.cpp.o ./Debug/VTSerialPhraser.cpp.o   
