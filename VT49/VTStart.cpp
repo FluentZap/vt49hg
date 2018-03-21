@@ -7,6 +7,8 @@
 #include <unistd.h>
 #include <serial/serial.h>
 #include <string>
+#include <tinyxml2.h>
+#include <VTMap.h>
 //#include <sstream>
 
 
@@ -17,6 +19,7 @@
 
 
 using namespace std;
+using namespace tinyxml2;
 //using namespace reactphysics3d;
 
 
@@ -54,6 +57,13 @@ OS_Types CurrentOS;
 uint8_t tempb[12];
 string buff;
 
+
+int count;
+
+const char* pName;
+VTMap * StarMap;
+
+
 void init_setup()
 {
 	#ifdef _WIN32 || _WIN64
@@ -75,8 +85,10 @@ void init_setup()
 	//body = world->createRigidBody(transform);
 	
 	//body->setType(BodyType::DYNAMIC);
-	phraser = new VTSerialPhraser();
-	Serial_Connect();
+	
+	//Serial Connection
+	//phraser = new VTSerialPhraser();
+	//Serial_Connect();
 }
 
 
@@ -87,8 +99,9 @@ void Serial_Connect()
 	
 	//serial::Serial console("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
 	
-	if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 115200, serial::Timeout::simpleTimeout(10));	
-	if (CurrentOS == WIN) console = new serial::Serial("COM3", 115200, serial::Timeout::simpleTimeout(10));				
+	if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 115200, serial::Timeout::simpleTimeout(10));
+	if (CurrentOS == WIN) console = new serial::Serial("COM3", 115200, serial::Timeout::simpleTimeout(10));
+	console->setTimeout(10, 10, 10, 10, 10);
 }
 
 void Serial_Read()
@@ -97,7 +110,7 @@ void Serial_Read()
 	if (console->isOpen())
 	{
 		if (console->available() > 0)
-		{			
+		{
 			//console->read(teststring, 8);
 			//if (console->available() >= 12) 
 			//{
@@ -106,8 +119,10 @@ void Serial_Read()
 			//}
 			
 			buff = "";
-			console->readline(buff, 100, "H");
-			console->read(tempb, 13);
+			console->readline(buff, 100, "VT");
+			uint8_t holdb[12];
+			if (console->read(holdb, 13) == 13)
+				memcpy(tempb, holdb, 13);
 		}
 	}
 	
@@ -121,7 +136,9 @@ void handleUI(SDL_Event e)
 		if (e.key.keysym.sym == SDLK_1)
 		{
 			//Mix_PlayChannel( 2, sfx1, 0 );
-			//Mix_SetPanning(2, 120, 0);
+			//Mix_SetPanning(2, 120, 0);			
+			//pName = planetMap->FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "Placemark" )->FirstChildElement( "name" )->GetText();			
+			count++;
 		}
 		if (e.key.keysym.sym == SDLK_2)
 		{
@@ -200,7 +217,10 @@ void render()
 	SDL_RenderDrawRect(gRenderer, &rect);
 	//SDL_RenderDrawRect(gRenderer, &rect1);
 	
-	
+	//for (int x = 0; x < count; x++)
+	//{
+//		pName = planetMap->FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "Placemark" )->NextSiblingElement( "Placemark" )->FirstChildElement( "name" )->GetText();
+	//}
 	
 	
 	color = setColor(220, 140, 40, 255);
@@ -215,8 +235,20 @@ void render()
 	render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
 	color = setColor(130, 60, 60, 255);
 	
+	if (StarMap->StarMap.find(count) != StarMap->StarMap.end())
+	{
+		if (StarMap->StarMap.find(count)->second->Name != nullptr)
+		{
+			render_text(gRenderer, 100, 100, StarMap->StarMap.find(count)->second->Name, gFontAG, &color);
+		}				
+	}
+	
+	
 	//render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
-		
+	
+
+/*
+	
 	if (phraser->ConsoleButtons.LTog[0]) render_text(gRenderer, 0, 200, "0", gFontAG, &color);
 	if (phraser->ConsoleButtons.LTog[1]) render_text(gRenderer, 20, 200, "0", gFontAG, &color);
 	if (phraser->ConsoleButtons.LTog[2]) render_text(gRenderer, 40, 200, "0", gFontAG, &color);
@@ -238,6 +270,7 @@ void render()
 	if (tempb[3] & 0b0000'1000) render_text(gRenderer, 60, 260, "4", gFontAG, &color);
 	//if (buff.length() > 1) render_text(gRenderer, 00, 220, buff.c_str(), gFontAG, &color);
 	
+*/
 	/*
 	if (consol->isOpen())
 	{
@@ -311,6 +344,44 @@ bool loadResources()
 	sfx2 = Mix_LoadWAV( "WELD2.wav" );
 	
 	
+	
+	//planetMap = new XMLDocument();
+	//Load Map Files
+	
+	//planetMap->LoadFile("planets.kml");
+	
+	//XMLHandle * pRoot 
+	//XMLNode * pRoot = planetMap.FirstChild();
+	//if (pRoot == nullptr) return XML_ERROR_FILE_READ_ERROR;
+	
+	//XMLElement * pElement = pRoot.FirstChildElement("planets");
+	//const char* pName = planetMap.FirstChildElement( "Folder" )->FirstChildElement( "name" )->GetText();
+	
+	
+	//XMLElement * pElement = planetMap.FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "Placemark" )->FirstChildElement( "name" )->GetText();
+	//const char * name = planetMap.FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "name" )->GetText();
+	
+	//XMLText* textNode = planetMap->FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "name" )->FirstChild()->ToText();	
+	//pName = textNode->Value();
+	StarMap = new VTMap();
+	
+	StarMap->LoadMapFile("planets.kml");
+	//StarMap.StarMap.insert()
+	
+	//if (name) 
+		//strcpy(pName, name);		
+	//else
+		//pName = "goose";	
+	
+	
+	//if (pElement) 
+//		pName = "dood";
+//	else
+		//pName = "pood";
+			
+	//->FirstChildElement( "Placemark" )
+	
+	
 	return success;
 }
 
@@ -364,7 +435,7 @@ int main(int argc, char **argv)
 			while (SDL_PollEvent(&e) != 0) { handleUI(e); }
 			//scene->Step();
 			//world->update( 1.0 / 60.0 );	
-			Serial_Read();
+			//Serial_Read();
 			
 						
 			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
@@ -421,17 +492,20 @@ SDL_Color setColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 
 void render_text(SDL_Renderer *renderer, int x, int y, const char *text, TTF_Font *font, SDL_Color *color)
 {
-	SDL_Surface *surface;
-	SDL_Texture *texture;
-	SDL_Rect rect;
+	if (text)
+	{		
+		SDL_Surface *surface;
+		SDL_Texture *texture;
+		SDL_Rect rect;
 
-	surface = TTF_RenderText_Solid(font, text, *color);
-	texture = SDL_CreateTextureFromSurface(renderer, surface);
-	rect.x = x;
-	rect.y = y;
-	rect.w = surface->w;
-	rect.h = surface->h;
-	SDL_FreeSurface(surface);
-	SDL_RenderCopy(renderer, texture, NULL, &rect);
-	SDL_DestroyTexture(texture);
+		surface = TTF_RenderText_Solid(font, text, *color);
+		texture = SDL_CreateTextureFromSurface(renderer, surface);
+		rect.x = x;
+		rect.y = y;
+		rect.w = surface->w;
+		rect.h = surface->h;
+		SDL_FreeSurface(surface);
+		SDL_RenderCopy(renderer, texture, NULL, &rect);
+		SDL_DestroyTexture(texture);
+	}
 }

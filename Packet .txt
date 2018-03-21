@@ -1,0 +1,72 @@
+Data that comes from Arduino
+	Switch data
+	Toggle Data
+	Pot Data
+
+
+	ID Data For Tags
+
+	8 toggles for one byte sent in byte enum data
+	
+	Rotaries send how much has changed since the last update
+
+	
+	
+
+Data to Arduino
+	Led Data
+		Led Strand
+		LED 7seg
+		Matrix
+		OLED
+		Buttons
+
+		
+		
+		
+		
+Console Pack Breakdown		FROM
+0	ID Byte
+1	Double Toggle switches
+2	Left  Toggle Box
+3	Right Toggle Box
+4	Top Toggles (Left, Right) + Center Buttons(L to R)
+5	Bottom Center Toggles(T to B) + RotButton(L,R)
+6	Fight Stick(UDLR)
+7	LeftRot +-128
+8	RightRot +-128
+9	Pot1
+10	Pot2
+11	Pot3
+12	Pot4
+
+
+As String
+39 characters
+
+Console Pack Breakdown		TO
+0	ID Byte
+1	Amount to read
+
+
+Type case
+LED Single Light
+0	CommandType
+1	Arguments
+
+
+
+0 SET LED
+	0 LED_NO 
+	1 Red
+	2 Green
+	3 Blue
+
+1 Set Strand
+	Each set
+	RGB
+	50 times
+
+2 Set Button LED
+	0 Button_NO
+	1 On or Off

@@ -46,7 +46,8 @@ Debug/VTStart.cpp.o: VTStart.cpp \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL.h \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_ttf.h \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_mixer.h \
- serial/serial.h serial/v8stdint.h VTStart.h VTSerialPhraser.h
+ serial/serial.h serial/v8stdint.h tinyxml2.h VTMap.h VTStart.h \
+ VTSerialPhraser.h
 
 C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL.h:
 
@@ -145,6 +146,10 @@ C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_mixer.
 serial/serial.h:
 
 serial/v8stdint.h:
+
+tinyxml2.h:
+
+VTMap.h:
 
 VTStart.h:
 
