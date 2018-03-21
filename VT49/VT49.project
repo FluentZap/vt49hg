@@ -11,11 +11,15 @@
     <File Name="VTStart.cpp"/>
     <File Name="VTNetwork.cpp"/>
     <File Name="VTSerialPhraser.cpp"/>
+    <File Name="tinyxml2.cpp"/>
+    <File Name="VTMap.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="VTNetwork.h"/>
     <File Name="VTStart.h"/>
     <File Name="VTSerialPhraser.h"/>
+    <File Name="tinyxml2.h"/>
+    <File Name="VTMap.h"/>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>

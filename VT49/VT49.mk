@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Toad
-Date                   :=20/02/2018
+Date                   :=20/03/2018
 CodeLitePath           :="C:/Program Files/CodeLite"
 LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
 SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
@@ -62,7 +62,7 @@ AS       := C:/TDM-GCC-64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) $(IntermediateDirectory)/tinyxml2.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) 
 
 
 
@@ -116,6 +116,22 @@ $(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix): VTSerialPhraser.cpp
 
 $(IntermediateDirectory)/VTSerialPhraser.cpp$(PreprocessSuffix): VTSerialPhraser.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTSerialPhraser.cpp$(PreprocessSuffix) VTSerialPhraser.cpp
+
+$(IntermediateDirectory)/tinyxml2.cpp$(ObjectSuffix): tinyxml2.cpp $(IntermediateDirectory)/tinyxml2.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/tinyxml2.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/tinyxml2.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/tinyxml2.cpp$(DependSuffix): tinyxml2.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/tinyxml2.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/tinyxml2.cpp$(DependSuffix) -MM tinyxml2.cpp
+
+$(IntermediateDirectory)/tinyxml2.cpp$(PreprocessSuffix): tinyxml2.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/tinyxml2.cpp$(PreprocessSuffix) tinyxml2.cpp
+
+$(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix): VTMap.cpp $(IntermediateDirectory)/VTMap.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTMap.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/VTMap.cpp$(DependSuffix): VTMap.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/VTMap.cpp$(DependSuffix) -MM VTMap.cpp
+
+$(IntermediateDirectory)/VTMap.cpp$(PreprocessSuffix): VTMap.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTMap.cpp$(PreprocessSuffix) VTMap.cpp
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
