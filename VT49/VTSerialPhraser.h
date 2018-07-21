@@ -8,39 +8,32 @@ class VTSerialPhraser
 public:
 	VTSerialPhraser();
 	~VTSerialPhraser();
-	uint8_t DataBuffer[12];
+	uint8_t DataBuffer[13] = {};
 	void ReadDataStream();
 	
 	struct RecievedData_Type
-	{	
-		uint8_t ID;
-		uint8_t DoubleTog;
-		uint8_t LeftTogBox;
-		uint8_t RightTogBox;
-		uint8_t TopTog;
-		uint8_t BottomTog;
-		uint8_t FightStick;
-		uint8_t LeftRot;
-		uint8_t RightRot;
-		uint8_t Pot1;
-		uint8_t Pot2;
-		uint8_t Pot3;
-		uint8_t Pot4;
+	{			
+		uint8_t DoubleTog = 0;
+		uint8_t LEDTog = 0;
+		uint8_t TopTog = 0;		
+		uint8_t LEDButton = 0;
+		uint8_t LeftBoxTog = 0;		
+		uint8_t RightBoxTog = 0;
+		uint8_t FlightStick = 0;		
 	};
 	RecievedData_Type RecievedData;
 	
 	struct ConsoleDataType
 	{	
-		bool LTog[7],
-			 RTog[7];
-		bool TTog[3];
-		bool CTog[4];
-		int DoubleTog[3];
-		bool Button[3];
-		int Rot1, Rot2;
-		bool Rot1B, Rot2B;
-		int Poot[3];
-		bool FightUP, FightDN, FightLT, FightRT;		
+		bool DoubleTog[8] = {};
+		bool LEDTog[5] = {};
+		bool TopTog[4] = {};
+		bool RotButton[2] = {};
+		bool LEDButton[4] = {};
+		
+		bool LeftBoxTog[8] = {};
+		bool RightBoxTog[8] = {};
+		bool FlightStick[4] = {};
 	};		
 	
 ConsoleDataType ConsoleButtons;

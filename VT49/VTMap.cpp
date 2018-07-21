@@ -68,6 +68,12 @@ void VTMap::LoadMapFile(const char * fileName)
 		mPlanetData = mPlanetData->NextSibling();
 		mPlanetData = mPlanetData->NextSibling();
 		if (mPlanetData->FirstChild() != nullptr) planetDataStructure->Name = mPlanetData->FirstChild()->Value();
+		mPlanetData = mPlanetData->NextSibling();
+		mPlanetData = mPlanetData->NextSibling();
+		mPlanetData = mPlanetData->NextSibling();
+		if (mPlanetData->FirstChild() != nullptr) planetDataStructure->latitude = atof(mPlanetData->FirstChild()->Value());
+		mPlanetData = mPlanetData->NextSibling();
+		if (mPlanetData->FirstChild() != nullptr) planetDataStructure->longitude = atof(mPlanetData->FirstChild()->Value());
 		/*
 		planetDataStructure.Link =  mPlanetData->NextSibling->Value();
 		planetDataStructure.Grid =  mPlanetData->NextSibling->Value();
