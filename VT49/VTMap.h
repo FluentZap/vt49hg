@@ -4,19 +4,7 @@
 
 using namespace std;
 
-class VTMap
-{
-public:
-	VTMap();
-	~VTMap();
-
-
-	struct odd
-	{	
-		int vv;
-	};
-	
-	class StarMapData_Type
+class StarMapData_Type
 	{	
 	public:
 		const char* Sector;
@@ -29,10 +17,22 @@ public:
 		bool Canon;
 		const char* RightRot;
 		const char* Name;
-		long latitude;
-		long longitude;		
+		double latitude;
+		double longitude;		
 	};	
 	
+
+class VTMap
+{
+public:
+	VTMap();
+	~VTMap();
+
+
+	struct odd
+	{	
+		int vv;
+	};	
 	map<int, StarMapData_Type*> StarMap;
 	
 	void LoadMapFile(const char*);

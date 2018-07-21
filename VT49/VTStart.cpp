@@ -10,7 +10,7 @@
 #include <tinyxml2.h>
 #include <VTMap.h>
 //#include <sstream>
-
+#include <SDL_FontCache.h>
 
 //#include "reactphysics3d.h"
 #include "VTStart.h"
@@ -42,6 +42,9 @@ size_t fpsStart;
 //RigidBody* body;
 
 
+
+
+
 SDL_Rect rect1, rect2;
 double dist1;
 
@@ -54,14 +57,18 @@ VTSerialPhraser* phraser;
 //Current OS Windows Or Linux
 enum OS_Types {WIN, LINUX};
 OS_Types CurrentOS;
-uint8_t tempb[12];
 string buff;
 
+SDL_Rect Scroll;
+double Zoom = 1;
 
 int count;
 
 const char* pName;
 VTMap * StarMap;
+
+
+
 
 
 void init_setup()
@@ -87,8 +94,8 @@ void init_setup()
 	//body->setType(BodyType::DYNAMIC);
 	
 	//Serial Connection
-	//phraser = new VTSerialPhraser();
-	//Serial_Connect();
+	phraser = new VTSerialPhraser();
+	Serial_Connect();
 }
 
 
@@ -109,20 +116,18 @@ void Serial_Read()
 	
 	if (console->isOpen())
 	{
-		if (console->available() > 0)
+		if (console->available() > 0 && console->available() >= 12)
 		{
-			//console->read(teststring, 8);
-			//if (console->available() >= 12) 
-			//{
-				//console->read(phraser->DataBuffer, 12);
-				//phraser->ReadDataStream();
-			//}
-			
-			buff = "";
+			//phraser->DataBuffer = {};
 			console->readline(buff, 100, "VT");
-			uint8_t holdb[12];
-			if (console->read(holdb, 13) == 13)
-				memcpy(tempb, holdb, 13);
+			console->read(phraser->DataBuffer, 12);
+			phraser->ReadDataStream();
+			
+			//buff = "";
+			
+			//uint8_t holdb[12];
+			//if (console->read(holdb, 13) == 13)
+				//memcpy(tempb, holdb, 13);
 		}
 	}
 	
@@ -130,7 +135,7 @@ void Serial_Read()
 
 
 void handleUI(SDL_Event e)
-{
+{		
 	if (e.type == SDL_KEYDOWN)
 	{
 		if (e.key.keysym.sym == SDLK_1)
@@ -160,6 +165,7 @@ void handleUI(SDL_Event e)
 			body->ApplyLinearImpulse(point);
 			 */
 			//rect1.x--;
+			Scroll.x = Scroll.x + 10 * Zoom;			
 		}
 		
 		if (e.key.keysym.sym == SDLK_RIGHT)
@@ -167,6 +173,7 @@ void handleUI(SDL_Event e)
 			//Vector3 force(10000.0, 0.0, 0.0); 
 			//body->applyForceToCenterOfMass(force);
 				//rect1.x++;
+			Scroll.x = Scroll.x - 10 * Zoom;
 		}
 		
 		if (e.key.keysym.sym == SDLK_UP)
@@ -174,6 +181,7 @@ void handleUI(SDL_Event e)
 			//Vector3 force(0.0, -10000.0, 0.0); 
 			//body->applyForceToCenterOfMass(force);
 				//rect1.x++;
+			Scroll.y = Scroll.y + 10 * Zoom;
 		}
 		
 		if (e.key.keysym.sym == SDLK_DOWN)
@@ -181,6 +189,20 @@ void handleUI(SDL_Event e)
 			//Vector3 force(0.0, 10000.0, 0.0); 
 			//body->applyForceToCenterOfMass(force);
 				//rect1.x++;
+			Scroll.y = Scroll.y - 10 * Zoom;
+		}
+		
+		
+		if (e.key.keysym.sym == SDLK_KP_PLUS)
+		{
+			Zoom = Zoom + 0.1;
+			if (Zoom > 10) Zoom = 10;			
+		}
+		
+		if (e.key.keysym.sym == SDLK_KP_MINUS)
+		{
+			Zoom = Zoom - 0.1;
+			if (Zoom < 0.01) Zoom = 0.01;
 		}
 		
 	}
@@ -207,14 +229,18 @@ void render()
 	
 	setRenderColor(80, 130, 240, 255);	//Blue (50, 160, 240, 255);
 										//Orange (220, 140, 40, 255);
+										
+	FC_Draw(gFontAG, gRenderer, 0, 0, to_string(framsPerSec).c_str());
+	
 	//setRenderColor(255, 255, 255, 255);
 	SDL_Color color = setColor(80, 130, 240, 255);
 	color = setColor(220, 140, 40, 255);
+		
 	
 	//color = setColor(50, 160, 240, 255);
 	
 	SDL_Rect rect = {100, 100, 200, 200};
-	SDL_RenderDrawRect(gRenderer, &rect);
+	//SDL_RenderDrawRect(gRenderer, &rect);
 	//SDL_RenderDrawRect(gRenderer, &rect1);
 	
 	//for (int x = 0; x < count; x++)
@@ -229,17 +255,17 @@ void render()
 	color = setColor(50, 160, 240, 255);
 	//render_text(gRenderer, 40, 0, "vt-49 os test build 0.0.1", gFontAure, &color);
 	//render_text(gRenderer, 80, 30, "VT-49 OS TEST BUILD 0.0.1", gFontAG, &color);
-	render_text(gRenderer, 0, 0, to_string(fpsStart).c_str(), gFontAG, &color);
-	render_text(gRenderer, 0, 60, to_string(SDL_GetTicks()).c_str(), gFontAG, &color);
+	//render_text(gRenderer, 0, 0, to_string(fpsStart).c_str(), gFontAG, &color);
+	//render_text(gRenderer, 0, 60, to_string(SDL_GetTicks()).c_str(), gFontAG, &color);
 	
-	render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
+	//render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
 	color = setColor(130, 60, 60, 255);
 	
 	if (StarMap->StarMap.find(count) != StarMap->StarMap.end())
 	{
 		if (StarMap->StarMap.find(count)->second->Name != nullptr)
 		{
-			render_text(gRenderer, 100, 100, StarMap->StarMap.find(count)->second->Name, gFontAG, &color);
+			//render_text(gRenderer, 100, 100, StarMap->StarMap.find(count)->second->Name, gFontAG, &color);
 		}				
 	}
 	
@@ -247,6 +273,14 @@ void render()
 	//render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
 	
 
+	if (phraser->ConsoleButtons.LeftBoxTog[0]) FC_Draw(gFontAG, gRenderer, 0, 200, "0");
+	if (phraser->ConsoleButtons.LeftBoxTog[1]) FC_Draw(gFontAG, gRenderer, 20, 200, "0");
+	if (phraser->ConsoleButtons.LeftBoxTog[2]) FC_Draw(gFontAG, gRenderer, 40, 200, "0");
+	if (phraser->ConsoleButtons.LeftBoxTog[3]) FC_Draw(gFontAG, gRenderer, 60, 200, "0");
+	if (phraser->ConsoleButtons.LeftBoxTog[4]) FC_Draw(gFontAG, gRenderer, 0, 250, "0");
+	if (phraser->ConsoleButtons.LeftBoxTog[5]) FC_Draw(gFontAG, gRenderer, 20, 250, "0");
+	if (phraser->ConsoleButtons.LeftBoxTog[6]) FC_Draw(gFontAG, gRenderer, 40, 250, "0");
+	if (phraser->ConsoleButtons.LeftBoxTog[7]) FC_Draw(gFontAG, gRenderer, 60, 250, "0");
 /*
 	
 	if (phraser->ConsoleButtons.LTog[0]) render_text(gRenderer, 0, 200, "0", gFontAG, &color);
@@ -281,6 +315,9 @@ void render()
 		render_text(gRenderer, 40, 300, "Closed", gFontAG, &color);
 	}
 	*/
+	rect = {Scroll.x, Scroll.y, 850 * Zoom, 1250 * Zoom};
+	SDL_RenderCopy(gRenderer, gTexture, NULL, &rect);
+	
 	dist1 += 0.000001;
 	if (dist1 > 10000) dist1 = -10000;
 	
@@ -291,6 +328,46 @@ void render()
 	//Transform transform = body->getTransform();
 	//Vector3 vec = transform.getPosition();
 	//render_text(gRenderer, vec.x + SCREEN_WIDTH / 2, vec.y + SCREEN_HEIGHT / 2, "0", gFontAG, &color);
+	
+		
+	SDL_RenderPresent(gRenderer);
+}
+
+
+void renderGalaxyMap(int renderX, int renderY)
+{
+	SDL_SetRenderDrawColor(gRenderer, 10, 10, 10, 255);
+	SDL_RenderClear(gRenderer);
+	
+	setRenderColor(80, 130, 240, 255);	//Blue (50, 160, 240, 255);
+										//Orange (220, 140, 40, 255);
+	SDL_Color color = setColor(80, 130, 240, 255);
+	color = setColor(220, 140, 40, 255);
+	
+	FC_Draw(gFontAG, gRenderer, 0, 0, to_string(framsPerSec).c_str());
+	//render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
+	color = setColor(130, 60, 60, 255);
+	
+	for (pair<int, StarMapData_Type*> e : StarMap->StarMap)
+	{		
+		//if (e.second->Grid)
+		//if (strcmp(e.second->Grid, "L9") == 0)
+		//{	
+			double x, y;
+			y = -e.second->y;
+			x = e.second->x;
+			x = x * Zoom + Scroll.x;
+			y = y * Zoom + Scroll.y;
+			
+			if (x > 0 && y > 0 && x < 1920 && y < 1080)
+			{
+				SDL_Rect rect = {x, y, 10, 20};
+				SDL_RenderDrawRect(gRenderer, &rect);				
+				FC_Draw(gFontAG, gRenderer, x, y + 10, e.second->Name);			
+			}
+		//}	
+		
+	}
 	
 		
 	SDL_RenderPresent(gRenderer);
@@ -328,12 +405,18 @@ bool loadResources()
 {
 	bool success = true;
 	//Load Fonts
-	gFontAure = TTF_OpenFont("Aurebesh.ttf", 22);
-	gFontAG = TTF_OpenFont("AG-Stencil.ttf", 22);
+	//gFontAure = TTF_OpenFont("Aurebesh.ttf", 22);
+	//gFontAG = TTF_OpenFont("AG-Stencil.ttf", 22);
+	gFontAure = FC_CreateFont();
+	gFontAG = FC_CreateFont();
+	
+	FC_LoadFont(gFontAure, gRenderer, "Aurebesh.ttf", 22, FC_MakeColor(220, 140, 40, 255), TTF_STYLE_NORMAL);
+	FC_LoadFont(gFontAG, gRenderer, "AG-Stencil.ttf", 22, FC_MakeColor(80, 130, 240, 255), TTF_STYLE_NORMAL);
+	
 	
 	//Load Images
 	//gXOut = imageLoader("x.png");
-	//gTexture = loadTexture("images\\portrait\\elf.png");
+	gTexture = loadTexture("VT49.png");
 	//gTexture = loadTexture("elf.png");
 	//gTexture = loadTexture("elf.jpg");
 	//if( gTexture == NULL ) {printf( "Unable to load image %s! SDL Error: %s\n", "x.png", SDL_GetError() ); success = false;}
@@ -404,6 +487,8 @@ void close()
 	sfx1 = NULL;
 	sfx2 = NULL;
 	gMusic = NULL;
+	FC_FreeFont(gFontAure);
+	FC_FreeFont(gFontAG);
 
 	//Quit SDL subsystems
 	Mix_Quit();
@@ -435,12 +520,18 @@ int main(int argc, char **argv)
 			while (SDL_PollEvent(&e) != 0) { handleUI(e); }
 			//scene->Step();
 			//world->update( 1.0 / 60.0 );	
-			//Serial_Read();
+			Serial_Read();
 			
 						
 			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
 			{
+				if (phraser->ConsoleButtons.FlightStick[0] == true) Scroll.y = Scroll.y + 5 * Zoom;
+				if (phraser->ConsoleButtons.FlightStick[1] == true) Scroll.y = Scroll.y - 5 * Zoom;
+				if (phraser->ConsoleButtons.FlightStick[2] == true) Scroll.x = Scroll.x + 5 * Zoom;
+				if (phraser->ConsoleButtons.FlightStick[3] == true) Scroll.x = Scroll.x - 5 * Zoom;
+				
 				render();
+				//renderGalaxyMap(0, 0);
 				fps++;
 				fpsTicks = SDL_GetTicks();				
 			}
@@ -503,9 +594,25 @@ void render_text(SDL_Renderer *renderer, int x, int y, const char *text, TTF_Fon
 		rect.x = x;
 		rect.y = y;
 		rect.w = surface->w;
-		rect.h = surface->h;
-		SDL_FreeSurface(surface);
+		rect.h = surface->h;		
 		SDL_RenderCopy(renderer, texture, NULL, &rect);
+		SDL_FreeSurface(surface);
 		SDL_DestroyTexture(texture);
 	}
+}
+
+
+SDL_Texture* loadTexture(std::string path)
+{
+	SDL_Texture* newTexture = NULL;
+	SDL_Surface* surface = IMG_Load(path.c_str());
+	if (surface == NULL)
+		return NULL;
+	
+	newTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
+	if (newTexture == NULL) {printf( "Unable to load image %s! SDL Error: %s\n", path.c_str() , SDL_GetError() ); SDL_FreeSurface(surface); return NULL;}
+	
+	SDL_FreeSurface(surface);
+	
+	return newTexture;
 }

@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Toad
-Date                   :=20/03/2018
+Date                   :=21/07/2018
 CodeLitePath           :="C:/Program Files/CodeLite"
 LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
 SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
@@ -52,7 +52,7 @@ LibPath                :=$(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Ba
 AR       := C:/TDM-GCC-64/bin/ar.exe rcu
 CXX      := C:/TDM-GCC-64/bin/g++.exe
 CC       := C:/TDM-GCC-64/bin/gcc.exe
-CXXFLAGS :=  -g -O0 -std=c++14 -Wall $(Preprocessors)
+CXXFLAGS :=  -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall $(Preprocessors)
 CFLAGS   :=  -g -O0 -Wall $(Preprocessors)
 ASFLAGS  := 
 AS       := C:/TDM-GCC-64/bin/as.exe
@@ -62,7 +62,7 @@ AS       := C:/TDM-GCC-64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) $(IntermediateDirectory)/tinyxml2.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) $(IntermediateDirectory)/SDL_FontCache.c$(ObjectSuffix) $(IntermediateDirectory)/tinyxml2.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) 
 
 
 
@@ -116,6 +116,14 @@ $(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix): VTSerialPhraser.cpp
 
 $(IntermediateDirectory)/VTSerialPhraser.cpp$(PreprocessSuffix): VTSerialPhraser.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTSerialPhraser.cpp$(PreprocessSuffix) VTSerialPhraser.cpp
+
+$(IntermediateDirectory)/SDL_FontCache.c$(ObjectSuffix): SDL_FontCache.c $(IntermediateDirectory)/SDL_FontCache.c$(DependSuffix)
+	$(CC) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/SDL_FontCache.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/SDL_FontCache.c$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/SDL_FontCache.c$(DependSuffix): SDL_FontCache.c
+	@$(CC) $(CFLAGS) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/SDL_FontCache.c$(ObjectSuffix) -MF$(IntermediateDirectory)/SDL_FontCache.c$(DependSuffix) -MM SDL_FontCache.c
+
+$(IntermediateDirectory)/SDL_FontCache.c$(PreprocessSuffix): SDL_FontCache.c
+	$(CC) $(CFLAGS) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/SDL_FontCache.c$(PreprocessSuffix) SDL_FontCache.c
 
 $(IntermediateDirectory)/tinyxml2.cpp$(ObjectSuffix): tinyxml2.cpp $(IntermediateDirectory)/tinyxml2.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/tinyxml2.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/tinyxml2.cpp$(ObjectSuffix) $(IncludePath)

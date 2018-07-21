@@ -8,6 +8,7 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
+    <File Name="SDL_FontCache.c"/>
     <File Name="VTStart.cpp"/>
     <File Name="VTNetwork.cpp"/>
     <File Name="VTSerialPhraser.cpp"/>
@@ -15,6 +16,7 @@
     <File Name="VTMap.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
+    <File Name="SDL_FontCache.h"/>
     <File Name="VTNetwork.h"/>
     <File Name="VTStart.h"/>
     <File Name="VTSerialPhraser.h"/>
@@ -37,7 +39,7 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="Debug" CompilerType="MinGW ( TDM-GCC-32 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-std=c++14;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+      <Compiler Options="-g;-O0;-std=c++17;-std=c++14;-std=c++11;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
         <IncludePath Value="."/>
       </Compiler>
       <Linker Options="-lmingw32;-lSDL2main;-lSDL2;-lSDL2_ttf;-lSDL2_image;-lSDL2_mixer;-lreactphysics3d;-lserial" Required="yes">

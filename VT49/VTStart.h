@@ -3,6 +3,8 @@
 
 
 #include "SDL.h"
+#include <SDL_FontCache.h>
+
 //#include "reactphysics3d.h"
 //#include "q3.h"
 
@@ -13,6 +15,8 @@ using namespace std;
 bool init();
 bool loadResources();
 void render();
+//Render the Galaxy at the location
+void renderGalaxyMap(int, int);
 void close();
 
 void Serial_Connect();
@@ -39,8 +43,11 @@ Mix_Chunk *sfx2 = NULL;
 SDL_Event e;
 SDL_Color textcolor = { 0, 0, 0, 255 };
 
-TTF_Font *gFontAure = NULL;
-TTF_Font *gFontAG = NULL;
+//TTF_Font *gFontAure = NULL;
+//TTF_Font *gFontAG = NULL;
+FC_Font* gFontAure;
+FC_Font* gFontAG;
+
 
 
 void setRenderColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);

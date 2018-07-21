@@ -1,0 +1,16 @@
+Weapon System
+Sensors
+Comms
+Sublight Engines
+	slowed
+	offline
+Hyperdrive
+Shields
+
+Landing Gear
+Landing Bay
+Cargo Hold
+Bridge
+
+
+Fire
