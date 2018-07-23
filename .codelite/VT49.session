@@ -5,18 +5,19 @@
   <TabInfoArray Name="TabInfoArray">
     <TabInfo>
       <wxString Value="C:\Users\Toad\Documents\VT49\VT49\VTStart.cpp" Name="FileName"/>
-      <int Value="355" Name="FirstVisibleLine"/>
-      <int Value="450" Name="CurrentLine"/>
+      <int Value="137" Name="FirstVisibleLine"/>
+      <int Value="154" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds">
-        <IntVectorItem Value="337"/>
-        <IntVectorItem Value="379"/>
-        <IntVectorItem Value="471"/>
-        <IntVectorItem Value="562"/>
-        <IntVectorItem Value="568"/>
-        <IntVectorItem Value="574"/>
-        <IntVectorItem Value="584"/>
+        <IntVectorItem Value="374"/>
+        <IntVectorItem Value="416"/>
+        <IntVectorItem Value="441"/>
+        <IntVectorItem Value="508"/>
+        <IntVectorItem Value="599"/>
         <IntVectorItem Value="605"/>
+        <IntVectorItem Value="611"/>
+        <IntVectorItem Value="621"/>
+        <IntVectorItem Value="642"/>
       </IntVector>
     </TabInfo>
     <TabInfo>
@@ -35,7 +36,7 @@
     </TabInfo>
     <TabInfo>
       <wxString Value="C:\Users\Toad\Documents\VT49\VT49\VTSerialPhraser.cpp" Name="FileName"/>
-      <int Value="21" Name="FirstVisibleLine"/>
+      <int Value="0" Name="FirstVisibleLine"/>
       <int Value="72" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
@@ -49,8 +50,8 @@
     </TabInfo>
     <TabInfo>
       <wxString Value="C:\Users\Toad\Desktop\wjwwood-serial-1.2.1-29-g5a354ea\wjwwood-serial-5a354ea\include\serial\serial.h" Name="FileName"/>
-      <int Value="262" Name="FirstVisibleLine"/>
-      <int Value="329" Name="CurrentLine"/>
+      <int Value="384" Name="FirstVisibleLine"/>
+      <int Value="385" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>
     </TabInfo>

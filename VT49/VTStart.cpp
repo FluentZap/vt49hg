@@ -63,6 +63,7 @@ SDL_Rect Scroll;
 double Zoom = 1;
 
 int count;
+bool lit = false;
 
 const char* pName;
 VTMap * StarMap;
@@ -105,10 +106,17 @@ void Serial_Connect()
 	
 	
 	//serial::Serial console("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
+	//try
+	//{
+		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 115200, serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == WIN) console = new serial::Serial("COM3", 115200, serial::Timeout::simpleTimeout(10));
+		console->setTimeout(10, 10, 10, 10, 10);
+	//}
+	//catch(serial::IOException)
+	//{
+		
+	//}
 	
-	if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 115200, serial::Timeout::simpleTimeout(10));
-	if (CurrentOS == WIN) console = new serial::Serial("COM3", 115200, serial::Timeout::simpleTimeout(10));
-	console->setTimeout(10, 10, 10, 10, 10);
 }
 
 void Serial_Read()
@@ -129,6 +137,31 @@ void Serial_Read()
 			//if (console->read(holdb, 13) == 13)
 				//memcpy(tempb, holdb, 13);
 		}
+
+	}
+	
+}
+
+void Serial_Write()
+{
+	
+	if (console->isOpen())
+	{
+		//console->readline(buff, 100, "VT");
+		//console->read(phraser->DataBuffer, 12);
+		//phraser->ReadDataStream();
+		uint8_t Buffer[3] = {};
+		if (lit) Buffer[0] = 1;
+		Buffer[1] = count;		
+		
+		console->write("\n");
+		console->write(Buffer, 3);
+		//buff = "";
+		
+		//uint8_t holdb[12];
+		//if (console->read(holdb, 13) == 13)
+		//memcpy(tempb, holdb, 13);
+		
 	}
 	
 }
@@ -149,7 +182,8 @@ void handleUI(SDL_Event e)
 		{
 			//Mix_PlayChannel( 1, sfx2, 0 );
 			//Mix_SetPanning(1, 0, 120);
-		}
+			lit = true;
+		}			
 		
 		
 		if (e.key.keysym.sym == SDLK_LEFT)
@@ -209,7 +243,10 @@ void handleUI(SDL_Event e)
 
 	if (e.type == SDL_KEYUP)
 	{
-
+		if (e.key.keysym.sym == SDLK_2)
+		{
+			lit = false;
+		}			
 		
 	}
 
@@ -272,7 +309,7 @@ void render()
 	
 	//render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
 	
-
+	FC_Draw(gFontAG, gRenderer, 100, 0, to_string(count).c_str());
 	if (phraser->ConsoleButtons.LeftBoxTog[0]) FC_Draw(gFontAG, gRenderer, 0, 200, "0");
 	if (phraser->ConsoleButtons.LeftBoxTog[1]) FC_Draw(gFontAG, gRenderer, 20, 200, "0");
 	if (phraser->ConsoleButtons.LeftBoxTog[2]) FC_Draw(gFontAG, gRenderer, 40, 200, "0");
@@ -520,8 +557,7 @@ int main(int argc, char **argv)
 			while (SDL_PollEvent(&e) != 0) { handleUI(e); }
 			//scene->Step();
 			//world->update( 1.0 / 60.0 );	
-			Serial_Read();
-			
+			Serial_Read();			
 						
 			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
 			{
@@ -529,6 +565,7 @@ int main(int argc, char **argv)
 				if (phraser->ConsoleButtons.FlightStick[1] == true) Scroll.y = Scroll.y - 5 * Zoom;
 				if (phraser->ConsoleButtons.FlightStick[2] == true) Scroll.x = Scroll.x + 5 * Zoom;
 				if (phraser->ConsoleButtons.FlightStick[3] == true) Scroll.x = Scroll.x - 5 * Zoom;
+				Serial_Write();
 				
 				render();
 				//renderGalaxyMap(0, 0);
