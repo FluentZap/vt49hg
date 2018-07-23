@@ -129,6 +129,7 @@ byte SendBuffer[12];
 byte TempBB[12];
 char *buff;
 
+int Target=0;
 
 int lastCount = 50;
 volatile int virtualPosition = 50;
@@ -161,7 +162,7 @@ void setup() {
   pinMode(Button_LED4, OUTPUT);
   
   pinMode(FightStick_LED, OUTPUT);
-  digitalWrite(FightStick_LED, HIGH);
+  digitalWrite(FightStick_LED, LOW);
   
   
   byte SendBuffer[12];  
@@ -202,15 +203,18 @@ void loop()
       BuildBuffer();
       CopyBuffer(TempBB, SendBuffer);
       SendByteBuffer(TempBB);
-      /*  
+      /*
       if (CheckBuffer(TempBB, SendBuffer))
       {
         CopyBuffer(TempBB, SendBuffer);
         SendByteBuffer(TempBB);
       }
-  */
+  */      
       LastUpdate = millis();
   }
+
+  ReadSerial();
+  
 }
 
 
@@ -218,6 +222,29 @@ void SendByteBuffer(byte bb[12])
 {  
   Serial.print("VT");
   Serial.write(bb, 13);
+}
+
+
+void ReadSerial()
+{  
+  char incomingByte;
+  
+  if (Serial.available() > 0)
+  {
+    byte buf[3] = {};
+    
+    if (Serial.read()== '\n')
+    {
+      Serial.readBytes(buf, 3);
+    }
+    
+  Target = buf[1];
+  if (buf[0] == 1)
+    digitalWrite(FightStick_LED, HIGH);
+  else
+    digitalWrite(FightStick_LED, LOW);
+  }
+  
 }
 
 
@@ -328,7 +355,7 @@ void Render ()
 
   //oled
   OLEDdisplay.clearDisplay();
-  int x = 20;
+  int x = Target;
   //moving lines
   OLEDdisplay.drawLine(x, 0, x, 48, WHITE);
   OLEDdisplay.drawLine(126-x, 0, 126-x, 48, WHITE);  
@@ -348,9 +375,11 @@ void Render ()
   OLEDdisplay.setTextColor(WHITE);
   //display1.setTextColor(BLACK, WHITE); // 'inverted' text
   
-  OLEDdisplay.setCursor(35 ,59);
+  OLEDdisplay.setCursor(35 ,60);
   
-  OLEDdisplay.println("00000");
+  //OLEDdisplay.println("00000");
+  OLEDdisplay.println(String(Target));
+  
 
   OLEDdisplay.display();
 }
