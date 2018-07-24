@@ -8,8 +8,19 @@ class VTSerialPhraser
 public:
 	VTSerialPhraser();
 	~VTSerialPhraser();
-	uint8_t DataBuffer[13] = {};
-	void ReadDataStream();
+	
+	uint8_t Marker = 0;
+	const static size_t BufferSize = 256;
+
+	int DataBufferIndex = 0;
+	uint8_t DataBuffer[BufferSize] = {};	
+	
+	
+	
+	void ReadDataStream(uint8_t*);
+	void Update(serial::Serial*);
+	
+	
 	
 	struct RecievedData_Type
 	{			

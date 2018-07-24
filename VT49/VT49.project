@@ -16,6 +16,7 @@
     <File Name="VTMap.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
+    <File Name="COBS.h"/>
     <File Name="SDL_FontCache.h"/>
     <File Name="VTNetwork.h"/>
     <File Name="VTStart.h"/>
