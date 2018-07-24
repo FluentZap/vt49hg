@@ -118,6 +118,7 @@ int LED_4_Power;
 
 
 void BuildBuffer();
+void ProcessBuffer(char* B);
 bool CheckBuffer(byte[12], byte[12]);
 void CopyBuffer(byte[12], byte[12]);
 void SendByteBuffer(byte[12]);
@@ -187,10 +188,7 @@ void setup() {
 
 
 void loop()
-{ 
-  
-
-
+{
   //if (digitalRead(26) == LOW) fill_rainbow( leds, NUM_LEDS, gHue, 7);
   //if (digitalRead(22) == LOW) fadeToBlackBy( leds, NUM_LEDS, 10);      
   if (millis() > (LastRender + 1000 / FRAMES_PER_SECOND))
@@ -228,16 +226,12 @@ void onPacketReceived(const uint8_t* buffer, size_t size)
   // it back to the sender.
 
   // Make a temporary buffer.
-  uint8_t tempBuffer[size];
+  //uint8_t tempBuffer[size];
 
   // Copy the packet into our temporary buffer.
   //memcpy(tempBuffer, buffer, size);  
-    
-    Target = tempBuffer[1];
-  if (tempBuffer[0] == 1)
-    digitalWrite(FightStick_LED, HIGH);
-  else
-    digitalWrite(FightStick_LED, LOW);
+
+  ProcessBuffer(buffer);  
 }
 
 
@@ -361,7 +355,27 @@ void BuildBuffer()
 }
 
 
-
+void ProcessBuffer(char* B)
+{  
+  //LedButtons 0 + Stick Light
+  //Segment 5
+  //LED's 6 156
+  
+  Target = B[1];
+  if (B[0] == 1)
+    digitalWrite(FightStick_LED, HIGH);
+  else
+    digitalWrite(FightStick_LED, LOW);  
+  
+  /*
+  for (int x = 0; x < 51; x++)
+  {
+    leds[x].r = B[6 + x * 3];
+    leds[x].g = B[6 + (x * 3) + 1];
+    leds[x].b = B[6 + (x * 3) + 2];
+  } 
+  */      
+}
 
 
 
@@ -369,8 +383,8 @@ void BuildBuffer()
 
 
 void Render ()
-{
-  fill_rainbow( leds, NUM_LEDS, 12, 7);
+{   
+  fill_rainbow(leds, 50, 0, 32);  
   
   FastLED.show();
   matrix.print(1138);

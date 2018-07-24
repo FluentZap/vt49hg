@@ -25,12 +25,12 @@ void VTSerialPhraser::ReadDataStream(uint8_t* Buffer)
 		
 	ConsoleButtons.DoubleTog[0] = (RecievedData.DoubleTog & option0);
 	ConsoleButtons.DoubleTog[1] = (RecievedData.DoubleTog & option1);
-	ConsoleButtons.DoubleTog[2] = (RecievedData.DoubleTog & option1);	
-	ConsoleButtons.DoubleTog[3] = (RecievedData.DoubleTog & option1);	
-	ConsoleButtons.DoubleTog[4] = (RecievedData.DoubleTog & option1);	
-	ConsoleButtons.DoubleTog[5] = (RecievedData.DoubleTog & option1);	
-	ConsoleButtons.DoubleTog[6] = (RecievedData.DoubleTog & option1);	
-	ConsoleButtons.DoubleTog[7] = (RecievedData.DoubleTog & option1);
+	ConsoleButtons.DoubleTog[2] = (RecievedData.DoubleTog & option2);	
+	ConsoleButtons.DoubleTog[3] = (RecievedData.DoubleTog & option3);	
+	ConsoleButtons.DoubleTog[4] = (RecievedData.DoubleTog & option4);	
+	ConsoleButtons.DoubleTog[5] = (RecievedData.DoubleTog & option5);	
+	ConsoleButtons.DoubleTog[6] = (RecievedData.DoubleTog & option6);	
+	ConsoleButtons.DoubleTog[7] = (RecievedData.DoubleTog & option7);
 	
 	ConsoleButtons.LEDTog[0] = (RecievedData.LEDTog & option0);
 	ConsoleButtons.LEDTog[1] = (RecievedData.LEDTog & option1);
@@ -77,6 +77,18 @@ void VTSerialPhraser::ReadDataStream(uint8_t* Buffer)
 	
 }
 
+void VTSerialPhraser::Send(serial::Serial* stream, const uint8_t* buffer, size_t size)
+{
+	if (stream->isOpen())
+	{
+		uint8_t EncodeBuffer[COBS::getEncodedBufferSize(size)];
+		size_t numEncoded = COBS::encode(buffer, size, EncodeBuffer);
+		stream->write(EncodeBuffer, numEncoded);
+		uint8_t data[1];
+		data[0] = Marker;
+		stream->write(data, 1);
+	}
+}
 
 
 
