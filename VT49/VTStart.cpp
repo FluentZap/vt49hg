@@ -50,7 +50,7 @@ double dist1;
 
 serial::Serial* console;
 
-VTSerialPhraser* phraser;
+VTSerialPhraser* parser;
 
 //char incomingData[256] = "";
 
@@ -64,6 +64,9 @@ double Zoom = 1;
 
 int count;
 bool lit = false;
+int speed=0;
+
+
 
 const char* pName;
 VTMap * StarMap;
@@ -95,7 +98,7 @@ void init_setup()
 	//body->setType(BodyType::DYNAMIC);
 	
 	//Serial Connection
-	phraser = new VTSerialPhraser();
+	parser = new VTSerialPhraser();
 	Serial_Connect();
 }
 
@@ -121,7 +124,7 @@ void Serial_Connect()
 
 void Serial_Read()
 {
-	phraser->Update(console);
+	parser->Update(console);
 	
 	/*
 	if (console->isOpen())
@@ -146,6 +149,16 @@ void Serial_Read()
 
 void Serial_Write()
 {
+	uint8_t Buffer[20] = {};
+	if (lit) Buffer[0] = 1;
+	Buffer[1] = count;	
+	//if (parser->ConsoleButtons.TopTog[2])
+	if (speed < 0) speed = 0;
+	if (speed > 4) speed = 4;
+	
+	Buffer[5 + speed] = 255;
+	
+	parser->Send(console, Buffer, 20);
 	/*
 	if (console->isOpen())
 	{
@@ -312,14 +325,15 @@ void render()
 	//render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
 	
 	FC_Draw(gFontAG, gRenderer, 100, 0, to_string(count).c_str());
-	if (phraser->ConsoleButtons.LeftBoxTog[0]) FC_Draw(gFontAG, gRenderer, 0, 200, "0");
-	if (phraser->ConsoleButtons.LeftBoxTog[1]) FC_Draw(gFontAG, gRenderer, 20, 200, "0");
-	if (phraser->ConsoleButtons.LeftBoxTog[2]) FC_Draw(gFontAG, gRenderer, 40, 200, "0");
-	if (phraser->ConsoleButtons.LeftBoxTog[3]) FC_Draw(gFontAG, gRenderer, 60, 200, "0");
-	if (phraser->ConsoleButtons.LeftBoxTog[4]) FC_Draw(gFontAG, gRenderer, 0, 250, "0");
-	if (phraser->ConsoleButtons.LeftBoxTog[5]) FC_Draw(gFontAG, gRenderer, 20, 250, "0");
-	if (phraser->ConsoleButtons.LeftBoxTog[6]) FC_Draw(gFontAG, gRenderer, 40, 250, "0");
-	if (phraser->ConsoleButtons.LeftBoxTog[7]) FC_Draw(gFontAG, gRenderer, 60, 250, "0");
+	FC_Draw(gFontAG, gRenderer, 150, 0, to_string(speed).c_str());
+	if (parser->ConsoleButtons.LeftBoxTog[0]) FC_Draw(gFontAG, gRenderer, 0, 200, "0");
+	if (parser->ConsoleButtons.LeftBoxTog[1]) FC_Draw(gFontAG, gRenderer, 20, 200, "0");
+	if (parser->ConsoleButtons.LeftBoxTog[2]) FC_Draw(gFontAG, gRenderer, 40, 200, "0");
+	if (parser->ConsoleButtons.LeftBoxTog[3]) FC_Draw(gFontAG, gRenderer, 60, 200, "0");
+	if (parser->ConsoleButtons.LeftBoxTog[4]) FC_Draw(gFontAG, gRenderer, 0, 250, "0");
+	if (parser->ConsoleButtons.LeftBoxTog[5]) FC_Draw(gFontAG, gRenderer, 20, 250, "0");
+	if (parser->ConsoleButtons.LeftBoxTog[6]) FC_Draw(gFontAG, gRenderer, 40, 250, "0");
+	if (parser->ConsoleButtons.LeftBoxTog[7]) FC_Draw(gFontAG, gRenderer, 60, 250, "0");
 /*
 	
 	if (phraser->ConsoleButtons.LTog[0]) render_text(gRenderer, 0, 200, "0", gFontAG, &color);
@@ -563,12 +577,14 @@ int main(int argc, char **argv)
 						
 			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
 			{
-				if (phraser->ConsoleButtons.FlightStick[0] == true) Scroll.y = Scroll.y + 5 * Zoom;
-				if (phraser->ConsoleButtons.FlightStick[1] == true) Scroll.y = Scroll.y - 5 * Zoom;
-				if (phraser->ConsoleButtons.FlightStick[2] == true) Scroll.x = Scroll.x + 5 * Zoom;
-				if (phraser->ConsoleButtons.FlightStick[3] == true) Scroll.x = Scroll.x - 5 * Zoom;
-				Serial_Write();
+				if (parser->ConsoleButtons.FlightStick[0] == true) Scroll.y = Scroll.y + 5 * Zoom;
+				if (parser->ConsoleButtons.FlightStick[1] == true) Scroll.y = Scroll.y - 5 * Zoom;
+				if (parser->ConsoleButtons.FlightStick[2] == true) Scroll.x = Scroll.x + 5 * Zoom;
+				if (parser->ConsoleButtons.FlightStick[3] == true) Scroll.x = Scroll.x - 5 * Zoom;
+				if (parser->ConsoleButtons.DoubleTog[6] == true) speed--;
+				if (parser->ConsoleButtons.DoubleTog[7] == true) speed++;
 				
+				Serial_Write();
 				render();
 				//renderGalaxyMap(0, 0);
 				fps++;

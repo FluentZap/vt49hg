@@ -20,6 +20,7 @@ public:
 	void ReadDataStream(uint8_t*);
 	void Update(serial::Serial*);
 	
+	void Send(serial::Serial* Stream, const uint8_t* Buffer, size_t Size);	
 	
 	
 	struct RecievedData_Type
