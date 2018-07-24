@@ -121,7 +121,9 @@ void Serial_Connect()
 
 void Serial_Read()
 {
+	phraser->Update(console);
 	
+	/*
 	if (console->isOpen())
 	{
 		if (console->available() > 0 && console->available() >= 12)
@@ -139,12 +141,12 @@ void Serial_Read()
 		}
 
 	}
-	
+	*/
 }
 
 void Serial_Write()
 {
-	
+	/*
 	if (console->isOpen())
 	{
 		//console->readline(buff, 100, "VT");
@@ -163,7 +165,7 @@ void Serial_Write()
 		//memcpy(tempb, holdb, 13);
 		
 	}
-	
+	*/
 }
 
 

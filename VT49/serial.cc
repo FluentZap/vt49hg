@@ -157,6 +157,7 @@ Serial::read (size_t size)
   return buffer;
 }
 
+
 size_t
 Serial::readline (string &buffer, size_t size, string eol)
 {

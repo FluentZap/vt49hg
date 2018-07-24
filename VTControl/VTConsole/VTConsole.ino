@@ -6,6 +6,7 @@
 #include <Adafruit_LEDBackpack.h>
 #include <Aurebesh6p.h>
 #include <Fonts/FreeSans9pt7b.h>
+#include <PacketSerial.h>
 
 FASTLED_USING_NAMESPACE
 
@@ -14,7 +15,7 @@ FASTLED_USING_NAMESPACE
 #endif
 
 //Console
-
+PacketSerial myPacketSerial;
 
 #define DATA_PIN    5
 #define LED_TYPE    WS2811
@@ -125,8 +126,8 @@ void SendByteBuffer(byte[12]);
 long LastRender;
 long LastUpdate;
 
-byte SendBuffer[12];
-byte TempBB[12];
+byte SendBuffer[12] = {};
+byte TempBB[12] = {};
 char *buff;
 
 int Target=0;
@@ -168,9 +169,10 @@ void setup() {
   byte SendBuffer[12];  
 
   
-  //Serial.begin(115200);
-  Serial.begin(115200);
-    
+  //Serial.begin(115200);  
+  myPacketSerial.begin(115200);
+  myPacketSerial.setPacketHandler(&onPacketReceived);
+
   OLEDdisplay.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3D (for the 128x64)
   OLEDdisplay.setFont(&FreeSans9pt7b);
   matrix.begin(0x70);  // pass in the address
@@ -201,8 +203,9 @@ void loop()
   if (millis() > (LastUpdate + 1000 / UPDATES_PER_SECOND))
   {      
       BuildBuffer();
-      CopyBuffer(TempBB, SendBuffer);
-      SendByteBuffer(TempBB);
+      //CopyBuffer(TempBB, SendBuffer);
+      myPacketSerial.send(TempBB, 13);
+      //SendByteBuffer(TempBB);
       /*
       if (CheckBuffer(TempBB, SendBuffer))
       {
@@ -212,9 +215,29 @@ void loop()
   */      
       LastUpdate = millis();
   }
-
-  ReadSerial();
   
+  myPacketSerial.update();
+  //ReadSerial();
+  
+}
+
+
+void onPacketReceived(const uint8_t* buffer, size_t size)
+{
+  // In this example, we will simply reverse the contents of the array and send
+  // it back to the sender.
+
+  // Make a temporary buffer.
+  uint8_t tempBuffer[size];
+
+  // Copy the packet into our temporary buffer.
+  //memcpy(tempBuffer, buffer, size);  
+    
+    Target = tempBuffer[1];
+  if (tempBuffer[0] == 1)
+    digitalWrite(FightStick_LED, HIGH);
+  else
+    digitalWrite(FightStick_LED, LOW);
 }
 
 
@@ -229,14 +252,14 @@ void ReadSerial()
 {  
   char incomingByte;
   
-  if (Serial.available() > 0)
+  if (Serial.available() >= 202)
   {
-    byte buf[3] = {};
+    byte buf[100] = {};
     
-    if (Serial.read()== '\n')
+    if (Serial.read() == '\n')
     {
-      Serial.readBytes(buf, 3);
-    }
+      Serial.readBytes(buf, 100);
+    }       
     
   Target = buf[1];
   if (buf[0] == 1)
@@ -383,4 +406,5 @@ void Render ()
 
   OLEDdisplay.display();
 }
+
 

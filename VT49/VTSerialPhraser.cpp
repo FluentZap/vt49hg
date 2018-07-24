@@ -1,5 +1,5 @@
 #include "VTSerialPhraser.h"
-
+#include "COBS.h"
 
 const unsigned char option0 = 0b00000001; // represents bit 0
 const unsigned char option1 = 0b00000010; // represents bit 1
@@ -12,16 +12,15 @@ const unsigned char option7 = 0b10000000; // represents bit 7
 
 //#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
 
-
-void VTSerialPhraser::ReadDataStream()
+void VTSerialPhraser::ReadDataStream(uint8_t* Buffer)
 {		
-	RecievedData.DoubleTog = DataBuffer[0];
-	RecievedData.LEDTog = DataBuffer[1];
-	RecievedData.TopTog = DataBuffer[2];
-	RecievedData.LEDButton = DataBuffer[3];
-	RecievedData.LeftBoxTog = DataBuffer[4];
-	RecievedData.RightBoxTog = DataBuffer[5];
-	RecievedData.FlightStick = DataBuffer[6];
+	RecievedData.DoubleTog = Buffer[0];
+	RecievedData.LEDTog = Buffer[1];
+	RecievedData.TopTog = Buffer[2];
+	RecievedData.LEDButton = Buffer[3];
+	RecievedData.LeftBoxTog = Buffer[4];
+	RecievedData.RightBoxTog = Buffer[5];
+	RecievedData.FlightStick = Buffer[6];
 		
 		
 	ConsoleButtons.DoubleTog[0] = (RecievedData.DoubleTog & option0);
@@ -81,7 +80,40 @@ void VTSerialPhraser::ReadDataStream()
 
 
 
+void VTSerialPhraser::Update(serial::Serial* stream)
+{	
+	if (stream->isOpen())
+	{
+		while (stream->available() > 0)
+		{
+			uint8_t data[1] = {};
+			stream->read(data, 1);			
+			
+			if (data[0] == Marker)
+			{
+				uint8_t DecodeBuffer[DataBufferIndex];
+				size_t numDecoded = COBS::decode(DataBuffer, DataBufferIndex, DecodeBuffer);				
+				ReadDataStream(DecodeBuffer);
+				DataBufferIndex = 0;
+			}
+			else
+			{
+				if ((DataBufferIndex + 1) < BufferSize)
+				{
+					DataBuffer[DataBufferIndex++] = data[0];
+				}
+				else
+				{
+					//Error
+				}				
+			}
+		}
 
+	}
+	
+	
+	
+}
 
 
 
