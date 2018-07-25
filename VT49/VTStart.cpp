@@ -11,6 +11,7 @@
 #include <VTMap.h>
 //#include <sstream>
 #include <SDL_FontCache.h>
+#include <thread>
 
 //#include "reactphysics3d.h"
 #include "VTStart.h"
@@ -25,8 +26,9 @@ using namespace tinyxml2;
 
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
-const int SCREEN_FPS = 1000;
+const int SCREEN_FPS = 60;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
+const int SERIAL_TICKS_PER_FRAME = 1000 / 60;
 
 
 bool quit = false;
@@ -34,7 +36,7 @@ int framsPerSec;
 
 size_t fpsTicks;
 size_t fpsStart;
-		
+size_t serialTicks;
 //VTNetwork* net;
 
 
@@ -65,8 +67,6 @@ double Zoom = 1;
 int count;
 bool lit = false;
 int speed=0;
-
-uint8_t Buffer[150] = {};
 
 
 const char* pName;
@@ -108,9 +108,9 @@ void Serial_Connect()
 	//serial::Serial console("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
 	//try
 	//{
-		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 115200, serial::Timeout::simpleTimeout(0));
-		if (CurrentOS == WIN) console = new serial::Serial("COM3", 115200, serial::Timeout::simpleTimeout(0));
-		console->setTimeout(10, 10, 10, 0, 0);
+		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 115200, serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == WIN) console = new serial::Serial("COM3", 115200, serial::Timeout::simpleTimeout(10));
+		console->setTimeout(10, 10, 10, 10, 10);
 	//}
 	//catch(serial::IOException)
 	//{
@@ -146,35 +146,45 @@ void Serial_Read()
 
 void Serial_Write()
 {	
-	if (lit) Buffer[0] = 1;
-	Buffer[1] = count;	
-	//if (parser->ConsoleButtons.TopTog[2])
-	if (speed < 0) speed = 0;
-	if (speed > 4) speed = 4;
-	
-	Buffer[5 + speed] = 255;
-	
-	parser->Send(console, Buffer, 150);
-	/*
-	if (console->isOpen())
+	while(!quit)
 	{
-		//console->readline(buff, 100, "VT");
-		//console->read(phraser->DataBuffer, 12);
-		//phraser->ReadDataStream();
-		uint8_t Buffer[3] = {};
-		if (lit) Buffer[0] = 1;
-		Buffer[1] = count;		
-		
-		console->write("\n");
-		console->write(Buffer, 3);
-		//buff = "";
-		
-		//uint8_t holdb[12];
-		//if (console->read(holdb, 13) == 13)
-		//memcpy(tempb, holdb, 13);
-		
+		if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
+		{
+			console->flushOutput();
+			uint8_t Buffer[10] = {};
+			if (lit) Buffer[0] = 1;
+			Buffer[1] = count;
+			if (parser->ConsoleButtons.TopTog[2])
+				Buffer[0] = 1;
+			//if (speed < 0) speed = 0;
+			//if (speed > 4) speed = 4;
+			
+			//Buffer[5 + speed] = 255;
+			
+			parser->Send(console, Buffer, 10);			
+			/*
+			if (console->isOpen())
+			{
+				//console->readline(buff, 100, "VT");
+				//console->read(phraser->DataBuffer, 12);
+				//phraser->ReadDataStream();
+				uint8_t Buffer[3] = {};
+				if (lit) Buffer[0] = 1;
+				Buffer[1] = count;		
+				
+				console->write("\n");
+				console->write(Buffer, 3);
+				//buff = "";
+				
+				//uint8_t holdb[12];
+				//if (console->read(holdb, 13) == 13)
+				//memcpy(tempb, holdb, 13);
+				
+			}
+			*/
+			serialTicks = SDL_GetTicks();
+		}
 	}
-	*/
 }
 
 
@@ -556,20 +566,20 @@ int main(int argc, char **argv)
 		
 		fpsTicks = SDL_GetTicks();
 		//While application is running		
+		std::thread serialThread(Serial_Write);
 		
 		while (!quit)
 		{			
 			//startTicks = SDL_GetTicks();
-			
-			
+						
 			
 			while (SDL_PollEvent(&e) != 0) { handleUI(e); }
 			//scene->Step();
 			//world->update( 1.0 / 60.0 );	
 			Serial_Read();
 			
-			//if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
-			//{
+			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
+			{
 				
 				if (parser->ConsoleButtons.FlightStick[0] == true) Scroll.y = Scroll.y + 5 * Zoom;
 				if (parser->ConsoleButtons.FlightStick[1] == true) Scroll.y = Scroll.y - 5 * Zoom;
@@ -577,13 +587,12 @@ int main(int argc, char **argv)
 				if (parser->ConsoleButtons.FlightStick[3] == true) Scroll.x = Scroll.x - 5 * Zoom;
 				if (parser->ConsoleButtons.DoubleTog[6] == true) speed--;
 				if (parser->ConsoleButtons.DoubleTog[7] == true) speed++;
-				
-				Serial_Write();
-				render();
-				//renderGalaxyMap(0, 0);
+								
+				//render();
+				renderGalaxyMap(0, 0);
 				fps++;
 				fpsTicks = SDL_GetTicks();				
-			//}
+			}
 			
 			if (fpsStart + 1000 < SDL_GetTicks())
 			{				
@@ -598,7 +607,8 @@ int main(int argc, char **argv)
 			//{
 			//SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
 			//}
-		}		
+		}
+		serialThread.join();
 			
 	}
 	else printf("Failed to initialize!\n");

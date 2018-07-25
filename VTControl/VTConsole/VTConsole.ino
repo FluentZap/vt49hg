@@ -226,12 +226,12 @@ void onPacketReceived(const uint8_t* buffer, size_t size)
   // it back to the sender.
 
   // Make a temporary buffer.
-  //uint8_t tempBuffer[size];
+  uint8_t tempBuffer[size];
 
   // Copy the packet into our temporary buffer.
-  //memcpy(tempBuffer, buffer, size);  
+  memcpy(tempBuffer, buffer, size);  
 
-  ProcessBuffer(buffer);  
+  ProcessBuffer(tempBuffer);  
 }
 
 
