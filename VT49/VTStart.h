@@ -21,6 +21,8 @@ void close();
 
 void Serial_Connect();
 void Serial_Read();
+void Serial_Write();
+
 
 SDL_Texture* loadTexture(std::string path);
 SDL_Window* gWindow = NULL;
