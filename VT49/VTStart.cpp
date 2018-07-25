@@ -108,8 +108,8 @@ void Serial_Connect()
 	//serial::Serial console("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
 	//try
 	//{
-		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 115200, serial::Timeout::simpleTimeout(10));
-		if (CurrentOS == WIN) console = new serial::Serial("COM3", 115200, serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 1000000 , serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == WIN) console = new serial::Serial("COM3", 1000000 , serial::Timeout::simpleTimeout(10));
 		console->setTimeout(10, 10, 10, 10, 10);
 	//}
 	//catch(serial::IOException)
@@ -151,7 +151,7 @@ void Serial_Write()
 		if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
 		{
 			console->flushOutput();
-			uint8_t Buffer[10] = {};
+			uint8_t Buffer[16] = {};
 			if (lit) Buffer[0] = 1;
 			Buffer[1] = count;
 			if (parser->ConsoleButtons.TopTog[2])
@@ -161,7 +161,7 @@ void Serial_Write()
 			
 			//Buffer[5 + speed] = 255;
 			
-			parser->Send(console, Buffer, 10);			
+			parser->Send(console, Buffer, 16);			
 			/*
 			if (console->isOpen())
 			{
@@ -608,7 +608,7 @@ int main(int argc, char **argv)
 			//SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
 			//}
 		}
-		serialThread.join();
+		//serialThread.join();
 			
 	}
 	else printf("Failed to initialize!\n");
