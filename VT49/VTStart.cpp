@@ -18,14 +18,14 @@
 //#include "VTNetwork.h"
 
 
+
 using namespace std;
 using namespace tinyxml2;
 //using namespace reactphysics3d;
 
-
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
-const int SCREEN_FPS = 60;
+const int SCREEN_FPS = 1000;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 
@@ -66,13 +66,11 @@ int count;
 bool lit = false;
 int speed=0;
 
+uint8_t Buffer[150] = {};
 
 
 const char* pName;
 VTMap * StarMap;
-
-
-
 
 
 void init_setup()
@@ -103,7 +101,6 @@ void init_setup()
 }
 
 
-
 void Serial_Connect()
 {
 	
@@ -111,9 +108,9 @@ void Serial_Connect()
 	//serial::Serial console("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
 	//try
 	//{
-		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 115200, serial::Timeout::simpleTimeout(10));
-		if (CurrentOS == WIN) console = new serial::Serial("COM3", 115200, serial::Timeout::simpleTimeout(10));
-		console->setTimeout(10, 10, 10, 10, 10);
+		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 115200, serial::Timeout::simpleTimeout(0));
+		if (CurrentOS == WIN) console = new serial::Serial("COM3", 115200, serial::Timeout::simpleTimeout(0));
+		console->setTimeout(10, 10, 10, 0, 0);
 	//}
 	//catch(serial::IOException)
 	//{
@@ -148,8 +145,7 @@ void Serial_Read()
 }
 
 void Serial_Write()
-{
-	uint8_t Buffer[20] = {};
+{	
 	if (lit) Buffer[0] = 1;
 	Buffer[1] = count;	
 	//if (parser->ConsoleButtons.TopTog[2])
@@ -158,7 +154,7 @@ void Serial_Write()
 	
 	Buffer[5 + speed] = 255;
 	
-	parser->Send(console, Buffer, 20);
+	parser->Send(console, Buffer, 150);
 	/*
 	if (console->isOpen())
 	{
@@ -297,7 +293,7 @@ void render()
 	
 	//for (int x = 0; x < count; x++)
 	//{
-//		pName = planetMap->FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "Placemark" )->NextSiblingElement( "Placemark" )->FirstChildElement( "name" )->GetText();
+		//pName = planetMap->FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "Placemark" )->NextSiblingElement( "Placemark" )->FirstChildElement( "name" )->GetText();
 	//}
 	
 	
@@ -316,14 +312,14 @@ void render()
 	if (StarMap->StarMap.find(count) != StarMap->StarMap.end())
 	{
 		if (StarMap->StarMap.find(count)->second->Name != nullptr)
-		{
-			//render_text(gRenderer, 100, 100, StarMap->StarMap.find(count)->second->Name, gFontAG, &color);
+		{			
+			FC_Draw(gFontAG, gRenderer, 100, 100, StarMap->StarMap.find(count)->second->Name);
 		}				
 	}
 	
 	
 	//render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
-	
+	/*
 	FC_Draw(gFontAG, gRenderer, 100, 0, to_string(count).c_str());
 	FC_Draw(gFontAG, gRenderer, 150, 0, to_string(speed).c_str());
 	if (parser->ConsoleButtons.LeftBoxTog[0]) FC_Draw(gFontAG, gRenderer, 0, 200, "0");
@@ -334,6 +330,7 @@ void render()
 	if (parser->ConsoleButtons.LeftBoxTog[5]) FC_Draw(gFontAG, gRenderer, 20, 250, "0");
 	if (parser->ConsoleButtons.LeftBoxTog[6]) FC_Draw(gFontAG, gRenderer, 40, 250, "0");
 	if (parser->ConsoleButtons.LeftBoxTog[7]) FC_Draw(gFontAG, gRenderer, 60, 250, "0");
+	 */
 /*
 	
 	if (phraser->ConsoleButtons.LTog[0]) render_text(gRenderer, 0, 200, "0", gFontAG, &color);
@@ -368,6 +365,7 @@ void render()
 		render_text(gRenderer, 40, 300, "Closed", gFontAG, &color);
 	}
 	*/
+	
 	rect = {Scroll.x, Scroll.y, 850 * Zoom, 1250 * Zoom};
 	SDL_RenderCopy(gRenderer, gTexture, NULL, &rect);
 	
@@ -425,9 +423,6 @@ void renderGalaxyMap(int renderX, int renderY)
 		
 	SDL_RenderPresent(gRenderer);
 }
-
-
-
 
 bool init()
 {
@@ -551,12 +546,8 @@ void close()
 
 }
 
-
-
-
 int main(int argc, char **argv)
-{
-	
+{	
 	if (init())
 	{
 		init_setup();
@@ -564,19 +555,22 @@ int main(int argc, char **argv)
 		int fps;
 		
 		fpsTicks = SDL_GetTicks();
-		//While application is running
+		//While application is running		
 		
 		while (!quit)
 		{			
 			//startTicks = SDL_GetTicks();
 			
+			
+			
 			while (SDL_PollEvent(&e) != 0) { handleUI(e); }
 			//scene->Step();
 			//world->update( 1.0 / 60.0 );	
-			Serial_Read();			
-						
-			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
-			{
+			Serial_Read();
+			
+			//if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
+			//{
+				
 				if (parser->ConsoleButtons.FlightStick[0] == true) Scroll.y = Scroll.y + 5 * Zoom;
 				if (parser->ConsoleButtons.FlightStick[1] == true) Scroll.y = Scroll.y - 5 * Zoom;
 				if (parser->ConsoleButtons.FlightStick[2] == true) Scroll.x = Scroll.x + 5 * Zoom;
@@ -589,7 +583,7 @@ int main(int argc, char **argv)
 				//renderGalaxyMap(0, 0);
 				fps++;
 				fpsTicks = SDL_GetTicks();				
-			}
+			//}
 			
 			if (fpsStart + 1000 < SDL_GetTicks())
 			{				
@@ -604,8 +598,7 @@ int main(int argc, char **argv)
 			//{
 			//SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
 			//}
-		}
-
+		}		
 			
 	}
 	else printf("Failed to initialize!\n");

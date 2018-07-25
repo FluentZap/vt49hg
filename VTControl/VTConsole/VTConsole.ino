@@ -170,7 +170,7 @@ void setup() {
   byte SendBuffer[12];  
 
   
-  //Serial.begin(115200);  
+  //Serial.begin(115200);
   myPacketSerial.begin(115200);
   myPacketSerial.setPacketHandler(&onPacketReceived);
 
