@@ -99,14 +99,18 @@ void VTSerialPhraser::Update(serial::Serial* stream)
 		while (stream->available() > 0)
 		{
 			uint8_t data[1] = {};
-			stream->read(data, 1);			
+			stream->read(data, 1);
 			
 			if (data[0] == Marker)
 			{
-				uint8_t DecodeBuffer[DataBufferIndex];
-				size_t numDecoded = COBS::decode(DataBuffer, DataBufferIndex, DecodeBuffer);				
-				ReadDataStream(DecodeBuffer);
-				DataBufferIndex = 0;
+				if (DataBufferIndex == 14)
+				{
+					uint8_t DecodeBuffer[DataBufferIndex];
+					size_t numDecoded = COBS::decode(DataBuffer, DataBufferIndex, DecodeBuffer);
+					ReadDataStream(DecodeBuffer);
+					DataBufferIndex = 0;
+				}
+				if (DataBufferIndex > 14) DataBufferIndex = 0;
 			}
 			else
 			{
@@ -116,7 +120,7 @@ void VTSerialPhraser::Update(serial::Serial* stream)
 				}
 				else
 				{
-					//Error
+					DataBufferIndex = 0;
 				}				
 			}
 		}

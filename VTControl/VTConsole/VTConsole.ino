@@ -171,7 +171,7 @@ void setup() {
 
   
   //Serial.begin(115200);
-  myPacketSerial.begin(115200);
+  myPacketSerial.begin(1000000);
   myPacketSerial.setPacketHandler(&onPacketReceived);
 
   OLEDdisplay.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3D (for the 128x64)
@@ -226,12 +226,13 @@ void onPacketReceived(const uint8_t* buffer, size_t size)
   // it back to the sender.
 
   // Make a temporary buffer.
-  uint8_t tempBuffer[size];
-
-  // Copy the packet into our temporary buffer.
-  memcpy(tempBuffer, buffer, size);  
-
-  ProcessBuffer(tempBuffer);  
+  if(size == 16)
+  {
+    uint8_t tempBuffer[size];
+    // Copy the packet into our temporary buffer.
+    memcpy(tempBuffer, buffer, size);  
+    ProcessBuffer(tempBuffer);   
+  }
 }
 
 
@@ -299,6 +300,7 @@ void BuildBuffer()
   bitWrite(TempBB[0], 6, (digitalRead(ToggleDuel_4_U) == LOW));
   bitWrite(TempBB[0], 7, (digitalRead(ToggleDuel_4_D) == LOW));
 
+  TempBB[0] = 2; 
   //LED Toggels
   bitWrite(TempBB[1], 0, (digitalRead(ToggleLit_1) == LOW));
   bitWrite(TempBB[1], 1, (digitalRead(ToggleLit_2) == LOW));
@@ -348,10 +350,10 @@ void BuildBuffer()
     
   TempBB[7] = 0;
   TempBB[8] = 0;
-  TempBB[9] = 0;
-  TempBB[10] = 0;
-  TempBB[11] = 0;
-  TempBB[12] = 0;  
+  TempBB[9] = 10;
+  TempBB[10] = 11;
+  TempBB[11] = 12;
+  TempBB[12] = 13;  
 }
 
 
