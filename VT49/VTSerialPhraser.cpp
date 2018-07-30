@@ -23,56 +23,56 @@ void VTSerialPhraser::ReadDataStream(uint8_t* Buffer)
 	RecievedData.FlightStick = Buffer[6];
 		
 		
-	ConsoleButtons.DoubleTog[0] = (RecievedData.DoubleTog & option0);
-	ConsoleButtons.DoubleTog[1] = (RecievedData.DoubleTog & option1);
-	ConsoleButtons.DoubleTog[2] = (RecievedData.DoubleTog & option2);	
-	ConsoleButtons.DoubleTog[3] = (RecievedData.DoubleTog & option3);	
-	ConsoleButtons.DoubleTog[4] = (RecievedData.DoubleTog & option4);	
-	ConsoleButtons.DoubleTog[5] = (RecievedData.DoubleTog & option5);	
-	ConsoleButtons.DoubleTog[6] = (RecievedData.DoubleTog & option6);	
-	ConsoleButtons.DoubleTog[7] = (RecievedData.DoubleTog & option7);
+	ConsoleData.DoubleTog[0] = (RecievedData.DoubleTog & option0);
+	ConsoleData.DoubleTog[1] = (RecievedData.DoubleTog & option1);
+	ConsoleData.DoubleTog[2] = (RecievedData.DoubleTog & option2);	
+	ConsoleData.DoubleTog[3] = (RecievedData.DoubleTog & option3);	
+	ConsoleData.DoubleTog[4] = (RecievedData.DoubleTog & option4);	
+	ConsoleData.DoubleTog[5] = (RecievedData.DoubleTog & option5);	
+	ConsoleData.DoubleTog[6] = (RecievedData.DoubleTog & option6);	
+	ConsoleData.DoubleTog[7] = (RecievedData.DoubleTog & option7);
 	
-	ConsoleButtons.LEDTog[0] = (RecievedData.LEDTog & option0);
-	ConsoleButtons.LEDTog[1] = (RecievedData.LEDTog & option1);
-	ConsoleButtons.LEDTog[2] = (RecievedData.LEDTog & option2);
-	ConsoleButtons.LEDTog[3] = (RecievedData.LEDTog & option3);
-	ConsoleButtons.LEDTog[4] = (RecievedData.LEDTog & option4);
+	ConsoleData.LEDTog[0] = (RecievedData.LEDTog & option0);
+	ConsoleData.LEDTog[1] = (RecievedData.LEDTog & option1);
+	ConsoleData.LEDTog[2] = (RecievedData.LEDTog & option2);
+	ConsoleData.LEDTog[3] = (RecievedData.LEDTog & option3);
+	ConsoleData.LEDTog[4] = (RecievedData.LEDTog & option4);
 	
-	ConsoleButtons.TopTog[0] = (RecievedData.TopTog & option0);
-	ConsoleButtons.TopTog[1] = (RecievedData.TopTog & option1);
-	ConsoleButtons.TopTog[2] = (RecievedData.TopTog & option2);
-	ConsoleButtons.TopTog[3] = (RecievedData.TopTog & option3);
+	ConsoleData.TopTog[0] = (RecievedData.TopTog & option0);
+	ConsoleData.TopTog[1] = (RecievedData.TopTog & option1);
+	ConsoleData.TopTog[2] = (RecievedData.TopTog & option2);
+	ConsoleData.TopTog[3] = (RecievedData.TopTog & option3);
 	
-	ConsoleButtons.RotButton[0] = (RecievedData.TopTog & option4);
-	ConsoleButtons.RotButton[1] = (RecievedData.TopTog & option5);
+	ConsoleData.RotButton[0] = (RecievedData.TopTog & option4);
+	ConsoleData.RotButton[1] = (RecievedData.TopTog & option5);
 	
-	ConsoleButtons.LEDButton[0] = (RecievedData.LEDButton & option0);
-	ConsoleButtons.LEDButton[1] = (RecievedData.LEDButton & option1);
-	ConsoleButtons.LEDButton[2] = (RecievedData.LEDButton & option2);
-	ConsoleButtons.LEDButton[3] = (RecievedData.LEDButton & option3);
+	ConsoleData.LEDButton[0] = (RecievedData.LEDButton & option0);
+	ConsoleData.LEDButton[1] = (RecievedData.LEDButton & option1);
+	ConsoleData.LEDButton[2] = (RecievedData.LEDButton & option2);
+	ConsoleData.LEDButton[3] = (RecievedData.LEDButton & option3);
 	
-	ConsoleButtons.LeftBoxTog[0] = (RecievedData.LeftBoxTog & option0);
-	ConsoleButtons.LeftBoxTog[1] = (RecievedData.LeftBoxTog & option1);
-	ConsoleButtons.LeftBoxTog[2] = (RecievedData.LeftBoxTog & option2);
-	ConsoleButtons.LeftBoxTog[3] = (RecievedData.LeftBoxTog & option3);
-	ConsoleButtons.LeftBoxTog[4] = (RecievedData.LeftBoxTog & option4);
-	ConsoleButtons.LeftBoxTog[5] = (RecievedData.LeftBoxTog & option5);
-	ConsoleButtons.LeftBoxTog[6] = (RecievedData.LeftBoxTog & option6);
-	ConsoleButtons.LeftBoxTog[7] = (RecievedData.LeftBoxTog & option7);
+	ConsoleData.LeftBoxTog[0] = (RecievedData.LeftBoxTog & option0);
+	ConsoleData.LeftBoxTog[1] = (RecievedData.LeftBoxTog & option1);
+	ConsoleData.LeftBoxTog[2] = (RecievedData.LeftBoxTog & option2);
+	ConsoleData.LeftBoxTog[3] = (RecievedData.LeftBoxTog & option3);
+	ConsoleData.LeftBoxTog[4] = (RecievedData.LeftBoxTog & option4);
+	ConsoleData.LeftBoxTog[5] = (RecievedData.LeftBoxTog & option5);
+	ConsoleData.LeftBoxTog[6] = (RecievedData.LeftBoxTog & option6);
+	ConsoleData.LeftBoxTog[7] = (RecievedData.LeftBoxTog & option7);
 	
-	ConsoleButtons.RightBoxTog[0] = (RecievedData.RightBoxTog & option0);
-	ConsoleButtons.RightBoxTog[1] = (RecievedData.RightBoxTog & option1);
-	ConsoleButtons.RightBoxTog[2] = (RecievedData.RightBoxTog & option2);
-	ConsoleButtons.RightBoxTog[3] = (RecievedData.RightBoxTog & option3);
-	ConsoleButtons.RightBoxTog[4] = (RecievedData.RightBoxTog & option4);
-	ConsoleButtons.RightBoxTog[5] = (RecievedData.RightBoxTog & option5);
-	ConsoleButtons.RightBoxTog[6] = (RecievedData.RightBoxTog & option6);
-	ConsoleButtons.RightBoxTog[7] = (RecievedData.RightBoxTog & option7);
+	ConsoleData.RightBoxTog[0] = (RecievedData.RightBoxTog & option0);
+	ConsoleData.RightBoxTog[1] = (RecievedData.RightBoxTog & option1);
+	ConsoleData.RightBoxTog[2] = (RecievedData.RightBoxTog & option2);
+	ConsoleData.RightBoxTog[3] = (RecievedData.RightBoxTog & option3);
+	ConsoleData.RightBoxTog[4] = (RecievedData.RightBoxTog & option4);
+	ConsoleData.RightBoxTog[5] = (RecievedData.RightBoxTog & option5);
+	ConsoleData.RightBoxTog[6] = (RecievedData.RightBoxTog & option6);
+	ConsoleData.RightBoxTog[7] = (RecievedData.RightBoxTog & option7);
 	
-	ConsoleButtons.FlightStick[0] = (RecievedData.FlightStick & option0);
-	ConsoleButtons.FlightStick[1] = (RecievedData.FlightStick & option1);
-	ConsoleButtons.FlightStick[2] = (RecievedData.FlightStick & option2);
-	ConsoleButtons.FlightStick[3] = (RecievedData.FlightStick & option3);
+	ConsoleData.FlightStick[0] = (RecievedData.FlightStick & option0);
+	ConsoleData.FlightStick[1] = (RecievedData.FlightStick & option1);
+	ConsoleData.FlightStick[2] = (RecievedData.FlightStick & option2);
+	ConsoleData.FlightStick[3] = (RecievedData.FlightStick & option3);
 	
 	
 }

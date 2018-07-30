@@ -8,6 +8,7 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
+    <File Name="PanelData.cpp"/>
     <File Name="SDL_FontCache.c"/>
     <File Name="VTStart.cpp"/>
     <File Name="VTNetwork.cpp"/>
@@ -16,6 +17,7 @@
     <File Name="VTMap.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
+    <File Name="PanelData.h"/>
     <File Name="COBS.h"/>
     <File Name="SDL_FontCache.h"/>
     <File Name="VTNetwork.h"/>
