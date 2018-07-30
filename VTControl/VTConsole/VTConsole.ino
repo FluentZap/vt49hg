@@ -24,8 +24,8 @@ PacketSerial myPacketSerial;
 CRGB leds[NUM_LEDS];
 
 #define BRIGHTNESS        64
-#define FRAMES_PER_SECOND  60
-#define UPDATES_PER_SECOND  60
+#define FRAMES_PER_SECOND  30
+#define UPDATES_PER_SECOND  30
 
 
 #define OLED_RESET 2
@@ -171,7 +171,7 @@ void setup() {
 
   
   //Serial.begin(115200);
-  myPacketSerial.begin(1000000);
+  myPacketSerial.begin(2000000);
   myPacketSerial.setPacketHandler(&onPacketReceived);
 
   OLEDdisplay.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3D (for the 128x64)
@@ -189,11 +189,12 @@ void setup() {
 
 void loop()
 {
-  //if (digitalRead(26) == LOW) fill_rainbow( leds, NUM_LEDS, gHue, 7);
-  //if (digitalRead(22) == LOW) fadeToBlackBy( leds, NUM_LEDS, 10);      
+  
+  myPacketSerial.update();
+  
   if (millis() > (LastRender + 1000 / FRAMES_PER_SECOND))
-  {    
-    Render();    
+  {
+    Render();
     LastRender = millis();
   }
 
@@ -212,11 +213,7 @@ void loop()
       }
   */      
       LastUpdate = millis();
-  }
-  
-  myPacketSerial.update();
-  //ReadSerial();
-  
+  }   
 }
 
 
@@ -230,51 +227,10 @@ void onPacketReceived(const uint8_t* buffer, size_t size)
   {
     uint8_t tempBuffer[size];
     // Copy the packet into our temporary buffer.
-    memcpy(tempBuffer, buffer, size);  
-    ProcessBuffer(tempBuffer);   
+    memcpy(tempBuffer, buffer, size);
+    ProcessBuffer(tempBuffer);
   }
 }
-
-
-void SendByteBuffer(byte bb[12])
-{  
-  Serial.print("VT");
-  Serial.write(bb, 13);
-}
-
-
-void ReadSerial()
-{  
-  char incomingByte;
-  
-  if (Serial.available() >= 202)
-  {
-    byte buf[100] = {};
-    
-    if (Serial.read() == '\n')
-    {
-      Serial.readBytes(buf, 100);
-    }       
-    
-  Target = buf[1];
-  if (buf[0] == 1)
-    digitalWrite(FightStick_LED, HIGH);
-  else
-    digitalWrite(FightStick_LED, LOW);
-  }
-  
-}
-
-
-void CopyBuffer(byte bb[12], byte bb2[12])
-{
-  for (int x = 0; x < 12; x++)
-  {
-    bb2[x] = bb[x];
-  }  
-}
-
-
 
 bool CheckBuffer(byte bb[12], byte bb2[12])
 {
@@ -359,24 +315,21 @@ void BuildBuffer()
 
 void ProcessBuffer(char* B)
 {  
-  //LedButtons 0 + Stick Light
-  //Segment 5
-  //LED's 6 156
-  
-  Target = B[1];
-  if (B[0] == 1)
-    digitalWrite(FightStick_LED, HIGH);
-  else
-    digitalWrite(FightStick_LED, LOW);  
-  
-  /*
-  for (int x = 0; x < 51; x++)
+  byte Header = B[0];
+  Target = Header;
+  //if (Header > 99)
+  //{
+
+
+  int num = (Header - 100) * 5;
+  for (int x = 0; x < 5; x++)
   {
-    leds[x].r = B[6 + x * 3];
-    leds[x].g = B[6 + (x * 3) + 1];
-    leds[x].b = B[6 + (x * 3) + 2];
-  } 
-  */      
+    leds[num].r = B[(x*3) + 1];
+    leds[num].g = B[(x*3) + 2];
+    leds[num].b = B[(x*3) + 3];
+    num++;
+  }
+  
 }
 
 
@@ -386,7 +339,7 @@ void ProcessBuffer(char* B)
 
 void Render ()
 {   
-  fill_rainbow(leds, 50, 0, 32);  
+  //fill_rainbow(leds, 50, 0, 32);  
   
   FastLED.show();
   matrix.print(1138);

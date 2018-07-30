@@ -27,8 +27,8 @@ using namespace tinyxml2;
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int SCREEN_FPS = 60;
-const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
-const int SERIAL_TICKS_PER_FRAME = 1000 / 60;
+const float SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
+const float SERIAL_TICKS_PER_FRAME = 1000 / 240;
 
 
 bool quit = false;
@@ -108,8 +108,8 @@ void Serial_Connect()
 	//serial::Serial console("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
 	//try
 	//{
-		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 1000000 , serial::Timeout::simpleTimeout(10));
-		if (CurrentOS == WIN) console = new serial::Serial("COM3", 1000000 , serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 2000000 , serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == WIN) console = new serial::Serial("COM3", 2000000 , serial::Timeout::simpleTimeout(10));
 		console->setTimeout(10, 10, 10, 10, 10);
 	//}
 	//catch(serial::IOException)
@@ -146,42 +146,50 @@ void Serial_Read()
 
 void Serial_Write()
 {	
+	uint8_t ConsolePacketSend = 100;
+	
 	while(!quit)
 	{
 		if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
 		{
+			bool change = false;
 			console->flushOutput();
 			uint8_t Buffer[16] = {};
-			if (lit) Buffer[0] = 1;
-			Buffer[1] = count;
-			if (parser->ConsoleButtons.TopTog[2])
-				Buffer[0] = 1;
-			//if (speed < 0) speed = 0;
-			//if (speed > 4) speed = 4;
+			Buffer[0] = ConsolePacketSend;
 			
-			//Buffer[5 + speed] = 255;
-			
-			parser->Send(console, Buffer, 16);			
-			/*
-			if (console->isOpen())
+			switch(ConsolePacketSend)
 			{
-				//console->readline(buff, 100, "VT");
-				//console->read(phraser->DataBuffer, 12);
-				//phraser->ReadDataStream();
-				uint8_t Buffer[3] = {};
-				if (lit) Buffer[0] = 1;
-				Buffer[1] = count;		
-				
-				console->write("\n");
-				console->write(Buffer, 3);
-				//buff = "";
-				
-				//uint8_t holdb[12];
-				//if (console->read(holdb, 13) == 13)
-				//memcpy(tempb, holdb, 13);
-				
+				case 0:
+					
+				break;										
 			}
-			*/
+						
+			if (ConsolePacketSend > 99)
+			{				
+				int num = (ConsolePacketSend - 100) * 5;
+				for (int x = 0; x < 5; x++)
+				{
+					
+					if (parser->ConsoleDataSend.LED[num].r != parser->LastConsoleDataSend.LED[num].r) change = true;
+					if (parser->ConsoleDataSend.LED[num].g != parser->LastConsoleDataSend.LED[num].g) change = true;
+					if (parser->ConsoleDataSend.LED[num].b != parser->LastConsoleDataSend.LED[num].b) change = true;
+					
+					Buffer[(x*3) + 1] = parser->ConsoleDataSend.LED[num].r;
+					Buffer[(x*3) + 2] = parser->ConsoleDataSend.LED[num].g;
+					Buffer[(x*3) + 3] = parser->ConsoleDataSend.LED[num].b;
+					num++;
+				}				
+			}
+			
+			if (change)
+			{
+				parser->Send(console, Buffer, 16);
+				memcpy(parser->LastConsoleDataSend.LED, parser->ConsoleDataSend.LED, 50);				
+			}
+				
+			ConsolePacketSend++;
+			if (ConsolePacketSend > 109) ConsolePacketSend = 100;
+			
 			serialTicks = SDL_GetTicks();
 		}
 	}
@@ -197,13 +205,21 @@ void handleUI(SDL_Event e)
 			//Mix_PlayChannel( 2, sfx1, 0 );
 			//Mix_SetPanning(2, 120, 0);			
 			//pName = planetMap->FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "Placemark" )->FirstChildElement( "name" )->GetText();			
+			parser->ConsoleDataSend.LED[count].r = 0;
+			parser->ConsoleDataSend.LED[count].g = 0;
+			parser->ConsoleDataSend.LED[count].b = 255;
+			
 			count++;
 		}
 		if (e.key.keysym.sym == SDLK_2)
 		{
 			//Mix_PlayChannel( 1, sfx2, 0 );
 			//Mix_SetPanning(1, 0, 120);
-			lit = true;
+			
+			parser->ConsoleDataSend.LED[count].r = 255;
+			parser->ConsoleDataSend.LED[count].g = 0;
+			parser->ConsoleDataSend.LED[count].b = 0;
+			count--;
 		}			
 		
 		
@@ -293,8 +309,7 @@ void render()
 	//setRenderColor(255, 255, 255, 255);
 	SDL_Color color = setColor(80, 130, 240, 255);
 	color = setColor(220, 140, 40, 255);
-		
-	
+			
 	//color = setColor(50, 160, 240, 255);
 	
 	SDL_Rect rect = {100, 100, 200, 200};
@@ -566,6 +581,7 @@ int main(int argc, char **argv)
 		
 		fpsTicks = SDL_GetTicks();
 		//While application is running		
+		
 		std::thread serialThread(Serial_Write);
 		
 		while (!quit)
@@ -581,12 +597,12 @@ int main(int argc, char **argv)
 			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
 			{
 				
-				if (parser->ConsoleButtons.FlightStick[0] == true) Scroll.y = Scroll.y + 5 * Zoom;
-				if (parser->ConsoleButtons.FlightStick[1] == true) Scroll.y = Scroll.y - 5 * Zoom;
-				if (parser->ConsoleButtons.FlightStick[2] == true) Scroll.x = Scroll.x + 5 * Zoom;
-				if (parser->ConsoleButtons.FlightStick[3] == true) Scroll.x = Scroll.x - 5 * Zoom;
-				if (parser->ConsoleButtons.DoubleTog[6] == true) speed--;
-				if (parser->ConsoleButtons.DoubleTog[7] == true) speed++;
+				if (parser->ConsoleData.FlightStick[0] == true) Scroll.y = Scroll.y + 5 * Zoom;
+				if (parser->ConsoleData.FlightStick[1] == true) Scroll.y = Scroll.y - 5 * Zoom;
+				if (parser->ConsoleData.FlightStick[2] == true) Scroll.x = Scroll.x + 5 * Zoom;
+				if (parser->ConsoleData.FlightStick[3] == true) Scroll.x = Scroll.x - 5 * Zoom;
+				if (parser->ConsoleData.DoubleTog[6] == true) speed--;
+				if (parser->ConsoleData.DoubleTog[7] == true) speed++;
 								
 				//render();
 				renderGalaxyMap(0, 0);

@@ -13,7 +13,7 @@ public:
 	const static size_t BufferSize = 256;
 
 	int DataBufferIndex = 0;
-	uint8_t DataBuffer[BufferSize] = {};	
+	uint8_t DataBuffer[BufferSize] = {};
 	
 	
 	
@@ -33,9 +33,17 @@ public:
 		uint8_t RightBoxTog = 0;
 		uint8_t FlightStick = 0;		
 	};
+	
 	RecievedData_Type RecievedData;
 	
-	struct ConsoleDataType
+	struct LedData
+	{
+		uint8_t r, g;
+		uint8_t b;
+	};
+	
+	
+	struct ConsoleRecievedDataType
 	{	
 		bool DoubleTog[8] = {};
 		bool LEDTog[5] = {};
@@ -45,11 +53,19 @@ public:
 		
 		bool LeftBoxTog[8] = {};
 		bool RightBoxTog[8] = {};
-		bool FlightStick[4] = {};
-	};		
+		bool FlightStick[4] = {};				
+	};
 	
-ConsoleDataType ConsoleButtons;
+	struct ConsoleSendDataType
+	{	
+		LedData LED[50] = {};
+	};
+	
+ConsoleRecievedDataType ConsoleData;
+ConsoleSendDataType ConsoleDataSend;
 
+ConsoleRecievedDataType LastConsoleData;
+ConsoleSendDataType LastConsoleDataSend;
 
 
 

@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Toad
-Date                   :=24/07/2018
+Date                   :=30/07/2018
 CodeLitePath           :="C:/Program Files/CodeLite"
 LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
 SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
@@ -62,7 +62,7 @@ AS       := C:/TDM-GCC-64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) $(IntermediateDirectory)/SDL_FontCache.c$(ObjectSuffix) $(IntermediateDirectory)/tinyxml2.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/PanelData.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IntermediateDirectory)/SDL_FontCache.c$(ObjectSuffix) $(IntermediateDirectory)/tinyxml2.cpp$(ObjectSuffix) 
 
 
 
@@ -93,21 +93,13 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix): VTStart.cpp $(IntermediateDirectory)/VTStart.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTStart.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/VTStart.cpp$(DependSuffix): VTStart.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/VTStart.cpp$(DependSuffix) -MM VTStart.cpp
+$(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix): VTMap.cpp $(IntermediateDirectory)/VTMap.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTMap.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/VTMap.cpp$(DependSuffix): VTMap.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/VTMap.cpp$(DependSuffix) -MM VTMap.cpp
 
-$(IntermediateDirectory)/VTStart.cpp$(PreprocessSuffix): VTStart.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTStart.cpp$(PreprocessSuffix) VTStart.cpp
-
-$(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix): VTNetwork.cpp $(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTNetwork.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix): VTNetwork.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix) -MM VTNetwork.cpp
-
-$(IntermediateDirectory)/VTNetwork.cpp$(PreprocessSuffix): VTNetwork.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTNetwork.cpp$(PreprocessSuffix) VTNetwork.cpp
+$(IntermediateDirectory)/VTMap.cpp$(PreprocessSuffix): VTMap.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTMap.cpp$(PreprocessSuffix) VTMap.cpp
 
 $(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix): VTSerialPhraser.cpp $(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTSerialPhraser.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) $(IncludePath)
@@ -116,6 +108,30 @@ $(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix): VTSerialPhraser.cpp
 
 $(IntermediateDirectory)/VTSerialPhraser.cpp$(PreprocessSuffix): VTSerialPhraser.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTSerialPhraser.cpp$(PreprocessSuffix) VTSerialPhraser.cpp
+
+$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix): VTStart.cpp $(IntermediateDirectory)/VTStart.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTStart.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/VTStart.cpp$(DependSuffix): VTStart.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/VTStart.cpp$(DependSuffix) -MM VTStart.cpp
+
+$(IntermediateDirectory)/VTStart.cpp$(PreprocessSuffix): VTStart.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTStart.cpp$(PreprocessSuffix) VTStart.cpp
+
+$(IntermediateDirectory)/PanelData.cpp$(ObjectSuffix): PanelData.cpp $(IntermediateDirectory)/PanelData.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/PanelData.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/PanelData.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/PanelData.cpp$(DependSuffix): PanelData.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/PanelData.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/PanelData.cpp$(DependSuffix) -MM PanelData.cpp
+
+$(IntermediateDirectory)/PanelData.cpp$(PreprocessSuffix): PanelData.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/PanelData.cpp$(PreprocessSuffix) PanelData.cpp
+
+$(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix): VTNetwork.cpp $(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTNetwork.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix): VTNetwork.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix) -MM VTNetwork.cpp
+
+$(IntermediateDirectory)/VTNetwork.cpp$(PreprocessSuffix): VTNetwork.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTNetwork.cpp$(PreprocessSuffix) VTNetwork.cpp
 
 $(IntermediateDirectory)/SDL_FontCache.c$(ObjectSuffix): SDL_FontCache.c $(IntermediateDirectory)/SDL_FontCache.c$(DependSuffix)
 	$(CC) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/SDL_FontCache.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/SDL_FontCache.c$(ObjectSuffix) $(IncludePath)
@@ -132,14 +148,6 @@ $(IntermediateDirectory)/tinyxml2.cpp$(DependSuffix): tinyxml2.cpp
 
 $(IntermediateDirectory)/tinyxml2.cpp$(PreprocessSuffix): tinyxml2.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/tinyxml2.cpp$(PreprocessSuffix) tinyxml2.cpp
-
-$(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix): VTMap.cpp $(IntermediateDirectory)/VTMap.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTMap.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/VTMap.cpp$(DependSuffix): VTMap.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/VTMap.cpp$(DependSuffix) -MM VTMap.cpp
-
-$(IntermediateDirectory)/VTMap.cpp$(PreprocessSuffix): VTMap.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTMap.cpp$(PreprocessSuffix) VTMap.cpp
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)
