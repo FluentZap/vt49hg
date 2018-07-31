@@ -256,7 +256,6 @@ void BuildBuffer()
   bitWrite(TempBB[0], 6, (digitalRead(ToggleDuel_4_U) == LOW));
   bitWrite(TempBB[0], 7, (digitalRead(ToggleDuel_4_D) == LOW));
 
-  TempBB[0] = 2; 
   //LED Toggels
   bitWrite(TempBB[1], 0, (digitalRead(ToggleLit_1) == LOW));
   bitWrite(TempBB[1], 1, (digitalRead(ToggleLit_2) == LOW));
