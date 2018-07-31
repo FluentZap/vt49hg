@@ -16,6 +16,7 @@
 //#include "reactphysics3d.h"
 #include "VTStart.h"
 #include "VTSerialPhraser.h"
+#include "SWSimulation.h"
 //#include "VTNetwork.h"
 
 
@@ -73,6 +74,9 @@ const char* pName;
 VTMap * StarMap;
 
 
+SWSimulation SWS;
+
+
 void init_setup()
 {
 	#ifdef _WIN32 || _WIN64
@@ -121,8 +125,8 @@ void Serial_Connect()
 
 void Serial_Read()
 {
-	parser->Update(console);
-	
+	parser->Update(console);	
+	SWS.Ship->UpdateConsole(parser);	
 	/*
 	if (console->isOpen())
 	{
@@ -163,7 +167,9 @@ void Serial_Write()
 					
 				break;										
 			}
-						
+			
+			change = true;
+			
 			if (ConsolePacketSend > 99)
 			{				
 				int num = (ConsolePacketSend - 100) * 5;
@@ -178,7 +184,7 @@ void Serial_Write()
 					Buffer[(x*3) + 2] = parser->ConsoleDataSend.LED[num].g;
 					Buffer[(x*3) + 3] = parser->ConsoleDataSend.LED[num].b;
 					num++;
-				}				
+				}
 			}
 			
 			if (change)
@@ -597,13 +603,11 @@ int main(int argc, char **argv)
 			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
 			{
 				
-				if (parser->ConsoleData.FlightStick[0] == true) Scroll.y = Scroll.y + 5 * Zoom;
-				if (parser->ConsoleData.FlightStick[1] == true) Scroll.y = Scroll.y - 5 * Zoom;
-				if (parser->ConsoleData.FlightStick[2] == true) Scroll.x = Scroll.x + 5 * Zoom;
-				if (parser->ConsoleData.FlightStick[3] == true) Scroll.x = Scroll.x - 5 * Zoom;
-				if (parser->ConsoleData.DoubleTog[6] == true) speed--;
-				if (parser->ConsoleData.DoubleTog[7] == true) speed++;
-								
+				if (parser->ConsolePressed.FlightStickUP == true) Scroll.y = Scroll.y + 5 * Zoom;
+				if (parser->ConsolePressed.FlightStickDOWN == true) Scroll.y = Scroll.y - 5 * Zoom;
+				if (parser->ConsolePressed.FlightStickLEFT == true) Scroll.x = Scroll.x + 5 * Zoom;
+				if (parser->ConsolePressed.FlightStickRIGHT == true) Scroll.x = Scroll.x - 5 * Zoom;
+
 				//render();
 				renderGalaxyMap(0, 0);
 				fps++;

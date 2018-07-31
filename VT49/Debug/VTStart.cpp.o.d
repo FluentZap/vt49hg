@@ -47,7 +47,7 @@ Debug/VTStart.cpp.o: VTStart.cpp \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_ttf.h \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_mixer.h \
  serial/serial.h serial/v8stdint.h tinyxml2.h VTMap.h SDL_FontCache.h \
- VTStart.h VTSerialPhraser.h
+ VTStart.h VTSerialPhraser.h SWSimulation.h VTSerialPhraser.h
 
 C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL.h:
 
@@ -154,5 +154,9 @@ VTMap.h:
 SDL_FontCache.h:
 
 VTStart.h:
+
+VTSerialPhraser.h:
+
+SWSimulation.h:
 
 VTSerialPhraser.h:

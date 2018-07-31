@@ -3,6 +3,56 @@
 #include <stdio.h>
 #include <serial/serial.h>
 
+using namespace std;
+
+struct Typeof_ConsoleInputs
+{
+	bool
+	DoubleTog1_UP,
+	DoubleTog1_DOWN,
+	DoubleTog2_UP,
+	DoubleTog2_DOWN,
+	DoubleTog3_UP,
+	DoubleTog3_DOWN,
+	DoubleTog4_UP,
+	DoubleTog4_DOWN,
+	LEDToggle1,
+	LEDToggle2,
+	LEDToggle3,
+	LEDToggle4,
+	LEDToggle5,
+	TopLeftToggle1,
+	TopLeftToggle2,
+	TopRightToggle1,
+	TopRightToggle2,
+	PotButton1,
+	PotButton2,
+	LEDButton1,
+	LEDButton2,
+	LEDButton3,
+	LEDButton4,
+	LeftBoxTog1,
+	LeftBoxTog2,
+	LeftBoxTog3,
+	LeftBoxTog4,
+	LeftBoxTog5,
+	LeftBoxTog6,
+	LeftBoxTog7,
+	LeftBoxTog8,
+	RightBoxTog1,
+	RightBoxTog2,
+	RightBoxTog3,
+	RightBoxTog4,
+	RightBoxTog5,
+	RightBoxTog6,
+	RightBoxTog7,
+	RightBoxTog8,
+	FlightStickUP,
+	FlightStickDOWN,
+	FlightStickLEFT,
+	FlightStickRIGHT;
+};
+
 class VTSerialPhraser
 {
 public:
@@ -38,8 +88,14 @@ public:
 	
 	struct LedData
 	{
-		uint8_t r, g;
-		uint8_t b;
+		uint8_t r, g, b;		
+		
+		void Clear()
+		{
+			r = 0;
+			g = 0;
+			b = 0;
+		}
 	};
 	
 	
@@ -61,16 +117,15 @@ public:
 		LedData LED[50] = {};
 	};
 	
-ConsoleRecievedDataType ConsoleData;
+//ConsoleRecievedDataType ConsoleData;
 ConsoleSendDataType ConsoleDataSend;
 
-ConsoleRecievedDataType LastConsoleData;
+//ConsoleRecievedDataType LastConsoleData;
 ConsoleSendDataType LastConsoleDataSend;
 
 
-
-
-
+Typeof_ConsoleInputs ConsolePressed;
+Typeof_ConsoleInputs ConsoleKeyProcessed;
 
 
 };

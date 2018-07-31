@@ -59,6 +59,8 @@ SDL_Color setColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 void init_setup();
 
+
+
 //3dScenePhysics
 /*
 q3Scene * scene;
