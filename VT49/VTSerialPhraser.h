@@ -88,14 +88,14 @@ public:
 	
 	struct LedData
 	{
-		uint8_t r, g, b;		
+		uint8_t r = 0, g = 0, b = 0;		
 		
 		void Clear()
 		{
 			r = 0;
 			g = 0;
 			b = 0;
-		}
+		}		
 	};
 	
 	
@@ -115,6 +115,10 @@ public:
 	struct ConsoleSendDataType
 	{	
 		LedData LED[50] = {};
+		bool	BLED[50] = {};
+		bool	ContolButtons[4] = {};
+		bool	FlightStick = false;
+		LedData Color = {};
 	};
 	
 //ConsoleRecievedDataType ConsoleData;
