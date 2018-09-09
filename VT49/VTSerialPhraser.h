@@ -2,12 +2,12 @@
 #define VTSERIALPHRASER_H
 #include <stdio.h>
 #include <serial/serial.h>
+#include <unordered_set>
 
 using namespace std;
 
-struct Typeof_ConsoleInputs
-{
-	bool
+enum class Typeof_ConsoleInputs : int
+{	
 	DoubleTog1_UP,
 	DoubleTog1_DOWN,
 	DoubleTog2_UP,
@@ -50,7 +50,7 @@ struct Typeof_ConsoleInputs
 	FlightStickUP,
 	FlightStickDOWN,
 	FlightStickLEFT,
-	FlightStickRIGHT;
+	FlightStickRIGHT
 };
 
 class VTSerialPhraser
@@ -124,9 +124,16 @@ ConsoleSendDataType ConsoleDataSend;
 ConsoleSendDataType LastConsoleDataSend;
 
 
-Typeof_ConsoleInputs ConsolePressed;
-Typeof_ConsoleInputs ConsoleKeyProcessed;
+unordered_set<int> ConsolePressed;
+//unordered_set<int> ConsoleKeyProcessed;
+unordered_set<int> ConsoleKeyPressed;
 
+
+
+bool InputDown(Typeof_ConsoleInputs key);
+bool InputPressed(Typeof_ConsoleInputs key, bool remove = false);
+void addToSet(unordered_set<int>& itemset, Typeof_ConsoleInputs item, bool pressed);
+void ConsolePressButton(Typeof_ConsoleInputs item);
 
 };
 

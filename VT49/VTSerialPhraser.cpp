@@ -1,5 +1,51 @@
 #include "VTSerialPhraser.h"
 #include "COBS.h"
+#include <unordered_set>
+
+
+void VTSerialPhraser::addToSet(unordered_set<int>& itemset, Typeof_ConsoleInputs item, bool pressed = true)
+{
+	if (pressed)
+	{
+		if (itemset.find((int)item) == itemset.end())
+		{
+			itemset.insert((int)item);
+			ConsolePressButton(item);
+		}
+			
+	}
+	else
+	{
+		if (itemset.find((int)item) != itemset.end())
+			itemset.erase((int)item);
+	}	
+}
+	
+void VTSerialPhraser::ConsolePressButton(Typeof_ConsoleInputs item)
+{
+	if (ConsoleKeyPressed.find((int)item) == ConsoleKeyPressed.end())
+		ConsoleKeyPressed.insert((int)item);
+}
+
+
+bool VTSerialPhraser::InputDown(Typeof_ConsoleInputs key)
+{
+	if (ConsolePressed.find((int)key) != ConsolePressed.end())
+		return true;
+	return false;	
+}
+
+bool VTSerialPhraser::InputPressed(Typeof_ConsoleInputs key, bool remove)
+{
+	if (ConsoleKeyPressed.find((int)key) != ConsoleKeyPressed.end())
+	{
+		if (remove)
+			ConsoleKeyPressed.erase((int)key);
+		return true;
+	}		
+	return false;	
+}
+
 
 const unsigned char option0 = 0b00000001; // represents bit 0
 const unsigned char option1 = 0b00000010; // represents bit 1
@@ -14,7 +60,7 @@ const unsigned char option7 = 0b10000000; // represents bit 7
 
 
 void VTSerialPhraser::ReadDataStream(uint8_t* Buffer)
-{
+{	
 	RecievedData.DoubleTog = Buffer[0];
 	RecievedData.LEDTog = Buffer[1];
 	RecievedData.TopTog = Buffer[2];
@@ -23,6 +69,16 @@ void VTSerialPhraser::ReadDataStream(uint8_t* Buffer)
 	RecievedData.RightBoxTog = Buffer[5];
 	RecievedData.FlightStick = Buffer[6];
 	
+	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog1_UP, (RecievedData.DoubleTog & option0));
+	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog1_DOWN, (RecievedData.DoubleTog & option1));
+	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog2_UP, (RecievedData.DoubleTog & option2));
+	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog2_DOWN, (RecievedData.DoubleTog & option3));
+	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog3_UP, (RecievedData.DoubleTog & option4));
+	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog3_DOWN, (RecievedData.DoubleTog & option5));
+	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog4_UP, (RecievedData.DoubleTog & option6));
+	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog4_DOWN, (RecievedData.DoubleTog & option7));
+	
+	/*
 	ConsolePressed.DoubleTog1_UP = (RecievedData.DoubleTog & option0);
 	ConsolePressed.DoubleTog1_DOWN   = (RecievedData.DoubleTog & option1);
 	ConsolePressed.DoubleTog2_UP = (RecievedData.DoubleTog & option2);
@@ -69,22 +125,34 @@ void VTSerialPhraser::ReadDataStream(uint8_t* Buffer)
 	ConsolePressed.RightBoxTog7	   = (RecievedData.RightBoxTog & option6);
 	ConsolePressed.RightBoxTog8	   = (RecievedData.RightBoxTog & option7);
 	
+	
 	ConsolePressed.FlightStickUP   = (RecievedData.FlightStick & option0);
 	ConsolePressed.FlightStickDOWN = (RecievedData.FlightStick & option1);
 	ConsolePressed.FlightStickLEFT = (RecievedData.FlightStick & option2);
-	ConsolePressed.FlightStickRIGHT= (RecievedData.FlightStick & option3);	
+	ConsolePressed.FlightStickRIGHT= (RecievedData.FlightStick & option3);
+	 */
+	
+	addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickUP, (RecievedData.FlightStick & option0));
+	addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickDOWN, (RecievedData.FlightStick & option1));
+	addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickLEFT, (RecievedData.FlightStick & option2));
+	addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickRIGHT, (RecievedData.FlightStick & option3));
+	
+	//if (RecievedData.FlightStick & option1) addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickDOWN);
+	//if (RecievedData.FlightStick & option2) addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickLEFT);
+	//if (RecievedData.FlightStick & option3) addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickRIGHT);
 }
 
 void VTSerialPhraser::Send(serial::Serial* stream, const uint8_t* buffer, size_t size)
 {
 	if (stream->isOpen())
 	{
-		uint8_t EncodeBuffer[COBS::getEncodedBufferSize(size)];
+		uint8_t EncodeBuffer[COBS::getEncodedBufferSize(size) + 1];
 		size_t numEncoded = COBS::encode(buffer, size, EncodeBuffer);
-		stream->write(EncodeBuffer, numEncoded);
-		uint8_t data[1];
-		data[0] = Marker;
-		stream->write(data, 1);
+		EncodeBuffer[numEncoded + 1] = Marker;
+		stream->write(EncodeBuffer, numEncoded + 1);
+		//uint8_t data[1];
+		//data[0] = Marker;
+		//stream->write(data, 1);
 	}
 }
 

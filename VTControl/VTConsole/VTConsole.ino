@@ -164,14 +164,14 @@ void setup() {
   pinMode(Button_LED4, OUTPUT);
   
   pinMode(FightStick_LED, OUTPUT);
-  digitalWrite(FightStick_LED, LOW);
+  digitalWrite(FightStick_LED, HIGH);
   
   
   byte SendBuffer[12];  
 
   
   //Serial.begin(115200);
-  myPacketSerial.begin(2000000);
+  myPacketSerial.begin(20000);
   myPacketSerial.setPacketHandler(&onPacketReceived);
 
   OLEDdisplay.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3D (for the 128x64)
