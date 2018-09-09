@@ -147,7 +147,7 @@ void Serial_Read()
 	*/
 }
 
-uint8_t ConsolePacketSend = 100;
+uint8_t ConsolePacketSend = 0;
 
 
 void Serial_Write()
@@ -159,16 +159,32 @@ void Serial_Write()
 			bool change = false;
 			//console->flushOutput();
 			uint8_t Buffer[16] = {};
-			Buffer[0] = ConsolePacketSend;
+			Buffer[0] = ConsolePacketSend;					
 			
-			switch(ConsolePacketSend)
-			{
-				case 0:
-					
-				break;										
-			}
-			
-			//change = true;
+			if (ConsolePacketSend == 0)
+			{								
+				if (parser->ConsoleDataSend.ContolButtons[0]) Buffer[1] |= 0x1 << 0;
+				if (parser->ConsoleDataSend.ContolButtons[1]) Buffer[1] |= 0x1 << 1;
+				if (parser->ConsoleDataSend.ContolButtons[2]) Buffer[1] |= 0x1 << 2;
+				if (parser->ConsoleDataSend.ContolButtons[3]) Buffer[1] |= 0x1 << 3;
+				if (parser->ConsoleDataSend.FlightStick) Buffer[1] |= 0x1 << 4;
+							
+				
+				for (int x=0; x < 50; x++)
+				{
+					if (parser->ConsoleDataSend.BLED[x])
+					{
+						Buffer[2 + (x / 8)] |= 0x1 << (x % 8);						
+					}
+				}				
+				
+				Buffer[9] = parser->ConsoleDataSend.Color.r;
+				Buffer[10] = parser->ConsoleDataSend.Color.g;
+				Buffer[11] = parser->ConsoleDataSend.Color.b;
+				
+			}	
+
+			change = true;
 			
 			if (ConsolePacketSend > 99)
 			{
@@ -187,15 +203,15 @@ void Serial_Write()
 				}
 			}
 			
-			if (change)
-			{
-				parser->Send(console, Buffer, 16);
-				memcpy(parser->LastConsoleDataSend.LED, parser->ConsoleDataSend.LED, 50);
-				serialTicks = SDL_GetTicks();
-			}
+			//if (change)
+			//{
+			parser->Send(console, Buffer, 16);
+			memcpy(parser->LastConsoleDataSend.LED, parser->ConsoleDataSend.LED, 50);
+			serialTicks = SDL_GetTicks();
+			//}
 			
-			ConsolePacketSend++;
-			if (ConsolePacketSend > 109) ConsolePacketSend = 100;
+			//ConsolePacketSend++;
+			//if (ConsolePacketSend > 10) ConsolePacketSend = 0;
 			
 			
 		}

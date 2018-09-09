@@ -8,7 +8,9 @@ SWSimulation::~SWSimulation()
 {
 }
 
-uint8_t inc;
+int inc;
+
+uint8_t col;
 
 void PCShip::UpdateConsole(VTSerialPhraser* parser)
 {
@@ -25,33 +27,64 @@ void PCShip::UpdateConsole(VTSerialPhraser* parser)
 	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog4_UP, true)) PowerDistrubution.System++;
 	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog4_DOWN, true)) PowerDistrubution.System--;
 	
+	if (parser->InputPressed(Typeof_ConsoleInputs::LEDButton1, true)) parser->ConsoleDataSend.ContolButtons[0] = !parser->ConsoleDataSend.ContolButtons[0];
+	//if (parser->InputPressed(Typeof_ConsoleInputs::LEDButton2, true)) parser->ConsoleDataSend.ContolButtons[1] = !parser->ConsoleDataSend.ContolButtons[1];
+	//if (parser->InputPressed(Typeof_ConsoleInputs::LEDButton3, true)) parser->ConsoleDataSend.ContolButtons[2] = !parser->ConsoleDataSend.ContolButtons[2];
+	//if (parser->InputPressed(Typeof_ConsoleInputs::LEDButton4, true)) parser->ConsoleDataSend.ContolButtons[3] = !parser->ConsoleDataSend.ContolButtons[3];
 	
+	
+	parser->ConsoleDataSend.Color.b = 127;
+	
+	col++;
 	inc++;		
+	
+	for (int x = 0; x < 50; x++)
+		parser->ConsoleDataSend.BLED[x] = false;
+	
+	
 	for (int x = 0; x < 10; x++)
-		parser->ConsoleDataSend.LED[x].Clear();
-	
+		parser->ConsoleDataSend.BLED[x] = false;	
 	for (int x = 20; x < 30; x++)
-		parser->ConsoleDataSend.LED[x].Clear();
+		parser->ConsoleDataSend.BLED[x] = false;
 	
-	for (uint8_t x = 0; x < 50; x++)
-	{
-		//parser->ConsoleDataSend.LED[x].r = inc;;
-		//parser->ConsoleDataSend.LED[x].g = 127;;
-		parser->ConsoleDataSend.LED[x].b = inc;;
-	}
-		
 	
 	for (int x = 4; x > 4 - PowerDistrubution.System; x--)
-		parser->ConsoleDataSend.LED[x].g = 127;
+		parser->ConsoleDataSend.BLED[x] = true;
 		
 	for (int x = 0; x < PowerDistrubution.Shields; x++)
-		parser->ConsoleDataSend.LED[x + 5].g = 127;
-		
+		parser->ConsoleDataSend.BLED[x + 5] = true;		
 	
 	for (int x = 4; x > 4 - PowerDistrubution.Engines; x--)
-		parser->ConsoleDataSend.LED[x + 20].g = 127;
+		parser->ConsoleDataSend.BLED[x + 20] = true;
 		
 	for (int x = 0; x < PowerDistrubution.Weapons; x++)
-		parser->ConsoleDataSend.LED[x + 25].g = 127;
-		
+		parser->ConsoleDataSend.BLED[x + 25] = true;
+	
+	
+	if (parser->InputDown(Typeof_ConsoleInputs::TopLeftToggle1)) 
+			parser->ConsoleDataSend.BLED[32] = true;
+		else
+			parser->ConsoleDataSend.BLED[31] = true;
+			
+	if (parser->InputDown(Typeof_ConsoleInputs::TopLeftToggle2))
+			parser->ConsoleDataSend.BLED[33] = true;
+		else
+			parser->ConsoleDataSend.BLED[30] = true;
+	
+	//if (parser->InputPressed(Typeof_ConsoleInputs::TopLeftToggle2)) parser->ConsoleDataSend.BLED[42] = true;
+	
+	//if (parser->InputPressed(Typeof_ConsoleInputs::TopRightToggle1)) parser->ConsoleDataSend.BLED[41] = true;
+	//if (parser->InputPressed(Typeof_ConsoleInputs::TopRightToggle2)) parser->ConsoleDataSend.BLED[40] = true;
+	
+	
+	
+	if (inc >= 40)
+	{
+		if (parser->ConsoleDataSend.ContolButtons[0])
+		{
+			parser->ConsoleDataSend.ContolButtons[2] = !parser->ConsoleDataSend.ContolButtons[2];
+			parser->ConsoleDataSend.ContolButtons[3] = !parser->ConsoleDataSend.ContolButtons[3];
+		}			
+		inc = 0;		
+	}
 }

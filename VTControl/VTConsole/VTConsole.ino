@@ -313,20 +313,48 @@ void BuildBuffer()
 
 
 void ProcessBuffer(char* B)
-{  
+{
   byte Header = B[0];
   Target = Header;
-  //if (Header > 99)
-  //{
 
-
-  int num = (Header - 100) * 5;
-  for (int x = 0; x < 5; x++)
+  if (Header == 0)
   {
-    leds[num].r = B[(x*3) + 1];
-    leds[num].g = B[(x*3) + 2];
-    leds[num].b = B[(x*3) + 3];
-    num++;
+    digitalWrite(Button_LED1, bitRead(B[1], 0));
+    digitalWrite(Button_LED2, bitRead(B[1], 1));
+    digitalWrite(Button_LED3, bitRead(B[1], 2));
+    digitalWrite(Button_LED4, bitRead(B[1], 3));
+    digitalWrite(FightStick_LED, bitRead(B[1], 4));
+
+
+    for (int x=0; x < 50; x++)
+        {
+          leds[x].r = 0;
+          leds[x].g = 0;
+          leds[x].b = 0;
+          
+          if (bitRead(B[2 + (x / 8)], x % 8))
+          {            
+            leds[x].r = B[9];
+            leds[x].g = B[10];
+            leds[x].b = B[11];
+          }          
+        }
+
+     
+  }
+  
+  
+  
+  if (Header > 99)
+  {
+    int num = (Header - 100) * 5;
+    for (int x = 0; x < 5; x++)
+    {
+      leds[num].r = B[(x*3) + 1];
+      leds[num].g = B[(x*3) + 2];
+      leds[num].b = B[(x*3) + 3];
+      num++;
+    }   
   }
   
 }
