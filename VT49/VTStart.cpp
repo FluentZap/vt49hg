@@ -29,7 +29,7 @@ const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int SCREEN_FPS = 60;
 const float SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
-const float SERIAL_TICKS_PER_FRAME = 1000 / 240;
+const float SERIAL_TICKS_PER_FRAME = 1000 / 60;
 
 
 bool quit = false;
@@ -112,8 +112,8 @@ void Serial_Connect()
 	//serial::Serial console("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
 	//try
 	//{
-		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 2000000 , serial::Timeout::simpleTimeout(10));
-		if (CurrentOS == WIN) console = new serial::Serial("COM3", 2000000 , serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 20000 , serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == WIN) console = new serial::Serial("COM3", 20000 , serial::Timeout::simpleTimeout(10));
 		console->setTimeout(10, 10, 10, 10, 10);
 	//}
 	//catch(serial::IOException)
@@ -126,7 +126,6 @@ void Serial_Connect()
 void Serial_Read()
 {
 	parser->Update(console);	
-	SWS.Ship->UpdateConsole(parser);	
 	/*
 	if (console->isOpen())
 	{
@@ -148,16 +147,17 @@ void Serial_Read()
 	*/
 }
 
+uint8_t ConsolePacketSend = 100;
+
+
 void Serial_Write()
 {	
-	uint8_t ConsolePacketSend = 100;
-	
-	while(!quit)
-	{
+		
+		
 		if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
 		{
 			bool change = false;
-			console->flushOutput();
+			//console->flushOutput();
 			uint8_t Buffer[16] = {};
 			Buffer[0] = ConsolePacketSend;
 			
@@ -168,10 +168,10 @@ void Serial_Write()
 				break;										
 			}
 			
-			change = true;
+			//change = true;
 			
 			if (ConsolePacketSend > 99)
-			{				
+			{
 				int num = (ConsolePacketSend - 100) * 5;
 				for (int x = 0; x < 5; x++)
 				{
@@ -190,15 +190,16 @@ void Serial_Write()
 			if (change)
 			{
 				parser->Send(console, Buffer, 16);
-				memcpy(parser->LastConsoleDataSend.LED, parser->ConsoleDataSend.LED, 50);				
+				memcpy(parser->LastConsoleDataSend.LED, parser->ConsoleDataSend.LED, 50);
+				serialTicks = SDL_GetTicks();
 			}
-				
+			
 			ConsolePacketSend++;
 			if (ConsolePacketSend > 109) ConsolePacketSend = 100;
 			
-			serialTicks = SDL_GetTicks();
+			
 		}
-	}
+		//SDL_Delay(1000);
 }
 
 
@@ -588,7 +589,9 @@ int main(int argc, char **argv)
 		fpsTicks = SDL_GetTicks();
 		//While application is running		
 		
-		std::thread serialThread(Serial_Write);
+		//std::thread serialThread(Serial_Write);
+		//SDL_Thread *serialThread;
+		//serialThread = SDL_CreateThread(Serial_Write, "Serial_Write", (void *)NULL);
 		
 		while (!quit)
 		{			
@@ -599,15 +602,21 @@ int main(int argc, char **argv)
 			//scene->Step();
 			//world->update( 1.0 / 60.0 );	
 			Serial_Read();
-			
+			Serial_Write();
 			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
 			{
+				//parser->ConsolePressed.insert((int)Typeof_ConsoleInputs::FlightStickUP);
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) Scroll.y = Scroll.y + 5 * Zoom;
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) Scroll.y = Scroll.y - 5 * Zoom;
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) Scroll.x = Scroll.x + 5 * Zoom;
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) Scroll.x = Scroll.x - 5 * Zoom;
+				//if (parser->ConsolePressed.FlightStickUP == true) Scroll.y = Scroll.y + 5 * Zoom;
+				//if (parser->ConsolePressed.FlightStickDOWN == true) Scroll.y = Scroll.y - 5 * Zoom;
+				//if (parser->ConsolePressed.FlightStickLEFT == true) Scroll.x = Scroll.x + 5 * Zoom;
+				//if (parser->ConsolePressed.FlightStickRIGHT == true) Scroll.x = Scroll.x - 5 * Zoom;
 				
-				if (parser->ConsolePressed.FlightStickUP == true) Scroll.y = Scroll.y + 5 * Zoom;
-				if (parser->ConsolePressed.FlightStickDOWN == true) Scroll.y = Scroll.y - 5 * Zoom;
-				if (parser->ConsolePressed.FlightStickLEFT == true) Scroll.x = Scroll.x + 5 * Zoom;
-				if (parser->ConsolePressed.FlightStickRIGHT == true) Scroll.x = Scroll.x - 5 * Zoom;
-
+				SWS.Ship->UpdateConsole(parser);
+							
 				//render();
 				renderGalaxyMap(0, 0);
 				fps++;
@@ -625,7 +634,7 @@ int main(int argc, char **argv)
 			//int frameTicks = SDL_GetTicks() - startTicks;			
 			//if (frameTicks < SCREEN_TICKS_PER_FRAME)
 			//{
-			//SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
+			//SDL_Delay(10);
 			//}
 		}
 		//serialThread.join();
