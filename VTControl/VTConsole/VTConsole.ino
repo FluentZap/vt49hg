@@ -328,10 +328,11 @@ void ProcessBuffer(char* B)
 
     for (int x=0; x < 50; x++)
         {
-          leds[x].r = 0;
-          leds[x].g = 0;
-          leds[x].b = 0;
+          leds[x].r = B[12];
+          leds[x].g = B[13];
+          leds[x].b = B[14];
           
+          //If the Light is set to on
           if (bitRead(B[2 + (x / 8)], x % 8))
           {            
             leds[x].r = B[9];
