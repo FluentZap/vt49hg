@@ -33,11 +33,17 @@ void PCShip::UpdateConsole(VTSerialPhraser* parser)
 	//if (parser->InputPressed(Typeof_ConsoleInputs::LEDButton4, true)) parser->ConsoleDataSend.ContolButtons[3] = !parser->ConsoleDataSend.ContolButtons[3];
 	
 	
-	parser->ConsoleDataSend.Color.b = 127;
+	parser->ConsoleDataSend.OnColor.r = 0;
+	parser->ConsoleDataSend.OnColor.g = 0;
+	parser->ConsoleDataSend.OnColor.b = 127;
+	
+	parser->ConsoleDataSend.OffColor.r = 0;
+	parser->ConsoleDataSend.OffColor.g = 32;
+	parser->ConsoleDataSend.OffColor.b = 0;
 	
 	col++;
-	inc++;		
-	
+	inc++;
+	//set all lights blank
 	for (int x = 0; x < 50; x++)
 		parser->ConsoleDataSend.BLED[x] = false;
 	
@@ -47,7 +53,7 @@ void PCShip::UpdateConsole(VTSerialPhraser* parser)
 	for (int x = 20; x < 30; x++)
 		parser->ConsoleDataSend.BLED[x] = false;
 	
-	
+	//Set lights for power
 	for (int x = 4; x > 4 - PowerDistrubution.System; x--)
 		parser->ConsoleDataSend.BLED[x] = true;
 		
@@ -61,7 +67,7 @@ void PCShip::UpdateConsole(VTSerialPhraser* parser)
 		parser->ConsoleDataSend.BLED[x + 25] = true;
 	
 	
-	if (parser->InputDown(Typeof_ConsoleInputs::TopLeftToggle1)) 
+	if (parser->InputDown(Typeof_ConsoleInputs::TopLeftToggle1))
 			parser->ConsoleDataSend.BLED[32] = true;
 		else
 			parser->ConsoleDataSend.BLED[31] = true;
@@ -71,6 +77,17 @@ void PCShip::UpdateConsole(VTSerialPhraser* parser)
 		else
 			parser->ConsoleDataSend.BLED[30] = true;
 	
+	
+	if (parser->InputDown(Typeof_ConsoleInputs::TopRightToggle1))
+			parser->ConsoleDataSend.BLED[41] = true;
+		else
+			parser->ConsoleDataSend.BLED[42] = true;
+			
+	if (parser->InputDown(Typeof_ConsoleInputs::TopRightToggle2))
+			parser->ConsoleDataSend.BLED[40] = true;
+		else
+			parser->ConsoleDataSend.BLED[43] = true;
+			
 	//if (parser->InputPressed(Typeof_ConsoleInputs::TopLeftToggle2)) parser->ConsoleDataSend.BLED[42] = true;
 	
 	//if (parser->InputPressed(Typeof_ConsoleInputs::TopRightToggle1)) parser->ConsoleDataSend.BLED[41] = true;

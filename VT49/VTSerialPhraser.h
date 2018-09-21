@@ -118,7 +118,8 @@ public:
 		bool	BLED[50] = {};
 		bool	ContolButtons[4] = {};
 		bool	FlightStick = false;
-		LedData Color = {};
+		LedData OnColor = {};
+		LedData OffColor = {};
 	};
 	
 //ConsoleRecievedDataType ConsoleData;

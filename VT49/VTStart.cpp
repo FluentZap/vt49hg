@@ -178,9 +178,13 @@ void Serial_Write()
 					}
 				}				
 				
-				Buffer[9] = parser->ConsoleDataSend.Color.r;
-				Buffer[10] = parser->ConsoleDataSend.Color.g;
-				Buffer[11] = parser->ConsoleDataSend.Color.b;
+				Buffer[9] = parser->ConsoleDataSend.OnColor.r;
+				Buffer[10] = parser->ConsoleDataSend.OnColor.g;
+				Buffer[11] = parser->ConsoleDataSend.OnColor.b;
+				
+				Buffer[12] = parser->ConsoleDataSend.OffColor.r;
+				Buffer[13] = parser->ConsoleDataSend.OffColor.g;
+				Buffer[14] = parser->ConsoleDataSend.OffColor.b;
 				
 			}	
 
@@ -633,8 +637,8 @@ int main(int argc, char **argv)
 				
 				SWS.Ship->UpdateConsole(parser);
 							
-				//render();
-				renderGalaxyMap(0, 0);
+				render();
+				//renderGalaxyMap(0, 0);
 				fps++;
 				fpsTicks = SDL_GetTicks();				
 			}
