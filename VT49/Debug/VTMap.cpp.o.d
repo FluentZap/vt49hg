@@ -1,5 +1,3 @@
-Debug/VTMap.cpp.o: VTMap.cpp VTMap.h tinyxml2.h
+Debug/VTMap.cpp.o: VTMap.cpp VTMap.h
 
 VTMap.h:
-
-tinyxml2.h:

@@ -15,7 +15,7 @@ public:
 	string Callsign;
 	string TransponderID;	
 	Type_PowerDistrubution PowerDistrubution;
-	
+	float x, y, z;
 	void UpdateConsole(VTSerialPhraser * parser);	
 };
 
@@ -33,7 +33,7 @@ public:
 	SWSimulation();
 	~SWSimulation();
 	
-	PCShip* Ship = new PCShip();	
+	PCShip* Ship = new PCShip();
 	
 	
 
