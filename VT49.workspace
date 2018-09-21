@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Workspace Name="VT49" Database="" Version="10.0.0">
+  <WorkspaceParserMacros/>
+  <WorkspaceParserPaths>
+    <Include Path="C:\Users\Toad\Documents\VT49\reactphysics3d-master\src"/>
+    <Include Path="C:\TDM-GCC-64\x86_64-w64-mingw32\include"/>
+    <Include Path="C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2\"/>
+    <Include Path="C:\Users\Toad\Documents\VT49\VT49\reactphysics3d\src"/>
+    <Include Path="C:\Users\Toad\Documents\VT49\VT49"/>
+    <Include Path="C:\Users\Toad\Documents\VT49\VT49\serial"/>
+    <Include Path="C:\Users\Toad\Documents\bullet3-2.87\src"/>
+    <Include Path="C:\Users\Toad\Documents\bullet3-2.87\src\Bullet3Common"/>
+  </WorkspaceParserPaths>
   <Project Name="VT49" Path="VT49/VT49.project" Active="Yes"/>
   <Project Name="serial" Path="serial/serial.project" Active="No"/>
+  <Project Name="Bullet" Path="Bullet/Bullet.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
       <Project Name="VT49" ConfigName="Debug"/>
       <Project Name="serial" ConfigName="Debug"/>
+      <Project Name="Bullet" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="no">
       <Environment/>
       <Project Name="VT49" ConfigName="Release"/>
       <Project Name="serial" ConfigName="Release"/>
+      <Project Name="Bullet" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

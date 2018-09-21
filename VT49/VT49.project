@@ -37,6 +37,10 @@
         <IncludePath Value="C:\Users\Toad\Documents\VT49\VT49\q3"/>
         <IncludePath Value="C:\Users\Toad\Documents\VT49\VT49\reactphysics3d\src"/>
         <IncludePath Value="C:\Users\Toad\Documents\VT49\reactphysics3d-master\src"/>
+        <IncludePath Value="C:\Users\Toad\Documents\bullet3-2.87\src"/>
+        <IncludePath Value="C:\Users\Toad\Documents\bullet3-2.87\src\Bullet3Common"/>
+        <IncludePath Value="C:\Users\Toad\Documents\VT49\"/>
+        <IncludePath Value="C:\Users\Toad\Documents\VT49\VT49"/>
       </Compiler>
       <Linker Options="">
         <LibraryPath Value="."/>
@@ -44,14 +48,13 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="Debug" CompilerType="MinGW ( TDM-GCC-32 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-g;-O0;-std=c++17;-std=c++14;-std=c++11;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
-        <IncludePath Value="."/>
-      </Compiler>
-      <Linker Options="-lmingw32;-lSDL2main;-lSDL2;-lSDL2_ttf;-lSDL2_image;-lSDL2_mixer;-lreactphysics3d;-lserial" Required="yes">
+      <Compiler Options="-g;-O0;-std=c++17;-std=c++14;-std=c++11;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0"/>
+      <Linker Options="-lmingw32;-lSDL2main;-lSDL2;-lSDL2_ttf;-lSDL2_image;-lSDL2_mixer;-lreactphysics3d;-lserial -lBullet" Required="yes">
         <LibraryPath Value="C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib"/>
         <LibraryPath Value="C:\Users\Toad\Documents\SDL2\SDL2Extra\x86_64-w64-mingw32\lib"/>
         <LibraryPath Value="C:\Users\Toad\Documents\VT49\reactphysics3d-master\Build\lib"/>
         <LibraryPath Value="C:\Users\Toad\Documents\VT49\VT49\lib"/>
+        <LibraryPath Value="C:\Users\Toad\Documents\VT49\Bullet\Release"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Debug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>

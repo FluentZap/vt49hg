@@ -2,18 +2,18 @@
 ## Auto Generated makefile by CodeLite IDE
 ## any manual changes will be erased      
 ##
-## Debug
+## Release
 ProjectName            :=serial
-ConfigurationName      :=Debug
+ConfigurationName      :=Release
 WorkspacePath          :=C:/Users/Toad/Documents/VT49
 ProjectPath            :=C:/Users/Toad/Documents/VT49/serial
-IntermediateDirectory  :=./Debug
+IntermediateDirectory  :=./Release
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Toad
-Date                   :=23/07/2018
+Date                   :=20/09/2018
 CodeLitePath           :="C:/Program Files/CodeLite"
 LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
 SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
@@ -52,8 +52,8 @@ LibPath                :=$(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Ba
 AR       := C:/TDM-GCC-64/bin/ar.exe rcu
 CXX      := C:/TDM-GCC-64/bin/g++.exe
 CC       := C:/TDM-GCC-64/bin/gcc.exe
-CXXFLAGS :=  -g $(Preprocessors)
-CFLAGS   :=  -g $(Preprocessors)
+CXXFLAGS :=   $(Preprocessors)
+CFLAGS   :=   $(Preprocessors)
 ASFLAGS  := 
 AS       := C:/TDM-GCC-64/bin/as.exe
 
@@ -79,15 +79,15 @@ $(OutputFile): $(Objects)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects0)  > $(ObjectsFileList)
 	$(AR) $(ArchiveOutputSwitch)$(OutputFile) @$(ObjectsFileList) $(ArLibs)
-	@$(MakeDirCommand) "C:\Users\Toad\Documents\VT49/.build-debug"
-	@echo rebuilt > "C:\Users\Toad\Documents\VT49/.build-debug/serial"
+	@$(MakeDirCommand) "C:\Users\Toad\Documents\VT49/.build-release"
+	@echo rebuilt > "C:\Users\Toad\Documents\VT49/.build-release/serial"
 
 MakeIntermediateDirs:
-	@$(MakeDirCommand) "./Debug"
+	@$(MakeDirCommand) "./Release"
 
 
-./Debug:
-	@$(MakeDirCommand) "./Debug"
+./Release:
+	@$(MakeDirCommand) "./Release"
 
 PreBuild:
 
@@ -125,6 +125,6 @@ $(IntermediateDirectory)/up_up_up_Desktop_wjwwood-serial-1.2.1-29-g5a354ea_wjwwo
 ## Clean
 ##
 clean:
-	$(RM) -r ./Debug/
+	$(RM) -r ./Release/
 
 

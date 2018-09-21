@@ -14,6 +14,7 @@
 #include <thread>
 
 //#include "reactphysics3d.h"
+#include <btBulletDynamicsCommon.h>
 #include "VTStart.h"
 #include "VTSerialPhraser.h"
 #include "SWSimulation.h"
@@ -85,7 +86,7 @@ void init_setup()
 	#ifdef __linux__
     CurrentOS = LINUX;
 	#endif
-	loadResources();
+	loadResources();		
 	
 	//rp3d::Vector3 gravity(0.0, -9.81, 0.0);
 	//Vector3 gravity(0.0, 0.0, 0.0);
@@ -418,8 +419,11 @@ void render()
 	}
 	*/
 	
-	rect = {Scroll.x, Scroll.y, 850 * Zoom, 1250 * Zoom};
-	SDL_RenderCopy(gRenderer, gTexture, NULL, &rect);
+	//rect = {Scroll.x, Scroll.y, 850 * Zoom, 1250 * Zoom};
+	//SDL_RenderCopy(gRenderer, gTexture, NULL, &rect);
+	
+	rect = {int(SWS.Ship->x), int(SWS.Ship->y), 5, 5};
+	SDL_RenderDrawRect(gRenderer, &rect);
 	
 	dist1 += 0.000001;
 	if (dist1 > 10000) dist1 = -10000;
@@ -613,6 +617,94 @@ int main(int argc, char **argv)
 		//SDL_Thread *serialThread;
 		//serialThread = SDL_CreateThread(Serial_Write, "Serial_Write", (void *)NULL);
 		
+		
+		
+		
+		btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
+		btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
+		btBroadphaseInterface* overlappingPairCache = new btDbvtBroadphase();
+		btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
+		btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+		dynamicsWorld->setGravity(btVector3(0, -2, 0));		
+		btAlignedObjectArray<btCollisionShape*> collisionShapes;
+		
+		{
+			btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
+
+			collisionShapes.push_back(groundShape);
+
+			btTransform groundTransform;
+			groundTransform.setIdentity();
+			groundTransform.setOrigin(btVector3(0, -56, 0));
+
+			btScalar mass(0.);
+
+			//rigidbody is dynamic if and only if mass is non zero, otherwise static
+			bool isDynamic = (mass != 0.f);
+
+			btVector3 localInertia(0, 0, 0);
+			if (isDynamic)
+				groundShape->calculateLocalInertia(mass, localInertia);
+
+			//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
+			btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
+			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
+			btRigidBody* body = new btRigidBody(rbInfo);
+
+			//add the body to the dynamics world
+			dynamicsWorld->addRigidBody(body);
+		}
+		
+		{
+			//create a dynamic rigidbody
+
+			//btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
+			btCollisionShape* colShape = new btSphereShape(btScalar(5.));
+			collisionShapes.push_back(colShape);
+
+			/// Create Dynamic Objects
+			btTransform startTransform;
+			startTransform.setIdentity();
+
+			btScalar mass(1.f);
+
+			//rigidbody is dynamic if and only if mass is non zero, otherwise static
+			bool isDynamic = (mass != 0.f);
+
+			btVector3 localInertia(0, 0, 0);
+			if (isDynamic)
+				colShape->calculateLocalInertia(mass, localInertia);
+
+			startTransform.setOrigin(btVector3(40, 400, 0));
+
+			//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+			btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
+			btRigidBody* body = new btRigidBody(rbInfo);
+
+			dynamicsWorld->addRigidBody(body);
+		}
+
+
+
+
+
+				//print positions of all objects
+				btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[1];
+				btRigidBody* body = btRigidBody::upcast(obj);
+				btTransform trans;
+				if (body && body->getMotionState())
+				{
+					body->getMotionState()->getWorldTransform(trans);
+				}
+				else
+				{
+					trans = obj->getWorldTransform();
+				}
+				printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+				
+
+
 		while (!quit)
 		{			
 			//startTicks = SDL_GetTicks();
@@ -620,27 +712,40 @@ int main(int argc, char **argv)
 			
 			while (SDL_PollEvent(&e) != 0) { handleUI(e); }
 			//scene->Step();
-			//world->update( 1.0 / 60.0 );	
+			//world->update( 1.0 / 60.0 );				
 			Serial_Read();
 			Serial_Write();
 			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
 			{
+				dynamicsWorld->stepSimulation(1.f / 60.f, 10);
 				//parser->ConsolePressed.insert((int)Typeof_ConsoleInputs::FlightStickUP);
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) Scroll.y = Scroll.y + 5 * Zoom;
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) Scroll.y = Scroll.y - 5 * Zoom;
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) Scroll.x = Scroll.x + 5 * Zoom;
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) Scroll.x = Scroll.x - 5 * Zoom;
-				//if (parser->ConsolePressed.FlightStickUP == true) Scroll.y = Scroll.y + 5 * Zoom;
-				//if (parser->ConsolePressed.FlightStickDOWN == true) Scroll.y = Scroll.y - 5 * Zoom;
-				//if (parser->ConsolePressed.FlightStickLEFT == true) Scroll.x = Scroll.x + 5 * Zoom;
-				//if (parser->ConsolePressed.FlightStickRIGHT == true) Scroll.x = Scroll.x - 5 * Zoom;
+				
+				
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) body->applyCentralForce(btVector3(0, -20, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) body->applyCentralForce(btVector3(0, 20, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) body->applyCentralForce(btVector3(-20, 0, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) body->applyCentralForce(btVector3(20, 0, 0));
+				
+				
+				
+				
 				
 				SWS.Ship->UpdateConsole(parser);
-							
+				body->getMotionState()->getWorldTransform(trans);
+				SWS.Ship->x = float(trans.getOrigin().getX());
+				SWS.Ship->y = float(trans.getOrigin().getY());
+				SWS.Ship->z = float(trans.getOrigin().getZ());
+				
+				//printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+								
 				render();
-				//renderGalaxyMap(0, 0);
+				//renderGalaxyMap(0, 0);				
 				fps++;
-				fpsTicks = SDL_GetTicks();				
+				fpsTicks = SDL_GetTicks();	
 			}
 			
 			if (fpsStart + 1000 < SDL_GetTicks())
