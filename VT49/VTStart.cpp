@@ -14,6 +14,8 @@
 #include <thread>
 
 //#include "reactphysics3d.h"
+#include <LinearMath/btVector3.h>
+#include <btTransform.h>
 #include <btBulletDynamicsCommon.h>
 #include "VTStart.h"
 #include "VTSerialPhraser.h"
@@ -24,6 +26,7 @@
 
 using namespace std;
 using namespace tinyxml2;
+
 //using namespace reactphysics3d;
 
 const int SCREEN_WIDTH = 1280;
@@ -611,7 +614,7 @@ int main(int argc, char **argv)
 		int fps;
 		
 		fpsTicks = SDL_GetTicks();
-		//While application is running		
+		//While application is running
 		
 		//std::thread serialThread(Serial_Write);
 		//SDL_Thread *serialThread;
@@ -625,14 +628,14 @@ int main(int argc, char **argv)
 		btBroadphaseInterface* overlappingPairCache = new btDbvtBroadphase();
 		btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
 		btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-		dynamicsWorld->setGravity(btVector3(0, -2, 0));		
+		dynamicsWorld->setGravity(btVector3(0, -2, 0));
 		btAlignedObjectArray<btCollisionShape*> collisionShapes;
 		
 		{
 			btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
 
 			collisionShapes.push_back(groundShape);
-
+			
 			btTransform groundTransform;
 			groundTransform.setIdentity();
 			groundTransform.setOrigin(btVector3(0, -56, 0));
@@ -658,8 +661,8 @@ int main(int argc, char **argv)
 		{
 			//create a dynamic rigidbody
 
-			//btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
-			btCollisionShape* colShape = new btSphereShape(btScalar(5.));
+			btCollisionShape* colShape = new btBoxShape(btVector3(5, 5, 5));
+			//btCollisionShape* colShape = new btSphereShape(btScalar(5.));
 			collisionShapes.push_back(colShape);
 
 			/// Create Dynamic Objects
@@ -683,16 +686,19 @@ int main(int argc, char **argv)
 			btRigidBody* body = new btRigidBody(rbInfo);
 
 			dynamicsWorld->addRigidBody(body);
+			
+			btHingeConstraint* hinge = new btHingeConstraint(*body, btVector3(1, 0, 0), btVector3(1, 0, 0), true);
+			hinge->setAngularOnly(true);
+			dynamicsWorld->addConstraint(hinge);
+			
 		}
-
-
-
 
 
 				//print positions of all objects
 				btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[1];
 				btRigidBody* body = btRigidBody::upcast(obj);
 				btTransform trans;
+				
 				if (body && body->getMotionState())
 				{
 					body->getMotionState()->getWorldTransform(trans);
@@ -702,17 +708,16 @@ int main(int argc, char **argv)
 					trans = obj->getWorldTransform();
 				}
 				printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
-				
-
+								
 
 		while (!quit)
-		{			
+		{
 			//startTicks = SDL_GetTicks();
 						
 			
 			while (SDL_PollEvent(&e) != 0) { handleUI(e); }
 			//scene->Step();
-			//world->update( 1.0 / 60.0 );				
+			//world->update( 1.0 / 60.0 );
 			Serial_Read();
 			Serial_Write();
 			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
@@ -725,10 +730,10 @@ int main(int argc, char **argv)
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) Scroll.x = Scroll.x - 5 * Zoom;
 				
 				
-				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) body->applyCentralForce(btVector3(0, -20, 0));
-				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) body->applyCentralForce(btVector3(0, 20, 0));
-				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) body->applyCentralForce(btVector3(-20, 0, 0));
-				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) body->applyCentralForce(btVector3(20, 0, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) body->applyCentralImpulse(btVector3(0, -1, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) body->applyCentralImpulse(btVector3(0, 1, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) body->applyCentralImpulse(btVector3(-1, 0, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) body->applyCentralImpulse(btVector3(1, 0, 0));
 				
 				
 				
@@ -741,11 +746,11 @@ int main(int argc, char **argv)
 				SWS.Ship->z = float(trans.getOrigin().getZ());
 				
 				//printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
-								
+				printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 				render();
-				//renderGalaxyMap(0, 0);				
+				//renderGalaxyMap(0, 0);
 				fps++;
-				fpsTicks = SDL_GetTicks();	
+				fpsTicks = SDL_GetTicks();
 			}
 			
 			if (fpsStart + 1000 < SDL_GetTicks())
