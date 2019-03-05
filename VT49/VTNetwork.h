@@ -15,7 +15,8 @@ public:
 private:
 IPaddress ip;
 TCPsocket tcpsock;
-
+//SDLNet_SocketSet socket_set;
+//TCPsocket sockets[64];
 
 };
 
