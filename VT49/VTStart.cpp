@@ -42,7 +42,7 @@ int framsPerSec;
 size_t fpsTicks;
 size_t fpsStart;
 size_t serialTicks;
-//VTNetwork* net;
+//VTNetwork* _net;
 
 
 //DynamicsWorld* world;
@@ -105,7 +105,7 @@ void init_setup()
 	
 	//Serial Connection
 	parser = new VTSerialPhraser();
-	Serial_Connect();
+	//Serial_Connect();
 }
 
 
@@ -228,7 +228,7 @@ void Serial_Write()
 
 
 void handleUI(SDL_Event e)
-{		
+{
 	if (e.type == SDL_KEYDOWN)
 	{
 		if (e.key.keysym.sym == SDLK_1)
@@ -368,9 +368,9 @@ void render()
 	if (StarMap->StarMap.find(count) != StarMap->StarMap.end())
 	{
 		if (StarMap->StarMap.find(count)->second->Name != nullptr)
-		{			
+		{
 			FC_Draw(gFontAG, gRenderer, 100, 100, StarMap->StarMap.find(count)->second->Name);
-		}				
+		}
 	}
 	
 	
@@ -425,7 +425,10 @@ void render()
 	//rect = {Scroll.x, Scroll.y, 850 * Zoom, 1250 * Zoom};
 	//SDL_RenderCopy(gRenderer, gTexture, NULL, &rect);
 	
-	rect = {int(SWS.Ship->x), int(SWS.Ship->y), 5, 5};
+	rect = {int(SWS.Ship->x) - 5, int(SWS.Ship->y) - 5, 10, 10};
+	SDL_RenderDrawRect(gRenderer, &rect);
+	
+	rect = {50, 50, 100, 100};
 	SDL_RenderDrawRect(gRenderer, &rect);
 	
 	dist1 += 0.000001;
@@ -501,7 +504,7 @@ bool init()
 	//if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0 ) {printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() ); return false;}	
 	
 	//Setup Network
-	//net = new VTNetwork();
+	//_net = new VTNetwork();
 	
 	//Diable Cursor
 	SDL_ShowCursor(SDL_DISABLE);
@@ -638,7 +641,7 @@ int main(int argc, char **argv)
 			
 			btTransform groundTransform;
 			groundTransform.setIdentity();
-			groundTransform.setOrigin(btVector3(0, -56, 0));
+			groundTransform.setOrigin(btVector3(100, 100, 0));
 
 			btScalar mass(0.);
 
@@ -718,11 +721,19 @@ int main(int argc, char **argv)
 			while (SDL_PollEvent(&e) != 0) { handleUI(e); }
 			//scene->Step();
 			//world->update( 1.0 / 60.0 );
-			Serial_Read();
-			Serial_Write();
-			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
-			{
-				dynamicsWorld->stepSimulation(1.f / 60.f, 10);
+			
+			//Serial_Read();
+			//Serial_Write();
+			
+						
+			
+				if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
+				{
+					dynamicsWorld->stepSimulation(1.f / 60.f, 10);
+					fpsTicks = SDL_GetTicks();
+				}
+					
+				
 				//parser->ConsolePressed.insert((int)Typeof_ConsoleInputs::FlightStickUP);
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) Scroll.y = Scroll.y + 5 * Zoom;
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) Scroll.y = Scroll.y - 5 * Zoom;
@@ -747,24 +758,25 @@ int main(int argc, char **argv)
 				
 				//printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 				printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+				
 				render();
 				//renderGalaxyMap(0, 0);
 				fps++;
-				fpsTicks = SDL_GetTicks();
-			}
+				//fpsTicks = SDL_GetTicks();
+			
 			
 			if (fpsStart + 1000 < SDL_GetTicks())
-			{				
+			{
 				framsPerSec = fps;
 				fps = 0;
 				fpsStart = SDL_GetTicks();
 			}
 			
 			
-			//int frameTicks = SDL_GetTicks() - startTicks;			
+			//int frameTicks = SDL_GetTicks() - startTicks;
 			//if (frameTicks < SCREEN_TICKS_PER_FRAME)
 			//{
-			//SDL_Delay(10);
+				//SDL_Delay(10);
 			//}
 		}
 		//serialThread.join();
