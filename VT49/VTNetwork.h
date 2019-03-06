@@ -3,6 +3,7 @@
 
 #include "SDL.h"
 #include "SDL_net.h"
+#include "SWSimulation.h"
 
 class VTNetwork
 {
@@ -11,12 +12,14 @@ public:
 	~VTNetwork();
 
 	void init_Network();
+	
+	void update_Network(SWSimulation SWS);
 
 private:
 IPaddress ip;
-TCPsocket tcpsock;
-//SDLNet_SocketSet socket_set;
-//TCPsocket sockets[64];
+TCPsocket server = NULL;
+TCPsocket client = NULL;
+SDLNet_SocketSet socket_set;
 
 };
 

@@ -1,0 +1,434 @@
+!SceneAsset
+Id: ed88d2ff-d469-4065-bcbf-74f2881213d1
+SerializedVersion: {Xenko: 3.1.0.1}
+Tags: []
+ChildrenIds: []
+Offset: {X: 0.0, Y: 0.0, Z: 0.0}
+Hierarchy:
+    RootParts:
+        - ref!! cef9286d-fb66-4d72-8756-af47c6d3e8fc
+        - ref!! 2d62e2e4-d094-4996-9b41-7c0a1338193e
+        - ref!! 89446736-e1a9-46f1-a36c-8e71437c637c
+        - ref!! 1e075557-8589-423e-a349-f13e63468cc6
+        - ref!! 27b60f0a-f92d-4244-842a-ee00ca51f1b3
+        - ref!! 747180be-ff4c-458f-a791-24fd0639de09
+        - ref!! 1cc8a0c9-60d4-470c-9f6e-4f40e8e89f14
+        - ref!! 5c11f0b5-8d4b-46ab-b40f-69d41b9aef0a
+        - ref!! 685fcea6-27c2-4a64-b5c7-5fca1bee0a07
+        - ref!! f329198c-d5ab-4a5b-9e2e-54eda32c11ee
+        - ref!! 20a22618-c24e-4f58-aa57-832b0765b3cf
+        - ref!! 2a9e5f3b-7265-4dd3-9fdd-707c50a0ba6d
+        - ref!! e8aff0cf-585b-4a49-a5df-a94e31454259
+        - ref!! 21c56a66-1fe1-4b23-8be4-ab55cdc37a6a
+    Parts:
+        -   Entity:
+                Id: 05ed8179-dbfe-4f3e-9982-ac6868ee6205
+                Name: VT-49 Cam
+                Components:
+                    dec48846d190b1e08ef2f8f78d5927d4: !TransformComponent
+                        Id: b6b9de74-fa44-41c1-a4b1-4d026e4c5bd0
+                        Position: {X: 0.0, Y: 0.03693773, Z: 0.00503726536}
+                        Rotation: {X: 3.090862E-08, Y: 0.707106769, Z: 0.707106769, W: -3.090862E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    7cf2d447bb790c6a776ba8a640bfef3e: !CameraComponent
+                        Id: 0e1debc6-0a55-458a-a84d-32ae73807fea
+                        Name: null
+                        Projection: Perspective
+                        VerticalFieldOfView: 60.0
+                        Slot: 3d803371-91dc-4734-b62a-f22f4eeac169
+        -   Entity:
+                Id: 0689006d-d3cf-4155-af78-8c7a99d6c959
+                Name: Point light
+                Components:
+                    ab26abd9237a93e48f431e3ddbfc08fa: !TransformComponent
+                        Id: 07d09764-5b21-45c1-8bf2-4c1e093da33d
+                        Position: {X: 0.0, Y: 20.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    eb97484da3fd53b9c3ba8e9194aa0c8e: !LightComponent
+                        Id: 4b6073ab-6ffc-4d6a-b0de-37a3a592cb37
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 1.0, B: 1.0}
+                            Radius: 60.0
+                            Shadow:
+                                Size: Small
+                                BiasParameters: {}
+                        Intensity: 10.0
+        -   Folder: null
+            Entity:
+                Id: 1cc8a0c9-60d4-470c-9f6e-4f40e8e89f14
+                Name: TieFighter
+                Components:
+                    d20ceb4151299ba167797919d59068c5: !TransformComponent
+                        Id: a4eb0c74-89b7-4d23-811d-89ba3982d746
+                        Position: {X: 0.0, Y: 2.11, Z: 10.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    587c726c0a1f8f7e00484e1333baf6e0: !ModelComponent
+                        Id: ab174184-6b00-40e4-8d21-29993a9d7d34
+                        Model: 06b4d9a4-3733-4742-952e-c016f63a7171:Ships/LN-TIE/TieFighter
+                        Materials: {}
+        -   Entity:
+                Id: 1e075557-8589-423e-a349-f13e63468cc6
+                Name: UIBox
+                Components:
+                    f520a1ec74dc640e43441fa1f06f194b: !TransformComponent
+                        Id: 3d4a15da-ea2d-4beb-aeb4-f546be8fa76f
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e6bec3ebc3393d21e03379be98a4191c: !UIComponent
+                        Id: d2680217-71c8-4423-96d5-b4e478052465
+                        Enabled: false
+                        Page: a7a9976e-be01-44ce-aaf8-526d84034bb6:Page
+                        Resolution: {X: 1280.0, Y: 720.0, Z: 1000.0}
+                        Size: {X: 1.0, Y: 1.0, Z: 1.0}
+        -   Entity:
+                Id: 20a22618-c24e-4f58-aa57-832b0765b3cf
+                Name: XQ6 Platform
+                Components:
+                    9f2395fad3f1d66064ef7c3476a89b5a: !TransformComponent
+                        Id: 388e7d54-7e8b-4b68-b240-6c174d61654f
+                        Position: {X: 0.0, Y: 0.0, Z: 100.0}
+                        Rotation: {X: 0.0, Y: 1.0, Z: 0.0, W: -4.371139E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            77232f0ee13948433f06d1e714edc706: ref!! 07d09764-5b21-45c1-8bf2-4c1e093da33d
+                    ce2d397285de289c4a9d650449396a49: !ModelComponent
+                        Id: 4da2d944-3878-4965-902a-b5f1b6086e78
+                        Model: 8b8b4bc0-7261-4d63-9cb5-b12964a56402:Ships/XQ6/XQ6 Platform
+                        Materials: {}
+                    ce4c111ab7861836b0be41f5b5cace86: !RigidbodyComponent
+                        Id: 44ba4cbd-4c7a-4c1a-8d7e-98668329b091
+                        CanSleep: false
+                        Restitution: 0.8
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 100.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.0
+                        OverrideGravity: true
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: null
+                        ColliderShapes:
+                            3501e246d5550fbd4a23c8071d66911c: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 40.5, Y: 3.0, Z: 20.0}
+                                LocalOffset: {X: 0.0, Y: -1.8, Z: 45.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                            26135816c0fe66461b798dcf41efaba6: !SphereColliderShapeDesc
+                                Is2D: false
+                                Radius: 15.0
+                                LocalOffset: {X: 0.0, Y: 0.0, Z: 0.0}
+                            9ae4aaafced2336de713699cff4fd294: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 14.0, Y: 7.0, Z: 12.0}
+                                LocalOffset: {X: 0.0, Y: 0.5, Z: 18.0}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                            8b5978ed8b13056a4ade71095aaf2c06: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 14.0, Y: 3.0, Z: 11.0}
+                                LocalOffset: {X: 0.0, Y: -1.8, Z: 29.5}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+        -   Entity:
+                Id: 21c56a66-1fe1-4b23-8be4-ab55cdc37a6a
+                Name: NetworkUpdate
+                Components:
+                    4815a02d751192b2bf8e28e19e9db94d: !TransformComponent
+                        Id: f97a2409-16fb-4d74-9b24-1784ea247183
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    d9aab77f30c6ab06c7a5e6ed57e9edf4: !VT49_Newer.NetworkUpdate,VT49_Newer
+                        Id: 4728bcc2-b341-4d4f-b472-7a2ef70bb9d5
+                        Ship: ref!! f329198c-d5ab-4a5b-9e2e-54eda32c11ee
+        -   Entity:
+                Id: 27b60f0a-f92d-4244-842a-ee00ca51f1b3
+                Name: TieFighter
+                Components:
+                    d20ceb4151299ba167797919d59068c5: !TransformComponent
+                        Id: 1ac35e71-695b-400b-b36e-3870b34b450f
+                        Position: {X: 2.0, Y: 2.10968375, Z: 8.547943}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    587c726c0a1f8f7e00484e1333baf6e0: !ModelComponent
+                        Id: 998a502f-c1e5-448e-a253-8499b2330ef7
+                        Model: 06b4d9a4-3733-4742-952e-c016f63a7171:Ships/LN-TIE/TieFighter
+                        Materials: {}
+        -   Entity:
+                Id: 2a9e5f3b-7265-4dd3-9fdd-707c50a0ba6d
+                Name: ImperialIIStarDestroyer
+                Components:
+                    2c47f689af6c03a3d7f8194597c96bb3: !TransformComponent
+                        Id: d1fc2b2b-c32b-4343-8d40-0c32b234191f
+                        Position: {X: 3.14969778, Y: 61.716, Z: -100.0}
+                        Rotation: {X: 0.32011646, Y: 0.05933008, Z: -0.172307074, W: 0.9296858}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    1c2006d15569adca73fcb3a5b60efd28: !ModelComponent
+                        Id: 851e369d-5da0-4f7d-8f80-81489466260f
+                        Model: 77e2cb00-ca7b-4e5d-8e54-f217f17100cd:Ships/Star Destroyer/ImperialIIStarDestroyer
+                        Materials:
+                            6424312b75b5f6eae000b3f3fc48a107~0: dabbb815-84a3-4761-b796-42345f745461:Ships/VT-49-2/YellowGlow
+                            1f6c87f5b7ec186cfc57ab3911e49de8~1: 9e7d2c5f-e0f5-47b6-92b3-525e2d48da99:Ships/VT-49/ScratchedMetal
+                            5f9205eaebb207be482d353e45982687~2: 9e7d2c5f-e0f5-47b6-92b3-525e2d48da99:Ships/VT-49/ScratchedMetal
+                            0edcdf618a7e446c35667179b19b17c1~3: 739aa765-b676-46e5-9df8-57437607d293:Ships/XQ6/Dark
+                            d64c435658cda6d8d7d5ed9200f20b22~4: f9c58b32-c620-4db5-ae61-ce3882b230e8:Glass
+                            d9057144ee9bb831fa919546a0af1608~5: 18593002-671e-4fe9-a24d-1d5cd25263fe:Ships/VT-49/BlueEngineGlow
+        -   Entity:
+                Id: 2d62e2e4-d094-4996-9b41-7c0a1338193e
+                Name: Directional light
+                Components:
+                    bd20ddeeda4c98f06ff08f8093ee7489: !TransformComponent
+                        Id: ef5e4a88-1d9b-4c34-b5fe-810b0d19cd79
+                        Position: {X: 4.73548937, Y: 50.7288742, Z: -24.4746323}
+                        Rotation: {X: 1.131334E-08, Y: -0.9659258, Z: -0.258819044, W: -4.222196E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    8b23148e7a2afe375c2bb4dbcf6c7f90: !LightComponent
+                        Id: 2c3d12f2-7d96-4594-bf47-d85cd1a82504
+                        Type: !LightPoint
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 1.0, B: 1.0}
+                            Radius: 300.0
+                            Shadow:
+                                Size: Small
+                                BiasParameters: {}
+                        Intensity: 5000.0
+        -   Entity:
+                Id: 55f27538-d348-4c67-9323-ef97dbb1df19
+                Name: Left Light
+                Components:
+                    cdfe56876fc24db16c2a3ba4b31c7e1d: !TransformComponent
+                        Id: 43f4941b-15fb-4161-ba02-8d4028d5dbb3
+                        Position: {X: -0.553784668, Y: 0.16, Z: -0.74}
+                        Rotation: {X: 0.0, Y: 1.0, Z: 0.0, W: -4.371139E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    f75f946f04159ed6ec5f082bd79bda84: !LightComponent
+                        Id: d51f6587-d0cd-4eb0-95c9-863b09ed6dfe
+                        Enabled: false
+                        Type: !LightSpot
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 1.0, B: 1.0}
+                            Range: 100.0
+                            UVScale: {X: 1.0, Y: 1.0}
+                            UVOffset: {X: 0.0, Y: 0.0}
+                            Shadow:
+                                BiasParameters:
+                                    DepthBias: 0.001
+                        Intensity: 10.0
+        -   Entity:
+                Id: 5c11f0b5-8d4b-46ab-b40f-69d41b9aef0a
+                Name: Background Light
+                Components:
+                    f6e00dc679ecb2207dc5c446190d70a4: !TransformComponent
+                        Id: 9f39372b-e23b-4c27-9a6a-1c25a61d1b64
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    00d8974c2b3716ad20ff2ecdd5c2b846: !LightComponent
+                        Id: bb324938-fa15-45e9-aff6-d8d340c4954b
+                        Type: !LightAmbient
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 1.0, B: 1.0}
+                        Intensity: 0.03
+        -   Entity:
+                Id: 685fcea6-27c2-4a64-b5c7-5fca1bee0a07
+                Name: TurretControls
+                Components:
+                    eb29e10a7cd605afbd11e433d6733bc5: !TransformComponent
+                        Id: d4b556b2-24b8-4fea-ad4a-8e1cbf23aeb0
+                        Position: {X: 0.0, Y: 2.046035, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+        -   Entity:
+                Id: 7224a30c-0ca3-4dba-afc7-a87bcb59a15c
+                Name: Right Light
+                Components:
+                    c8b412dcd7b1e28f6ac82db4014e1444: !TransformComponent
+                        Id: 266490bc-1b15-4511-aa3d-906e365cb1f5
+                        Position: {X: 0.5508255, Y: 0.162549272, Z: -0.6173601}
+                        Rotation: {X: 0.0, Y: 1.0, Z: 0.0, W: -4.371139E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    8c60da8831404ed484646dafdb30d83b: !LightComponent
+                        Id: dc8de8eb-7168-45ca-ac31-730075d7cdeb
+                        Enabled: false
+                        Type: !LightSpot
+                            Color: !ColorRgbProvider
+                                Value: {R: 1.0, G: 1.0, B: 1.0}
+                            Range: 100.0
+                            UVScale: {X: 1.0, Y: 1.0}
+                            UVOffset: {X: 0.0, Y: 0.0}
+                            Shadow:
+                                BiasParameters:
+                                    DepthBias: 0.001
+                        Intensity: 10.0
+        -   Folder: null
+            Entity:
+                Id: 747180be-ff4c-458f-a791-24fd0639de09
+                Name: TieFighter
+                Components:
+                    d20ceb4151299ba167797919d59068c5: !TransformComponent
+                        Id: 9adea65c-b3e3-483f-85d0-ff00dfe36ed6
+                        Position: {X: -2.0, Y: 2.10968375, Z: 8.547943}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    587c726c0a1f8f7e00484e1333baf6e0: !ModelComponent
+                        Id: fe49fb7f-659e-4be6-be9a-c8cb6831e98a
+                        Model: 06b4d9a4-3733-4742-952e-c016f63a7171:Ships/LN-TIE/TieFighter
+                        Materials: {}
+        -   Entity:
+                Id: 89446736-e1a9-46f1-a36c-8e71437c637c
+                Name: Skybox
+                Components:
+                    00a80091883aed7c66cc3c5739f8445d: !TransformComponent
+                        Id: eb61788e-e60f-4ed7-a648-812eddf5af15
+                        Position: {X: 0.0, Y: 2.0, Z: -2.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    71aa564a094fec1badc02d74e97cb407: !BackgroundComponent
+                        Id: 4f8fa7f3-92e7-40a4-913d-2d480b4d71e4
+                        Texture: e6299f4c-4dd1-488c-9268-d5ba8afb724e:Skybox3
+                    2558e764a80a656ade69826a5b690eee: !LightComponent
+                        Id: d3cab0a3-e1c2-4ebe-a6df-6b2d11d367be
+                        Enabled: false
+                        Type: !LightSkybox
+                            Skybox: null
+        -   Entity:
+                Id: a39c5fed-3e16-4235-a2e3-d14640d59222
+                Name: TurretCamera
+                Components:
+                    26d1cce112a2f03a4be8ac90e57e217e: !TransformComponent
+                        Id: 13839e81-4f90-4c21-837a-17e96738db2a
+                        Position: {X: 0.0, Y: 0.007324786, Z: 0.00172349392}
+                        Rotation: {X: 3.090862E-08, Y: 0.707106769, Z: 0.707106769, W: -3.090862E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    91b076b2c37df98542698a35b3193a1e: !CameraComponent
+                        Id: 4f231323-71f5-493a-847a-ac8aa25186be
+                        Name: null
+                        Projection: Perspective
+                        VerticalFieldOfView: 20.0
+                        Slot: 00000000-0000-0000-0000-000000000000
+        -   Entity:
+                Id: bde4f133-4a46-4a99-a63a-1eba561e579c
+                Name: Top Turret
+                Components:
+                    cd6e531d14ff15c9ef53074bb95d5cc1: !TransformComponent
+                        Id: addd8457-0d13-48bb-91b5-e131dde87c71
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            4e7cb09c302bd67bf1d5e4359766cca3: ref!! 13839e81-4f90-4c21-837a-17e96738db2a
+                    ef05c407d660b544d5482e36d0c51690: !ModelNodeLinkComponent
+                        Id: bde9dfa5-3f54-473c-9dd7-229cf1d1a7e9
+                        Target: null
+                        NodeName: UpperCanon
+        -   Entity:
+                Id: c43e6db3-54ca-4120-a4d1-6c703db3afd8
+                Name: Camera Hold
+                Components:
+                    2db65aaf81a0e57f613b21449656ff78: !TransformComponent
+                        Id: 4cfc7e7a-2d1e-4a90-bf04-a108db47f85f
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            e1b71482efd730d47e7c3b58c24204ab: ref!! b6b9de74-fa44-41c1-a4b1-4d026e4c5bd0
+                    fab1301357a314fb95b5c59f713c6304: !ModelNodeLinkComponent
+                        Id: 5932d553-64e3-43b8-b5e3-14f895aaab50
+                        Target: null
+                        NodeName: Engines
+        -   Entity:
+                Id: cef9286d-fb66-4d72-8756-af47c6d3e8fc
+                Name: Camera
+                Components:
+                    b3f0d1b87d5c80057d5b33080db80bc6: !TransformComponent
+                        Id: 788d2bef-7da3-404b-885f-17e2ab61ca16
+                        Position: {X: 0.0, Y: 1.7, Z: -5.0}
+                        Rotation: {X: 0.0, Y: -1.0, Z: 0.0, W: -4.371139E-08}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    e443af0322e7ceb5878eb97111edc8ce: !CameraComponent
+                        Id: 2aee1644-4f73-4a1b-aa59-cd7443b753dd
+                        Name: null
+                        Projection: Perspective
+                        Slot: 00000000-0000-0000-0000-000000000000
+        -   Entity:
+                Id: e8aff0cf-585b-4a49-a5df-a94e31454259
+                Name: DebugPhysicsShapes
+                Components:
+                    8c4359d58eff8c29f311df3f34abd955: !TransformComponent
+                        Id: 5337f607-1434-49f3-9596-48b20bff99f6
+                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    5159a9393dd67b1d84cc73dd0d5420f6: !VT49_Newer.DebugPhysicsShapes,VT49_Newer
+                        Id: 1447db0e-182f-48b4-98a6-45fbcc8ee224
+                        RenderGroup: Group7
+        -   Entity:
+                Id: f329198c-d5ab-4a5b-9e2e-54eda32c11ee
+                Name: VT-49 Turreted
+                Components:
+                    35f930308c46df742cfc17c21cd2d051: !TransformComponent
+                        Id: 4649b9b6-9cd6-440d-823b-188c22a81dbb
+                        Position: {X: 0.0, Y: 2.94790554, Z: -0.187092349}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children:
+                            c8fdc957e233af01974fac70732a4962: ref!! 4cfc7e7a-2d1e-4a90-bf04-a108db47f85f
+                            f77cc4b0533691beb83b3cc47c4ced30: ref!! 43f4941b-15fb-4161-ba02-8d4028d5dbb3
+                            314dd2af54dc7f2f1e52b98177cc5327: ref!! 266490bc-1b15-4511-aa3d-906e365cb1f5
+                            fcd402d50587e02a1415a53f891bf85f: ref!! addd8457-0d13-48bb-91b5-e131dde87c71
+                    48a2df8b416081fadfae56738ac90b3f: !ModelComponent
+                        Id: 0de940c0-c47c-426c-a82e-cb3f01111474
+                        Model: b955115a-599f-481e-831e-3ec654785ef9:Ships/VT-49-2/VT-49 Turreted TExtured
+                        Materials:
+                            a20caefb35faf5206acb2bbca9e0473f~0: c8dd4cb4-afab-47a5-9e76-86ebb9ca1961:Sphere Material
+                            5eb98c446becdadaea68490d9a47fed8~1: cb7b0282-25a3-407b-9392-97ab0edfe008:Ships/VT-49-2/ScratchedMetalDark
+                            ad842c23cf8e1a81b1fb515163bb20a5~2: a8f7e23f-262c-4287-bdfb-546feb33745d:Ships/VT-49-2/Dark
+                            7c2653fe5a95b599b93e638a63cfce19~3: 9dd5af59-4e97-4663-a950-e1d50b42f409:Ships/VT-49-2/ReflectiveGlass
+                            79e8cf42857aedeb3d79addc78fe711b~4: dabbb815-84a3-4761-b796-42345f745461:Ships/VT-49-2/YellowGlow
+                            09f8e7528254a437fe490551e46e56db~5: 5af7ff29-d12e-4da0-aaa3-c92dc4ed8056:Ships/VT-49-2/BlueEngineGlow
+                    3a11a6e16081843b588b198152f54ca8: !RigidbodyComponent
+                        Id: 5d90ee80-c679-4637-bd73-e92d8a4df39f
+                        Enabled: false
+                        CanSleep: false
+                        Restitution: 0.8
+                        Friction: 0.5
+                        RollingFriction: 0.0
+                        CcdMotionThreshold: 0.0
+                        CcdSweptSphereRadius: 0.0
+                        IsTrigger: false
+                        IsKinematic: false
+                        Mass: 1.0
+                        LinearDamping: 0.0
+                        AngularDamping: 0.8
+                        OverrideGravity: true
+                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
+                        NodeName: VT-49 Decimator
+                        ColliderShapes:
+                            7d75017d329c5f2b00254246740d87b6: !BoxColliderShapeDesc
+                                Is2D: false
+                                Size: {X: 0.025, Y: 0.038, Z: 0.008}
+                                LocalOffset: {X: 0.0, Y: 0.001, Z: 0.001}
+                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}

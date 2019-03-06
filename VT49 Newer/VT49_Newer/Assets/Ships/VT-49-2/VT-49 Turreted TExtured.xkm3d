@@ -1,0 +1,35 @@
+!Model
+Id: b955115a-599f-481e-831e-3ec654785ef9
+SerializedVersion: {Xenko: 2.0.0.0}
+Tags: []
+Source: !file ../../../../../../Blender Files/VT-49 Turreted TExtured.fbx
+Skeleton: 2ac8f648-db62-4a57-9905-b058aae919c7:Ships/VT-49-2/VT-49 Turreted TExtured Skeleton
+PivotPosition: {X: 0.0, Y: 0.0, Z: 0.0}
+Materials:
+    f8b3d726bbfd20d1295c0001d9bd5dd5:
+        Name: ScratchedMetal
+        MaterialInstance:
+            Material: 7fa4868c-a8c7-43b8-abe3-f2bf2c09e220:Ships/VT-49-2/ScratchedMetal
+    24cefcbf1fa21713c67cf0cf5fb03e72:
+        Name: ScratchedMetalDark
+        MaterialInstance:
+            Material: cb7b0282-25a3-407b-9392-97ab0edfe008:Ships/VT-49-2/ScratchedMetalDark
+    ee072441f7e643770b9da9752b73bb20:
+        Name: Dark
+        MaterialInstance:
+            Material: a8f7e23f-262c-4287-bdfb-546feb33745d:Ships/VT-49-2/Dark
+    0a06317ce86dd06001acaceae96afd34:
+        Name: ReflectiveGlass
+        MaterialInstance:
+            Material: 9dd5af59-4e97-4663-a950-e1d50b42f409:Ships/VT-49-2/ReflectiveGlass
+    365364caee1fd3194aa83959bcda109f:
+        Name: YellowGlow
+        MaterialInstance:
+            Material: dabbb815-84a3-4761-b796-42345f745461:Ships/VT-49-2/YellowGlow
+    21f0682bdba5449d43fca425bf24f137:
+        Name: BlueEngineGlow
+        MaterialInstance:
+            Material: 5af7ff29-d12e-4da0-aaa3-c92dc4ed8056:Ships/VT-49-2/BlueEngineGlow
+Modifiers: {}
+~SourceHashes:
+    b635c2934ce23db63f5f33d0f841eefa~../../../../../../Blender Files/VT-49 Turreted TExtured.fbx: b6a6c85c83834a99e31f23109a2a7ae0

@@ -2,8 +2,10 @@
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 #include "SDL_mixer.h"
+#include "SDL_net.h"
 //#include <stdlib.h>
 #include <stdio.h>
+
 #include <unistd.h>
 #include <serial/serial.h>
 #include <string>
@@ -20,7 +22,7 @@
 #include "VTStart.h"
 #include "VTSerialPhraser.h"
 #include "SWSimulation.h"
-//#include "VTNetwork.h"
+#include "VTNetwork.h"
 
 
 
@@ -42,7 +44,7 @@ int framsPerSec;
 size_t fpsTicks;
 size_t fpsStart;
 size_t serialTicks;
-//VTNetwork* _net;
+VTNetwork* _net;
 
 
 //DynamicsWorld* world;
@@ -89,7 +91,7 @@ void init_setup()
 	#ifdef __linux__
     CurrentOS = LINUX;
 	#endif
-	loadResources();		
+	loadResources();
 	
 	//rp3d::Vector3 gravity(0.0, -9.81, 0.0);
 	//Vector3 gravity(0.0, 0.0, 0.0);
@@ -105,7 +107,7 @@ void init_setup()
 	
 	//Serial Connection
 	parser = new VTSerialPhraser();
-	//Serial_Connect();
+	Serial_Connect();
 }
 
 
@@ -117,7 +119,7 @@ void Serial_Connect()
 	//try
 	//{
 		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 20000 , serial::Timeout::simpleTimeout(10));
-		if (CurrentOS == WIN) console = new serial::Serial("COM3", 20000 , serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == WIN) console = new serial::Serial("COM4", 20000 , serial::Timeout::simpleTimeout(10));
 		console->setTimeout(10, 10, 10, 10, 10);
 	//}
 	//catch(serial::IOException)
@@ -129,7 +131,7 @@ void Serial_Connect()
 
 void Serial_Read()
 {
-	parser->Update(console);	
+	parser->Update(console);
 	/*
 	if (console->isOpen())
 	{
@@ -155,7 +157,7 @@ uint8_t ConsolePacketSend = 0;
 
 
 void Serial_Write()
-{	
+{
 		
 		
 		if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
@@ -490,6 +492,7 @@ bool init()
 {
 	//Init SDL
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) { printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError()); return false; }
+	
 
 	gWindow = SDL_CreateWindow("Screen App", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_BORDERLESS);
 	if (gWindow == NULL) { printf("Window could not be created! SDL_Error: %s\n", SDL_GetError()); return false; }
@@ -504,7 +507,9 @@ bool init()
 	//if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0 ) {printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() ); return false;}	
 	
 	//Setup Network
-	//_net = new VTNetwork();
+	_net = new VTNetwork();
+	_net->init_Network();
+	//SDLNet_Init();
 	
 	//Diable Cursor
 	SDL_ShowCursor(SDL_DISABLE);
@@ -631,7 +636,7 @@ int main(int argc, char **argv)
 		btBroadphaseInterface* overlappingPairCache = new btDbvtBroadphase();
 		btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
 		btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-		dynamicsWorld->setGravity(btVector3(0, -2, 0));
+		dynamicsWorld->setGravity(btVector3(0, 0, 0));
 		btAlignedObjectArray<btCollisionShape*> collisionShapes;
 		
 		{
@@ -655,10 +660,12 @@ int main(int argc, char **argv)
 			//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
 			btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
 			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
+			
 			btRigidBody* body = new btRigidBody(rbInfo);
 
 			//add the body to the dynamics world
 			dynamicsWorld->addRigidBody(body);
+						
 		}
 		
 		{
@@ -681,7 +688,7 @@ int main(int argc, char **argv)
 			if (isDynamic)
 				colShape->calculateLocalInertia(mass, localInertia);
 
-			startTransform.setOrigin(btVector3(40, 400, 0));
+			startTransform.setOrigin(btVector3(0, 0, 0));
 
 			//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
 			btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
@@ -722,16 +729,20 @@ int main(int argc, char **argv)
 			//scene->Step();
 			//world->update( 1.0 / 60.0 );
 			
-			//Serial_Read();
-			//Serial_Write();
+			Serial_Read();
+			Serial_Write();
 			
 						
 			
 				if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
 				{
 					dynamicsWorld->stepSimulation(1.f / 60.f, 10);
-					fpsTicks = SDL_GetTicks();
-				}
+					body->setActivationState(DISABLE_DEACTIVATION);
+					body->activate(true);
+					
+					_net->update_Network(SWS);
+					//fpsTicks = SDL_GetTicks();
+				
 					
 				
 				//parser->ConsolePressed.insert((int)Typeof_ConsoleInputs::FlightStickUP);
@@ -739,14 +750,12 @@ int main(int argc, char **argv)
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) Scroll.y = Scroll.y - 5 * Zoom;
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) Scroll.x = Scroll.x + 5 * Zoom;
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) Scroll.x = Scroll.x - 5 * Zoom;
-				
-				
-				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) body->applyCentralImpulse(btVector3(0, -1, 0));
-				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) body->applyCentralImpulse(btVector3(0, 1, 0));
-				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) body->applyCentralImpulse(btVector3(-1, 0, 0));
-				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) body->applyCentralImpulse(btVector3(1, 0, 0));
-				
-				
+								
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) body->applyCentralImpulse(btVector3(0, 0.1, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) body->applyCentralImpulse(btVector3(0, -0.1, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) body->applyCentralImpulse(btVector3(0.1, 0, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) body->applyCentralImpulse(btVector3(-0.1, 0, 0));
+								
 				
 				
 				
@@ -762,7 +771,9 @@ int main(int argc, char **argv)
 				render();
 				//renderGalaxyMap(0, 0);
 				fps++;
-				//fpsTicks = SDL_GetTicks();
+				fpsTicks = SDL_GetTicks();
+				
+			}
 			
 			
 			if (fpsStart + 1000 < SDL_GetTicks())

@@ -1,0 +1,30 @@
+!MaterialAsset
+Id: 24711fb6-3465-48fb-bafc-e4c5cc0e2cca
+SerializedVersion: {Xenko: 2.0.0.0}
+Tags: []
+Attributes:
+    Diffuse: !MaterialDiffuseMapFeature
+        DiffuseMap: !ComputeColor
+            Value: {R: 0.52525, G: 0.0, B: 0.0, A: 1.0}
+    DiffuseModel: !MaterialDiffuseLambertModelFeature
+        Enabled: false
+    Specular: !MaterialSpecularMapFeature
+        Enabled: false
+        SpecularMap: !ComputeColor
+            Value: {R: 0.2, G: 0.2, B: 0.2, A: 1.0}
+        Intensity: !ComputeFloat
+            Value: 1.0
+    SpecularModel: !MaterialSpecularMicrofacetModelFeature
+        Enabled: false
+        Fresnel: !MaterialSpecularMicrofacetFresnelSchlick {}
+        Visibility: !MaterialSpecularMicrofacetVisibilityImplicit {}
+        NormalDistribution: !MaterialSpecularMicrofacetNormalDistributionBlinnPhong {}
+        Environment: !MaterialSpecularMicrofacetEnvironmentGGXLUT {}
+    Emissive: !MaterialEmissiveMapFeature
+        EmissiveMap: !ComputeColor
+            Value: {R: 0.8039216, G: 0.137254909, B: 0.137254909, A: 1.0}
+        Intensity: !ComputeFloat
+            Value: 100.0
+    Overrides:
+        UVScale: {X: 1.0, Y: 1.0}
+Layers: {}

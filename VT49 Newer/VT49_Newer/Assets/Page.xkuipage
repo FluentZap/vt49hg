@@ -1,0 +1,55 @@
+!UIPageAsset
+Id: a7a9976e-be01-44ce-aaf8-526d84034bb6
+SerializedVersion: {Xenko: 2.1.0.1}
+Tags: []
+Design:
+    Resolution: {X: 1280.0, Y: 720.0, Z: 1000.0}
+Hierarchy:
+    RootParts:
+        - !Grid ref!! 36f85665-4658-4593-9b6b-0c9c7b0c8aa7
+    Parts:
+        -   UIElement: !Grid
+                Id: 36f85665-4658-4593-9b6b-0c9c7b0c8aa7
+                DependencyProperties: {}
+                BackgroundColor: {R: 0, G: 0, B: 0, A: 0}
+                Margin: {}
+                Children:
+                    93d0ca6523af4d6dd72758be45fdd516: !TextBlock ref!! 5d18df2f-6f44-48a0-916a-8faca7b4f126
+                    076903d162bd003791acad90ce3eeaf1: !TextBlock ref!! 43464c62-c19b-4a91-9d27-c89ab76e3e51
+                RowDefinitions: {}
+                ColumnDefinitions: {}
+                LayerDefinitions: {}
+        -   UIElement: !TextBlock
+                Id: 43464c62-c19b-4a91-9d27-c89ab76e3e51
+                DependencyProperties: {}
+                BackgroundColor: {R: 0, G: 0, B: 0, A: 0}
+                Width: 165.0
+                Height: 28.0
+                HorizontalAlignment: Left
+                VerticalAlignment: Top
+                Margin: {Left: 19.0, Top: 49.0}
+                MaximumWidth: 3.40282347E+38
+                MaximumHeight: 3.40282347E+38
+                MaximumDepth: 3.40282347E+38
+                Name: PitchText
+                Text: 'Pitch : '
+                Font: c90f3988-0544-4cbe-993f-13af7d9c23c6:XenkoDefaultFont
+                TextSize: 20.0
+                TextColor: {R: 240, G: 240, B: 240, A: 255}
+        -   UIElement: !TextBlock
+                Id: 5d18df2f-6f44-48a0-916a-8faca7b4f126
+                DependencyProperties: {}
+                BackgroundColor: {R: 0, G: 0, B: 0, A: 0}
+                Width: 165.0
+                Height: 28.0
+                HorizontalAlignment: Left
+                VerticalAlignment: Top
+                Margin: {Left: 19.0, Top: 21.0}
+                MaximumWidth: 3.40282347E+38
+                MaximumHeight: 3.40282347E+38
+                MaximumDepth: 3.40282347E+38
+                Name: YawText
+                Text: 'Yaw : '
+                Font: c90f3988-0544-4cbe-993f-13af7d9c23c6:XenkoDefaultFont
+                TextSize: 20.0
+                TextColor: {R: 240, G: 240, B: 240, A: 255}
