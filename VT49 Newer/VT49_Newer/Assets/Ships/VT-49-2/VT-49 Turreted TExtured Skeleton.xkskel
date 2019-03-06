@@ -1,0 +1,21 @@
+!Skeleton
+Id: 2ac8f648-db62-4a57-9905-b058aae919c7
+SerializedVersion: {Xenko: 2.0.0.0}
+Tags: []
+Source: !file ../../../../../../Blender Files/VT-49 Turreted TExtured.fbx
+PivotPosition: {X: 0.0, Y: 0.0, Z: 0.0}
+Nodes:
+    588390a7a1223c0bde464110a61d5c6e: {Name: RootNode, Depth: 0}
+    34f263f539d58118d069162b54cf7cf1: {Name: VT-49 Decimator, Depth: 1}
+    19f210b71fb8b6af3a38a542af9e720a: {Name: Greebles2, Depth: 2}
+    e5248f31f6221b83238312a729b8f37d: {Name: Greebles1, Depth: 2}
+    77bfee065de59547543d2958d80dbe88: {Name: Engines, Depth: 2}
+    b9780b0ffa1a300117a3985b2de19c42: {Name: LowerCanon, Depth: 2}
+    cfa51199afde8f94356594a12c61cef8: {Name: LowerCanonHolder, Depth: 2}
+    674edf4fc09ab0258424f5dadbdc7a1a: {Name: UpperCanon, Depth: 2}
+    2acfad7935d497f0c491179173cb86b9: {Name: UpperCanonHolder, Depth: 2}
+    8636323c0a34b666e9be960cf7690202: {Name: Window, Depth: 2}
+    ce61c616ae844144f2a4b27655dce787: {Name: MainHull, Depth: 2}
+    2b01133c3554b210ff67877eab240ca4: {Name: HullPlates, Depth: 2}
+~SourceHashes:
+    587ff31bc02dca590b7dece0ef675638~../../../../../../Blender Files/VT-49 Turreted TExtured.fbx: b6a6c85c83834a99e31f23109a2a7ae0

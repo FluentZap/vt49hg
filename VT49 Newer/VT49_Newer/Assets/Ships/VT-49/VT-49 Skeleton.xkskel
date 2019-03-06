@@ -1,0 +1,23 @@
+!Skeleton
+Id: 9d01453b-ad93-4c7f-bb30-8aa0b77df288
+SerializedVersion: {Xenko: 2.0.0.0}
+Tags: []
+Source: !file ../../../../../../Blender Files/VT-49.fbx
+PivotPosition: {X: 0.0, Y: 0.0, Z: 0.0}
+Nodes:
+    d6aa834ee559b0d1931aa60e0085801c: {Name: RootNode, Depth: 0}
+    023fb5250abf0979661eab32da72c9fc: {Name: VT-49 Decimator, Depth: 1}
+    1731bf673806f8bb3659ebdcae58f559: {Name: Greebles2, Depth: 2}
+    1074c2f731199674449d22c1d785cae3: {Name: Greebles1, Depth: 2}
+    2be8750c9d321849091128c9f3c1a85b: {Name: Engines, Depth: 2}
+    9cf66df1f4b9af6618bda8a4cc767800: {Name: LowerCanon, Depth: 2}
+    37905faa1191481854e7b4d4a8c80b4c: {Name: LowerCanonHolder, Depth: 2}
+    64d1a23f65db7ccbaa4adf3cdda14ec4: {Name: UpperCanon, Depth: 2}
+    0e777de5bc332310ed275f45b335075d: {Name: UpperCanonHolder, Depth: 2}
+    3f7f55483bd05496b60d08967bba7f6d: {Name: Window, Depth: 2}
+    68d96dbeaa906b7f29f299108ab9cb7b: {Name: MainHull, Depth: 2}
+    764cdea60db3ac36ebb6d33cc478f920: {Name: HullPlates, Depth: 2}
+    a647303cf9c30d89b28205ae40c41612: {Name: Lamp, Depth: 1}
+    e902ee0936a7a3485ef17f4701d1c9a6: {Name: Camera, Depth: 1}
+~SourceHashes:
+    a625001bb7383b45c254b0f092fbf8e7~../../../../../../Blender Files/VT-49.fbx: d3e484d8e0f72c600c501cc737a989c0

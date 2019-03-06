@@ -1,2 +1,4 @@
 syntax: glob
-VT49/Debug/
+Debug/
+Bin/
+obj/

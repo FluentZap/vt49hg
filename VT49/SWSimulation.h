@@ -13,10 +13,10 @@ class PCShip
 {	
 public:
 	string Callsign;
-	string TransponderID;	
+	string TransponderID;
 	Type_PowerDistrubution PowerDistrubution;
 	float x, y, z;
-	void UpdateConsole(VTSerialPhraser * parser);	
+	void UpdateConsole(VTSerialPhraser * parser);
 };
 
 

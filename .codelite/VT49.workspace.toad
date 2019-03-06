@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace>
   <WorkspaceParserPaths>
+    <Include Path="C:\Users\Toad\Documents\bullet3-master\src\BulletDynamics\Dynamics"/>
     <Include Path="C:\Users\Toad\Documents\bullet3-master\2Source"/>
     <Include Path="C:\Users\Toad\Documents\bullet3-master\2Source\LinearMath"/>
+    <Include Path="C:\Users\Toad\Documents\bullet3-master\src"/>
     <Include Path="C:\Users\Toad\Documents\VT49\VT49\serial"/>
     <Include Path="C:\Users\Toad\Documents\VT49\VT49"/>
     <Include Path="C:\Users\Toad\Documents\VT49\VT49\reactphysics3d\src"/>
