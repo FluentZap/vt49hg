@@ -2,12 +2,12 @@
 Id: 8c08e86d-2b4e-407a-a897-3c416d6873da
 SerializedVersion: {Xenko: 2.0.0.0}
 Tags: []
-Archetype: 85ebf092-707e-4bd4-8b4b-d5ade50a15ae:Ships/VT29New/ScratchedMetal
+Archetype: 85ebf092-707e-4bd4-8b4b-d5ade50a15ae:Ships/VT49New/ScratchedMetal
 Attributes:
     Surface: !MaterialNormalMapFeature
         Enabled*: false
         NormalMap: !ComputeTextureColor
-            Texture: 20fe2285-1239-4a58-9d0d-b766cc48baf4:Ships/VT29New/ScratchedMetalNormal2
+            Texture: 20fe2285-1239-4a58-9d0d-b766cc48baf4:Ships/VT49New/ScratchedMetalNormal2
             FallbackValue:
                 Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
             Scale: {X: 2.0, Y: 2.0}
@@ -25,7 +25,7 @@ Attributes:
             LeftChild: !ComputeColor
                 Value: {R: 0.57525, G: 0.0251671821, B: 0.0251671821, A: 1.0}
             RightChild: !ComputeTextureColor
-                Texture: 6a0941c6-eb35-453c-a5aa-aa28983aa669:Ships/VT29New/ScratchedMetal2
+                Texture: 6a0941c6-eb35-453c-a5aa-aa28983aa669:Ships/VT49New/ScratchedMetal2
                 FallbackValue:
                     Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
                 Scale: {X: 1.0, Y: 1.0}

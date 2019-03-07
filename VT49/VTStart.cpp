@@ -35,7 +35,7 @@ const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
 const int SCREEN_FPS = 60;
 const float SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
-const float SERIAL_TICKS_PER_FRAME = 1000 / 60;
+const float SERIAL_TICKS_PER_FRAME = 1000 / 30;
 
 
 bool quit = false;
@@ -44,6 +44,7 @@ int framsPerSec;
 size_t fpsTicks;
 size_t fpsStart;
 size_t serialTicks;
+size_t serialStart;
 VTNetwork* _net;
 
 
@@ -183,7 +184,6 @@ void Serial_Write()
 						Buffer[2 + (x / 8)] |= 0x1 << (x % 8);
 					}
 				}
-				
 				Buffer[9] = parser->ConsoleDataSend.OnColor.r;
 				Buffer[10] = parser->ConsoleDataSend.OnColor.g;
 				Buffer[11] = parser->ConsoleDataSend.OnColor.b;
@@ -192,7 +192,7 @@ void Serial_Write()
 				Buffer[13] = parser->ConsoleDataSend.OffColor.g;
 				Buffer[14] = parser->ConsoleDataSend.OffColor.b;
 				
-			}	
+			}
 
 			change = true;
 			
@@ -236,13 +236,16 @@ void handleUI(SDL_Event e)
 		if (e.key.keysym.sym == SDLK_1)
 		{
 			//Mix_PlayChannel( 2, sfx1, 0 );
-			//Mix_SetPanning(2, 120, 0);			
+			//Mix_SetPanning(2, 120, 0);
 			//pName = planetMap->FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "Placemark" )->FirstChildElement( "name" )->GetText();			
-			parser->ConsoleDataSend.LED[count].r = 0;
-			parser->ConsoleDataSend.LED[count].g = 0;
-			parser->ConsoleDataSend.LED[count].b = 255;
+			//parser->ConsoleDataSend.LED[count].r = 0;
+			//parser->ConsoleDataSend.LED[count].g = 0;
+			//parser->ConsoleDataSend.LED[count].b = 255;
 			
-			count++;
+			//count++;
+			
+			parser->ConsoleDataSend.OnColor.g++;
+			
 		}
 		if (e.key.keysym.sym == SDLK_2)
 		{
@@ -730,7 +733,13 @@ int main(int argc, char **argv)
 			//world->update( 1.0 / 60.0 );
 			
 			Serial_Read();
-			Serial_Write();
+			
+			if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
+			{
+				Serial_Write();
+				serialTicks = SDL_GetTicks();
+			}
+			
 			
 						
 			

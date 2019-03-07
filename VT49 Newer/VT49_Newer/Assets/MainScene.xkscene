@@ -85,7 +85,6 @@ Hierarchy:
                         Children: {}
                     e6bec3ebc3393d21e03379be98a4191c: !UIComponent
                         Id: d2680217-71c8-4423-96d5-b4e478052465
-                        Enabled: false
                         Page: a7a9976e-be01-44ce-aaf8-526d84034bb6:Page
                         Resolution: {X: 1280.0, Y: 720.0, Z: 1000.0}
                         Size: {X: 1.0, Y: 1.0, Z: 1.0}
@@ -415,7 +414,7 @@ Hierarchy:
                                     Material: !ParticleMaterialComputeColor
                                         AlphaAdditive: 1.0
                                         ComputeColor: !ComputeTextureColor
-                                            Texture: b9105fee-e442-4cec-9781-a602508802ea:Ships/VT29New/Glow_2
+                                            Texture: b9105fee-e442-4cec-9781-a602508802ea:Ships/VT49New/Glow_2
                                             FallbackValue:
                                                 Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
                                             Scale: {X: 1.0, Y: 1.0}
@@ -523,14 +522,14 @@ Hierarchy:
                             84f77eea9dcfcc3809a6bc9aa69093c7: ref!! b6b9de74-fa44-41c1-a4b1-4d026e4c5bd0
                     48a2df8b416081fadfae56738ac90b3f: !ModelComponent
                         Id: 0de940c0-c47c-426c-a82e-cb3f01111474
-                        Model: df3856eb-2854-48af-8434-1fd6b429efcf:Ships/VT29New/VT-49
+                        Model: df3856eb-2854-48af-8434-1fd6b429efcf:Ships/VT49New/VT-49
                         Materials:
-                            c79ca855fc882e3ae9f99147ebcf8214~0: 85ebf092-707e-4bd4-8b4b-d5ade50a15ae:Ships/VT29New/ScratchedMetal
-                            f70962b7855d63c2085f9c21160a7c90~1: 415dc1ed-d784-4e68-a909-f9ba784245bd:Ships/VT29New/Dark
-                            cbe23cde0e151eac62cb2083967d3df7~2: 2931e947-9c48-48cf-82dc-06c62c384d71:Ships/VT29New/Material_3
-                            8662d196a349ab809199c0576a75ffd0~3: 0a21f0a4-b156-4e7b-9eb6-503181cf7199:Ships/VT29New/SpotlightGlow
-                            db42a22fbc3d577e961f479e9709fb45~4: 7c701a52-0a16-457b-b00d-674bcb00e15d:Ships/VT29New/Material
-                            9db340abff42537ee60eec3a14316f9c~5: 68d40eb7-f836-4f8e-829a-1e2b5aec0766:Ships/VT29New/Material_2
+                            c79ca855fc882e3ae9f99147ebcf8214~0: 85ebf092-707e-4bd4-8b4b-d5ade50a15ae:Ships/VT49New/ScratchedMetal
+                            f70962b7855d63c2085f9c21160a7c90~1: 415dc1ed-d784-4e68-a909-f9ba784245bd:Ships/VT49New/Dark
+                            cbe23cde0e151eac62cb2083967d3df7~2: 2931e947-9c48-48cf-82dc-06c62c384d71:Ships/VT49New/Material_3
+                            8662d196a349ab809199c0576a75ffd0~3: 0a21f0a4-b156-4e7b-9eb6-503181cf7199:Ships/VT49New/SpotlightGlow
+                            db42a22fbc3d577e961f479e9709fb45~4: 85fd3547-6447-4d1b-a666-d00413bd32fb:Ships/VT49New/BlueishEngineGlow
+                            9db340abff42537ee60eec3a14316f9c~5: 68d40eb7-f836-4f8e-829a-1e2b5aec0766:Ships/VT49New/Material_2
                     3a11a6e16081843b588b198152f54ca8: !RigidbodyComponent
                         Id: 5d90ee80-c679-4637-bd73-e92d8a4df39f
                         Enabled: false
@@ -554,13 +553,3 @@ Hierarchy:
                                 Size: {X: 0.025, Y: 0.038, Z: 0.008}
                                 LocalOffset: {X: 0.0, Y: 0.001, Z: 0.001}
                                 LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                    15a59954eaa44aa36fbf67789e24f7b2: !VT49_Newer.BasicCameraController,VT49_Newer
-                        Id: eeb6ba79-b584-410f-8560-bec5304e14a1
-                        ConnectedCamera: ref!! 05ed8179-dbfe-4f3e-9982-ac6868ee6205
-                        Gamepad: true
-                        KeyboardMovementSpeed: {X: 5.0, Y: 5.0, Z: 5.0}
-                        TouchMovementSpeed: {X: 0.7, Y: 0.7, Z: 0.3}
-                        SpeedFactor: 5.0
-                        KeyboardRotationSpeed: {X: 3.0, Y: 3.0, Z: 3.0}
-                        MouseRotationSpeed: {X: 1.0, Y: 1.0, Z: 0.0}
-                        TouchRotationSpeed: {X: 1.0, Y: 0.7, Z: 0.0}

@@ -35,10 +35,10 @@ void PCShip::UpdateConsole(VTSerialPhraser* parser)
 	
 	parser->ConsoleDataSend.OnColor.r = 0;
 	parser->ConsoleDataSend.OnColor.g = 0;
-	parser->ConsoleDataSend.OnColor.b = 127;
+	parser->ConsoleDataSend.OnColor.b = 128;
 	
 	parser->ConsoleDataSend.OffColor.r = 0;
-	parser->ConsoleDataSend.OffColor.g = 32;
+	parser->ConsoleDataSend.OffColor.g = 0;
 	parser->ConsoleDataSend.OffColor.b = 0;
 	
 	col++;
@@ -49,7 +49,7 @@ void PCShip::UpdateConsole(VTSerialPhraser* parser)
 	
 	
 	for (int x = 0; x < 10; x++)
-		parser->ConsoleDataSend.BLED[x] = false;	
+		parser->ConsoleDataSend.BLED[x] = false;
 	for (int x = 20; x < 30; x++)
 		parser->ConsoleDataSend.BLED[x] = false;
 	

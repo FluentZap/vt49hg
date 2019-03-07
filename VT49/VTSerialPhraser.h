@@ -74,21 +74,21 @@ public:
 	
 	
 	struct RecievedData_Type
-	{			
+	{
 		uint8_t DoubleTog = 0;
 		uint8_t LEDTog = 0;
-		uint8_t TopTog = 0;		
+		uint8_t TopTog = 0;
 		uint8_t LEDButton = 0;
-		uint8_t LeftBoxTog = 0;		
+		uint8_t LeftBoxTog = 0;
 		uint8_t RightBoxTog = 0;
-		uint8_t FlightStick = 0;		
+		uint8_t FlightStick = 0;
 	};
 	
 	RecievedData_Type RecievedData;
 	
 	struct LedData
 	{
-		uint8_t r = 0, g = 0, b = 0;		
+		uint8_t r = 0, g = 0, b = 0;
 		
 		void Clear()
 		{
@@ -100,7 +100,7 @@ public:
 	
 	
 	struct ConsoleRecievedDataType
-	{	
+	{
 		bool DoubleTog[8] = {};
 		bool LEDTog[5] = {};
 		bool TopTog[4] = {};
@@ -109,7 +109,7 @@ public:
 		
 		bool LeftBoxTog[8] = {};
 		bool RightBoxTog[8] = {};
-		bool FlightStick[4] = {};				
+		bool FlightStick[4] = {};
 	};
 	
 	struct ConsoleSendDataType
