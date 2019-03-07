@@ -7,10 +7,10 @@ Attributes:
     Surface: !MaterialNormalMapFeature
         Enabled*: false
         NormalMap: !ComputeTextureColor
-            Texture: 36f0fb2d-9405-4839-8812-6b4524ef331b:Ships/VT29New/ScratchedMetalNormal_2
+            Texture: 20fe2285-1239-4a58-9d0d-b766cc48baf4:Ships/VT29New/ScratchedMetalNormal2
             FallbackValue:
                 Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
-            Scale: {X: 1.0, Y: 1.0}
+            Scale: {X: 2.0, Y: 2.0}
             Offset: {X: 0.0, Y: 0.0}
             Swizzle: null
         IsXYNormal: true
