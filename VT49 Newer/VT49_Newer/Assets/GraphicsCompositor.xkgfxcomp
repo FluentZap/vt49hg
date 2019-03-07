@@ -181,7 +181,7 @@ SharedRenderers:
             Enabled*: true
             Attenuation: 0.7
         LensFlare:
-            Enabled*: true
+            Enabled*: false
         ColorTransforms:
             Enabled*: true
             Transforms:

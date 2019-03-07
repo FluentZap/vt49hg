@@ -4,9 +4,7 @@ using Xenko.Core.Mathematics;
 using Xenko.Physics;
 using Xenko.Engine;
 using Xenko.Input;
-
-
-
+using Xenko.Rendering.Materials;
 
 namespace VT49_Newer
 {
@@ -25,8 +23,13 @@ namespace VT49_Newer
         private Vector3 translation;
         private float yaw;
         private float pitch;
-        private float roll;        
-        
+        private float roll;
+
+        private bool cameraToggle = false;
+        private bool cameraToggleTriggered = false;
+
+        public Entity ConnectedCamera { get; set; } = null;
+
         public bool Gamepad { get; set; } = false;
         
         public Vector3 KeyboardMovementSpeed { get; set; } = new Vector3(5.0f);
@@ -266,8 +269,34 @@ namespace VT49_Newer
 
         private void UpdateTransform()
         {
-            // Get the local coordinate system
-            var rotation = Matrix.RotationQuaternion(Entity.Transform.Rotation);
+            // Get the local coordinate system            
+            Entity tempEnt;
+
+            float max = Math.Max(Math.Abs(Input.DefaultGamePad.State.LeftThumb.X),
+                        Math.Max(Math.Abs(Input.DefaultGamePad.State.LeftThumb.Y),
+                        Math.Max(Math.Abs(Input.DefaultGamePad.State.RightThumb.X),
+                        Math.Max(Math.Abs(Input.DefaultGamePad.State.RightThumb.Y),
+                        Math.Max(Math.Abs(Input.DefaultGamePad.State.LeftTrigger), Math.Abs(Input.DefaultGamePad.State.RightTrigger))))));
+                        
+
+            Entity.Components.Get<ModelComponent>().GetMaterial(4).Passes[0].Parameters.Set(MaterialKeys.EmissiveIntensity, 1 + max * 30);
+
+
+            if (Input.DefaultGamePad.IsButtonReleased(GamePadButton.Back)) cameraToggleTriggered = false;
+
+            if (Input.DefaultGamePad.IsButtonDown(GamePadButton.Back))
+            {
+                cameraToggle = !cameraToggle;
+                cameraToggleTriggered = true;
+            }
+
+            if (cameraToggle)
+                tempEnt = ConnectedCamera;
+            else
+                tempEnt = Entity;
+            
+
+            var rotation = Matrix.RotationQuaternion(tempEnt.Transform.Rotation);
 
             // Enforce the global up-vector by adjusting the local x-axis
             var right = Vector3.Cross(rotation.Forward, upVector);
@@ -287,16 +316,16 @@ namespace VT49_Newer
 
             // Move in local coordinates
 
-            var rigidbodyComponent = Entity.Get<RigidbodyComponent>();
+            var rigidbodyComponent = tempEnt.Get<RigidbodyComponent>();
 
-            Entity.Transform.Position += finalTranslation;
+            tempEnt.Transform.Position += finalTranslation;
             //rigidbodyComponent.ApplyImpulse(finalTranslation);
             //rigidbodyComponent.ApplyTorqueImpulse(new Vector3(yaw, pitch, roll));
             
             //characterComponent.SetVelocity(finalTranslation);
             //characterComponent.
-            //characterComponent.Orientation *= Quaternion.RotationAxis(Entity.Transform.LocalMatrix.Up, yaw) * Quaternion.RotationAxis(Entity.Transform.LocalMatrix.Right, pitch) * Quaternion.RotationAxis(Entity.Transform.LocalMatrix.Backward, roll);
-            Entity.Transform.Rotation *= Quaternion.RotationAxis(Entity.Transform.LocalMatrix.Up, yaw) * Quaternion.RotationAxis(Entity.Transform.LocalMatrix.Right, pitch) * Quaternion.RotationAxis(Entity.Transform.LocalMatrix.Backward, roll);
+            //characterComponent.Orientation *= Quaternion.RotationAxis(tempEnt.Transform.LocalMatrix.Up, yaw) * Quaternion.RotationAxis(tempEnt.Transform.LocalMatrix.Right, pitch) * Quaternion.RotationAxis(tempEnt.Transform.LocalMatrix.Backward, roll);
+            tempEnt.Transform.Rotation *= Quaternion.RotationAxis(tempEnt.Transform.LocalMatrix.Up, yaw) * Quaternion.RotationAxis(tempEnt.Transform.LocalMatrix.Right, pitch) * Quaternion.RotationAxis(tempEnt.Transform.LocalMatrix.Backward, roll);
                         
         }
     }
