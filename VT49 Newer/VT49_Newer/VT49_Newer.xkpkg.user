@@ -2,8 +2,8 @@
 Settings:
     Package/SceneSettings:
         ed88d2ff-d469-4065-bcbf-74f2881213d1:
-            CamPosition: {X: -2.88159585, Y: 4.08350945, Z: 1.542527}
-            CamPitchYaw: {X: -0.139080718, Y: -114.401756}
+            CamPosition: {X: -1.05307734, Y: 4.23461628, Z: 4.28738165}
+            CamPitchYaw: {X: -0.2495273, Y: -113.512779}
             CamProjection: Perspective
             CamVerticalFieldOfView: 45.0
             CamOrthographicSize: 10.0
@@ -34,7 +34,7 @@ Settings:
             LightProbeBounces: 1
             SceneLoaded: false
         a7a9976e-be01-44ce-aaf8-526d84034bb6:
-            CamPosition: {X: -4.50595427, Y: 1.73503923, Z: 500.0}
+            CamPosition: {X: 1.38468981, Y: 0.293707043, Z: 500.0}
             CamPitchYaw: {X: 0.0, Y: 0.0}
             CamProjection: Orthographic
             CamVerticalFieldOfView: 45.0

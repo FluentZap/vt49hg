@@ -60,7 +60,8 @@ void VTNetwork::update_Network(SWSimulation SWS)
 				data[i + floatsize * 1] = y[i];
 				data[i + floatsize * 2] = z[i];
 			}
-			SDLNet_TCP_Send(client, data, floatsize * 3);
+			if (SDLNet_TCP_Send(client, data, floatsize * 3) < floatsize * 3)
+				client = NULL;
 		}
 	}
 	

@@ -3,33 +3,33 @@ Id: df3856eb-2854-48af-8434-1fd6b429efcf
 SerializedVersion: {Xenko: 2.0.0.0}
 Tags: []
 Source: !file ../../../../../../Blender Files/VT-49.fbx
-Skeleton: 78091e52-4c39-4352-8e97-f0f4301eeeab:Ships/VT29New/VT-49 Skeleton
+Skeleton: 78091e52-4c39-4352-8e97-f0f4301eeeab:Ships/VT49New/VT-49 Skeleton
 PivotPosition: {X: 0.0, Y: 0.0, Z: 0.0}
 Materials:
     925c1e25e09a04b12a0a1c2e0f337f5b:
         Name: ScratchedMetal
         MaterialInstance:
-            Material: 85ebf092-707e-4bd4-8b4b-d5ade50a15ae:Ships/VT29New/ScratchedMetal
+            Material: 85ebf092-707e-4bd4-8b4b-d5ade50a15ae:Ships/VT49New/ScratchedMetal
     f7a270b8659b1f6c88126e03de7d6607:
         Name: Dark
         MaterialInstance:
-            Material: 415dc1ed-d784-4e68-a909-f9ba784245bd:Ships/VT29New/Dark
+            Material: 415dc1ed-d784-4e68-a909-f9ba784245bd:Ships/VT49New/Dark
     15c17c98ef5a98f8d4e73bfdcd2f801f:
         Name: ScratchedMetalDark
         MaterialInstance:
-            Material: 990fb52a-2051-497f-a6a7-c24368b7a34d:Ships/VT29New/ScratchedMetalDark
+            Material: 990fb52a-2051-497f-a6a7-c24368b7a34d:Ships/VT49New/ScratchedMetalDark
     808df57ac0f593768eb0bd7725840798:
         Name: YellowGlow
         MaterialInstance:
-            Material: 2454a9b4-fed1-491c-81ef-eab2b22e11a8:Ships/VT29New/YellowGlow
+            Material: 2454a9b4-fed1-491c-81ef-eab2b22e11a8:Ships/VT49New/YellowGlow
     49b5aaac7053c5348530a62433e8bc85:
         Name: BlueEngineGlow
         MaterialInstance:
-            Material: 7d3ee379-c406-4c4f-b4c1-e9c05cf93300:Ships/VT29New/BlueEngineGlow
+            Material: 7d3ee379-c406-4c4f-b4c1-e9c05cf93300:Ships/VT49New/BlueEngineGlow
     da9b715a7d4cbce6fe2e082bcde6dd51:
         Name: ReflectiveGlass
         MaterialInstance:
-            Material: aed8c2f9-3ed5-49b0-bc3b-5755d9eb075e:Ships/VT29New/ReflectiveGlass
+            Material: aed8c2f9-3ed5-49b0-bc3b-5755d9eb075e:Ships/VT49New/ReflectiveGlass
 Modifiers: {}
 ~SourceHashes:
     10cbbcde48fdc486237250fe4ac5b80c~../../../../../../Blender Files/VT-49.fbx: 75aeb1a7ee842f0d1852cf1ba378866c

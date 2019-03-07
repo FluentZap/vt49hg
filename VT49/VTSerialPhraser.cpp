@@ -139,7 +139,7 @@ void VTSerialPhraser::Send(serial::Serial* stream, const uint8_t* buffer, size_t
 
 
 void VTSerialPhraser::Update(serial::Serial* stream)
-{	
+{
 	if (stream->isOpen())
 	{
 		while (stream->available() > 0)
@@ -167,7 +167,7 @@ void VTSerialPhraser::Update(serial::Serial* stream)
 				else
 				{
 					DataBufferIndex = 0;
-				}				
+				}
 			}
 		}
 

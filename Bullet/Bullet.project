@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="Bullet" Version="10.0.0" InternalType="Library">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00010001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <VirtualDirectory Name="Bullet3Common">
     <File Name="../../bullet3-master/2Source/Bullet3Common/b3Vector3.h"/>
     <File Name="../../bullet3-master/2Source/Bullet3Common/b3Vector3.cpp"/>
@@ -484,11 +489,6 @@
       <File Name="../../bullet3-master/2Source/BulletCollision/BroadphaseCollision/btAxisSweep3.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00010001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <Description/>
   <Dependencies/>
   <Settings Type="Static Library">
@@ -580,4 +580,6 @@
       </Completion>
     </Configuration>
   </Settings>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
 </CodeLite_Project>

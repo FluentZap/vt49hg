@@ -2,7 +2,7 @@
 Id: 2dd91c22-a345-47f0-8500-cc93ec3c66b8
 SerializedVersion: {Xenko: 2.0.0.0}
 Tags: []
-Archetype: 7d3ee379-c406-4c4f-b4c1-e9c05cf93300:Ships/VT29New/BlueEngineGlow
+Archetype: 7d3ee379-c406-4c4f-b4c1-e9c05cf93300:Ships/VT49New/BlueEngineGlow
 Attributes:
     Diffuse: !MaterialDiffuseMapFeature
         DiffuseMap: !ComputeColor
