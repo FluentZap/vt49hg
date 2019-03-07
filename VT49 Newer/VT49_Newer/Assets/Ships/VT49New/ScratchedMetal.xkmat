@@ -1,11 +1,11 @@
 !MaterialAsset
-Id: 85ebf092-707e-4bd4-8b4b-d5ade50a15ae
+Id: 38309a3c-5582-4956-8e38-65eaecd46283
 SerializedVersion: {Xenko: 2.0.0.0}
 Tags: []
 Attributes:
     Surface: !MaterialNormalMapFeature
         NormalMap: !ComputeTextureColor
-            Texture: 20fe2285-1239-4a58-9d0d-b766cc48baf4:Ships/VT49New/ScratchedMetalNormal2
+            Texture: 20fe2285-1239-4a58-9d0d-b766cc48baf4:Ships/VT29New/ScratchedMetalNormal2
             FallbackValue:
                 Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
             Scale: {X: 2.0, Y: 2.0}
@@ -17,7 +17,7 @@ Attributes:
             Value: 0.6
     Diffuse: !MaterialDiffuseMapFeature
         DiffuseMap: !ComputeTextureColor
-            Texture: 6a0941c6-eb35-453c-a5aa-aa28983aa669:Ships/VT49New/ScratchedMetal2
+            Texture: 6a0941c6-eb35-453c-a5aa-aa28983aa669:Ships/VT29New/ScratchedMetal2
             FallbackValue:
                 Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
             Scale: {X: 2.0, Y: 2.0}

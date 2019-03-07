@@ -1,11 +1,11 @@
 !MaterialAsset
-Id: 2931e947-9c48-48cf-82dc-06c62c384d71
+Id: 207820c6-1865-4ad5-9485-8e1db7bb73a2
 SerializedVersion: {Xenko: 2.0.0.0}
 Tags: []
 Attributes:
     Surface: !MaterialNormalMapFeature
         NormalMap: !ComputeTextureColor
-            Texture: 99ab99cb-3912-474f-a744-844786fa5ff7:Ships/VT49New/NormalMetal
+            Texture: 99ab99cb-3912-474f-a744-844786fa5ff7:Ships/VT29New/NormalMetal
             FallbackValue:
                 Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
             Scale: {X: 4.0, Y: 4.0}

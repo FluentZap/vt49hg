@@ -1,0 +1,22 @@
+!MaterialAsset
+Id: 7ca12d08-3e4a-4f67-883b-fa98b1701ed9
+SerializedVersion: {Xenko: 2.0.0.0}
+Tags: []
+Archetype: 7c701a52-0a16-457b-b00d-674bcb00e15d:Ships/VT29New/Material
+Attributes:
+    Diffuse: !MaterialDiffuseMapFeature
+        DiffuseMap: !ComputeColor
+            Value: {R: 0.2315, G: 0.0954937562, B: 0.0954937562, A: 1.0}
+    DiffuseModel: !MaterialDiffuseLambertModelFeature {}
+    Emissive: !MaterialEmissiveMapFeature
+        EmissiveMap: !ComputeBinaryColor
+            Operator: Add
+            LeftChild: !ComputeColor
+                Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
+            RightChild: !ComputeColor
+                Value: {R: 0.0, G: 0.137500048, B: 1.0, A: 1.0}
+        Intensity: !ComputeFloat
+            Value: 1.0
+    Overrides:
+        UVScale: {X: 1.0, Y: 1.0}
+Layers: {}

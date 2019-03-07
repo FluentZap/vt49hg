@@ -1,5 +1,5 @@
 !Model
-Id: df3856eb-2854-48af-8434-1fd6b429efcf
+Id: e02dde6f-234c-4a70-ab9f-ec3408673384
 SerializedVersion: {Xenko: 2.0.0.0}
 Tags: []
 Source: !file ../../../../../../Blender Files/VT-49.fbx
@@ -9,7 +9,7 @@ Materials:
     925c1e25e09a04b12a0a1c2e0f337f5b:
         Name: ScratchedMetal
         MaterialInstance:
-            Material: 85ebf092-707e-4bd4-8b4b-d5ade50a15ae:Ships/VT49New/ScratchedMetal
+            Material: 85ebf092-707e-4bd4-8b4b-d5ade50a15ae:Ships/VT29New/ScratchedMetal
     f7a270b8659b1f6c88126e03de7d6607:
         Name: Dark
         MaterialInstance:
@@ -25,7 +25,7 @@ Materials:
     49b5aaac7053c5348530a62433e8bc85:
         Name: BlueEngineGlow
         MaterialInstance:
-            Material: 7d3ee379-c406-4c4f-b4c1-e9c05cf93300:Ships/VT49New/BlueEngineGlow
+            Material: 7d3ee379-c406-4c4f-b4c1-e9c05cf93300:Ships/VT29New/BlueEngineGlow
     da9b715a7d4cbce6fe2e082bcde6dd51:
         Name: ReflectiveGlass
         MaterialInstance:

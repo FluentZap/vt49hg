@@ -18,10 +18,10 @@ namespace VT49_Newer
         // Declared public member fields and properties will show in the game studio        
         private TcpClient client = new TcpClient();
         private NetworkStream stream;
-        public Entity Ship { get; set; } = null;
+        public Entity Ship { get; set; } = null;        
 
         //private string ClientIP = "127.0.0.1";
-        private UIPage ui;
+        public UIPage ui;
         private EditText TextBox;
         private Button ConnectButton;
 
@@ -50,12 +50,11 @@ namespace VT49_Newer
             Console.ReadLine();
             */
 
-            ui = Entity.Get<UIComponent>().Page;
-
-            TextBox = ui.RootElement.FindVisualChildOfType<EditText>("IpBox");
+            //ui = Entity.Components.Get<UIComponent>().Page;           
+            TextBox = ui.RootElement.FindVisualChildOfType<EditText>("IPBox");
             ConnectButton = ui.RootElement.FindVisualChildOfType<Button>("ConnectButton");
 
-            /*
+            
             ConnectButton.Click += delegate
             {
                 if (!client.Connected)
@@ -73,7 +72,7 @@ namespace VT49_Newer
                 }
             };
             
-    */
+            
         }
 
         public override void Update()
