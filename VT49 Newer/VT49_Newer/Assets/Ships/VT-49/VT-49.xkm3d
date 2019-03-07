@@ -6,30 +6,30 @@ Source: !file ../../../../../../Blender Files/VT-49.fbx
 Skeleton: 9d01453b-ad93-4c7f-bb30-8aa0b77df288:Ships/VT-49/VT-49 Skeleton
 PivotPosition: {X: 0.0, Y: 0.0, Z: 0.0}
 Materials:
-    f3a2c1f013fdd3523eb4992ac13e4127:
+    3d03a674ae3b1e7f017a7f0dcefe112a:
         Name: ScratchedMetal
         MaterialInstance:
-            Material: 9e7d2c5f-e0f5-47b6-92b3-525e2d48da99:Ships/VT-49/ScratchedMetal
-    fdd8624de35a3d5e376007eb3efd825c:
-        Name: ScratchedMetalDark
-        MaterialInstance:
-            Material: 2e4526ab-5568-4e76-ae68-abc3c9e7fd38:Ships/VT-49/ScratchedMetalDark
-    38da81a5efd2ba43576ec8b4bcca813e:
+            Material: null
+    269c67244c05a6cc8053a939210b2d0b:
         Name: Dark
         MaterialInstance:
-            Material: f53b2f75-a1a9-4aec-9e0f-38f9190ebc04:Ships/VT-49/Dark
-    b8b20598b416d8d401bce9826a5a26a7:
-        Name: ReflectiveGlass
+            Material: null
+    e74e6ace86c6b17eb534978b4b0fe0c2:
+        Name: ScratchedMetalDark
         MaterialInstance:
-            Material: 7345c5ee-ce93-4afe-974f-964d8926d693:Ships/VT-49/ReflectiveGlass
-    745d911f56e8724a4cdf60e9f2041d2a:
+            Material: null
+    35e3f1ea71eab86f1c5dc00635a291d2:
         Name: YellowGlow
         MaterialInstance:
-            Material: 818b6a7b-6e7e-4e19-bf3c-abba66d4916a:Ships/VT-49/YellowGlow
-    eff3ab728abd91ce2a17238aa92047a2:
+            Material: null
+    4abefc1266876062b4920f03a1cfc2dc:
         Name: BlueEngineGlow
         MaterialInstance:
-            Material: 18593002-671e-4fe9-a24d-1d5cd25263fe:Ships/VT-49/BlueEngineGlow
+            Material: null
+    af58113f5751f23f4b0b85c9765062e7:
+        Name: ReflectiveGlass
+        MaterialInstance:
+            Material: null
 Modifiers: {}
 ~SourceHashes:
-    0bb14667b1e5bd3af90f39e9b6a00929~../../../../../../Blender Files/VT-49.fbx: d3e484d8e0f72c600c501cc737a989c0
+    0bb14667b1e5bd3af90f39e9b6a00929~../../../../../../Blender Files/VT-49.fbx: 75aeb1a7ee842f0d1852cf1ba378866c

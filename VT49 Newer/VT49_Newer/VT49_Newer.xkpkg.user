@@ -2,8 +2,8 @@
 Settings:
     Package/SceneSettings:
         ed88d2ff-d469-4065-bcbf-74f2881213d1:
-            CamPosition: {X: 7.931124, Y: 3.85112333, Z: -3.61563683}
-            CamPitchYaw: {X: -0.0818128, Y: -4.406825}
+            CamPosition: {X: -3.08854127, Y: 3.97834444, Z: 2.077783}
+            CamPitchYaw: {X: -0.2331669, Y: -95.09684}
             CamProjection: Perspective
             CamVerticalFieldOfView: 45.0
             CamOrthographicSize: 10.0
