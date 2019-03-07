@@ -165,10 +165,10 @@ void Serial_Write()
 			bool change = false;
 			//console->flushOutput();
 			uint8_t Buffer[16] = {};
-			Buffer[0] = ConsolePacketSend;					
+			Buffer[0] = ConsolePacketSend;
 			
 			if (ConsolePacketSend == 0)
-			{								
+			{
 				if (parser->ConsoleDataSend.ContolButtons[0]) Buffer[1] |= 0x1 << 0;
 				if (parser->ConsoleDataSend.ContolButtons[1]) Buffer[1] |= 0x1 << 1;
 				if (parser->ConsoleDataSend.ContolButtons[2]) Buffer[1] |= 0x1 << 2;
@@ -180,9 +180,9 @@ void Serial_Write()
 				{
 					if (parser->ConsoleDataSend.BLED[x])
 					{
-						Buffer[2 + (x / 8)] |= 0x1 << (x % 8);						
+						Buffer[2 + (x / 8)] |= 0x1 << (x % 8);
 					}
-				}				
+				}
 				
 				Buffer[9] = parser->ConsoleDataSend.OnColor.r;
 				Buffer[10] = parser->ConsoleDataSend.OnColor.g;

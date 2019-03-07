@@ -225,13 +225,13 @@ Hierarchy:
                                 Value: {R: 1.0, G: 1.0, B: 1.0}
                             Range: 100.0
                             AngleInner: 10.0
-                            AngleOuter: 14.0
+                            AngleOuter: 30.0
                             UVScale: {X: 1.0, Y: 1.0}
                             UVOffset: {X: 0.0, Y: 0.0}
                             Shadow:
                                 BiasParameters:
                                     DepthBias: 0.001
-                        Intensity: 50.0
+                        Intensity: 30.0
         -   Entity:
                 Id: 5c11f0b5-8d4b-46ab-b40f-69d41b9aef0a
                 Name: Background Light
@@ -275,13 +275,13 @@ Hierarchy:
                                 Value: {R: 1.0, G: 1.0, B: 1.0}
                             Range: 100.0
                             AngleInner: 10.0
-                            AngleOuter: 14.0
+                            AngleOuter: 30.0
                             UVScale: {X: 1.0, Y: 1.0}
                             UVOffset: {X: 0.0, Y: 0.0}
                             Shadow:
                                 BiasParameters:
                                     DepthBias: 0.001
-                        Intensity: 50.0
+                        Intensity: 30.0
         -   Folder: null
             Entity:
                 Id: 747180be-ff4c-458f-a791-24fd0639de09

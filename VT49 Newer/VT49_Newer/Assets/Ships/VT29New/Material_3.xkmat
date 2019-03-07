@@ -5,10 +5,10 @@ Tags: []
 Attributes:
     Surface: !MaterialNormalMapFeature
         NormalMap: !ComputeTextureColor
-            Texture: 36f0fb2d-9405-4839-8812-6b4524ef331b:Ships/VT29New/ScratchedMetalNormal_2
+            Texture: 99ab99cb-3912-474f-a744-844786fa5ff7:Ships/VT29New/NormalMetal
             FallbackValue:
                 Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
-            Scale: {X: 2.0, Y: 2.0}
+            Scale: {X: 4.0, Y: 4.0}
             Offset: {X: 0.0, Y: 0.0}
             UseRandomTextureCoordinates: true
             Swizzle: null
@@ -18,11 +18,11 @@ Attributes:
             Value: 0.7
     Diffuse: !MaterialDiffuseMapFeature
         DiffuseMap: !ComputeColor
-            Value: {R: 0.41275, G: 0.07997032, B: 0.07997032, A: 1.0}
+            Value: {R: 0.58775, G: 0.0, B: 0.0, A: 1.0}
     DiffuseModel: !MaterialDiffuseLambertModelFeature {}
     Specular: !MaterialMetalnessMapFeature
         MetalnessMap: !ComputeFloat
-            Value: 1.0
+            Value: 0.8
     SpecularModel: !MaterialSpecularMicrofacetModelFeature
         Fresnel: !MaterialSpecularMicrofacetFresnelSchlick {}
         Visibility: !MaterialSpecularMicrofacetVisibilitySmithSchlickGGX {}
@@ -30,4 +30,5 @@ Attributes:
         Environment: !MaterialSpecularMicrofacetEnvironmentGGXLUT {}
     Overrides:
         UVScale: {X: 1.0, Y: 1.0}
+    CullMode: None
 Layers: {}
