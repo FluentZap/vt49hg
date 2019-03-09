@@ -12,15 +12,10 @@
     </TabInfo>
     <TabInfo>
       <wxString Value="C:\Users\Toad\Documents\VT49\VT49\VTStart.cpp" Name="FileName"/>
-      <int Value="238" Name="FirstVisibleLine"/>
+      <int Value="234" Name="FirstVisibleLine"/>
       <int Value="235" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
-      <IntVector Name="CollapsedFolds">
-        <IntVectorItem Value="452"/>
-        <IntVectorItem Value="491"/>
-        <IntVectorItem Value="519"/>
-        <IntVectorItem Value="586"/>
-      </IntVector>
+      <IntVector Name="CollapsedFolds"/>
     </TabInfo>
     <TabInfo>
       <wxString Value="C:\Users\Toad\Documents\VT49\VT49\VTNetwork.h" Name="FileName"/>
@@ -38,7 +33,7 @@
     </TabInfo>
     <TabInfo>
       <wxString Value="C:\Users\Toad\Documents\VT49\VT49\VTSerialPhraser.cpp" Name="FileName"/>
-      <int Value="111" Name="FirstVisibleLine"/>
+      <int Value="13" Name="FirstVisibleLine"/>
       <int Value="14" Name="CurrentLine"/>
       <wxArrayString Name="Bookmarks"/>
       <IntVector Name="CollapsedFolds"/>

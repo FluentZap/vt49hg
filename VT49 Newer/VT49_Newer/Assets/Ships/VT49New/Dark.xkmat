@@ -24,4 +24,5 @@ Attributes:
             Value: 0.1
     Overrides:
         UVScale: {X: 1.0, Y: 1.0}
+    CullMode: None
 Layers: {}

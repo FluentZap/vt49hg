@@ -261,7 +261,7 @@ void handleUI(SDL_Event e)
 		
 		if (e.key.keysym.sym == SDLK_LEFT)
 		{
-			//Vector3 force(-10000.0, 0.0, 0.0); 			
+			//Vector3 force(-10000.0, 0.0, 0.0); 
 			//body->applyForceToCenterOfMass(force);
 			/*
 			q3Vec3 point = {1.0, 1.0, 1.0};
@@ -319,7 +319,7 @@ void handleUI(SDL_Event e)
 		if (e.key.keysym.sym == SDLK_2)
 		{
 			lit = false;
-		}			
+		}
 		
 	}
 
@@ -419,7 +419,7 @@ void render()
 	/*
 	if (consol->isOpen())
 	{
-		render_text(gRenderer, 40, 300, "Open", gFontAG, &color);		
+		render_text(gRenderer, 40, 300, "Open", gFontAG, &color);
 	}
 	else
 	{
