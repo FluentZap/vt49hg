@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Toad
-Date                   :=07/03/2019
+Date                   :=10/03/2019
 CodeLitePath           :="C:/Program Files/CodeLite"
 LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
 SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
@@ -37,13 +37,13 @@ PCHCompileFlags        :=
 MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :=C:/TDM-GCC-64/bin/windres.exe
-LinkOptions            :=  -lmingw32 -lSDL2main -lSDL2 -lSDL2_net -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lreactphysics3d -lserial  -lBullet
-IncludePath            :=  $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2 $(IncludeSwitch)C:\Users\Toad\Documents\VT49\VT49\q3 $(IncludeSwitch)C:\Users\Toad\Documents\VT49\ $(IncludeSwitch)C:\Users\Toad\Documents\VT49\VT49 $(IncludeSwitch)C:\Users\Toad\Documents\bullet3-master\2Source $(IncludeSwitch)C:\Users\Toad\Documents\bullet3-master\2Source\LinearMath 
+LinkOptions            :=  
+IncludePath            :=  $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2 $(IncludeSwitch)C:\Users\Toad\Documents\VT49\VT49\q3 $(IncludeSwitch)C:\Users\Toad\Documents\VT49\VT49 $(IncludeSwitch)C:\Users\Toad\Documents\VT49\bullet3-2.88\src $(IncludeSwitch)C:\Users\Toad\Documents\VT49\bullet3-2.88\Extras\Serialize\BulletWorldImporter $(IncludeSwitch)C:\Users\Toad\Documents\VT49\bullet3-2.88\src\Bullet3Serialize\Bullet2FileLoader $(IncludeSwitch)C:\Users\Toad\Documents\VT49\bullet3-2.88\src\BulletCollision\CollisionDispatch 
 IncludePCH             := 
 RcIncludePath          := 
-Libs                   := 
-ArLibs                 :=  
-LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Extra\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\VT49\reactphysics3d-master\Build\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\VT49\VT49\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\VT49\Bullet\Release 
+Libs                   := $(LibrarySwitch)mingw32 $(LibrarySwitch)SDL2main $(LibrarySwitch)SDL2 $(LibrarySwitch)SDL2_net $(LibrarySwitch)SDL2_ttf $(LibrarySwitch)SDL2_image $(LibrarySwitch)SDL2_mixer $(LibrarySwitch)serial $(LibrarySwitch)Bullet3 
+ArLibs                 :=  "mingw32" "SDL2main" "SDL2" "SDL2_net" "SDL2_ttf" "SDL2_image" "SDL2_mixer" "serial" "Bullet3" 
+LibPath                := $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Extra\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\VT49\VT49\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\VT49\Bullet3\Release 
 
 ##
 ## Common variables

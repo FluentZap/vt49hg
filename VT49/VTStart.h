@@ -29,6 +29,7 @@ SDL_Renderer* gRenderer = NULL;
 SDL_Surface* gScreenSurface = NULL;
 SDL_Surface* gXOut = NULL;
 SDL_Texture* gTexture = NULL;
+SDL_Texture* UITexture = NULL;
 
 
 void handleUI(SDL_Event);

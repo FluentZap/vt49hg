@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace>
   <WorkspaceParserPaths>
-    <Include Path="C:\Users\Toad\Documents\bullet3-master\src\BulletDynamics\Dynamics"/>
-    <Include Path="C:\Users\Toad\Documents\bullet3-master\2Source"/>
-    <Include Path="C:\Users\Toad\Documents\bullet3-master\2Source\LinearMath"/>
-    <Include Path="C:\Users\Toad\Documents\bullet3-master\src"/>
-    <Include Path="C:\Users\Toad\Documents\VT49\VT49\serial"/>
-    <Include Path="C:\Users\Toad\Documents\VT49\VT49"/>
-    <Include Path="C:\Users\Toad\Documents\VT49\VT49\reactphysics3d\src"/>
-    <Include Path="C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2\"/>
+    <Include Path="C:\Users\Toad\Documents\VT49\bullet3-2.88\src\"/>
+    <Include Path="C:\Users\Toad\Documents\VT49\bullet3-2.88\src\BulletCollision\CollisionDispatch"/>
     <Include Path="C:\TDM-GCC-64\x86_64-w64-mingw32\include"/>
+    <Include Path="C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2\"/>
+    <Include Path="C:\Users\Toad\Documents\VT49\VT49"/>
+    <Include Path="C:\Users\Toad\Documents\VT49\VT49\serial"/>
   </WorkspaceParserPaths>
   <Environment Name="&lt;Use Defaults&gt;"/>
   <WorkspaceParserFlags flags="7"/>

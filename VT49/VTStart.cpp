@@ -15,10 +15,14 @@
 #include <SDL_FontCache.h>
 #include <thread>
 
-//#include "reactphysics3d.h"
-#include <LinearMath/btVector3.h>
-#include <btTransform.h>
+//#include <LinearMath/btVector3.h>
+//#include <btTransform.h>
 #include <btBulletDynamicsCommon.h>
+#include <btCollisionObject.h>
+//#include <Bullet3Serialize\Bullet2FileLoader\b3BulletFile.h>
+#include <b3BulletFile.h>
+//#include <btBulletWorldImporter.h>
+
 #include "VTStart.h"
 #include "VTSerialPhraser.h"
 #include "SWSimulation.h"
@@ -28,11 +32,11 @@
 
 using namespace std;
 using namespace tinyxml2;
-
+using namespace bParse;
 //using namespace reactphysics3d;
 
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 720;
+const int SCREEN_WIDTH = 900;
+const int SCREEN_HEIGHT = 1440;
 const int SCREEN_FPS = 60;
 const float SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 const float SERIAL_TICKS_PER_FRAME = 1000 / 30;
@@ -427,14 +431,26 @@ void render()
 	}
 	*/
 	
-	//rect = {Scroll.x, Scroll.y, 850 * Zoom, 1250 * Zoom};
-	//SDL_RenderCopy(gRenderer, gTexture, NULL, &rect);
+	rect = {Scroll.x, Scroll.y, 850 * Zoom, 1250 * Zoom};
+	SDL_SetTextureColorMod(gTexture, 255, 0, 0); 
+	SDL_RenderCopy(gRenderer, gTexture, NULL, &rect);
 	
 	rect = {int(SWS.Ship->x) - 5, int(SWS.Ship->y) - 5, 10, 10};
 	SDL_RenderDrawRect(gRenderer, &rect);
 	
 	rect = {50, 50, 100, 100};
 	SDL_RenderDrawRect(gRenderer, &rect);
+	rect = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+	SDL_RenderCopy(gRenderer, UITexture, NULL, &rect);
+	
+	
+	
+	//SDL_Point * UIPoints = new SDL_Point[30];
+	//SDL_Point p = {50, 50};
+	
+	//UIPoints[0] = SDL_Point{0, 0};
+	
+	//SDL_RenderDrawLines(gRenderer,  UIPoints, 7);
 	
 	dist1 += 0.000001;
 	if (dist1 > 10000) dist1 = -10000;
@@ -452,6 +468,8 @@ void render()
 }
 
 
+
+
 void renderGalaxyMap(int renderX, int renderY)
 {
 	SDL_SetRenderDrawColor(gRenderer, 10, 10, 10, 255);
@@ -467,7 +485,7 @@ void renderGalaxyMap(int renderX, int renderY)
 	color = setColor(130, 60, 60, 255);
 	
 	for (pair<int, StarMapData_Type*> e : StarMap->StarMap)
-	{		
+	{
 		//if (e.second->Grid)
 		//if (strcmp(e.second->Grid, "L9") == 0)
 		//{	
@@ -499,6 +517,13 @@ bool init()
 
 	gWindow = SDL_CreateWindow("Screen App", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_BORDERLESS);
 	if (gWindow == NULL) { printf("Window could not be created! SDL_Error: %s\n", SDL_GetError()); return false; }
+
+
+	SDL_Rect DispayBounds;
+	SDL_GetDisplayBounds(3, &DispayBounds);	
+	SDL_SetWindowPosition( gWindow, DispayBounds.x + ( DispayBounds.w - 900 ) / 2, DispayBounds.y + ( DispayBounds.h - 1440 ) / 2 );
+
+	//SDL_SetWindowPosition( gWindow, DispayBounds.x + ( DispayBounds.w - 900 ) / 2, DispayBounds.y);
 
 	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
 	if (gRenderer == NULL) { printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError()); return false; }
@@ -535,6 +560,7 @@ bool loadResources()
 	//Load Images
 	//gXOut = imageLoader("x.png");
 	gTexture = loadTexture("VT49.png");
+	UITexture = loadTexture("UI.png");
 	//gTexture = loadTexture("elf.png");
 	//gTexture = loadTexture("elf.jpg");
 	//if( gTexture == NULL ) {printf( "Unable to load image %s! SDL Error: %s\n", "x.png", SDL_GetError() ); success = false;}
@@ -567,12 +593,14 @@ bool loadResources()
 	StarMap = new VTMap();
 	
 	StarMap->LoadMapFile("planets.kml");
+	
+	
 	//StarMap.StarMap.insert()
 	
-	//if (name) 
-		//strcpy(pName, name);		
+	//if (name)
+		//strcpy(pName, name);
 	//else
-		//pName = "goose";	
+		//pName = "goose";
 	
 	
 	//if (pElement) 
@@ -617,7 +645,7 @@ void close()
 }
 
 int main(int argc, char **argv)
-{	
+{
 	if (init())
 	{
 		init_setup();
@@ -705,12 +733,23 @@ int main(int argc, char **argv)
 			dynamicsWorld->addConstraint(hinge);
 			
 		}
-
+				
+				//b3BulletFile* fileloader = new b3BulletFile("VT49.bullet");
+				//fileloader->parseData();
+				//fileloader.m_rigidBodies[0];
+				//fileloader.m_collisionObjects[]
+				//btcol
+				
+				//btBulletWorldImporter* fileloader = new btBulletWorldImporter(dynamicsWorld);
+				//fileloader->loadFile("VT49.bullet");
+				
 
 				//print positions of all objects
 				btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[1];
 				btRigidBody* body = btRigidBody::upcast(obj);
 				btTransform trans;
+				
+				
 				
 				if (body && body->getMotionState())
 				{
@@ -775,7 +814,8 @@ int main(int argc, char **argv)
 				SWS.Ship->z = float(trans.getOrigin().getZ());
 				
 				//printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
-				printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+				
+				//printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 				
 				render();
 				//renderGalaxyMap(0, 0);
@@ -833,7 +873,7 @@ SDL_Color setColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 void render_text(SDL_Renderer *renderer, int x, int y, const char *text, TTF_Font *font, SDL_Color *color)
 {
 	if (text)
-	{		
+	{
 		SDL_Surface *surface;
 		SDL_Texture *texture;
 		SDL_Rect rect;
@@ -843,7 +883,7 @@ void render_text(SDL_Renderer *renderer, int x, int y, const char *text, TTF_Fon
 		rect.x = x;
 		rect.y = y;
 		rect.w = surface->w;
-		rect.h = surface->h;		
+		rect.h = surface->h;
 		SDL_RenderCopy(renderer, texture, NULL, &rect);
 		SDL_FreeSurface(surface);
 		SDL_DestroyTexture(texture);
