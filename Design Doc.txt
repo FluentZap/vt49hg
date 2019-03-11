@@ -1,0 +1,16 @@
+Bottom Center Buttons are indicator lights they tell when there is system problems and some system errors and settings, landing gear and shields engine indicator.
+
+Bottom left and right boxes are the personal indicators for each pilot. They can be set to anything they want 
+Full System Readout(All the indicators), Engine proformance, Sensors, Comunications, Reactor control, Shield Control. it will display some of what the physical controls are set to.
+
+Center mid round box is Targeting control. It displays information about the current locked target of the system.
+Can be toggled to display current center switch settings and see controls.
+
+
+Main view center bottom, displays sensor readout.
+
+
+
+
+A single press of one of the buttons brings up that menu of that color, there you can select by hitting another button or cancel by hitting red.
+That allows for 16 different screens, can add a third if needed for 64 screens if needed.

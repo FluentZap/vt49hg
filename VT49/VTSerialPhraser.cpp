@@ -32,7 +32,7 @@ bool VTSerialPhraser::InputDown(Typeof_ConsoleInputs key)
 {
 	if (ConsolePressed.find((int)key) != ConsolePressed.end())
 		return true;
-	return false;	
+	return false;
 }
 
 bool VTSerialPhraser::InputPressed(Typeof_ConsoleInputs key, bool remove)
