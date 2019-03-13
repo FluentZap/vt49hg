@@ -10,7 +10,7 @@ struct Type_PowerDistrubution
 
 
 class PCShip
-{	
+{
 public:
 	string Callsign;
 	string TransponderID;
@@ -34,10 +34,6 @@ public:
 	~SWSimulation();
 	
 	PCShip* Ship = new PCShip();
-	
-	
-
-
 
 };
 

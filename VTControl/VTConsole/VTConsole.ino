@@ -24,8 +24,8 @@ PacketSerial myPacketSerial;
 CRGB leds[NUM_LEDS];
 
 #define BRIGHTNESS        64
-#define FRAMES_PER_SECOND  30
-#define UPDATES_PER_SECOND  30
+#define FRAMES_PER_SECOND  60
+#define UPDATES_PER_SECOND  60
 
 
 #define OLED_RESET 2
@@ -110,28 +110,19 @@ int Rot_1LastState;
 #define FightStickRIGHT 38
 
 
-int LED_1_Power;
-int LED_2_Power;
-int LED_3_Power;
-int LED_4_Power;
-
-
-
 void BuildBuffer();
 void ProcessBuffer(char* B);
 bool CheckBuffer(byte[12], byte[12]);
 void CopyBuffer(byte[12], byte[12]);
-void SendByteBuffer(byte[12]);
 
-
-long LastRender;
-long LastUpdate;
+long LastRender = 0;
+long LastUpdate = 0;
 
 byte SendBuffer[12] = {};
-byte TempBB[12] = {};
+byte LastSendBuffer[12] = {};
 char *buff;
 
-int Target=0;
+int Target = 0;
 
 int lastCount = 50;
 volatile int virtualPosition = 50;
@@ -139,6 +130,8 @@ volatile int virtualPosition = 50;
 
 
 void setup() {
+  
+  
   delay(3000); // 3 second delay for recovery
   
   // tell FastLED about the LED strip configuration
@@ -171,7 +164,7 @@ void setup() {
 
   
   //Serial.begin(115200);
-  myPacketSerial.begin(20000);
+  myPacketSerial.begin(28800);
   myPacketSerial.setPacketHandler(&onPacketReceived);
 
   OLEDdisplay.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3D (for the 128x64)
@@ -183,13 +176,14 @@ void setup() {
   //attachInterrupt(digitalPinToInterrupt(PinA), isr, LOW);
   //attachInterrupt(digitalPinToInterrupt(PinA), isr, LOW);
   
+  
 }
 
 
 
 void loop()
 {
-  
+    
   myPacketSerial.update();
   
   if (millis() > (LastRender + 1000 / FRAMES_PER_SECOND))
@@ -200,18 +194,16 @@ void loop()
 
   
   if (millis() > (LastUpdate + 1000 / UPDATES_PER_SECOND))
-  {      
+  {
       BuildBuffer();
-      //CopyBuffer(TempBB, SendBuffer);
-      myPacketSerial.send(TempBB, 13);
-      //SendByteBuffer(TempBB);
-      /*
-      if (CheckBuffer(TempBB, SendBuffer))
+      myPacketSerial.send(SendBuffer, 12);
+      /*      
+      if (CheckBuffer(SendBuffer, LastSendBuffer))
       {
-        CopyBuffer(TempBB, SendBuffer);
-        SendByteBuffer(TempBB);
+        CopyBuffer(SendBuffer, LastSendBuffer);
+        myPacketSerial.send(SendBuffer, 12);
       }
-  */      
+      */
       LastUpdate = millis();
   }   
 }
@@ -219,16 +211,14 @@ void loop()
 
 void onPacketReceived(const uint8_t* buffer, size_t size)
 {
-  // In this example, we will simply reverse the contents of the array and send
-  // it back to the sender.
 
   // Make a temporary buffer.
   if(size == 16)
   {
-    uint8_t tempBuffer[size];
+    //uint8_t tempBuffer[size];
     // Copy the packet into our temporary buffer.
-    memcpy(tempBuffer, buffer, size);
-    ProcessBuffer(tempBuffer);
+    //memcpy(tempBuffer, buffer, size);
+    ProcessBuffer(buffer);
   }
 }
 
@@ -243,81 +233,83 @@ bool CheckBuffer(byte bb[12], byte bb2[12])
 }
 
 
+void CopyBuffer(byte BufferSource[12], byte BufferDest[12])
+{ 
+  memcpy(BufferDest, BufferSource, 12);  
+}
+
 
 void BuildBuffer()
 {
   //Toggels [0]
-  bitWrite(TempBB[0], 0, (digitalRead(ToggleDuel_1_U) == LOW));
-  bitWrite(TempBB[0], 1, (digitalRead(ToggleDuel_1_D) == LOW));
-  bitWrite(TempBB[0], 2, (digitalRead(ToggleDuel_2_U) == LOW));
-  bitWrite(TempBB[0], 3, (digitalRead(ToggleDuel_2_D) == LOW));  
-  bitWrite(TempBB[0], 4, (digitalRead(ToggleDuel_3_U) == LOW));
-  bitWrite(TempBB[0], 5, (digitalRead(ToggleDuel_3_D) == LOW));
-  bitWrite(TempBB[0], 6, (digitalRead(ToggleDuel_4_U) == LOW));
-  bitWrite(TempBB[0], 7, (digitalRead(ToggleDuel_4_D) == LOW));
+  bitWrite(SendBuffer[0], 0, (digitalRead(ToggleDuel_1_U) == LOW));
+  bitWrite(SendBuffer[0], 1, (digitalRead(ToggleDuel_1_D) == LOW));
+  bitWrite(SendBuffer[0], 2, (digitalRead(ToggleDuel_2_U) == LOW));
+  bitWrite(SendBuffer[0], 3, (digitalRead(ToggleDuel_2_D) == LOW));  
+  bitWrite(SendBuffer[0], 4, (digitalRead(ToggleDuel_3_U) == LOW));
+  bitWrite(SendBuffer[0], 5, (digitalRead(ToggleDuel_3_D) == LOW));
+  bitWrite(SendBuffer[0], 6, (digitalRead(ToggleDuel_4_U) == LOW));
+  bitWrite(SendBuffer[0], 7, (digitalRead(ToggleDuel_4_D) == LOW));
 
   //LED Toggels
-  bitWrite(TempBB[1], 0, (digitalRead(ToggleLit_1) == LOW));
-  bitWrite(TempBB[1], 1, (digitalRead(ToggleLit_2) == LOW));
-  bitWrite(TempBB[1], 2, (digitalRead(ToggleLit_3) == LOW));
-  bitWrite(TempBB[1], 3, (digitalRead(ToggleLit_4) == LOW));
-  bitWrite(TempBB[1], 4, (digitalRead(ToggleLit_5) == LOW));
+  bitWrite(SendBuffer[1], 0, (digitalRead(ToggleLit_1) == LOW));
+  bitWrite(SendBuffer[1], 1, (digitalRead(ToggleLit_2) == LOW));
+  bitWrite(SendBuffer[1], 2, (digitalRead(ToggleLit_3) == LOW));
+  bitWrite(SendBuffer[1], 3, (digitalRead(ToggleLit_4) == LOW));
+  bitWrite(SendBuffer[1], 4, (digitalRead(ToggleLit_5) == LOW));
 
   //Toggels Top left Top Right
-  bitWrite(TempBB[2], 0, (digitalRead(ToggleLitTL_1) == LOW));
-  bitWrite(TempBB[2], 1, (digitalRead(ToggleLitTL_2) == LOW));
-  bitWrite(TempBB[2], 2, (digitalRead(ToggleLitTR_1) == LOW));
-  bitWrite(TempBB[2], 3, (digitalRead(ToggleLitTR_2) == LOW));
+  bitWrite(SendBuffer[2], 0, (digitalRead(ToggleLitTL_1) == LOW));
+  bitWrite(SendBuffer[2], 1, (digitalRead(ToggleLitTL_2) == LOW));
+  bitWrite(SendBuffer[2], 2, (digitalRead(ToggleLitTR_1) == LOW));
+  bitWrite(SendBuffer[2], 3, (digitalRead(ToggleLitTR_2) == LOW));
   //Rot Buttons
-  bitWrite(TempBB[2], 4, (digitalRead(Rot_1SW) == LOW));
-  bitWrite(TempBB[2], 5, (digitalRead(Rot_2SW) == LOW));
+  bitWrite(SendBuffer[2], 4, (digitalRead(Rot_1SW) == LOW));
+  bitWrite(SendBuffer[2], 5, (digitalRead(Rot_2SW) == LOW));
 
  
 
-  bitWrite(TempBB[3], 0, (digitalRead(Button_LED1_SW) == LOW));
-  bitWrite(TempBB[3], 1, (digitalRead(Button_LED2_SW) == LOW));
-  bitWrite(TempBB[3], 2, (digitalRead(Button_LED3_SW) == LOW));
-  bitWrite(TempBB[3], 3, (digitalRead(Button_LED4_SW) == LOW));
+  bitWrite(SendBuffer[3], 0, (digitalRead(Button_LED1_SW) == LOW));
+  bitWrite(SendBuffer[3], 1, (digitalRead(Button_LED2_SW) == LOW));
+  bitWrite(SendBuffer[3], 2, (digitalRead(Button_LED3_SW) == LOW));
+  bitWrite(SendBuffer[3], 3, (digitalRead(Button_LED4_SW) == LOW));
 
   
-  bitWrite(TempBB[4], 0, (digitalRead(LTogBox1) == LOW));
-  bitWrite(TempBB[4], 1, (digitalRead(LTogBox2) == LOW));
-  bitWrite(TempBB[4], 2, (digitalRead(LTogBox3) == LOW));
-  bitWrite(TempBB[4], 3, (digitalRead(LTogBox4) == LOW));
-  bitWrite(TempBB[4], 4, (digitalRead(LTogBox5) == LOW));
-  bitWrite(TempBB[4], 5, (digitalRead(LTogBox6) == LOW));
-  bitWrite(TempBB[4], 6, (digitalRead(LTogBox7) == LOW));
-  bitWrite(TempBB[4], 7, (digitalRead(LTogBox8) == LOW));
+  bitWrite(SendBuffer[4], 0, (digitalRead(LTogBox1) == LOW));
+  bitWrite(SendBuffer[4], 1, (digitalRead(LTogBox2) == LOW));
+  bitWrite(SendBuffer[4], 2, (digitalRead(LTogBox3) == LOW));
+  bitWrite(SendBuffer[4], 3, (digitalRead(LTogBox4) == LOW));
+  bitWrite(SendBuffer[4], 4, (digitalRead(LTogBox5) == LOW));
+  bitWrite(SendBuffer[4], 5, (digitalRead(LTogBox6) == LOW));
+  bitWrite(SendBuffer[4], 6, (digitalRead(LTogBox7) == LOW));
+  bitWrite(SendBuffer[4], 7, (digitalRead(LTogBox8) == LOW));
   
-  bitWrite(TempBB[5], 0, (digitalRead(RTogBox1) == LOW));
-  bitWrite(TempBB[5], 1, (digitalRead(RTogBox2) == LOW));
-  bitWrite(TempBB[5], 2, (digitalRead(RTogBox3) == LOW));
-  bitWrite(TempBB[5], 3, (digitalRead(RTogBox4) == LOW));
-  bitWrite(TempBB[5], 4, (digitalRead(RTogBox5) == LOW));
-  bitWrite(TempBB[5], 5, (digitalRead(RTogBox6) == LOW));
-  bitWrite(TempBB[5], 6, (digitalRead(RTogBox7) == LOW));
-  bitWrite(TempBB[5], 7, (digitalRead(RTogBox8) == LOW));  
+  bitWrite(SendBuffer[5], 0, (digitalRead(RTogBox1) == LOW));
+  bitWrite(SendBuffer[5], 1, (digitalRead(RTogBox2) == LOW));
+  bitWrite(SendBuffer[5], 2, (digitalRead(RTogBox3) == LOW));
+  bitWrite(SendBuffer[5], 3, (digitalRead(RTogBox4) == LOW));
+  bitWrite(SendBuffer[5], 4, (digitalRead(RTogBox5) == LOW));
+  bitWrite(SendBuffer[5], 5, (digitalRead(RTogBox6) == LOW));
+  bitWrite(SendBuffer[5], 6, (digitalRead(RTogBox7) == LOW));
+  bitWrite(SendBuffer[5], 7, (digitalRead(RTogBox8) == LOW));  
 
-  bitWrite(TempBB[6], 0, (digitalRead(FightStickUP) == LOW));
-  bitWrite(TempBB[6], 1, (digitalRead(FightStickDOWN) == LOW));
-  bitWrite(TempBB[6], 2, (digitalRead(FightStickLEFT) == LOW));
-  bitWrite(TempBB[6], 3, (digitalRead(FightStickRIGHT) == LOW));
+  bitWrite(SendBuffer[6], 0, (digitalRead(FightStickUP) == LOW));
+  bitWrite(SendBuffer[6], 1, (digitalRead(FightStickDOWN) == LOW));
+  bitWrite(SendBuffer[6], 2, (digitalRead(FightStickLEFT) == LOW));
+  bitWrite(SendBuffer[6], 3, (digitalRead(FightStickRIGHT) == LOW));
     
-  TempBB[7] = 0;
-  TempBB[8] = 0;
-  TempBB[9] = 10;
-  TempBB[10] = 11;
-  TempBB[11] = 12;
-  TempBB[12] = 13;  
+  SendBuffer[7] = 0;
+  SendBuffer[8] = 0;
+  SendBuffer[9] = 10;
+  SendBuffer[10] = 11;
+  SendBuffer[11] = 12;  
 }
 
 
 void ProcessBuffer(char* B)
 {
-  byte Header = B[0];
-  Target = Header;
-
-  if (Header == 0)
+  byte Header = B[0];    
+  if (Header == 1)
   {
     digitalWrite(Button_LED1, bitRead(B[1], 0));
     digitalWrite(Button_LED2, bitRead(B[1], 1));
@@ -341,6 +333,7 @@ void ProcessBuffer(char* B)
           }          
         }
 
+        Target = B[15];
      
   }
   

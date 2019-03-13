@@ -43,7 +43,10 @@ Release/VTNetwork.cpp.o: VTNetwork.cpp VTNetwork.h \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_timer.h \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_version.h \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_net.h \
- C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL.h
+ C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL.h \
+ SWSimulation.h C:\Users\Toad\Documents\VT49\VT49/VTSerialPhraser.h \
+ C:\Users\Toad\Documents\VT49\VT49/serial/serial.h \
+ C:\Users\Toad\Documents\VT49\VT49/serial/v8stdint.h
 
 VTNetwork.h:
 
@@ -136,3 +139,11 @@ C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_versio
 C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_net.h:
 
 C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL.h:
+
+SWSimulation.h:
+
+C:\Users\Toad\Documents\VT49\VT49/VTSerialPhraser.h:
+
+C:\Users\Toad\Documents\VT49\VT49/serial/serial.h:
+
+C:\Users\Toad\Documents\VT49\VT49/serial/v8stdint.h:

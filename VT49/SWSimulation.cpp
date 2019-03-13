@@ -12,22 +12,25 @@ int inc;
 
 uint8_t col;
 
+
 void PCShip::UpdateConsole(VTSerialPhraser* parser)
 {
+	
+	uint8_t color = parser->ConsolePotValue[0];
 
-	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog1_UP, true)) PowerDistrubution.Weapons++;
-	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog1_DOWN, true)) PowerDistrubution.Weapons--;
+	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog1_UP)) PowerDistrubution.Weapons++;
+	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog1_DOWN)) PowerDistrubution.Weapons--;
 	
-	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog2_UP, true)) PowerDistrubution.Engines++;
-	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog2_DOWN, true)) PowerDistrubution.Engines--;
+	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog2_UP)) PowerDistrubution.Engines++;
+	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog2_DOWN)) PowerDistrubution.Engines--;
 	
-	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog3_UP, true)) PowerDistrubution.Shields++;
-	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog3_DOWN, true)) PowerDistrubution.Shields--;
+	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog3_UP)) PowerDistrubution.Shields++;
+	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog3_DOWN)) PowerDistrubution.Shields--;
 	
-	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog4_UP, true)) PowerDistrubution.System++;
-	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog4_DOWN, true)) PowerDistrubution.System--;
+	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog4_UP)) PowerDistrubution.System++;
+	if (parser->InputPressed(Typeof_ConsoleInputs::DoubleTog4_DOWN)) PowerDistrubution.System--;
 	
-	if (parser->InputPressed(Typeof_ConsoleInputs::LEDButton1, true)) parser->ConsoleDataSend.ContolButtons[0] = !parser->ConsoleDataSend.ContolButtons[0];
+	if (parser->InputPressed(Typeof_ConsoleInputs::LEDButton1)) parser->ConsoleDataSend.ContolButtons[0] = !parser->ConsoleDataSend.ContolButtons[0];
 	//if (parser->InputPressed(Typeof_ConsoleInputs::LEDButton2, true)) parser->ConsoleDataSend.ContolButtons[1] = !parser->ConsoleDataSend.ContolButtons[1];
 	//if (parser->InputPressed(Typeof_ConsoleInputs::LEDButton3, true)) parser->ConsoleDataSend.ContolButtons[2] = !parser->ConsoleDataSend.ContolButtons[2];
 	//if (parser->InputPressed(Typeof_ConsoleInputs::LEDButton4, true)) parser->ConsoleDataSend.ContolButtons[3] = !parser->ConsoleDataSend.ContolButtons[3];
@@ -35,7 +38,7 @@ void PCShip::UpdateConsole(VTSerialPhraser* parser)
 	
 	parser->ConsoleDataSend.OnColor.r = 0;
 	parser->ConsoleDataSend.OnColor.g = 0;
-	parser->ConsoleDataSend.OnColor.b = 128;
+	parser->ConsoleDataSend.OnColor.b = color;
 	
 	parser->ConsoleDataSend.OffColor.r = 0;
 	parser->ConsoleDataSend.OffColor.g = 0;
@@ -58,7 +61,7 @@ void PCShip::UpdateConsole(VTSerialPhraser* parser)
 		parser->ConsoleDataSend.BLED[x] = true;
 		
 	for (int x = 0; x < PowerDistrubution.Shields; x++)
-		parser->ConsoleDataSend.BLED[x + 5] = true;		
+		parser->ConsoleDataSend.BLED[x + 5] = true;
 	
 	for (int x = 4; x > 4 - PowerDistrubution.Engines; x--)
 		parser->ConsoleDataSend.BLED[x + 20] = true;
@@ -101,7 +104,7 @@ void PCShip::UpdateConsole(VTSerialPhraser* parser)
 		{
 			parser->ConsoleDataSend.ContolButtons[2] = !parser->ConsoleDataSend.ContolButtons[2];
 			parser->ConsoleDataSend.ContolButtons[3] = !parser->ConsoleDataSend.ContolButtons[3];
-		}			
-		inc = 0;		
+		}
+		inc = 0;
 	}
 }
