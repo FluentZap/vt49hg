@@ -3,6 +3,7 @@
 #include "SDL_ttf.h"
 #include "SDL_mixer.h"
 #include "SDL_net.h"
+#include "SDL_thread.h"
 //#include <stdlib.h>
 #include <stdio.h>
 
@@ -39,7 +40,7 @@ const int SCREEN_WIDTH = 900;
 const int SCREEN_HEIGHT = 1440;
 const int SCREEN_FPS = 60;
 const float SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
-const float SERIAL_TICKS_PER_FRAME = 1000 / 30;
+const float SERIAL_TICKS_PER_FRAME = 1000 / 60;
 
 
 bool quit = false;
@@ -63,6 +64,7 @@ SDL_Rect rect1, rect2;
 double dist1;
 
 serial::Serial* console;
+serial::Serial* consolePot;
 
 VTSerialPhraser* parser;
 
@@ -123,9 +125,11 @@ void Serial_Connect()
 	//serial::Serial console("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
 	//try
 	//{
-		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 20000 , serial::Timeout::simpleTimeout(10));
-		if (CurrentOS == WIN) console = new serial::Serial("COM4", 20000 , serial::Timeout::simpleTimeout(10));
-		console->setTimeout(10, 10, 10, 10, 10);
+		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 28800 , serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == WIN) console = new serial::Serial("COM4", 28800 , serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == WIN) consolePot = new serial::Serial("COM5", 28800 , serial::Timeout::simpleTimeout(10));
+		
+		//console->setTimeout(10, 10, 10, 10, 10);
 	//}
 	//catch(serial::IOException)
 	//{
@@ -136,7 +140,9 @@ void Serial_Connect()
 
 void Serial_Read()
 {
-	parser->Update(console);
+	parser->ConsoleUpdate(console);
+	
+	parser->ConsolePotUpdate(consolePot);
 	/*
 	if (console->isOpen())
 	{
@@ -163,74 +169,84 @@ uint8_t ConsolePacketSend = 0;
 
 void Serial_Write()
 {
-		
-		
-		if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
-		{
-			bool change = false;
-			//console->flushOutput();
-			uint8_t Buffer[16] = {};
-			Buffer[0] = ConsolePacketSend;
-			
-			if (ConsolePacketSend == 0)
-			{
-				if (parser->ConsoleDataSend.ContolButtons[0]) Buffer[1] |= 0x1 << 0;
-				if (parser->ConsoleDataSend.ContolButtons[1]) Buffer[1] |= 0x1 << 1;
-				if (parser->ConsoleDataSend.ContolButtons[2]) Buffer[1] |= 0x1 << 2;
-				if (parser->ConsoleDataSend.ContolButtons[3]) Buffer[1] |= 0x1 << 3;
-				if (parser->ConsoleDataSend.FlightStick) Buffer[1] |= 0x1 << 4;
-							
-				
-				for (int x=0; x < 50; x++)
-				{
-					if (parser->ConsoleDataSend.BLED[x])
-					{
-						Buffer[2 + (x / 8)] |= 0x1 << (x % 8);
-					}
-				}
-				Buffer[9] = parser->ConsoleDataSend.OnColor.r;
-				Buffer[10] = parser->ConsoleDataSend.OnColor.g;
-				Buffer[11] = parser->ConsoleDataSend.OnColor.b;
-				
-				Buffer[12] = parser->ConsoleDataSend.OffColor.r;
-				Buffer[13] = parser->ConsoleDataSend.OffColor.g;
-				Buffer[14] = parser->ConsoleDataSend.OffColor.b;
-				
-			}
-
-			change = true;
-			
-			if (ConsolePacketSend > 99)
-			{
-				int num = (ConsolePacketSend - 100) * 5;
-				for (int x = 0; x < 5; x++)
-				{
-					
-					if (parser->ConsoleDataSend.LED[num].r != parser->LastConsoleDataSend.LED[num].r) change = true;
-					if (parser->ConsoleDataSend.LED[num].g != parser->LastConsoleDataSend.LED[num].g) change = true;
-					if (parser->ConsoleDataSend.LED[num].b != parser->LastConsoleDataSend.LED[num].b) change = true;
-					
-					Buffer[(x*3) + 1] = parser->ConsoleDataSend.LED[num].r;
-					Buffer[(x*3) + 2] = parser->ConsoleDataSend.LED[num].g;
-					Buffer[(x*3) + 3] = parser->ConsoleDataSend.LED[num].b;
-					num++;
-				}
-			}
-			
-			//if (change)
-			//{
-			parser->Send(console, Buffer, 16);
-			memcpy(parser->LastConsoleDataSend.LED, parser->ConsoleDataSend.LED, 50);
-			serialTicks = SDL_GetTicks();
-			//}
-			
-			//ConsolePacketSend++;
-			//if (ConsolePacketSend > 10) ConsolePacketSend = 0;
-			
-			
-		}
-		//SDL_Delay(1000);
+	if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
+	{
+		ConsoleSerialSend();
+		serialTicks = SDL_GetTicks();
+	}
 }
+
+
+
+
+
+	void ConsoleSerialSend()
+	{
+		ConsolePacketSend = 1;
+		
+		bool change = false;
+		//console->flushOutput();
+		uint8_t Buffer[16] = {0};
+		Buffer[0] = ConsolePacketSend;
+		
+		if (ConsolePacketSend == 1)
+		{
+			if (parser->ConsoleDataSend.ContolButtons[0]) Buffer[1] |= 0x1 << 0;
+			if (parser->ConsoleDataSend.ContolButtons[1]) Buffer[1] |= 0x1 << 1;
+			if (parser->ConsoleDataSend.ContolButtons[2]) Buffer[1] |= 0x1 << 2;
+			if (parser->ConsoleDataSend.ContolButtons[3]) Buffer[1] |= 0x1 << 3;
+			if (parser->ConsoleDataSend.FlightStick) Buffer[1] |= 0x1 << 4;
+						
+			
+			for (int x=0; x < 50; x++)
+			{
+				if (parser->ConsoleDataSend.BLED[x])
+				{
+					Buffer[2 + (x / 8)] |= 0x1 << (x % 8);
+				}
+			}
+			Buffer[9] = parser->ConsoleDataSend.OnColor.r;
+			Buffer[10] = parser->ConsoleDataSend.OnColor.g;
+			Buffer[11] = parser->ConsoleDataSend.OnColor.b;
+			
+			Buffer[12] = parser->ConsoleDataSend.OffColor.r;
+			Buffer[13] = parser->ConsoleDataSend.OffColor.g;
+			Buffer[14] = parser->ConsoleDataSend.OffColor.b;
+			Buffer[15] = parser->ConsolePotValue[1];
+		}
+
+		change = true;
+		
+		if (ConsolePacketSend > 99)
+		{
+			int num = (ConsolePacketSend - 100) * 5;
+			for (int x = 0; x < 5; x++)
+			{
+				
+				if (parser->ConsoleDataSend.LED[num].r != parser->LastConsoleDataSend.LED[num].r) change = true;
+				if (parser->ConsoleDataSend.LED[num].g != parser->LastConsoleDataSend.LED[num].g) change = true;
+				if (parser->ConsoleDataSend.LED[num].b != parser->LastConsoleDataSend.LED[num].b) change = true;
+				
+				Buffer[(x*3) + 1] = parser->ConsoleDataSend.LED[num].r;
+				Buffer[(x*3) + 2] = parser->ConsoleDataSend.LED[num].g;
+				Buffer[(x*3) + 3] = parser->ConsoleDataSend.LED[num].b;
+				num++;
+			}
+		}
+		
+		//if (change)
+		//{
+		//parser->ConsoleSend(console, Buffer, 16);
+
+		parser->ConsoleSend(console, Buffer, 16);
+		
+		//memcpy(parser->LastConsoleDataSend.LED, parser->ConsoleDataSend.LED, 50);
+	}
+	
+		
+
+
+
 
 
 void handleUI(SDL_Event e)
@@ -341,7 +357,7 @@ void render()
 	SDL_SetRenderDrawColor(gRenderer, 10, 10, 10, 255);
 	SDL_RenderClear(gRenderer);
 	
-	setRenderColor(80, 130, 240, 255);	//Blue (50, 160, 240, 255);
+	setRenderColor(80, 130, 240, 255);  //Blue (50, 160, 240, 255);
 										//Orange (220, 140, 40, 255);
 										
 	FC_Draw(gFontAG, gRenderer, 0, 0, to_string(framsPerSec).c_str());
@@ -382,6 +398,10 @@ void render()
 		}
 	}
 	
+	FC_Draw(gFontAG, gRenderer, 100, 100, to_string(parser->ConsolePotValue[0]).c_str());
+	FC_Draw(gFontAG, gRenderer, 100, 120, to_string(parser->ConsolePotValue[1]).c_str());
+	FC_Draw(gFontAG, gRenderer, 100, 140, to_string(parser->ConsolePotValue[2]).c_str());
+	FC_Draw(gFontAG, gRenderer, 100, 160, to_string(parser->ConsolePotValue[3]).c_str());
 	
 	//render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
 	/*
@@ -520,10 +540,10 @@ bool init()
 
 
 	SDL_Rect DispayBounds;
-	SDL_GetDisplayBounds(3, &DispayBounds);	
-	SDL_SetWindowPosition( gWindow, DispayBounds.x + ( DispayBounds.w - 900 ) / 2, DispayBounds.y + ( DispayBounds.h - 1440 ) / 2 );
+	SDL_GetDisplayBounds(0, &DispayBounds);
+	//SDL_SetWindowPosition( gWindow, DispayBounds.x + ( DispayBounds.w - 900 ) / 2, DispayBounds.y + ( DispayBounds.h - 1440 ) / 2 );
 
-	//SDL_SetWindowPosition( gWindow, DispayBounds.x + ( DispayBounds.w - 900 ) / 2, DispayBounds.y);
+	SDL_SetWindowPosition( gWindow, DispayBounds.x + ( DispayBounds.w - 900 ) / 2, DispayBounds.y);
 
 	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
 	if (gRenderer == NULL) { printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError()); return false; }
@@ -656,8 +676,7 @@ int main(int argc, char **argv)
 		//While application is running
 		
 		//std::thread serialThread(Serial_Write);
-		//SDL_Thread *serialThread;
-		//serialThread = SDL_CreateThread(Serial_Write, "Serial_Write", (void *)NULL);
+		//SDL_Thread *serialThread = SDL_CreateThread(Serial_Write, "Serial_Write", (void *)NULL);
 		
 		
 		
@@ -773,11 +792,12 @@ int main(int argc, char **argv)
 			
 			Serial_Read();
 			
-			if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
-			{
+			//if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
+			//{
+				
 				Serial_Write();
-				serialTicks = SDL_GetTicks();
-			}
+			//	serialTicks = SDL_GetTicks();
+			//}
 			
 			
 						
@@ -803,11 +823,9 @@ int main(int argc, char **argv)
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) body->applyCentralImpulse(btVector3(0, -0.1, 0));
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) body->applyCentralImpulse(btVector3(0.1, 0, 0));
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) body->applyCentralImpulse(btVector3(-0.1, 0, 0));
-								
-				
-				
-				
+					
 				SWS.Ship->UpdateConsole(parser);
+				
 				body->getMotionState()->getWorldTransform(trans);
 				SWS.Ship->x = float(trans.getOrigin().getX());
 				SWS.Ship->y = float(trans.getOrigin().getY());

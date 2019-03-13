@@ -4,8 +4,6 @@
 
 #include "SDL.h"
 #include <SDL_FontCache.h>
-//#include "reactphysics3d.h"
-//#include "q3.h"
 
 using namespace std;
 
@@ -21,6 +19,8 @@ void close();
 void Serial_Connect();
 void Serial_Read();
 void Serial_Write();
+
+void ConsoleSerialSend();
 
 
 SDL_Texture* loadTexture(std::string path);
@@ -59,16 +59,5 @@ SDL_Color setColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 
 void init_setup();
 
-
-
-//3dScenePhysics
-/*
-q3Scene * scene;
-q3BodyDef bodyDef;
-q3Body* body;
-
-q3BoxDef boxDef;
-q3Transform localSpace;
-*/
 
 #endif

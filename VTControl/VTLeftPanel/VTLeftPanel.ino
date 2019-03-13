@@ -6,6 +6,7 @@
 #include <Adafruit_SSD1306.h>
 #include <Aurebesh6p.h>
 #include <Fonts/FreeSans9pt7b.h>
+#include <PacketSerial.h>
 
 FASTLED_USING_NAMESPACE
 
@@ -23,8 +24,8 @@ FASTLED_USING_NAMESPACE
 CRGB leds[NUM_LEDS];
 
 #define BRIGHTNESS        64
-#define FRAMES_PER_SECOND  60
-#define UPDATES_PER_SECOND  1
+#define FRAMES_PER_SECOND  30
+#define UPDATES_PER_SECOND  30
 
 
 #define OLED_RESET 4
@@ -36,24 +37,21 @@ LedControl matrix=LedControl(A15, A13, A14, 4);
 LedControl seg=LedControl(34, 38, 36, 2);
 
 
-
-
-
-enum LED_ID
-{
-ToggleLit_1LED_1 = 14,
-ToggleLit_1LED_2 = 15,
-ToggleLit_2LED_1 = 13,
-ToggleLit_2LED_2 = 16
-};
-
+#define ToggleLit_1LED_1    14;
+#define ToggleLit_1LED_2    15;
+#define ToggleLit_2LED_1    13;
+#define ToggleLit_2LED_2    16;
 
 
 //int Pot_1Pos, Pot_2Pos, Pot_3Pos, Pot_4Pos;
 //int Pot_1LastPos, Pot_2LastPos, Pot_3LastPos, Pot_4LastPos;
 
-bool ToggleDuel_1_T;
+//bool ToggleDuel_1_T;
+
 void BuildBuffer();
+
+void BuildBuffer();
+void ProcessBuffer(char* B);
 bool CheckBuffer(byte[12], byte[12]);
 void CopyBuffer(byte[12], byte[12]);
 void SendByteBuffer(byte[12]);

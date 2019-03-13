@@ -47,6 +47,7 @@ Debug/VTStart.cpp.o: VTStart.cpp \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_ttf.h \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_mixer.h \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_net.h \
+ C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_thread.h \
  C:\Users\Toad\Documents\VT49\VT49/serial/serial.h \
  C:\Users\Toad\Documents\VT49\VT49/serial/v8stdint.h \
  C:\Users\Toad\Documents\VT49\VT49/tinyxml2.h \
@@ -295,6 +296,8 @@ C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_ttf.h:
 C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_mixer.h:
 
 C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_net.h:
+
+C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_thread.h:
 
 C:\Users\Toad\Documents\VT49\VT49/serial/serial.h:
 
