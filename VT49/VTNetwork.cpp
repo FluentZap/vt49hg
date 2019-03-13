@@ -53,7 +53,7 @@ void VTNetwork::update_Network(SWSimulation SWS)
 			unsigned char const * x = reinterpret_cast<unsigned char const *>(&SWS.Ship->x);
 			unsigned char const * y = reinterpret_cast<unsigned char const *>(&SWS.Ship->y);
 			unsigned char const * z = reinterpret_cast<unsigned char const *>(&SWS.Ship->z);
-
+			
 			for (std::size_t i = 0; i != sizeof(float); ++i)
 			{
 				data[i + floatsize * 0] = x[i];

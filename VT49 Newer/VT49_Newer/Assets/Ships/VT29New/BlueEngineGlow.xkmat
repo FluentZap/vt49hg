@@ -20,9 +20,8 @@ Attributes:
         NormalDistribution: !MaterialSpecularMicrofacetNormalDistributionBlinnPhong {}
         Environment: !MaterialSpecularMicrofacetEnvironmentGGXLUT {}
     Emissive: !MaterialEmissiveMapFeature
-        Enabled: false
         EmissiveMap: !ComputeColor
-            Value: {R: 0.168050975, G: 0.4443555, B: 2.0, A: 1.0}
+            Value: {R: 0.9125, G: 0.941666663, B: 1.0, A: 1.0}
         Intensity: !ComputeFloat
             Value: 1.0
     Overrides:

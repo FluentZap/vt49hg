@@ -1,8 +1,0 @@
-!Texture
-Id: 4d6070b4-0bb8-4727-a030-09941e3311d5
-SerializedVersion: {Xenko: 2.0.0.0}
-Tags: []
-Source: !file ../../../../../../Blender Files/textures/ScratchedMetal2.jpg
-Type: !ColorTextureType
-    ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}
-    PremultiplyAlpha: false

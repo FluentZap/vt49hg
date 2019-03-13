@@ -18,12 +18,20 @@ namespace VT49_Newer
         // Declared public member fields and properties will show in the game studio        
         private TcpClient client = new TcpClient();
         private NetworkStream stream;
-        public Entity Ship { get; set; } = null;        
+        public Entity Ship { get; set; } = null;
 
+        public CameraComponent CameraInsideFront { get; set; } = null;
+        public CameraComponent CameraOutsideFront { get; set; } = null;
+
+
+        
         //private string ClientIP = "127.0.0.1";
         public UIPage ui;
         private EditText TextBox;
         private Button ConnectButton;
+
+        private Button CameraButton_InsideFront;
+        private Button CameraButton_OutsideFront;
 
         public override void Start()
         {
@@ -50,11 +58,14 @@ namespace VT49_Newer
             Console.ReadLine();
             */
 
-            //ui = Entity.Components.Get<UIComponent>().Page;           
+            //ui = Entity.Components.Get<UIComponent>().Page;                       
+
             TextBox = ui.RootElement.FindVisualChildOfType<EditText>("IPBox");
             ConnectButton = ui.RootElement.FindVisualChildOfType<Button>("ConnectButton");
-
+            CameraButton_InsideFront = ui.RootElement.FindVisualChildOfType<Button>("CameraInsideFront");
+            CameraButton_OutsideFront = ui.RootElement.FindVisualChildOfType<Button>("CameraOutsideFront");
             
+
             ConnectButton.Click += delegate
             {
                 if (!client.Connected)
@@ -67,12 +78,32 @@ namespace VT49_Newer
                     catch (ArgumentException e)
                     {
                         DebugText.Print("Could not connect" + e.Message, new Int2(0, 0));
-                        Console.WriteLine("Could not connect" + e.Message);
                     }
                 }
             };
-            
-            
+
+            CameraButton_InsideFront.Click += delegate
+            {
+                disableCameras();
+                CameraInsideFront.Enabled = true;                
+            };
+
+            CameraButton_OutsideFront.Click += delegate
+            {
+                disableCameras();
+                CameraOutsideFront.Enabled = true;                
+            };
+
+
+            void disableCameras()
+            {
+                CameraInsideFront.Enabled = false;
+                CameraOutsideFront.Enabled = false;
+            }
+
+
+
+
         }
 
         public override void Update()
@@ -107,10 +138,12 @@ namespace VT49_Newer
                     pos.X = BitConverter.ToSingle(b, sizeof(float) * 0);
                     pos.Y = BitConverter.ToSingle(b, sizeof(float) * 1);
                     pos.Z = BitConverter.ToSingle(b, sizeof(float) * 2);
-
+                    
                     Ship.Transform.Position = pos;
 
-                    DebugText.Print(BitConverter.ToSingle(b, sizeof(float) * 1).ToString(), new Int2(20, 20), Color4.White);
+                    DebugText.Print(pos.X.ToString(), new Int2(20, 20), Color4.White);
+                    DebugText.Print(pos.Y.ToString(), new Int2(20, 40), Color4.White);
+                    DebugText.Print(pos.Z.ToString(), new Int2(20, 60), Color4.White);
                 }
             }
             

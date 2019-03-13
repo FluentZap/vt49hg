@@ -22,6 +22,9 @@
 #include <btCollisionObject.h>
 //#include <Bullet3Serialize\Bullet2FileLoader\b3BulletFile.h>
 #include <b3BulletFile.h>
+#include <btTransform.h>
+#include <btQuaternion.h>
+
 //#include <btBulletWorldImporter.h>
 
 #include "VTStart.h"
@@ -69,7 +72,6 @@ serial::Serial* consolePot;
 
 VTSerialPhraser* parser;
 
-//char incomingData[256] = "";
 
 //Current OS Windows Or Linux
 enum OS_Types {WIN, LINUX};
@@ -284,7 +286,7 @@ void handleUI(SDL_Event e)
 			parser->ConsoleDataSend.LED[count].g = 0;
 			parser->ConsoleDataSend.LED[count].b = 0;
 			count--;
-		}			
+		}
 		
 		
 		if (e.key.keysym.sym == SDLK_LEFT)
@@ -549,7 +551,7 @@ bool init()
 
 
 	SDL_Rect DispayBounds;
-	SDL_GetDisplayBounds(0, &DispayBounds);
+	SDL_GetDisplayBounds(3, &DispayBounds);
 	//SDL_SetWindowPosition( gWindow, DispayBounds.x + ( DispayBounds.w - 900 ) / 2, DispayBounds.y + ( DispayBounds.h - 1440 ) / 2 );
 
 	SDL_SetWindowPosition( gWindow, DispayBounds.x + ( DispayBounds.w - 900 ) / 2, DispayBounds.y);
@@ -789,7 +791,7 @@ int main(int argc, char **argv)
 					trans = obj->getWorldTransform();
 				}
 				printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
-								
+
 
 		while (!quit)
 		{
@@ -814,15 +816,15 @@ int main(int argc, char **argv)
 			
 			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
 			{
-					dynamicsWorld->stepSimulation(1.f / 60.f, 10);
-					body->setActivationState(DISABLE_DEACTIVATION);
-					body->activate(true);
-					
-					_net->update_Network(SWS);
-					//fpsTicks = SDL_GetTicks();
+				dynamicsWorld->stepSimulation(1.f / 60.f, 10);
+				body->setActivationState(DISABLE_DEACTIVATION);
+				body->activate(true);
 				
-					
-				
+				_net->update_Network(SWS);
+				//fpsTicks = SDL_GetTicks();
+
+
+
 				//parser->ConsolePressed.insert((int)Typeof_ConsoleInputs::FlightStickUP);
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) Scroll.y = Scroll.y + 5 * Zoom;
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) Scroll.y = Scroll.y - 5 * Zoom;
@@ -837,9 +839,12 @@ int main(int argc, char **argv)
 				SWS.Ship->UpdateConsole(parser);
 				
 				body->getMotionState()->getWorldTransform(trans);
+				
 				SWS.Ship->x = float(trans.getOrigin().getX());
 				SWS.Ship->y = float(trans.getOrigin().getY());
 				SWS.Ship->z = float(trans.getOrigin().getZ());
+				
+				trans.getRotation()
 				
 				//printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 				
@@ -879,8 +884,10 @@ int main(int argc, char **argv)
 				//SDL_Delay(10);
 			//}
 		}
-		//serialThread.join();
-			
+		
+		quit = true;
+		SDL_WaitThread(serialThread, NULL);
+		
 	}
 	else printf("Failed to initialize!\n");
 	

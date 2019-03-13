@@ -1,6 +1,0 @@
-!Texture
-Id: 67fddfd9-e2bb-4cde-85c6-c0aecbd1b197
-SerializedVersion: {Xenko: 2.0.0.0}
-Tags: []
-Source: !file ../../../../../Assets/ScratchedMetalNormal.jpg
-Type: !NormalMapTextureType {}

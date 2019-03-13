@@ -18,7 +18,7 @@ Hierarchy:
                         Children: {}
                     636ded10c3bbb66d2238d299cc05d048: !ModelComponent
                         Id: d3a7aafc-e9ef-49a2-b417-93c86487291a
-                        Model: 6cd5ee6a-7756-4502-b00d-b6258173c91a:Ships/VT-49/VT-49
+                        Model: null
                         Materials:
                             f463400eb2393d3868d6f12c08a8601a~0: c8dd4cb4-afab-47a5-9e76-86ebb9ca1961:Sphere Material
                             8c8e834790a46a752dcb10a8f5d32341~3: f9c58b32-c620-4db5-ae61-ce3882b230e8:Glass
