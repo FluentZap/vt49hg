@@ -38,10 +38,11 @@ using namespace bParse;
 
 const int SCREEN_WIDTH = 900;
 const int SCREEN_HEIGHT = 1440;
-const int SCREEN_FPS = 60;
+const int SCREEN_FPS = 63;
 const float SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 const float SERIAL_TICKS_PER_FRAME = 1000 / 60;
 
+int FPS_Adjust = 0;
 
 bool quit = false;
 int framsPerSec;
@@ -167,12 +168,19 @@ void Serial_Read()
 uint8_t ConsolePacketSend = 0;
 
 
-void Serial_Write()
+int Serial_Write(void *data)
 {
-	if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
+	while (!quit)
 	{
-		ConsoleSerialSend();
-		serialTicks = SDL_GetTicks();
+		if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
+		{
+			ConsoleSerialSend();
+			serialTicks = SDL_GetTicks();
+		}
+		
+		long currenttick = SDL_GetTicks();
+			if ((serialTicks + SERIAL_TICKS_PER_FRAME) - currenttick > 0)
+				SDL_Delay((serialTicks + SERIAL_TICKS_PER_FRAME) - currenttick);
 	}
 }
 
@@ -292,7 +300,7 @@ void handleUI(SDL_Event e)
 			body->ApplyLinearImpulse(point);
 			 */
 			//rect1.x--;
-			Scroll.x = Scroll.x + 10 * Zoom;			
+			Scroll.x = Scroll.x + 10 * Zoom;
 		}
 		
 		if (e.key.keysym.sym == SDLK_RIGHT)
@@ -323,7 +331,7 @@ void handleUI(SDL_Event e)
 		if (e.key.keysym.sym == SDLK_KP_PLUS)
 		{
 			Zoom = Zoom + 0.1;
-			if (Zoom > 10) Zoom = 10;			
+			if (Zoom > 10) Zoom = 10;
 		}
 		
 		if (e.key.keysym.sym == SDLK_KP_MINUS)
@@ -361,6 +369,7 @@ void render()
 										//Orange (220, 140, 40, 255);
 										
 	FC_Draw(gFontAG, gRenderer, 0, 0, to_string(framsPerSec).c_str());
+	FC_Draw(gFontAG, gRenderer, 0, 20, to_string(FPS_Adjust).c_str());
 	
 	//setRenderColor(255, 255, 255, 255);
 	SDL_Color color = setColor(80, 130, 240, 255);
@@ -545,6 +554,7 @@ bool init()
 
 	SDL_SetWindowPosition( gWindow, DispayBounds.x + ( DispayBounds.w - 900 ) / 2, DispayBounds.y);
 
+	//gRenderer = SDL_CreateRenderer(gWindow, -1, NULL);
 	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
 	if (gRenderer == NULL) { printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError()); return false; }
 
@@ -676,7 +686,7 @@ int main(int argc, char **argv)
 		//While application is running
 		
 		//std::thread serialThread(Serial_Write);
-		//SDL_Thread *serialThread = SDL_CreateThread(Serial_Write, "Serial_Write", (void *)NULL);
+		SDL_Thread *serialThread = SDL_CreateThread(Serial_Write, "Serial_Write", (void *)NULL);
 		
 		
 		
@@ -795,15 +805,15 @@ int main(int argc, char **argv)
 			//if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
 			//{
 				
-				Serial_Write();
-			//	serialTicks = SDL_GetTicks();
+			//Serial_Write();
+			//serialTicks = SDL_GetTicks();
 			//}
 			
 			
 						
 			
-				if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
-				{
+			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
+			{
 					dynamicsWorld->stepSimulation(1.f / 60.f, 10);
 					body->setActivationState(DISABLE_DEACTIVATION);
 					body->activate(true);
@@ -839,16 +849,28 @@ int main(int argc, char **argv)
 				//renderGalaxyMap(0, 0);
 				fps++;
 				fpsTicks = SDL_GetTicks();
-				
 			}
 			
+			long currenttick = SDL_GetTicks();
+			if ((fpsTicks + SCREEN_TICKS_PER_FRAME) - currenttick > 0)
+				SDL_Delay((fpsTicks + SCREEN_TICKS_PER_FRAME) - currenttick);
+				
 			
 			if (fpsStart + 1000 < SDL_GetTicks())
 			{
+				
+				//if (FPS_Adjust > SCREEN_TICKS_PER_FRAME * 100)
+					//FPS_Adjust = SCREEN_TICKS_PER_FRAME * 100;
+				
+				//if (FPS_Adjust < 0)
+				//FPS_Adjust = 0;
+				
 				framsPerSec = fps;
 				fps = 0;
+	
 				fpsStart = SDL_GetTicks();
 			}
+			
 			
 			
 			//int frameTicks = SDL_GetTicks() - startTicks;
