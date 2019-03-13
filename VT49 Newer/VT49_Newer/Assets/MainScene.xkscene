@@ -24,7 +24,7 @@ Hierarchy:
     Parts:
         -   Entity:
                 Id: 05ed8179-dbfe-4f3e-9982-ac6868ee6205
-                Name: VT-49 Cam
+                Name: VT-49 FrontOutside
                 Components:
                     dec48846d190b1e08ef2f8f78d5927d4: !TransformComponent
                         Id: b6b9de74-fa44-41c1-a4b1-4d026e4c5bd0
@@ -34,7 +34,7 @@ Hierarchy:
                         Children: {}
                     7cf2d447bb790c6a776ba8a640bfef3e: !CameraComponent
                         Id: 0e1debc6-0a55-458a-a84d-32ae73807fea
-                        Name: null
+                        Name: FrontOutside
                         Projection: Perspective
                         VerticalFieldOfView: 60.0
                         Slot: 3d803371-91dc-4734-b62a-f22f4eeac169
@@ -153,6 +153,8 @@ Hierarchy:
                         Id: 4728bcc2-b341-4d4f-b472-7a2ef70bb9d5
                         ui: a7a9976e-be01-44ce-aaf8-526d84034bb6:Page
                         Ship: ref!! f329198c-d5ab-4a5b-9e2e-54eda32c11ee
+                        CameraInsideFront: ref!! dd6cf5df-acd6-4568-8f5b-d4c865192ae7
+                        CameraOutsideFront: ref!! 0e1debc6-0a55-458a-a84d-32ae73807fea
         -   Entity:
                 Id: 27b60f0a-f92d-4244-842a-ee00ca51f1b3
                 Name: TieFighter
@@ -181,12 +183,8 @@ Hierarchy:
                         Id: 851e369d-5da0-4f7d-8f80-81489466260f
                         Model: 77e2cb00-ca7b-4e5d-8e54-f217f17100cd:Ships/Star Destroyer/ImperialIIStarDestroyer
                         Materials:
-                            6424312b75b5f6eae000b3f3fc48a107~0: dabbb815-84a3-4761-b796-42345f745461:Ships/VT-49-2/YellowGlow
-                            1f6c87f5b7ec186cfc57ab3911e49de8~1: 9e7d2c5f-e0f5-47b6-92b3-525e2d48da99:Ships/VT-49/ScratchedMetal
-                            5f9205eaebb207be482d353e45982687~2: 9e7d2c5f-e0f5-47b6-92b3-525e2d48da99:Ships/VT-49/ScratchedMetal
                             0edcdf618a7e446c35667179b19b17c1~3: 739aa765-b676-46e5-9df8-57437607d293:Ships/XQ6/Dark
                             d64c435658cda6d8d7d5ed9200f20b22~4: f9c58b32-c620-4db5-ae61-ce3882b230e8:Glass
-                            d9057144ee9bb831fa919546a0af1608~5: 18593002-671e-4fe9-a24d-1d5cd25263fe:Ships/VT-49/BlueEngineGlow
         -   Entity:
                 Id: 2d62e2e4-d094-4996-9b41-7c0a1338193e
                 Name: Directional light
@@ -336,6 +334,23 @@ Hierarchy:
                         Enabled: false
                         Type: !LightSkybox
                             Skybox: null
+        -   Folder: null
+            Entity:
+                Id: 99dc6aaa-cb24-42e8-91e1-f861c5fb9f60
+                Name: VT-49 FrontInside
+                Components:
+                    dec48846d190b1e08ef2f8f78d5927d4: !TransformComponent
+                        Id: b464a934-e387-47f2-8897-7862c1887438
+                        Position: {X: 0.0, Y: -0.03, Z: -0.5}
+                        Rotation: {X: 0.0436193869, Y: 0.0, Z: 0.0, W: 0.999048233}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    7cf2d447bb790c6a776ba8a640bfef3e: !CameraComponent
+                        Id: dd6cf5df-acd6-4568-8f5b-d4c865192ae7
+                        Enabled: false
+                        Name: FrontInside
+                        Projection: Perspective
+                        Slot: 3d803371-91dc-4734-b62a-f22f4eeac169
         -   Entity:
                 Id: a39c5fed-3e16-4235-a2e3-d14640d59222
                 Name: TurretCamera
@@ -521,36 +536,14 @@ Hierarchy:
                             fcd402d50587e02a1415a53f891bf85f: ref!! addd8457-0d13-48bb-91b5-e131dde87c71
                             47bd824865b9aa94776a8a60854d5226: ref!! 54f1aedc-f337-4d8e-97c5-b48628d54a23
                             84f77eea9dcfcc3809a6bc9aa69093c7: ref!! b6b9de74-fa44-41c1-a4b1-4d026e4c5bd0
+                            e02ebb07365279a796bd8139e772a952: ref!! b464a934-e387-47f2-8897-7862c1887438
                     48a2df8b416081fadfae56738ac90b3f: !ModelComponent
                         Id: 0de940c0-c47c-426c-a82e-cb3f01111474
                         Model: df3856eb-2854-48af-8434-1fd6b429efcf:Ships/VT29New/VT-49
                         Materials:
-                            c79ca855fc882e3ae9f99147ebcf8214~0: 85ebf092-707e-4bd4-8b4b-d5ade50a15ae:Ships/VT29New/ScratchedMetal
-                            f70962b7855d63c2085f9c21160a7c90~1: 415dc1ed-d784-4e68-a909-f9ba784245bd:Ships/VT49New/Dark
-                            cbe23cde0e151eac62cb2083967d3df7~2: 2931e947-9c48-48cf-82dc-06c62c384d71:Ships/VT29New/Material_3
-                            8662d196a349ab809199c0576a75ffd0~3: 0a21f0a4-b156-4e7b-9eb6-503181cf7199:Ships/VT49New/SpotlightGlow
-                            db42a22fbc3d577e961f479e9709fb45~4: 85fd3547-6447-4d1b-a666-d00413bd32fb:Ships/VT49New/BlueishEngineGlow
-                            9db340abff42537ee60eec3a14316f9c~5: 68d40eb7-f836-4f8e-829a-1e2b5aec0766:Ships/VT49New/Material_2
-                    3a11a6e16081843b588b198152f54ca8: !RigidbodyComponent
-                        Id: 5d90ee80-c679-4637-bd73-e92d8a4df39f
-                        Enabled: false
-                        CanSleep: false
-                        Restitution: 0.8
-                        Friction: 0.5
-                        RollingFriction: 0.0
-                        CcdMotionThreshold: 0.0
-                        CcdSweptSphereRadius: 0.0
-                        IsTrigger: false
-                        IsKinematic: false
-                        Mass: 1.0
-                        LinearDamping: 0.0
-                        AngularDamping: 0.8
-                        OverrideGravity: true
-                        Gravity: {X: 0.0, Y: 0.0, Z: 0.0}
-                        NodeName: VT-49 Decimator
-                        ColliderShapes:
-                            7d75017d329c5f2b00254246740d87b6: !BoxColliderShapeDesc
-                                Is2D: false
-                                Size: {X: 0.025, Y: 0.038, Z: 0.008}
-                                LocalOffset: {X: 0.0, Y: 0.001, Z: 0.001}
-                                LocalRotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                            ace664994c92e60ffa7803aadc36ba55~0: 85ebf092-707e-4bd4-8b4b-d5ade50a15ae:Ships/VT29New/ScratchedMetal
+                            024d759c70a7e021fd497a86c3580aa5~1: 9beef2b2-c2d4-4083-9111-043c78d02e8b:Ships/VT29New/Dark
+                            02b4c941b2eb24694aadbbe77d551848~2: 0b7de289-a986-4fc5-a299-8676eface546:Ships/VT29New/ScratchedMetalDark
+                            72403dae7cc4eb93200e779afd158438~3: 7ca12d08-3e4a-4f67-883b-fa98b1701ed9:Ships/VT29New/SpotlightGlow
+                            e66376c7ce73ffd67483bf3e4dd23f7f~4: 5fa19aac-54e2-4247-af1b-e4309196c718:Ships/VT29New/LightGlow
+                            89b05922d97cc02770b26e98defb8ad5~5: 79c59258-502f-4de4-ba9b-9f824209c686:Ships/VT29New/Glass

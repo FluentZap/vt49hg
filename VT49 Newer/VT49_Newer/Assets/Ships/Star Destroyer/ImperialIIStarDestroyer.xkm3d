@@ -13,11 +13,11 @@ Materials:
     e034a8475fea1a68338ca7aff7529dd7:
         Name: ScratchedMetal
         MaterialInstance:
-            Material: 9e7d2c5f-e0f5-47b6-92b3-525e2d48da99:Ships/VT-49/ScratchedMetal
+            Material: null
     8fa8e8a6faec1175e6f6e3d1da335ac6:
         Name: ScratchedMetalDark
         MaterialInstance:
-            Material: 9e7d2c5f-e0f5-47b6-92b3-525e2d48da99:Ships/VT-49/ScratchedMetal
+            Material: null
     2c2b40acccafab92c64db11902084b5a:
         Name: Dark
         MaterialInstance:
@@ -29,7 +29,7 @@ Materials:
     2b40ea6be029a61fbbcb2d55dc88ea9d:
         Name: BlueEngineGlow
         MaterialInstance:
-            Material: 18593002-671e-4fe9-a24d-1d5cd25263fe:Ships/VT-49/BlueEngineGlow
+            Material: null
 Modifiers: {}
 ~SourceHashes:
     4135097279b98efa3510d6386358f20a~../../../../../../Blender Files/ImperialIIStarDestroyer.fbx: 9840a547fe8fc16a3ea02b0a3f84f2a8

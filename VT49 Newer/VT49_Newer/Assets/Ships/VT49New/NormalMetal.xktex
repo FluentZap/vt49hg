@@ -1,6 +1,0 @@
-!Texture
-Id: 4214126b-fec0-4d02-9793-eebda2e1729d
-SerializedVersion: {Xenko: 2.0.0.0}
-Tags: []
-Source: !file ../../../../../Assets/NormalMetal.jpg
-Type: !NormalMapTextureType {}
