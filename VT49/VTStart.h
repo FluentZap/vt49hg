@@ -18,7 +18,7 @@ void close();
 
 void Serial_Connect();
 void Serial_Read();
-void Serial_Write();
+int Serial_Write(void *data);
 
 void ConsoleSerialSend();
 
