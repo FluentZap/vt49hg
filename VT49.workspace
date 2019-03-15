@@ -14,7 +14,7 @@
   <Project Name="VT49" Path="VT49/VT49.project" Active="Yes"/>
   <Project Name="serial" Path="serial/serial.project" Active="No"/>
   <Project Name="NetTest" Path="NetTest/NetTest.project" Active="No"/>
-  <Project Name="Bullet3" Path="Bullet3/Bullet3.project"/>
+  <Project Name="Bullet3" Path="Bullet3/Bullet3.project" Active="No"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>

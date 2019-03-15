@@ -9,7 +9,6 @@ SWSimulation::~SWSimulation()
 }
 
 int inc;
-
 uint8_t col;
 
 
@@ -108,3 +107,8 @@ void PCShip::UpdateConsole(VTSerialPhraser* parser)
 		inc = 0;
 	}
 }
+
+
+
+
+
