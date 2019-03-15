@@ -20,12 +20,13 @@
 //#include <btTransform.h>
 #include <btBulletDynamicsCommon.h>
 #include <btCollisionObject.h>
+//#include <btCollisionShape.h>
 //#include <Bullet3Serialize\Bullet2FileLoader\b3BulletFile.h>
 #include <b3BulletFile.h>
-#include <btTransform.h>
-#include <btQuaternion.h>
+//#include <btTransform.h>
+//#include <btQuaternion.h>
 
-//#include <btBulletWorldImporter.h>
+#include <btBulletWorldImporter.h>
 
 #include "VTStart.h"
 #include "VTSerialPhraser.h"
@@ -689,21 +690,38 @@ int main(int argc, char **argv)
 		
 		//std::thread serialThread(Serial_Write);
 		SDL_Thread *serialThread = SDL_CreateThread(Serial_Write, "Serial_Write", (void *)NULL);
-		
-		
+				
 		
 		
 		btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
 		btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
 		btBroadphaseInterface* overlappingPairCache = new btDbvtBroadphase();
 		btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
-		btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+		//btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+		btDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
 		dynamicsWorld->setGravity(btVector3(0, 0, 0));
 		btAlignedObjectArray<btCollisionShape*> collisionShapes;
 		
+		
+		
+		btCollisionShape* VT49Mesh;
+		btBulletWorldImporter import(0);//don't store info into the world
+		if (import.loadFile("VT-49.bullet"))
+		{
+				int numShape = import.getNumCollisionShapes();
+				if (numShape)
+				{
+						VT49Mesh = (btConvexHullShape*)import.getCollisionShapeByIndex(0);
+				}
+		}
+		collisionShapes.push_back(VT49Mesh);
+		
+		
+		
 		{
 			btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
-
+			
+			
 			collisionShapes.push_back(groundShape);
 			
 			btTransform groundTransform;
@@ -727,7 +745,7 @@ int main(int argc, char **argv)
 
 			//add the body to the dynamics world
 			dynamicsWorld->addRigidBody(body);
-						
+			
 		}
 		
 		{
@@ -736,7 +754,7 @@ int main(int argc, char **argv)
 			btCollisionShape* colShape = new btBoxShape(btVector3(5, 5, 5));
 			//btCollisionShape* colShape = new btSphereShape(btScalar(5.));
 			collisionShapes.push_back(colShape);
-
+			
 			/// Create Dynamic Objects
 			btTransform startTransform;
 			startTransform.setIdentity();
@@ -754,9 +772,9 @@ int main(int argc, char **argv)
 
 			//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
 			btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
+			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, VT49Mesh, localInertia);
 			btRigidBody* body = new btRigidBody(rbInfo);
-
+			
 			dynamicsWorld->addRigidBody(body);
 			
 			btHingeConstraint* hinge = new btHingeConstraint(*body, btVector3(1, 0, 0), btVector3(1, 0, 0), true);
@@ -776,10 +794,15 @@ int main(int argc, char **argv)
 				
 
 				//print positions of all objects
+				
 				btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[1];
 				btRigidBody* body = btRigidBody::upcast(obj);
 				btTransform trans;
 				
+				
+				
+				
+	
 				
 				
 				if (body && body->getMotionState())
@@ -790,7 +813,8 @@ int main(int argc, char **argv)
 				{
 					trans = obj->getWorldTransform();
 				}
-				printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+				
+				//printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 
 
 		while (!quit)
@@ -831,10 +855,10 @@ int main(int argc, char **argv)
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) Scroll.x = Scroll.x + 5 * Zoom;
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) Scroll.x = Scroll.x - 5 * Zoom;
 								
-				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) body->applyCentralImpulse(btVector3(0, 0.1, 0));
-				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) body->applyCentralImpulse(btVector3(0, -0.1, 0));
-				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) body->applyCentralImpulse(btVector3(0.1, 0, 0));
-				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) body->applyCentralImpulse(btVector3(-0.1, 0, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) body->applyCentralImpulse(btVector3(0, -0.1, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) body->applyCentralImpulse(btVector3(0, 0.1, 0));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) body->applyCentralImpulse(btVector3(0, 0, -0.1));
+				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) body->applyCentralImpulse(btVector3(0, 0, 0.1));
 					
 				SWS.Ship->UpdateConsole(parser);
 				
@@ -844,7 +868,7 @@ int main(int argc, char **argv)
 				SWS.Ship->y = float(trans.getOrigin().getY());
 				SWS.Ship->z = float(trans.getOrigin().getZ());
 				
-				trans.getRotation()
+				//trans.getRotation()
 				
 				//printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 				

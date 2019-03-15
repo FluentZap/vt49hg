@@ -47,6 +47,7 @@ Release/VTStart.cpp.o: VTStart.cpp \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_ttf.h \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_mixer.h \
  C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_net.h \
+ C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_thread.h \
  C:\Users\Toad\Documents\VT49\VT49/serial/serial.h \
  C:\Users\Toad\Documents\VT49\VT49/serial/v8stdint.h \
  C:\Users\Toad\Documents\VT49\VT49/tinyxml2.h \
@@ -197,6 +198,8 @@ Release/VTStart.cpp.o: VTStart.cpp \
  C:\Users\Toad\Documents\VT49\bullet3-2.88\src/Bullet3Serialize/Bullet2FileLoader/b3Serializer.h \
  C:\Users\Toad\Documents\VT49\bullet3-2.88\src/Bullet3Common/b3Scalar.h \
  C:\Users\Toad\Documents\VT49\bullet3-2.88\src/Bullet3Common/b3StackAlloc.h \
+ C:\Users\Toad\Documents\VT49\bullet3-2.88\Extras\Serialize\BulletWorldImporter/btBulletWorldImporter.h \
+ C:\Users\Toad\Documents\VT49\bullet3-2.88\Extras\Serialize\BulletWorldImporter/btWorldImporter.h \
  VTStart.h VTSerialPhraser.h SWSimulation.h \
  C:\Users\Toad\Documents\VT49\VT49/VTSerialPhraser.h VTNetwork.h
 
@@ -295,6 +298,8 @@ C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_ttf.h:
 C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_mixer.h:
 
 C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_net.h:
+
+C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL_thread.h:
 
 C:\Users\Toad\Documents\VT49\VT49/serial/serial.h:
 
@@ -595,6 +600,10 @@ C:\Users\Toad\Documents\VT49\bullet3-2.88\src/Bullet3Serialize/Bullet2FileLoader
 C:\Users\Toad\Documents\VT49\bullet3-2.88\src/Bullet3Common/b3Scalar.h:
 
 C:\Users\Toad\Documents\VT49\bullet3-2.88\src/Bullet3Common/b3StackAlloc.h:
+
+C:\Users\Toad\Documents\VT49\bullet3-2.88\Extras\Serialize\BulletWorldImporter/btBulletWorldImporter.h:
+
+C:\Users\Toad\Documents\VT49\bullet3-2.88\Extras\Serialize\BulletWorldImporter/btWorldImporter.h:
 
 VTStart.h:
 
