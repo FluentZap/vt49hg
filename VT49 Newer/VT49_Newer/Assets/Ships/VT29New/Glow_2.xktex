@@ -1,7 +1,0 @@
-!Texture
-Id: b9105fee-e442-4cec-9781-a602508802ea
-SerializedVersion: {Xenko: 2.0.0.0}
-Tags: []
-Source: !file ../../../../../Assets/Glow.png
-Type: !ColorTextureType
-    ColorKeyColor: {R: 255, G: 0, B: 255, A: 255}

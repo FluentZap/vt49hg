@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<CodeLite_Workspace Name="REACTPHYSICS3D" Version="10.0.0">
-  <Project Name="REACTPHYSICS3D" Path="REACTPHYSICS3D.project" Active="Yes"/>
-  <BuildMatrix>
-    <WorkspaceConfiguration Name="Release" Selected="yes">
-      <Project Name="REACTPHYSICS3D" ConfigName="Release"/>
-    </WorkspaceConfiguration>
-  </BuildMatrix>
-</CodeLite_Workspace>

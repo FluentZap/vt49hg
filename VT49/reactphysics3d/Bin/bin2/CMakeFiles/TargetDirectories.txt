@@ -1,4 +1,0 @@
-C:/Users/Toad/Documents/VT49/VT49/reactphysics3d/Bin/bin2/CMakeFiles/reactphysics3d.dir
-C:/Users/Toad/Documents/VT49/VT49/reactphysics3d/Bin/bin2/CMakeFiles/RUN_TESTS.dir
-C:/Users/Toad/Documents/VT49/VT49/reactphysics3d/Bin/bin2/CMakeFiles/ALL_BUILD.dir
-C:/Users/Toad/Documents/VT49/VT49/reactphysics3d/Bin/bin2/CMakeFiles/ZERO_CHECK.dir
