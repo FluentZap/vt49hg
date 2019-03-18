@@ -14,13 +14,13 @@ Hierarchy:
         - ref!! 747180be-ff4c-458f-a791-24fd0639de09
         - ref!! 1cc8a0c9-60d4-470c-9f6e-4f40e8e89f14
         - ref!! 5c11f0b5-8d4b-46ab-b40f-69d41b9aef0a
-        - ref!! 685fcea6-27c2-4a64-b5c7-5fca1bee0a07
-        - ref!! f329198c-d5ab-4a5b-9e2e-54eda32c11ee
+        - ref!! a0f5ba57-7bb4-495e-bd85-9b802711dfce
         - ref!! 20a22618-c24e-4f58-aa57-832b0765b3cf
         - ref!! 2a9e5f3b-7265-4dd3-9fdd-707c50a0ba6d
         - ref!! e8aff0cf-585b-4a49-a5df-a94e31454259
         - ref!! 21c56a66-1fe1-4b23-8be4-ab55cdc37a6a
         - ref!! 825adf70-a5ea-4fe9-a869-d21d0568c504
+        - ref!! 8bd62889-64bd-40a3-b2f1-48376b3d8170
     Parts:
         -   Entity:
                 Id: 05ed8179-dbfe-4f3e-9982-ac6868ee6205
@@ -33,7 +33,7 @@ Hierarchy:
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     7cf2d447bb790c6a776ba8a640bfef3e: !CameraComponent
-                        Id: 0e1debc6-0a55-458a-a84d-32ae73807fea
+                        Id: 18f2a97a-47bf-4b74-b0b8-84657b7fca6c
                         Name: FrontOutside
                         Projection: Perspective
                         VerticalFieldOfView: 60.0
@@ -152,9 +152,9 @@ Hierarchy:
                     d9aab77f30c6ab06c7a5e6ed57e9edf4: !VT49_Newer.NetworkUpdate,VT49_Newer
                         Id: 4728bcc2-b341-4d4f-b472-7a2ef70bb9d5
                         ui: a7a9976e-be01-44ce-aaf8-526d84034bb6:Page
-                        Ship: ref!! f329198c-d5ab-4a5b-9e2e-54eda32c11ee
-                        CameraInsideFront: ref!! dd6cf5df-acd6-4568-8f5b-d4c865192ae7
-                        CameraOutsideFront: ref!! 0e1debc6-0a55-458a-a84d-32ae73807fea
+                        Ship: ref!! a0f5ba57-7bb4-495e-bd85-9b802711dfce
+                        CameraInsideFront: ref!! b9a84f6c-1b32-4f14-b87c-895ed7a5f188
+                        CameraOutsideFront: ref!! 18f2a97a-47bf-4b74-b0b8-84657b7fca6c
         -   Entity:
                 Id: 27b60f0a-f92d-4244-842a-ee00ca51f1b3
                 Name: TieFighter
@@ -183,6 +183,7 @@ Hierarchy:
                         Id: 851e369d-5da0-4f7d-8f80-81489466260f
                         Model: 77e2cb00-ca7b-4e5d-8e54-f217f17100cd:Ships/Star Destroyer/ImperialIIStarDestroyer
                         Materials:
+                            39a519a7cd438ba0fa807639f5f971bc~0: 027a73a2-123d-4fc6-bc8b-0bd47ccf6715:Ships/Star Destroyer/YellowLight
                             0edcdf618a7e446c35667179b19b17c1~3: 739aa765-b676-46e5-9df8-57437607d293:Ships/XQ6/Dark
                             d64c435658cda6d8d7d5ed9200f20b22~4: f9c58b32-c620-4db5-ae61-ce3882b230e8:Glass
         -   Entity:
@@ -207,30 +208,6 @@ Hierarchy:
                                 BiasParameters: {}
                         Intensity: 7000.0
         -   Entity:
-                Id: 55f27538-d348-4c67-9323-ef97dbb1df19
-                Name: Left Light
-                Components:
-                    cdfe56876fc24db16c2a3ba4b31c7e1d: !TransformComponent
-                        Id: 43f4941b-15fb-4161-ba02-8d4028d5dbb3
-                        Position: {X: -0.556, Y: 0.205647677, Z: 0.867286146}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    f75f946f04159ed6ec5f082bd79bda84: !LightComponent
-                        Id: d51f6587-d0cd-4eb0-95c9-863b09ed6dfe
-                        Type: !LightSpot
-                            Color: !ColorRgbProvider
-                                Value: {R: 1.0, G: 1.0, B: 1.0}
-                            Range: 100.0
-                            AngleInner: 10.0
-                            AngleOuter: 30.0
-                            UVScale: {X: 1.0, Y: 1.0}
-                            UVOffset: {X: 0.0, Y: 0.0}
-                            Shadow:
-                                BiasParameters:
-                                    DepthBias: 0.001
-                        Intensity: 30.0
-        -   Entity:
                 Id: 5c11f0b5-8d4b-46ab-b40f-69d41b9aef0a
                 Name: Background Light
                 Components:
@@ -246,40 +223,6 @@ Hierarchy:
                             Color: !ColorRgbProvider
                                 Value: {R: 1.0, G: 1.0, B: 1.0}
                         Intensity: 0.01
-        -   Entity:
-                Id: 685fcea6-27c2-4a64-b5c7-5fca1bee0a07
-                Name: TurretControls
-                Components:
-                    eb29e10a7cd605afbd11e433d6733bc5: !TransformComponent
-                        Id: d4b556b2-24b8-4fea-ad4a-8e1cbf23aeb0
-                        Position: {X: 0.0, Y: 2.046035, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-        -   Entity:
-                Id: 7224a30c-0ca3-4dba-afc7-a87bcb59a15c
-                Name: Right Light
-                Components:
-                    c8b412dcd7b1e28f6ac82db4014e1444: !TransformComponent
-                        Id: 266490bc-1b15-4511-aa3d-906e365cb1f5
-                        Position: {X: 0.5561069, Y: 0.205647677, Z: 0.867286146}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    8c60da8831404ed484646dafdb30d83b: !LightComponent
-                        Id: dc8de8eb-7168-45ca-ac31-730075d7cdeb
-                        Type: !LightSpot
-                            Color: !ColorRgbProvider
-                                Value: {R: 1.0, G: 1.0, B: 1.0}
-                            Range: 100.0
-                            AngleInner: 10.0
-                            AngleOuter: 30.0
-                            UVScale: {X: 1.0, Y: 1.0}
-                            UVOffset: {X: 0.0, Y: 0.0}
-                            Shadow:
-                                BiasParameters:
-                                    DepthBias: 0.001
-                        Intensity: 30.0
         -   Folder: null
             Entity:
                 Id: 747180be-ff4c-458f-a791-24fd0639de09
@@ -301,21 +244,20 @@ Hierarchy:
                 Components:
                     7ec3311a2351786ccec63611e6399b4f: !TransformComponent
                         Id: 11fba50b-2c58-4b03-92fa-a4d6fdce60db
-                        Position: {X: 0.0, Y: 5.29849434, Z: -0.9447863}
+                        Position: {X: 4.395329, Y: 1.24217176, Z: 8.234411}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     b5997187f6c596a0e7befecc8f4aad67: !LightComponent
                         Id: 897a1ddb-6d04-4bc8-9cef-4d29710a107d
-                        Enabled: false
                         Type: !LightPoint
                             Color: !ColorRgbProvider
                                 Value: {R: 1.0, G: 1.0, B: 1.0}
-                            Radius: 30.0
+                            Radius: 50.0
                             Shadow:
                                 Size: Small
                                 BiasParameters: {}
-                        Intensity: 10.0
+                        Intensity: 50.0
         -   Entity:
                 Id: 89446736-e1a9-46f1-a36c-8e71437c637c
                 Name: Skybox
@@ -334,164 +276,71 @@ Hierarchy:
                         Enabled: false
                         Type: !LightSkybox
                             Skybox: null
-        -   Folder: null
-            Entity:
+        -   Entity:
+                Id: 8bd62889-64bd-40a3-b2f1-48376b3d8170
+                Name: Box
+                Components:
+                    c7ff8f4399a589adee94dafbfa5ffd76: !TransformComponent
+                        Id: 4263c133-a533-4838-9653-562c0f4dfff6
+                        Position: {X: 0.0, Y: 0.0, Z: 30.0}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
+                        Children: {}
+                    dbe50de8932f13b08293805631df7681: !ModelComponent
+                        Id: 044604fa-522f-4525-a59c-622bf1698c6f
+                        Model: d7a2ab71-4c00-42d6-b04a-6a72db105196:Ships/Box
+                        Materials: {}
+        -   Entity:
                 Id: 99dc6aaa-cb24-42e8-91e1-f861c5fb9f60
                 Name: VT-49 FrontInside
                 Components:
                     dec48846d190b1e08ef2f8f78d5927d4: !TransformComponent
                         Id: b464a934-e387-47f2-8897-7862c1887438
-                        Position: {X: 0.0, Y: -0.03, Z: -0.5}
-                        Rotation: {X: 0.0436193869, Y: 0.0, Z: 0.0, W: 0.999048233}
+                        Position: {X: -0.07041435, Y: 0.4663996, Z: -0.443379074}
+                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
                     7cf2d447bb790c6a776ba8a640bfef3e: !CameraComponent
-                        Id: dd6cf5df-acd6-4568-8f5b-d4c865192ae7
+                        Id: b9a84f6c-1b32-4f14-b87c-895ed7a5f188
                         Enabled: false
                         Name: FrontInside
                         Projection: Perspective
                         Slot: 3d803371-91dc-4734-b62a-f22f4eeac169
         -   Entity:
-                Id: a39c5fed-3e16-4235-a2e3-d14640d59222
-                Name: TurretCamera
+                Id: a0f5ba57-7bb4-495e-bd85-9b802711dfce
+                Name: VT49_2
                 Components:
-                    26d1cce112a2f03a4be8ac90e57e217e: !TransformComponent
-                        Id: 13839e81-4f90-4c21-837a-17e96738db2a
-                        Position: {X: 0.0, Y: 0.007324786, Z: 0.00172349392}
-                        Rotation: {X: 3.090862E-08, Y: 0.707106769, Z: 0.707106769, W: -3.090862E-08}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    91b076b2c37df98542698a35b3193a1e: !CameraComponent
-                        Id: 4f231323-71f5-493a-847a-ac8aa25186be
-                        Name: null
-                        Projection: Perspective
-                        VerticalFieldOfView: 20.0
-                        Slot: 00000000-0000-0000-0000-000000000000
-        -   Entity:
-                Id: bde4f133-4a46-4a99-a63a-1eba561e579c
-                Name: Top Turret
-                Components:
-                    cd6e531d14ff15c9ef53074bb95d5cc1: !TransformComponent
-                        Id: addd8457-0d13-48bb-91b5-e131dde87c71
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
+                    8c1d8da1b41a0cd490b6fe32f4397ff0: !TransformComponent
+                        Id: d08bb58b-bdc1-40e4-ad1f-6bdfb16e4133
+                        Position: {X: 0.0, Y: -1.90734863E-06, Z: 0.0}
+                        Rotation: {X: 0.0, Y: 1.0, Z: 0.0, W: -4.371139E-08}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children:
-                            4e7cb09c302bd67bf1d5e4359766cca3: ref!! 13839e81-4f90-4c21-837a-17e96738db2a
-                    ef05c407d660b544d5482e36d0c51690: !ModelNodeLinkComponent
-                        Id: bde9dfa5-3f54-473c-9dd7-229cf1d1a7e9
-                        Target: null
-                        NodeName: UpperCanon
+                            4c11beb2ead1957b6bf75c92fa3bf2fc: ref!! b6b9de74-fa44-41c1-a4b1-4d026e4c5bd0
+                            1aaac47eb99fb89f4874bb5c368b7417: ref!! b464a934-e387-47f2-8897-7862c1887438
+                            1271130a350672d9da139f761279b0c5: ref!! 0913f901-b47a-4ebb-be8b-db29f0adab3d
+                    f5b8ae62ff2bb605d3205c9921e6f73e: !ModelComponent
+                        Id: 7efb04dc-d4f9-4c96-9bc1-907accd63bf5
+                        Model: eae833f5-a115-4fa4-bef7-1b9b4e817a2c:Ships/SWG VT49/VT49_2
+                        Materials:
+                            7c6692e6b2f8439fcf597859810296b6~0: df336a4f-0faf-4f85-8682-1281ff8d6fbb:Ships/SWG VT49/11
+                            08d1b4af437181afa5361ae7d18e81d5~1: 21c545df-5e1b-4aa6-a308-e9371889de4a:Ships/SWG VT49/07
+                            a640ffcb37515378ad8f0831a4a99a42~2: 5ee10897-3179-49c8-8809-dc22e41bf656:Ships/SWG VT49/06
+                            5030de9eb23cbbf45e51478a30a0d3e6~3: 1866c357-3e9f-4683-9ca3-94294e5effdd:Ships/SWG VT49/08
         -   Entity:
-                Id: c43e6db3-54ca-4120-a4d1-6c703db3afd8
-                Name: Camera Hold
+                Id: b3b99122-9c32-4ca6-9f10-00fc194bde13
+                Name: Box
                 Components:
-                    2db65aaf81a0e57f613b21449656ff78: !TransformComponent
-                        Id: 4cfc7e7a-2d1e-4a90-bf04-a108db47f85f
+                    c7ff8f4399a589adee94dafbfa5ffd76: !TransformComponent
+                        Id: 0913f901-b47a-4ebb-be8b-db29f0adab3d
                         Position: {X: 0.0, Y: 0.0, Z: 0.0}
                         Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
                         Scale: {X: 1.0, Y: 1.0, Z: 1.0}
                         Children: {}
-                    fab1301357a314fb95b5c59f713c6304: !ModelNodeLinkComponent
-                        Id: 5932d553-64e3-43b8-b5e3-14f895aaab50
-                        Target: null
-                        NodeName: Engines
-        -   Entity:
-                Id: c69462dc-1bd3-491f-bafe-3348debd7716
-                Name: Smoke particle system
-                Components:
-                    48a4851e6317babab2e6256f5ee97d7f: !TransformComponent
-                        Id: 54f1aedc-f337-4d8e-97c5-b48628d54a23
-                        Position: {X: -0.0131728332, Y: 0.209450811, Z: 2.60346079}
-                        Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children: {}
-                    048bfcdc22091dea956268f41d2bd174: !ParticleSystemComponent
-                        Id: 68b258ab-e8a0-4f00-ab9d-4604c6cf7035
-                        Enabled: false
-                        Control:
-                            ResetSeconds: 0.0
-                            Control: Play
-                        Color: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
-                        Speed: 1.0
-                        ParticleSystem:
-                            Settings: {}
-                            BoundingShape: !BoundingSpheretatic
-                                Radius: 3.0
-                            Emitters:
-                                53ebc522041c239fe5fef8934235bf31:
-                                    ParticleLifetime: {X: 1.0, Y: 1.0}
-                                    SimulationSpace: Local
-                                    DrawPriority: 5
-                                    ShapeBuilder: !ShapeBuilderBillboard
-                                        SamplerPosition: null
-                                        SamplerSize: null
-                                        SamplerRotation: null
-                                    Material: !ParticleMaterialComputeColor
-                                        AlphaAdditive: 1.0
-                                        ComputeColor: !ComputeTextureColor
-                                            Texture: b9105fee-e442-4cec-9781-a602508802ea:Ships/VT29New/Glow_2
-                                            FallbackValue:
-                                                Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
-                                            Scale: {X: 1.0, Y: 1.0}
-                                            Offset: {X: 0.0, Y: 0.0}
-                                            Swizzle: null
-                                        UVBuilder: null
-                                        ForceTexCoords: false
-                                    Spawners:
-                                        7f51e897ca8ba2c0247a0de5490b00ef: !SpawnerPerSecond
-                                            LoopCondition: Looping
-                                            Delay: {X: 0.0, Y: 0.0}
-                                            Duration: {X: 1.0, Y: 1.0}
-                                            SpawnCount: 60.0
-                                    Initializers:
-                                        679edf6b420cb95f4584b138f278a1b0: !InitialSizeSeed
-                                            InheritPosition: true
-                                            Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                                            InheritRotation: true
-                                            Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                                            InheritScale: true
-                                            Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                                            ScaleUniform: 0.5
-                                            SeedOffset: 0
-                                            DisplayParticlePosition: false
-                                            DisplayParticleRotation: false
-                                            DisplayParticleScale: false
-                                            DisplayParticleScaleUniform: true
-                                            RandomSize: {X: 0.5, Y: 1.0}
-                                        f805742433d2a3fae8f1d2a69602aa19: !InitialPositionSeed
-                                            InheritPosition: true
-                                            Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                                            InheritRotation: true
-                                            Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                                            InheritScale: true
-                                            Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                                            ScaleUniform: 1.0
-                                            SeedOffset: 0
-                                            DisplayParticlePosition: false
-                                            DisplayParticleRotation: true
-                                            DisplayParticleScale: false
-                                            DisplayParticleScaleUniform: true
-                                            PositionMin: {X: 0.0, Y: 0.0, Z: 0.0}
-                                            PositionMax: {X: 0.0, Y: 0.0, Z: 0.0}
-                                            Interpolate: false
-                                        39583045814275daf6c2a4c4fc493bcd: !InitialVelocitySeed
-                                            InheritPosition: true
-                                            Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                                            InheritRotation: true
-                                            Rotation: {X: 0.0, Y: 0.0, Z: 0.0, W: 1.0}
-                                            InheritScale: true
-                                            Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                                            ScaleUniform: 1.0
-                                            SeedOffset: 0
-                                            DisplayParticlePosition: false
-                                            DisplayParticleRotation: true
-                                            DisplayParticleScale: false
-                                            DisplayParticleScaleUniform: true
-                                            VelocityMin: {X: 0.0, Y: 0.0, Z: 0.1}
-                                            VelocityMax: {X: 0.0, Y: 0.0, Z: 0.1}
-                                    Updaters: {}
-                        RenderGroup: Group1
+                    dbe50de8932f13b08293805631df7681: !ModelComponent
+                        Id: 84c002cf-ae83-48ed-92fe-38402a733aa8
+                        Model: d7a2ab71-4c00-42d6-b04a-6a72db105196:Ships/Box
+                        Materials: {}
         -   Entity:
                 Id: cef9286d-fb66-4d72-8756-af47c6d3e8fc
                 Name: Camera
@@ -520,30 +369,3 @@ Hierarchy:
                     5159a9393dd67b1d84cc73dd0d5420f6: !VT49_Newer.DebugPhysicsShapes,VT49_Newer
                         Id: 1447db0e-182f-48b4-98a6-45fbcc8ee224
                         RenderGroup: Group7
-        -   Entity:
-                Id: f329198c-d5ab-4a5b-9e2e-54eda32c11ee
-                Name: VT-49 Turreted
-                Components:
-                    35f930308c46df742cfc17c21cd2d051: !TransformComponent
-                        Id: 4649b9b6-9cd6-440d-823b-188c22a81dbb
-                        Position: {X: 0.0, Y: 0.0, Z: 0.0}
-                        Rotation: {X: 0.0, Y: 1.0, Z: 0.0, W: -4.371139E-08}
-                        Scale: {X: 1.0, Y: 1.0, Z: 1.0}
-                        Children:
-                            c8fdc957e233af01974fac70732a4962: ref!! 4cfc7e7a-2d1e-4a90-bf04-a108db47f85f
-                            f77cc4b0533691beb83b3cc47c4ced30: ref!! 43f4941b-15fb-4161-ba02-8d4028d5dbb3
-                            314dd2af54dc7f2f1e52b98177cc5327: ref!! 266490bc-1b15-4511-aa3d-906e365cb1f5
-                            fcd402d50587e02a1415a53f891bf85f: ref!! addd8457-0d13-48bb-91b5-e131dde87c71
-                            47bd824865b9aa94776a8a60854d5226: ref!! 54f1aedc-f337-4d8e-97c5-b48628d54a23
-                            84f77eea9dcfcc3809a6bc9aa69093c7: ref!! b6b9de74-fa44-41c1-a4b1-4d026e4c5bd0
-                            e02ebb07365279a796bd8139e772a952: ref!! b464a934-e387-47f2-8897-7862c1887438
-                    48a2df8b416081fadfae56738ac90b3f: !ModelComponent
-                        Id: 0de940c0-c47c-426c-a82e-cb3f01111474
-                        Model: df3856eb-2854-48af-8434-1fd6b429efcf:Ships/VT29New/VT-49
-                        Materials:
-                            ace664994c92e60ffa7803aadc36ba55~0: 85ebf092-707e-4bd4-8b4b-d5ade50a15ae:Ships/VT29New/ScratchedMetal
-                            024d759c70a7e021fd497a86c3580aa5~1: 9beef2b2-c2d4-4083-9111-043c78d02e8b:Ships/VT29New/Dark
-                            02b4c941b2eb24694aadbbe77d551848~2: 0b7de289-a986-4fc5-a299-8676eface546:Ships/VT29New/ScratchedMetalDark
-                            72403dae7cc4eb93200e779afd158438~3: 7ca12d08-3e4a-4f67-883b-fa98b1701ed9:Ships/VT29New/SpotlightGlow
-                            e66376c7ce73ffd67483bf3e4dd23f7f~4: 5fa19aac-54e2-4247-af1b-e4309196c718:Ships/VT29New/LightGlow
-                            89b05922d97cc02770b26e98defb8ad5~5: 79c59258-502f-4de4-ba9b-9f824209c686:Ships/VT29New/Glass

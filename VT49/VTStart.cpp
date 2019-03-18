@@ -126,12 +126,12 @@ void Serial_Connect()
 {
 	
 	
-	//serial::Serial console("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));	
+	//serial::Serial console("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));
 	//try
 	//{
 		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 28800 , serial::Timeout::simpleTimeout(10));
 		if (CurrentOS == WIN) console = new serial::Serial("COM4", 28800 , serial::Timeout::simpleTimeout(10));
-		if (CurrentOS == WIN) consolePot = new serial::Serial("COM5", 28800 , serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == WIN) consolePot = new serial::Serial("COM6", 28800 , serial::Timeout::simpleTimeout(10));
 		
 		//console->setTimeout(10, 10, 10, 10, 10);
 	//}
@@ -462,15 +462,16 @@ void render()
 		render_text(gRenderer, 40, 300, "Closed", gFontAG, &color);
 	}
 	*/
+	int x = 500, y = 500;
 	
 	rect = {Scroll.x, Scroll.y, 850 * Zoom, 1250 * Zoom};
-	SDL_SetTextureColorMod(gTexture, 255, 0, 0); 
+	SDL_SetTextureColorMod(gTexture, 0, 0, 255);
 	SDL_RenderCopy(gRenderer, gTexture, NULL, &rect);
 	
-	rect = {int(SWS.Ship->x) - 5, int(SWS.Ship->y) - 5, 10, 10};
+	rect = {int(SWS.Ship->x) - 5 + x, int(SWS.Ship->z) - 5 + y, 10, 10};
 	SDL_RenderDrawRect(gRenderer, &rect);
 	
-	rect = {50, 50, 100, 100};
+	rect = {0 + x, 30 + y, 2, 2};
 	SDL_RenderDrawRect(gRenderer, &rect);
 	rect = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 	SDL_RenderCopy(gRenderer, UITexture, NULL, &rect);
@@ -592,7 +593,7 @@ bool loadResources()
 	
 	//Load Images
 	//gXOut = imageLoader("x.png");
-	gTexture = loadTexture("VT49.png");
+	gTexture = loadTexture("VT49-2.png");
 	UITexture = loadTexture("UI.png");
 	//gTexture = loadTexture("elf.png");
 	//gTexture = loadTexture("elf.jpg");
@@ -705,28 +706,30 @@ int main(int argc, char **argv)
 		
 		
 		btCollisionShape* VT49Mesh;
+		btCollisionShape* VT49Mesh2;
 		btBulletWorldImporter import(0);//don't store info into the world
-		if (import.loadFile("VT-49.bullet"))
+		if (import.loadFile("Box.bullet"))
 		{
 				int numShape = import.getNumCollisionShapes();
 				if (numShape)
 				{
 						VT49Mesh = (btConvexHullShape*)import.getCollisionShapeByIndex(0);
+						//VT49Mesh2 = (btConvexHullShape*)import.getCollisionShapeByIndex(0);
 				}
 		}
 		collisionShapes.push_back(VT49Mesh);
-		
-		
+		//collisionShapes.push_back(VT49Mesh2);
+				
 		
 		{
-			btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
+			btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(1.), btScalar(1.), btScalar(1.)));
 			
 			
 			collisionShapes.push_back(groundShape);
 			
 			btTransform groundTransform;
 			groundTransform.setIdentity();
-			groundTransform.setOrigin(btVector3(100, 100, 0));
+			groundTransform.setOrigin(btVector3(0, 0, 30));
 
 			btScalar mass(0.);
 
@@ -739,7 +742,9 @@ int main(int argc, char **argv)
 
 			//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
 			btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
-			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
+			//btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
+			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, VT49Mesh, localInertia);
+			
 			
 			btRigidBody* body = new btRigidBody(rbInfo);
 
@@ -777,9 +782,9 @@ int main(int argc, char **argv)
 			
 			dynamicsWorld->addRigidBody(body);
 			
-			btHingeConstraint* hinge = new btHingeConstraint(*body, btVector3(1, 0, 0), btVector3(1, 0, 0), true);
-			hinge->setAngularOnly(true);
-			dynamicsWorld->addConstraint(hinge);
+			//btHingeConstraint* hinge = new btHingeConstraint(*body, btVector3(1, 0, 0), btVector3(1, 0, 0), true);
+			//hinge->setAngularOnly(true);
+			//dynamicsWorld->addConstraint(hinge);
 			
 		}
 				
@@ -814,7 +819,7 @@ int main(int argc, char **argv)
 					trans = obj->getWorldTransform();
 				}
 				
-				//printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
+				printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 
 
 		while (!quit)
@@ -860,6 +865,8 @@ int main(int argc, char **argv)
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) body->applyCentralImpulse(btVector3(0, 0, -0.1));
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) body->applyCentralImpulse(btVector3(0, 0, 0.1));
 					
+				if (parser->InputDown(Typeof_ConsoleInputs::LEDButton3)) body->applyCentralImpulse(btVector3(0, 0, 1));
+				
 				SWS.Ship->UpdateConsole(parser);
 				
 				body->getMotionState()->getWorldTransform(trans);

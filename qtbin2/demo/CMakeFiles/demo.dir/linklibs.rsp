@@ -1,1 +1,0 @@
-C:/Users/Toad/Documents/VT49/qu3e-master/lib/libqu3e.a C:/Users/Toad/Documents/VT49/qu3e-master/lib/libfreeglut_static.a C:/Users/Toad/Documents/VT49/qu3e-master/lib/libimgui.a -lwinmm -lopengl32 -lglu32 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
