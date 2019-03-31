@@ -3,24 +3,6 @@ Id: e30fc34c-0b4a-4ff2-b98f-1c00299282f0
 SerializedVersion: {Xenko: 2.0.0.0}
 Tags: []
 Attributes:
-    Surface: !MaterialNormalMapFeature
-        NormalMap: !ComputeBinaryColor
-            Operator: Add
-            LeftChild: !ComputeTextureColor
-                Texture: a229e873-491a-44c1-aa95-cefb6a02af30:Ships/SWG VT49/vt49_light01
-                FallbackValue:
-                    Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
-                Scale: {X: 1.0, Y: 1.0}
-                Offset: {X: 0.0, Y: 0.0}
-                Swizzle: null
-            RightChild: !ComputeTextureColor
-                Texture: a229e873-491a-44c1-aa95-cefb6a02af30:Ships/SWG VT49/vt49_light01
-                FallbackValue:
-                    Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
-                Scale: {X: 1.0, Y: 1.0}
-                Offset: {X: 0.0, Y: 0.0}
-                Swizzle: null
-        IsXYNormal: true
     Diffuse: !MaterialDiffuseMapFeature
         DiffuseMap: !ComputeTextureColor
             Texture: a229e873-491a-44c1-aa95-cefb6a02af30:Ships/SWG VT49/vt49_light01
@@ -30,27 +12,6 @@ Attributes:
             Offset: {X: 0.0, Y: 0.0}
             Swizzle: null
     DiffuseModel: !MaterialDiffuseLambertModelFeature {}
-    Specular: !MaterialSpecularMapFeature
-        SpecularMap: !ComputeColor
-            Value: {R: 0.855, G: 0.855, B: 0.855, A: 1.0}
-        Intensity: !ComputeFloat
-            Value: 1.0
-    SpecularModel: !MaterialSpecularMicrofacetModelFeature
-        Enabled: false
-        Fresnel: !MaterialSpecularMicrofacetFresnelSchlick {}
-        Visibility: !MaterialSpecularMicrofacetVisibilityImplicit {}
-        NormalDistribution: !MaterialSpecularMicrofacetNormalDistributionBlinnPhong {}
-        Environment: !MaterialSpecularMicrofacetEnvironmentGGXLUT {}
-    Emissive: !MaterialEmissiveMapFeature
-        EmissiveMap: !ComputeTextureColor
-            Texture: a229e873-491a-44c1-aa95-cefb6a02af30:Ships/SWG VT49/vt49_light01
-            FallbackValue:
-                Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
-            Scale: {X: 1.0, Y: 1.0}
-            Offset: {X: 0.0, Y: 0.0}
-            Swizzle: null
-        Intensity: !ComputeFloat
-            Value: 1.0
     Overrides:
         UVScale: {X: 1.0, Y: 1.0}
 Layers: {}

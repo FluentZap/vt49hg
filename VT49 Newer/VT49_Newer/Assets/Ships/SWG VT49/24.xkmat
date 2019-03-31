@@ -12,18 +12,6 @@ Attributes:
             Offset: {X: 0.0, Y: 0.0}
             Swizzle: null
     DiffuseModel: !MaterialDiffuseLambertModelFeature {}
-    Specular: !MaterialSpecularMapFeature
-        Enabled: false
-        SpecularMap: !ComputeColor
-            Value: {R: 0.855, G: 0.855, B: 0.855, A: 1.0}
-        Intensity: !ComputeFloat
-            Value: 1.0
-    SpecularModel: !MaterialSpecularMicrofacetModelFeature
-        Enabled: false
-        Fresnel: !MaterialSpecularMicrofacetFresnelSchlick {}
-        Visibility: !MaterialSpecularMicrofacetVisibilityImplicit {}
-        NormalDistribution: !MaterialSpecularMicrofacetNormalDistributionBlinnPhong {}
-        Environment: !MaterialSpecularMicrofacetEnvironmentGGXLUT {}
     Emissive: !MaterialEmissiveMapFeature
         EmissiveMap: !ComputeTextureColor
             Texture: f1fb5e5b-fd44-4734-98e8-4c184064a6cf:Ships/SWG VT49/vt49_hololight

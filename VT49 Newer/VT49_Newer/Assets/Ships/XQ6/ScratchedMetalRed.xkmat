@@ -4,24 +4,22 @@ SerializedVersion: {Xenko: 2.0.0.0}
 Tags: []
 Attributes:
     Diffuse: !MaterialDiffuseMapFeature
-        DiffuseMap: !ComputeColor
-            Value: {R: 0.121718884, G: 0.0375000238, B: 1.0, A: 1.0}
+        DiffuseMap: !ComputeTextureColor
+            Texture: 4e4ca4f6-a628-4310-86bb-55eeefb765bd:Ships/SWG VT49/vt49_intmetal01
+            FallbackValue:
+                Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
+            Scale: {X: 1.0, Y: 1.0}
+            Offset: {X: 0.0, Y: 0.0}
+            Swizzle: null
     DiffuseModel: !MaterialDiffuseLambertModelFeature {}
-    Specular: !MaterialSpecularMapFeature
-        SpecularMap: !ComputeColor
-            Value: {R: 0.2, G: 0.2, B: 0.2, A: 1.0}
-        Intensity: !ComputeFloat
-            Value: 1.0
+    Specular: !MaterialMetalnessMapFeature
+        MetalnessMap: !ComputeFloat
+            Value: 0.311
     SpecularModel: !MaterialSpecularMicrofacetModelFeature
         Fresnel: !MaterialSpecularMicrofacetFresnelSchlick {}
         Visibility: !MaterialSpecularMicrofacetVisibilityImplicit {}
         NormalDistribution: !MaterialSpecularMicrofacetNormalDistributionBlinnPhong {}
         Environment: !MaterialSpecularMicrofacetEnvironmentGGXLUT {}
-    Emissive: !MaterialEmissiveMapFeature
-        EmissiveMap: !ComputeColor
-            Value: {R: 0.82525, G: 0.727767348, B: 0.268206239, A: 1.0}
-        Intensity: !ComputeFloat
-            Value: 2.0
     Overrides:
         UVScale: {X: 1.0, Y: 1.0}
 Layers: {}
