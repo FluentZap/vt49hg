@@ -10,6 +10,7 @@ Materials:
         Name: 11
         MaterialInstance:
             Material: df336a4f-0faf-4f85-8682-1281ff8d6fbb:Ships/SWG VT49/11
+            IsShadowCaster: false
     2ed8ddd13723cbe916a45cba4ea69524:
         Name: 07
         MaterialInstance:

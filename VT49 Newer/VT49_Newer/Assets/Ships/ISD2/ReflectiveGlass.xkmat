@@ -1,25 +1,15 @@
 !MaterialAsset
-Id: aeabd12e-e168-4bf9-b63d-d690117a3ee9
+Id: 8c976650-bb9a-48bc-a0b2-62bcfc23e886
 SerializedVersion: {Xenko: 2.0.0.0}
 Tags: []
 Attributes:
     Diffuse: !MaterialDiffuseMapFeature
-        DiffuseMap: !ComputeTextureColor
-            Texture: aa9d4363-fb55-443b-84c0-c90dfc733b00:Ships/SWG VT49/vt49_glass
-            FallbackValue:
-                Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
-            Scale: {X: 1.0, Y: 1.0}
-            Offset: {X: 0.0, Y: 0.0}
-            Swizzle: null
+        DiffuseMap: !ComputeColor
+            Value: {R: 0.8, G: 0.8, B: 0.8, A: 1.0}
     DiffuseModel: !MaterialDiffuseLambertModelFeature {}
     Specular: !MaterialSpecularMapFeature
-        SpecularMap: !ComputeTextureColor
-            Texture: aa9d4363-fb55-443b-84c0-c90dfc733b00:Ships/SWG VT49/vt49_glass
-            FallbackValue:
-                Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
-            Scale: {X: 1.0, Y: 1.0}
-            Offset: {X: 0.0, Y: 0.0}
-            Swizzle: null
+        SpecularMap: !ComputeColor
+            Value: {R: 0.2, G: 0.2, B: 0.2, A: 1.0}
         Intensity: !ComputeFloat
             Value: 1.0
     SpecularModel: !MaterialSpecularThinGlassModelFeature
@@ -30,5 +20,4 @@ Attributes:
         Environment: !MaterialSpecularMicrofacetEnvironmentThinGlass {}
     Overrides:
         UVScale: {X: 1.0, Y: 1.0}
-    CullMode: Front
 Layers: {}

@@ -3,16 +3,6 @@ Id: a29e13d6-0490-45f7-8ded-e7dd624f3203
 SerializedVersion: {Xenko: 2.0.0.0}
 Tags: []
 Attributes:
-    Surface: !MaterialNormalMapFeature
-        Enabled: false
-        NormalMap: !ComputeTextureColor
-            Texture: 50ae4806-a2d8-4f7f-9bde-3ea170786d73:Ships/SWG VT49/vt49_engine_s02_cn
-            FallbackValue:
-                Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
-            Scale: {X: 1.0, Y: 1.0}
-            Offset: {X: 0.0, Y: 0.0}
-            Swizzle: null
-        IsXYNormal: true
     Diffuse: !MaterialDiffuseMapFeature
         DiffuseMap: !ComputeTextureColor
             Texture: 26797a3b-03ec-4d87-9249-3dfd4c042f6e:Ships/SWG VT49/vt49_engine_s02
@@ -22,28 +12,6 @@ Attributes:
             Offset: {X: 0.0, Y: 0.0}
             Swizzle: null
     DiffuseModel: !MaterialDiffuseLambertModelFeature {}
-    Specular: !MaterialSpecularMapFeature
-        Enabled: false
-        SpecularMap: !ComputeColor
-            Value: {R: 0.855, G: 0.855, B: 0.855, A: 1.0}
-        Intensity: !ComputeFloat
-            Value: 1.0
-    SpecularModel: !MaterialSpecularMicrofacetModelFeature
-        Enabled: false
-        Fresnel: !MaterialSpecularMicrofacetFresnelSchlick {}
-        Visibility: !MaterialSpecularMicrofacetVisibilityImplicit {}
-        NormalDistribution: !MaterialSpecularMicrofacetNormalDistributionBlinnPhong {}
-        Environment: !MaterialSpecularMicrofacetEnvironmentGGXLUT {}
-    Emissive: !MaterialEmissiveMapFeature
-        EmissiveMap: !ComputeTextureColor
-            Texture: 26797a3b-03ec-4d87-9249-3dfd4c042f6e:Ships/SWG VT49/vt49_engine_s02
-            FallbackValue:
-                Value: {R: 1.0, G: 1.0, B: 1.0, A: 1.0}
-            Scale: {X: 1.0, Y: 1.0}
-            Offset: {X: 0.0, Y: 0.0}
-            Swizzle: null
-        Intensity: !ComputeFloat
-            Value: 1.0
     Overrides:
         UVScale: {X: 1.0, Y: 1.0}
     CullMode: None
