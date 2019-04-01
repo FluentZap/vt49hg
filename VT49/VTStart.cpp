@@ -32,6 +32,7 @@
 #include "VTSerialPhraser.h"
 #include "SWSimulation.h"
 #include "VTNetwork.h"
+#include "DiceRoller.h"
 
 
 
@@ -92,6 +93,8 @@ VTMap * StarMap;
 
 
 SWSimulation SWS;
+
+diceResult greendie;
 
 
 void init_setup()
@@ -414,6 +417,12 @@ void render()
 	FC_Draw(gFontAG, gRenderer, 100, 120, to_string(parser->ConsolePotValue[1]).c_str());
 	FC_Draw(gFontAG, gRenderer, 100, 140, to_string(parser->ConsolePotValue[2]).c_str());
 	FC_Draw(gFontAG, gRenderer, 100, 160, to_string(parser->ConsolePotValue[3]).c_str());
+	
+	
+	
+	
+	FC_Draw(gFontAG, gRenderer, 100, 20, ("Success: " + to_string(greendie.success)).c_str());
+	FC_Draw(gFontAG, gRenderer, 100, 40, ("Advantage: " + to_string(greendie.advantage)).c_str());
 	
 	//render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
 	/*
@@ -866,6 +875,12 @@ int main(int argc, char **argv)
 				if (parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) body->applyCentralImpulse(btVector3(0, 0, 0.1));
 					
 				if (parser->InputDown(Typeof_ConsoleInputs::LEDButton3)) body->applyCentralImpulse(btVector3(0, 0, 1));
+				
+				
+				if (parser->InputDown(Typeof_ConsoleInputs::LEDButton1)) {
+					greendie = DiceRoller::diceRoll(1, 0, 0, 0, 0, 0, 0);
+					
+				}
 				
 				SWS.Ship->UpdateConsole(parser);
 				
