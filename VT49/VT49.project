@@ -8,6 +8,7 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
+    <File Name="DiceRoller.cpp"/>
     <File Name="SWSimulation.cpp"/>
     <File Name="PanelData.cpp"/>
     <File Name="SDL_FontCache.c"/>
@@ -18,6 +19,7 @@
     <File Name="VTMap.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
+    <File Name="DiceRoller.h"/>
     <File Name="SWSimulation.h"/>
     <File Name="PanelData.h"/>
     <File Name="COBS.h"/>

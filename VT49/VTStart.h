@@ -7,7 +7,7 @@
 
 using namespace std;
 
-
+typedef unsigned char byte;
 
 bool init();
 bool loadResources();
