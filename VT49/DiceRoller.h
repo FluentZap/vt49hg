@@ -8,20 +8,20 @@ typedef unsigned char byte;
 struct dieResult {
 	byte success = 0, fail = 0, advantage = 0, threat = 0, triumph = 0, dispare = 0, darkForce = 0, lightForce = 0;
 
-	dieResult operator+=(const dieResult& a)
+	dieResult operator+=(const dieResult& other)
 	{
-		success += a.success;
-		fail += a.fail;
-		advantage += a.advantage;
-		threat += a.threat;
-		triumph += a.triumph;
-		dispare += a.dispare;
-		darkForce += a.darkForce;
-		lightForce += a.lightForce;
+		this->success += other.success;
+		this->fail += other.fail;
+		this->advantage += other.advantage;
+		this->threat += other.threat;
+		this->triumph += other.triumph;
+		this->dispare += other.dispare;
+		this->darkForce += other.darkForce;
+		this->lightForce += other.lightForce;
 		return *this;
 	}
-
 };
+
 
 struct diceResult {
 	byte success = 0, fail = 0, advantage = 0, threat = 0, triumph = 0, dispare = 0, darkForce = 0, lightForce = 0;
