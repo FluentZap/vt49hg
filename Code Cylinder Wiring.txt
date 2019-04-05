@@ -1,3 +1,7 @@
 Code Cylindrical Wire ling
 D+ SDA
 D- SCL
+
+
+Green	SDA
+White	SCL

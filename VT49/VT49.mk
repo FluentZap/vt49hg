@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Toad
-Date                   :=31/03/2019
+Date                   :=04/04/2019
 CodeLitePath           :="C:/Program Files/CodeLite"
 LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
 SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
@@ -62,7 +62,7 @@ AS       := C:/TDM-GCC-64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/DiceRoller.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/tinyxml2.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) $(IntermediateDirectory)/SDL_FontCache.c$(ObjectSuffix) $(IntermediateDirectory)/SWSimulation.cpp$(ObjectSuffix) $(IntermediateDirectory)/PanelData.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTStart.cpp$(ObjectSuffix) $(IntermediateDirectory)/tinyxml2.cpp$(ObjectSuffix) $(IntermediateDirectory)/DiceRoller.cpp$(ObjectSuffix) $(IntermediateDirectory)/SDL_FontCache.c$(ObjectSuffix) $(IntermediateDirectory)/SWSimulation.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) $(IntermediateDirectory)/PanelData.cpp$(ObjectSuffix) $(IntermediateDirectory)/VTMap.cpp$(ObjectSuffix) 
 
 
 
@@ -93,14 +93,6 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/DiceRoller.cpp$(ObjectSuffix): DiceRoller.cpp $(IntermediateDirectory)/DiceRoller.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/DiceRoller.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/DiceRoller.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/DiceRoller.cpp$(DependSuffix): DiceRoller.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/DiceRoller.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/DiceRoller.cpp$(DependSuffix) -MM DiceRoller.cpp
-
-$(IntermediateDirectory)/DiceRoller.cpp$(PreprocessSuffix): DiceRoller.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/DiceRoller.cpp$(PreprocessSuffix) DiceRoller.cpp
-
 $(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix): VTNetwork.cpp $(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTNetwork.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTNetwork.cpp$(ObjectSuffix) $(IncludePath)
 $(IntermediateDirectory)/VTNetwork.cpp$(DependSuffix): VTNetwork.cpp
@@ -125,13 +117,13 @@ $(IntermediateDirectory)/tinyxml2.cpp$(DependSuffix): tinyxml2.cpp
 $(IntermediateDirectory)/tinyxml2.cpp$(PreprocessSuffix): tinyxml2.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/tinyxml2.cpp$(PreprocessSuffix) tinyxml2.cpp
 
-$(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix): VTSerialPhraser.cpp $(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTSerialPhraser.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix): VTSerialPhraser.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix) -MM VTSerialPhraser.cpp
+$(IntermediateDirectory)/DiceRoller.cpp$(ObjectSuffix): DiceRoller.cpp $(IntermediateDirectory)/DiceRoller.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/DiceRoller.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/DiceRoller.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/DiceRoller.cpp$(DependSuffix): DiceRoller.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/DiceRoller.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/DiceRoller.cpp$(DependSuffix) -MM DiceRoller.cpp
 
-$(IntermediateDirectory)/VTSerialPhraser.cpp$(PreprocessSuffix): VTSerialPhraser.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTSerialPhraser.cpp$(PreprocessSuffix) VTSerialPhraser.cpp
+$(IntermediateDirectory)/DiceRoller.cpp$(PreprocessSuffix): DiceRoller.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/DiceRoller.cpp$(PreprocessSuffix) DiceRoller.cpp
 
 $(IntermediateDirectory)/SDL_FontCache.c$(ObjectSuffix): SDL_FontCache.c $(IntermediateDirectory)/SDL_FontCache.c$(DependSuffix)
 	$(CC) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/SDL_FontCache.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/SDL_FontCache.c$(ObjectSuffix) $(IncludePath)
@@ -148,6 +140,14 @@ $(IntermediateDirectory)/SWSimulation.cpp$(DependSuffix): SWSimulation.cpp
 
 $(IntermediateDirectory)/SWSimulation.cpp$(PreprocessSuffix): SWSimulation.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/SWSimulation.cpp$(PreprocessSuffix) SWSimulation.cpp
+
+$(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix): VTSerialPhraser.cpp $(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/VTSerialPhraser.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix): VTSerialPhraser.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/VTSerialPhraser.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/VTSerialPhraser.cpp$(DependSuffix) -MM VTSerialPhraser.cpp
+
+$(IntermediateDirectory)/VTSerialPhraser.cpp$(PreprocessSuffix): VTSerialPhraser.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/VTSerialPhraser.cpp$(PreprocessSuffix) VTSerialPhraser.cpp
 
 $(IntermediateDirectory)/PanelData.cpp$(ObjectSuffix): PanelData.cpp $(IntermediateDirectory)/PanelData.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/PanelData.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/PanelData.cpp$(ObjectSuffix) $(IncludePath)

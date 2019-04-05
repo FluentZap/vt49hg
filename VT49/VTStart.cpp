@@ -134,7 +134,7 @@ void Serial_Connect()
 	//{
 		if (CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 28800 , serial::Timeout::simpleTimeout(10));
 		if (CurrentOS == WIN) console = new serial::Serial("COM4", 28800 , serial::Timeout::simpleTimeout(10));
-		if (CurrentOS == WIN) consolePot = new serial::Serial("COM8", 28800 , serial::Timeout::simpleTimeout(10));
+		if (CurrentOS == WIN) consolePot = new serial::Serial("COM6", 28800 , serial::Timeout::simpleTimeout(10));
 		
 		//console->setTimeout(10, 10, 10, 10, 10);
 	//}
@@ -878,7 +878,9 @@ int main(int argc, char **argv)
 				
 				
 				if (parser->InputDown(Typeof_ConsoleInputs::LEDButton1)) {
-					greendie = DiceRoller::diceRoll(1, 0, 0, 0, 0, 0, 0);
+					printf(to_string(DiceRoller::diceRoll(10, 0, 0, 0, 0, 0, 0).success).c_str());
+					
+					//printf(to_string(rollGreen().success).c_str());
 					
 				}
 				

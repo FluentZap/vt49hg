@@ -6,7 +6,7 @@ using namespace std;
 
 diceResult DiceRoller::diceRoll(byte statistic, byte skill, byte difficulty, byte difficultyUpgrade, byte blue, byte black, byte white) {
 	byte green, yellow, purple, red;
-	byte success, fail, advantage, threat, triumph, dispare, darkForce, lightForce;
+	//byte success, fail, advantage, threat, triumph, dispare, darkForce, lightForce;
 	diceResult finalResult;
 	dieResult faceTotal;
 	
@@ -27,15 +27,15 @@ diceResult DiceRoller::diceRoll(byte statistic, byte skill, byte difficulty, byt
 	int diceToRoll = green + yellow + purple + red + blue + black + white;
 	dieResult rolledResult[diceToRoll];
 	
-	int currentDice;
-	while(diceToRoll < currentDice) {
-		if (green > 0) { rolledResult[currentDice] = rollGreen(); currentDice++; green--;}
-		if (yellow > 0) { rolledResult[currentDice] = rollYellow(); currentDice++; yellow--;}
-		if (purple > 0) { rolledResult[currentDice] = rollPurple(); currentDice++; purple--;}
-		if (red > 0) { rolledResult[currentDice] = rollRed(); currentDice++; red--;}
-		if (blue > 0) { rolledResult[currentDice] = rollBlue(); currentDice++; blue--;}
-		if (black > 0) { rolledResult[currentDice] = rollBlack(); currentDice++; black--;}
-		if (white > 0) { rolledResult[currentDice] = rollWhite(); currentDice++; white--;}
+	int rolledDice = 0;
+	while(rolledDice < diceToRoll) {
+		if (green > 0) { rolledResult[rolledDice] = rollGreen(); rolledDice++; green--;}
+		if (yellow > 0) { rolledResult[rolledDice] = rollYellow(); rolledDice++; yellow--;}
+		if (purple > 0) { rolledResult[rolledDice] = rollPurple(); rolledDice++; purple--;}
+		if (red > 0) { rolledResult[rolledDice] = rollRed(); rolledDice++; red--;}
+		if (blue > 0) { rolledResult[rolledDice] = rollBlue(); rolledDice++; blue--;}
+		if (black > 0) { rolledResult[rolledDice] = rollBlack(); rolledDice++; black--;}
+		if (white > 0) { rolledResult[rolledDice] = rollWhite(); rolledDice++; white--;}
 	}
 	for (int x = 0; x < diceToRoll; x++) {
 		//faceTotal += rolledResult[x];
