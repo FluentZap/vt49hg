@@ -61,65 +61,74 @@ const unsigned char option7 = 0b10000000; // represents bit 7
 
 void VTSerialPhraser::ConsoleReadDataStream(uint8_t* Buffer)
 {
-	ConsoleRecievedData.DoubleTog = Buffer[0];
-	ConsoleRecievedData.LEDTog = Buffer[1];
-	ConsoleRecievedData.TopTog = Buffer[2];
-	ConsoleRecievedData.LEDButton = Buffer[3];
-	ConsoleRecievedData.LeftBoxTog = Buffer[4];
-	ConsoleRecievedData.RightBoxTog = Buffer[5];
-	ConsoleRecievedData.FlightStick = Buffer[6];
+	if(Buffer[0] == 1)
+	{
+		ConsoleRecievedData.DoubleTog = Buffer[1];
+		ConsoleRecievedData.LEDTog = Buffer[2];
+		ConsoleRecievedData.TopTog = Buffer[3];
+		ConsoleRecievedData.LEDButton = Buffer[4];
+		ConsoleRecievedData.LeftBoxTog = Buffer[5];
+		ConsoleRecievedData.RightBoxTog = Buffer[6];
+		ConsoleRecievedData.FlightStick = Buffer[7];
+		
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog1_UP, (ConsoleRecievedData.DoubleTog & option0));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog1_DOWN, (ConsoleRecievedData.DoubleTog & option1));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog2_UP, (ConsoleRecievedData.DoubleTog & option2));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog2_DOWN, (ConsoleRecievedData.DoubleTog & option3));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog3_UP, (ConsoleRecievedData.DoubleTog & option4));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog3_DOWN, (ConsoleRecievedData.DoubleTog & option5));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog4_UP, (ConsoleRecievedData.DoubleTog & option6));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog4_DOWN, (ConsoleRecievedData.DoubleTog & option7));
+		
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDToggle1, (ConsoleRecievedData.LEDTog & option0));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDToggle2, (ConsoleRecievedData.LEDTog & option1));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDToggle3, (ConsoleRecievedData.LEDTog & option2));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDToggle4, (ConsoleRecievedData.LEDTog & option3));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDToggle5, (ConsoleRecievedData.LEDTog & option4));
+		
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::TopLeftToggle1, (ConsoleRecievedData.TopTog & option0));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::TopLeftToggle2, (ConsoleRecievedData.TopTog & option1));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::TopRightToggle1, (ConsoleRecievedData.TopTog & option2));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::TopRightToggle2, (ConsoleRecievedData.TopTog & option3));
+		
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::PotButton1, (ConsoleRecievedData.TopTog & option4));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::PotButton2, (ConsoleRecievedData.TopTog & option5));
+		
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDButton1, (ConsoleRecievedData.LEDButton & option0));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDButton2, (ConsoleRecievedData.LEDButton & option1));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDButton3, (ConsoleRecievedData.LEDButton & option2));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDButton4, (ConsoleRecievedData.LEDButton & option3));
+		
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog1, (ConsoleRecievedData.LeftBoxTog & option0));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog2, (ConsoleRecievedData.LeftBoxTog & option1));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog3, (ConsoleRecievedData.LeftBoxTog & option2));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog4, (ConsoleRecievedData.LeftBoxTog & option3));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog5, (ConsoleRecievedData.LeftBoxTog & option4));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog6, (ConsoleRecievedData.LeftBoxTog & option5));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog7, (ConsoleRecievedData.LeftBoxTog & option6));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog8, (ConsoleRecievedData.LeftBoxTog & option7));
+		
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog1, (ConsoleRecievedData.RightBoxTog & option0));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog2, (ConsoleRecievedData.RightBoxTog & option1));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog3, (ConsoleRecievedData.RightBoxTog & option2));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog4, (ConsoleRecievedData.RightBoxTog & option3));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog5, (ConsoleRecievedData.RightBoxTog & option4));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog6, (ConsoleRecievedData.RightBoxTog & option5));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog7, (ConsoleRecievedData.RightBoxTog & option6));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog8, (ConsoleRecievedData.RightBoxTog & option7));
+		
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickUP, (ConsoleRecievedData.FlightStick & option0));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickDOWN, (ConsoleRecievedData.FlightStick & option1));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickLEFT, (ConsoleRecievedData.FlightStick & option2));
+		addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickRIGHT, (ConsoleRecievedData.FlightStick & option3));
+	}
 	
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog1_UP, (ConsoleRecievedData.DoubleTog & option0));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog1_DOWN, (ConsoleRecievedData.DoubleTog & option1));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog2_UP, (ConsoleRecievedData.DoubleTog & option2));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog2_DOWN, (ConsoleRecievedData.DoubleTog & option3));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog3_UP, (ConsoleRecievedData.DoubleTog & option4));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog3_DOWN, (ConsoleRecievedData.DoubleTog & option5));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog4_UP, (ConsoleRecievedData.DoubleTog & option6));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::DoubleTog4_DOWN, (ConsoleRecievedData.DoubleTog & option7));
-	
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDToggle1, (ConsoleRecievedData.LEDTog & option0));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDToggle2, (ConsoleRecievedData.LEDTog & option1));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDToggle3, (ConsoleRecievedData.LEDTog & option2));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDToggle4, (ConsoleRecievedData.LEDTog & option3));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDToggle5, (ConsoleRecievedData.LEDTog & option4));
-	
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::TopLeftToggle1, (ConsoleRecievedData.TopTog & option0));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::TopLeftToggle2, (ConsoleRecievedData.TopTog & option1));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::TopRightToggle1, (ConsoleRecievedData.TopTog & option2));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::TopRightToggle2, (ConsoleRecievedData.TopTog & option3));
-	
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::PotButton1, (ConsoleRecievedData.TopTog & option4));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::PotButton2, (ConsoleRecievedData.TopTog & option5));
-	
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDButton1, (ConsoleRecievedData.LEDButton & option0));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDButton2, (ConsoleRecievedData.LEDButton & option1));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDButton3, (ConsoleRecievedData.LEDButton & option2));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LEDButton4, (ConsoleRecievedData.LEDButton & option3));
-	
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog1, (ConsoleRecievedData.LeftBoxTog & option0));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog2, (ConsoleRecievedData.LeftBoxTog & option1));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog3, (ConsoleRecievedData.LeftBoxTog & option2));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog4, (ConsoleRecievedData.LeftBoxTog & option3));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog5, (ConsoleRecievedData.LeftBoxTog & option4));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog6, (ConsoleRecievedData.LeftBoxTog & option5));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog7, (ConsoleRecievedData.LeftBoxTog & option6));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::LeftBoxTog8, (ConsoleRecievedData.LeftBoxTog & option7));
-	
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog1, (ConsoleRecievedData.RightBoxTog & option0));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog2, (ConsoleRecievedData.RightBoxTog & option1));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog3, (ConsoleRecievedData.RightBoxTog & option2));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog4, (ConsoleRecievedData.RightBoxTog & option3));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog5, (ConsoleRecievedData.RightBoxTog & option4));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog6, (ConsoleRecievedData.RightBoxTog & option5));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog7, (ConsoleRecievedData.RightBoxTog & option6));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::RightBoxTog8, (ConsoleRecievedData.RightBoxTog & option7));
-	
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickUP, (ConsoleRecievedData.FlightStick & option0));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickDOWN, (ConsoleRecievedData.FlightStick & option1));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickLEFT, (ConsoleRecievedData.FlightStick & option2));
-	addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickRIGHT, (ConsoleRecievedData.FlightStick & option3));
-	
+	if(Buffer[0] == 2)
+	{
+		for(int x = 0; x < 15; x++) {
+			CylinderCode[x] = Buffer[x + 1];
+		}
+	}
 }
 
 void VTSerialPhraser::ConsolePotReadDataStream(uint8_t* Buffer)
@@ -162,7 +171,7 @@ void VTSerialPhraser::ConsoleUpdate(serial::Serial* stream)
 				//{
 					uint8_t DecodeBuffer[ConsoleDataBufferIndex];
 					size_t numDecoded = COBS::decode(ConsoleDataBuffer, ConsoleDataBufferIndex, DecodeBuffer);
-					if (numDecoded == 12)
+					if (numDecoded == 16)
 					{
 						ConsoleReadDataStream(DecodeBuffer);
 						ConsoleDataBufferIndex = 0;

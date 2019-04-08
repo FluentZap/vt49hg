@@ -20,7 +20,7 @@ void Serial_Connect();
 void Serial_Read();
 int Serial_Write(void *data);
 
-void ConsoleSerialSend();
+void ConsoleSerialSend(byte ConsolePacketSend);
 
 
 SDL_Texture* loadTexture(std::string path);

@@ -171,33 +171,31 @@ void Serial_Read()
 	*/
 }
 
-uint8_t ConsolePacketSend = 0;
+//uint8_t ConsolePacketSend = 0;
 
 
-int Serial_Write(void *data)
+int Serial_Write()
 {
-	while (!quit)
-	{
+	//while (!quit)
+	//{
 		if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
 		{
-			ConsoleSerialSend();
+			ConsoleSerialSend(1);
 			serialTicks = SDL_GetTicks();
 		}
 		
-		long currenttick = SDL_GetTicks();
-			if ((serialTicks + SERIAL_TICKS_PER_FRAME) - currenttick > 0)
-				SDL_Delay((serialTicks + SERIAL_TICKS_PER_FRAME) - currenttick);
-	}
+//		long currenttick = SDL_GetTicks();
+//			if ((serialTicks + SERIAL_TICKS_PER_FRAME) - currenttick > 0)
+//				SDL_Delay((serialTicks + SERIAL_TICKS_PER_FRAME) - currenttick);
+	//}
 }
 
 
 
 
 
-	void ConsoleSerialSend()
+	void ConsoleSerialSend(byte ConsolePacketSend)
 	{
-		ConsolePacketSend = 1;
-		
 		bool change = false;
 		//console->flushOutput();
 		uint8_t Buffer[16] = {0};
@@ -247,6 +245,8 @@ int Serial_Write(void *data)
 				num++;
 			}
 		}
+		
+
 		
 		//if (change)
 		//{
@@ -423,6 +423,15 @@ void render()
 	
 	FC_Draw(gFontAG, gRenderer, 100, 20, ("Success: " + to_string(greendie.success)).c_str());
 	FC_Draw(gFontAG, gRenderer, 100, 40, ("Advantage: " + to_string(greendie.advantage)).c_str());
+	
+	string id = "";
+	for(int x = 0; x < 15; x++)
+	{
+		id += to_string(parser->CylinderCode[x]) + ": ";
+	}
+	
+	FC_Draw(gFontAG, gRenderer, 100, 60, id.c_str());
+	
 	
 	//render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
 	/*
@@ -699,7 +708,7 @@ int main(int argc, char **argv)
 		//While application is running
 		
 		//std::thread serialThread(Serial_Write);
-		SDL_Thread *serialThread = SDL_CreateThread(Serial_Write, "Serial_Write", (void *)NULL);
+		//SDL_Thread *serialThread = SDL_CreateThread(Serial_Write, "Serial_Write", (void *)NULL);
 				
 		
 		
@@ -841,7 +850,7 @@ int main(int argc, char **argv)
 			//world->update( 1.0 / 60.0 );
 			
 			Serial_Read();
-			
+			Serial_Write();
 			//if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
 			//{
 				
@@ -882,6 +891,10 @@ int main(int argc, char **argv)
 					
 					//printf(to_string(rollGreen().success).c_str());
 					
+				}
+				
+				if (parser->InputPressed(Typeof_ConsoleInputs::LEDButton4, true)) {
+					ConsoleSerialSend(2);
 				}
 				
 				SWS.Ship->UpdateConsole(parser);
@@ -934,7 +947,7 @@ int main(int argc, char **argv)
 		}
 		
 		quit = true;
-		SDL_WaitThread(serialThread, NULL);
+		//SDL_WaitThread(serialThread, NULL);
 		
 	}
 	else printf("Failed to initialize!\n");

@@ -94,6 +94,8 @@ public:
 	
 	ConsoleRecievedData_Type ConsoleRecievedData;
 	
+	uint8_t CylinderCode[15] = {};
+	
 	struct LedData
 	{
 		uint8_t r = 0, g = 0, b = 0;
