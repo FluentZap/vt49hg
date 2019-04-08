@@ -2,18 +2,18 @@
 ## Auto Generated makefile by CodeLite IDE
 ## any manual changes will be erased      
 ##
-## Release
+## Debug
 ProjectName            :=serial
-ConfigurationName      :=Release
+ConfigurationName      :=Debug
 WorkspacePath          :=C:/Users/Toad/Documents/VT49
 ProjectPath            :=C:/Users/Toad/Documents/VT49/serial
-IntermediateDirectory  :=./Release
+IntermediateDirectory  :=./Debug
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Toad
-Date                   :=20/09/2018
+Date                   :=07/04/2019
 CodeLitePath           :="C:/Program Files/CodeLite"
 LinkerName             :=C:/TDM-GCC-64/bin/g++.exe
 SharedObjectLinkerName :=C:/TDM-GCC-64/bin/g++.exe -shared -fPIC
@@ -38,12 +38,12 @@ MakeDirCommand         :=makedir
 RcCmpOptions           := 
 RcCompilerName         :=C:/TDM-GCC-64/bin/windres.exe
 LinkOptions            :=  
-IncludePath            := $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include $(IncludeSwitch)C:\Users\Toad\Documents\SDL2\glew\include  $(IncludeSwitch)C:\Users\Toad\Documents\VT49\VT49 $(IncludeSwitch). 
+IncludePath            :=  $(IncludeSwitch)C:\Users\Toad\Documents\VT49\VT49 $(IncludeSwitch). 
 IncludePCH             := 
 RcIncludePath          := 
 Libs                   := 
 ArLibs                 :=  
-LibPath                :=$(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib $(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\glew\lib\Release\Win32  $(LibraryPathSwitch). 
+LibPath                := $(LibraryPathSwitch). 
 
 ##
 ## Common variables
@@ -52,8 +52,8 @@ LibPath                :=$(LibraryPathSwitch)C:\Users\Toad\Documents\SDL2\SDL2Ba
 AR       := C:/TDM-GCC-64/bin/ar.exe rcu
 CXX      := C:/TDM-GCC-64/bin/g++.exe
 CC       := C:/TDM-GCC-64/bin/gcc.exe
-CXXFLAGS :=   $(Preprocessors)
-CFLAGS   :=   $(Preprocessors)
+CXXFLAGS :=  -g $(Preprocessors)
+CFLAGS   :=  -g $(Preprocessors)
 ASFLAGS  := 
 AS       := C:/TDM-GCC-64/bin/as.exe
 
@@ -79,15 +79,15 @@ $(OutputFile): $(Objects)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects0)  > $(ObjectsFileList)
 	$(AR) $(ArchiveOutputSwitch)$(OutputFile) @$(ObjectsFileList) $(ArLibs)
-	@$(MakeDirCommand) "C:\Users\Toad\Documents\VT49/.build-release"
-	@echo rebuilt > "C:\Users\Toad\Documents\VT49/.build-release/serial"
+	@$(MakeDirCommand) "C:\Users\Toad\Documents\VT49/.build-debug"
+	@echo rebuilt > "C:\Users\Toad\Documents\VT49/.build-debug/serial"
 
 MakeIntermediateDirs:
-	@$(MakeDirCommand) "./Release"
+	@$(MakeDirCommand) "./Debug"
 
 
-./Release:
-	@$(MakeDirCommand) "./Release"
+./Debug:
+	@$(MakeDirCommand) "./Debug"
 
 PreBuild:
 
@@ -125,6 +125,6 @@ $(IntermediateDirectory)/up_up_up_Desktop_wjwwood-serial-1.2.1-29-g5a354ea_wjwwo
 ## Clean
 ##
 clean:
-	$(RM) -r ./Release/
+	$(RM) -r ./Debug/
 
 
