@@ -6,8 +6,7 @@
 
 using namespace std;
 
-enum class Typeof_ConsoleInputs : int
-{
+enum class Typeof_ConsoleInputs : int {
 	DoubleTog1_UP,
 	DoubleTog1_DOWN,
 	DoubleTog2_UP,
@@ -53,36 +52,34 @@ enum class Typeof_ConsoleInputs : int
 	FlightStickRIGHT
 };
 
-class VTSerialPhraser
-{
+class VTSerialPhraser {
 public:
 	VTSerialPhraser();
 	~VTSerialPhraser();
-	
+
 	uint8_t Marker = 0;
 	const static size_t BufferSize = 256;
-	
+
 	//Console Serial Varables
 	int ConsoleDataBufferIndex = 0;
-	uint8_t ConsoleDataBuffer[BufferSize] = {};	
-	
+	uint8_t ConsoleDataBuffer[BufferSize] = {};
+
 	void ConsoleReadDataStream(uint8_t*);
 	void ConsoleUpdate(serial::Serial*);
-	
+
 	void ConsoleSend(serial::Serial* Stream, const uint8_t* Buffer, size_t Size);
-	
+
 	//Console Pot Serial Varables
 	int ConsolePotDataBufferIndex = 0;
 	uint8_t ConsolePotDataBuffer[BufferSize] = {};
-	
+
 	void ConsolePotReadDataStream(uint8_t*);
 	void ConsolePotUpdate(serial::Serial*);
-	
-	
-	
-	
-	struct ConsoleRecievedData_Type
-	{
+
+
+
+
+	struct ConsoleRecievedData_Type {
 		uint8_t DoubleTog = 0;
 		uint8_t LEDTog = 0;
 		uint8_t TopTog = 0;
@@ -91,39 +88,35 @@ public:
 		uint8_t RightBoxTog = 0;
 		uint8_t FlightStick = 0;
 	};
-	
+
 	ConsoleRecievedData_Type ConsoleRecievedData;
-	
+
 	uint8_t CylinderCode[15] = {};
-	
-	struct LedData
-	{
+
+	struct LedData {
 		uint8_t r = 0, g = 0, b = 0;
-		
-		void Clear()
-		{
+
+		void Clear() {
 			r = 0;
 			g = 0;
 			b = 0;
 		}
 	};
-	
-	
-	struct ConsoleRecievedDataType
-	{
+
+
+	struct ConsoleRecievedDataType {
 		bool DoubleTog[8] = {};
 		bool LEDTog[5] = {};
 		bool TopTog[4] = {};
 		bool RotButton[2] = {};
 		bool LEDButton[4] = {};
-		
+
 		bool LeftBoxTog[8] = {};
 		bool RightBoxTog[8] = {};
 		bool FlightStick[4] = {};
 	};
-	
-	struct ConsoleSendDataType
-	{
+
+	struct ConsoleSendDataType {
 		LedData LED[50] = {};
 		bool	BLED[50] = {};
 		bool	ContolButtons[4] = {};
@@ -131,26 +124,26 @@ public:
 		LedData OnColor = {};
 		LedData OffColor = {};
 	};
-	
+
 //ConsoleRecievedDataType ConsoleData;
-ConsoleSendDataType ConsoleDataSend;
+	ConsoleSendDataType ConsoleDataSend;
 
 //ConsoleRecievedDataType LastConsoleData;
-ConsoleSendDataType LastConsoleDataSend;
+	ConsoleSendDataType LastConsoleDataSend;
 
 
-unordered_set<int> ConsolePressed;
-uint8_t ConsolePotValue[4];
+	unordered_set<int> ConsolePressed;
+	uint8_t ConsolePotValue[4];
 
 //unordered_set<int> ConsoleKeyProcessed;
-unordered_set<int> ConsoleKeyPressed;
+	unordered_set<int> ConsoleKeyPressed;
 
 
 
-bool InputDown(Typeof_ConsoleInputs key);
-bool InputPressed(Typeof_ConsoleInputs key, bool remove = true);
-void addToSet(unordered_set<int>& itemset, Typeof_ConsoleInputs item, bool pressed);
-void ConsolePressButton(Typeof_ConsoleInputs item);
+	bool InputDown(Typeof_ConsoleInputs key);
+	bool InputPressed(Typeof_ConsoleInputs key, bool remove = true);
+	void addToSet(unordered_set<int>& itemset, Typeof_ConsoleInputs item, bool pressed);
+	void ConsolePressButton(Typeof_ConsoleInputs item);
 
 };
 
