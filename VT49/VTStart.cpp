@@ -4,7 +4,6 @@
 #include "SDL_mixer.h"
 #include "SDL_net.h"
 #include "SDL_thread.h"
-//#include <stdlib.h>
 #include <stdio.h>
 
 #include <unistd.h>
@@ -12,40 +11,34 @@
 #include <string>
 #include <tinyxml2.h>
 #include <VTMap.h>
-//#include <sstream>
 #include <SDL_FontCache.h>
 #include <thread>
 
-//#include <LinearMath/btVector3.h>
-//#include <btTransform.h>
+
 #include <btBulletDynamicsCommon.h>
 #include <btCollisionObject.h>
-//#include <btCollisionShape.h>
-//#include <Bullet3Serialize\Bullet2FileLoader\b3BulletFile.h>
 #include <b3BulletFile.h>
-//#include <btTransform.h>
-//#include <btQuaternion.h>
-
 #include <btBulletWorldImporter.h>
 
 #include "VTStart.h"
 #include "VTSerialPhraser.h"
-#include "SWSimulation.h"
 #include "VTNetwork.h"
+#include "SWSimulation.h"
 #include "DiceRoller.h"
-
 
 
 using namespace std;
 using namespace tinyxml2;
 using namespace bParse;
-//using namespace reactphysics3d;
 
 const int SCREEN_WIDTH = 900;
 const int SCREEN_HEIGHT = 1440;
 const int SCREEN_FPS = 63;
 const float SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 const float SERIAL_TICKS_PER_FRAME = 1000 / 60;
+
+
+
 
 int FPS_Adjust = 0;
 
@@ -61,9 +54,6 @@ VTNetwork* _net;
 
 //DynamicsWorld* world;
 //RigidBody* body;
-
-
-
 
 
 SDL_Rect rect1, rect2;
@@ -87,15 +77,10 @@ int count;
 bool lit = false;
 int speed=0;
 
-
 const char* pName;
 VTMap * StarMap;
-
-
 SWSimulation SWS;
-
 diceResult greendie;
-
 
 void init_setup() {
 #ifdef _WIN32 || _WIN64
@@ -122,7 +107,6 @@ void init_setup() {
 	parser = new VTSerialPhraser();
 	Serial_Connect();
 }
-
 
 void Serial_Connect() {
 
@@ -170,7 +154,6 @@ void Serial_Read() {
 
 //uint8_t ConsolePacketSend = 0;
 
-
 int Serial_Write() {
 	//while (!quit)
 	//{
@@ -184,10 +167,6 @@ int Serial_Write() {
 //				SDL_Delay((serialTicks + SERIAL_TICKS_PER_FRAME) - currenttick);
 	//}
 }
-
-
-
-
 
 void ConsoleSerialSend(byte ConsolePacketSend) {
 	bool change = false;
@@ -244,12 +223,6 @@ void ConsoleSerialSend(byte ConsolePacketSend) {
 
 	//memcpy(parser->LastConsoleDataSend.LED, parser->ConsoleDataSend.LED, 50);
 }
-
-
-
-
-
-
 
 void handleUI(SDL_Event e) {
 	if(e.type == SDL_KEYDOWN) {
@@ -340,7 +313,6 @@ void handleUI(SDL_Event e) {
 	if(e.type == SDL_QUIT)
 		quit = true;
 }
-
 
 void render() {
 	SDL_SetRenderDrawColor(gRenderer, 10, 10, 10, 255);
@@ -489,9 +461,6 @@ void render() {
 
 	SDL_RenderPresent(gRenderer);
 }
-
-
-
 
 void renderGalaxyMap(int renderX, int renderY) {
 	SDL_SetRenderDrawColor(gRenderer, 10, 10, 10, 255);
@@ -958,7 +927,6 @@ void render_text(SDL_Renderer *renderer, int x, int y, const char *text, TTF_Fon
 		SDL_DestroyTexture(texture);
 	}
 }
-
 
 SDL_Texture* loadTexture(std::string path) {
 	SDL_Texture* newTexture = NULL;
