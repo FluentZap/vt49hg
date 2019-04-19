@@ -4,12 +4,10 @@
 #include <stdio.h>
 typedef unsigned char byte;
 
-
 struct dieResult {
 	byte success = 0, fail = 0, advantage = 0, threat = 0, triumph = 0, dispare = 0, darkForce = 0, lightForce = 0;
 
-	dieResult operator+=(const dieResult& other)
-	{
+	dieResult operator+=(const dieResult& other) {
 		this->success += other.success;
 		this->fail += other.fail;
 		this->advantage += other.advantage;
@@ -22,7 +20,6 @@ struct dieResult {
 	}
 };
 
-
 struct diceResult {
 	byte success = 0, fail = 0, advantage = 0, threat = 0, triumph = 0, dispare = 0, darkForce = 0, lightForce = 0;
 	byte totalSuccess = 0, totalFail = 0, totalAdvantage = 0, totalThreat = 0;
@@ -31,8 +28,7 @@ struct diceResult {
 	dieResult *rolledResult;
 };
 
-class DiceRoller
-{
+class DiceRoller {
 public:
 	static diceResult diceRoll(byte statistic, byte skill, byte difficulty, byte difficultyUpgrade, byte blue, byte black, byte white);
 };
@@ -46,4 +42,3 @@ dieResult rollBlue();
 dieResult rollWhite();
 
 #endif // DICEROLLER_H
-
