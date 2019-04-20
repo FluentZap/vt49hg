@@ -33,10 +33,10 @@ using namespace bParse;
 
 const int SCREEN_WIDTH = 900;
 const int SCREEN_HEIGHT = 1440;
-const int SCREEN_FPS = 63;
+const int SCREEN_FPS = 70;
 const float SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
+//const float SCREEN_TICKS_PER_FRAME = 0;
 const float SERIAL_TICKS_PER_FRAME = 1000 / 60;
-
 
 
 
@@ -514,7 +514,7 @@ bool init() {
 
 
 	SDL_Rect DispayBounds;
-	SDL_GetDisplayBounds(3, &DispayBounds);
+	SDL_GetDisplayBounds(0, &DispayBounds);
 	//SDL_SetWindowPosition( gWindow, DispayBounds.x + ( DispayBounds.w - 900 ) / 2, DispayBounds.y + ( DispayBounds.h - 1440 ) / 2 );
 
 	SDL_SetWindowPosition(gWindow, DispayBounds.x + (DispayBounds.w - 900) / 2, DispayBounds.y);
@@ -855,8 +855,8 @@ int main(int argc, char **argv) {
 			}
 
 			long currenttick = SDL_GetTicks();
-			if((fpsTicks + SCREEN_TICKS_PER_FRAME) - currenttick > 0)
-				SDL_Delay((fpsTicks + SCREEN_TICKS_PER_FRAME) - currenttick);
+			//if((fpsTicks + SCREEN_TICKS_PER_FRAME) - currenttick > 0)
+				//SDL_Delay((fpsTicks + SCREEN_TICKS_PER_FRAME) - currenttick);
 
 
 			if(fpsStart + 1000 < SDL_GetTicks()) {

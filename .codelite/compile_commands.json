@@ -1,57 +1,9 @@
 [{
   "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
-  "command": "C:/TDM-GCC-64/bin/g++.exe -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch -MG -MP -MT./Debug/DiceRoller.cpp.o -MF./Debug/DiceRoller.cpp.o.d -MM DiceRoller.cpp",
-  "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\DiceRoller.cpp"
- }, {
-  "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
-  "command": "C:/TDM-GCC-64/bin/g++.exe -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch -MG -MP -MT./Debug/SWSimulation.cpp.o -MF./Debug/SWSimulation.cpp.o.d -MM SWSimulation.cpp",
-  "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\SWSimulation.cpp"
- }, {
-  "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
   "command": "C:/TDM-GCC-64/bin/g++.exe -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch -MG -MP -MT./Debug/VTStart.cpp.o -MF./Debug/VTStart.cpp.o.d -MM VTStart.cpp",
   "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\VTStart.cpp"
  }, {
   "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
-  "command": "C:/TDM-GCC-64/bin/g++.exe -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch -MG -MP -MT./Debug/VTSerialPhraser.cpp.o -MF./Debug/VTSerialPhraser.cpp.o.d -MM VTSerialPhraser.cpp",
-  "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\VTSerialPhraser.cpp"
- }, {
-  "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
-  "command": "C:/TDM-GCC-64/bin/g++.exe -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch -MG -MP -MT./Debug/PanelData.cpp.o -MF./Debug/PanelData.cpp.o.d -MM PanelData.cpp",
-  "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\PanelData.cpp"
- }, {
-  "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
-  "command": "C:/TDM-GCC-64/bin/g++.exe -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch -MG -MP -MT./Debug/VTNetwork.cpp.o -MF./Debug/VTNetwork.cpp.o.d -MM VTNetwork.cpp",
-  "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\VTNetwork.cpp"
- }, {
-  "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
-  "command": "C:/TDM-GCC-64/bin/g++.exe -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch -MG -MP -MT./Debug/VTMap.cpp.o -MF./Debug/VTMap.cpp.o.d -MM VTMap.cpp",
-  "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\VTMap.cpp"
- }, {
-  "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
-  "command": "C:/TDM-GCC-64/bin/g++.exe -c C:/Users/Toad/Documents/VT49/VT49/VTNetwork.cpp -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -o ./Debug/VTNetwork.cpp.o -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch",
-  "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\VTNetwork.cpp"
- }, {
-  "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
-  "command": "C:/TDM-GCC-64/bin/g++.exe -c C:/Users/Toad/Documents/VT49/VT49/DiceRoller.cpp -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -o ./Debug/DiceRoller.cpp.o -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch",
-  "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\DiceRoller.cpp"
- }, {
-  "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
   "command": "C:/TDM-GCC-64/bin/g++.exe -c C:/Users/Toad/Documents/VT49/VT49/VTStart.cpp -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -o ./Debug/VTStart.cpp.o -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch",
   "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\VTStart.cpp"
- }, {
-  "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
-  "command": "C:/TDM-GCC-64/bin/g++.exe -c C:/Users/Toad/Documents/VT49/VT49/SWSimulation.cpp -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -o ./Debug/SWSimulation.cpp.o -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch",
-  "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\SWSimulation.cpp"
- }, {
-  "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
-  "command": "C:/TDM-GCC-64/bin/g++.exe -c C:/Users/Toad/Documents/VT49/VT49/VTSerialPhraser.cpp -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -o ./Debug/VTSerialPhraser.cpp.o -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch",
-  "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\VTSerialPhraser.cpp"
- }, {
-  "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
-  "command": "C:/TDM-GCC-64/bin/g++.exe -c C:/Users/Toad/Documents/VT49/VT49/VTMap.cpp -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -o ./Debug/VTMap.cpp.o -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch",
-  "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\VTMap.cpp"
- }, {
-  "directory": "C:\\Users\\Toad\\Documents\\VT49\\VT49",
-  "command": "C:/TDM-GCC-64/bin/g++.exe -c C:/Users/Toad/Documents/VT49/VT49/PanelData.cpp -g -O0 -std=c++17 -std=c++14 -std=c++11 -Wall -o ./Debug/PanelData.cpp.o -IC:\\Users\\Toad\\Documents\\SDL2\\SDL2Base\\x86_64-w64-mingw32\\include\\SDL2 -IC:\\Users\\Toad\\Documents\\VT49\\VT49\\q3 -IC:\\Users\\Toad\\Documents\\VT49\\VT49 -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\Extras\\Serialize\\BulletWorldImporter -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\Bullet3Serialize\\Bullet2FileLoader -IC:\\Users\\Toad\\Documents\\VT49\\bullet3-2.88\\src\\BulletCollision\\CollisionDispatch",
-  "file": "C:\\Users\\Toad\\Documents\\VT49\\VT49\\PanelData.cpp"
  }]

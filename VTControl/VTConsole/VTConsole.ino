@@ -4,7 +4,7 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_LEDBackpack.h>
-#include <Aurebesh6p.h>
+//#include <Aurebesh6p.h>
 #include <Fonts/FreeSans9pt7b.h>
 #include <PacketSerial.h>
 #include <extEEPROM.h>
@@ -32,11 +32,11 @@ CRGB leds[NUM_LEDS];
 #define UPDATES_PER_SECOND  60
 
 
-#define OLED_RESET 2
+#define OLED_RESET -1
 
 //Adafruit_LEDBackpack matrix = Adafruit_LEDBackpack();
 Adafruit_7segment matrix = Adafruit_7segment();
-Adafruit_SSD1306 OLEDdisplay(OLED_RESET);
+Adafruit_SSD1306 OLEDdisplay(128, 64, &Wire);
 
 #define ToggleDuel_1_U    41
 #define ToggleDuel_1_D    43
@@ -108,6 +108,8 @@ int Rot_1LastState;
 #define RTogBox8    9
 
 
+#define CodePower       A8
+
 #define FightStickUP    42
 #define FightStickDOWN  44
 #define FightStickLEFT  40
@@ -150,8 +152,12 @@ void setup() {
 
   for ( int id = 3; id <= 68; id++)
   {
-    if (id != 5 && id != 20 && id != 21)pinMode(id, INPUT_PULLUP);
+    if (id != 5 && id != 20 && id != 21 && id != A8)pinMode(id, INPUT_PULLUP);
   }
+  
+  pinMode(20, INPUT_PULLUP);
+  pinMode(21, INPUT_PULLUP);
+  
 
   //Leds  
   //pinMode(27, OUTPUT);
@@ -167,9 +173,12 @@ void setup() {
   pinMode(FightStick_LED, OUTPUT);
   digitalWrite(FightStick_LED, HIGH);
 
+  pinMode(CodePower, OUTPUT);
+  digitalWrite(CodePower, LOW);
+
   uint8_t myEEPROM = codeEep.begin(extEEPROM::twiClock100kHz);
   
-  //Serial.begin(115200);
+  //Serial.begin(11520
   myPacketSerial.begin(28800);
   myPacketSerial.setPacketHandler(&onPacketReceived);
 
@@ -205,6 +214,7 @@ void loop()
         codeEep.read(0, CylinderCode, 15);
         BuildBuffer(2);
         CheckCode = false;
+        digitalWrite(CodePower, LOW); 
         for (int x = 0; x < 15; x++)
         {
           CylinderCode[x] = 0;
@@ -368,6 +378,7 @@ void ProcessBuffer(char* B)
   }
   if (Header == 2) {
     CheckCode = true;
+    digitalWrite(CodePower, HIGH);    
   }
   
   
@@ -428,5 +439,3 @@ void Render ()
 
   OLEDdisplay.display();
 }
-
-
