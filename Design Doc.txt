@@ -14,3 +14,20 @@ Main view center bottom, displays sensor readout.
 
 A single press of one of the buttons brings up that menu of that color, there you can select by hitting another button or cancel by hitting red.
 That allows for 16 different screens, can add a third if needed for 64 screens if needed.
+
+
+System UI
+Sensors
+
+Blue and white
+
+
+Tactical
+Red and Black And White
+Orange
+
+
+Weapons
+Internal Systems
+Engines
+Reflector Shields
