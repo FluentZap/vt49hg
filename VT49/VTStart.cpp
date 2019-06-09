@@ -104,6 +104,7 @@ void init_setup() {
 	//body->setType(BodyType::DYNAMIC);
 
 	//Serial Connection
+
 	parser = new VTSerialPhraser();
 	Serial_Connect();
 }
