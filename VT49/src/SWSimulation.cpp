@@ -9,21 +9,21 @@ SWSimulation::~SWSimulation() {
 int inc;
 uint8_t col;
 
-void PCShip::UpdateConsole(VTSerialPhraser* parser) {
+void PCShip::UpdateConsole(VTSerialParser* parser) {
 
 	uint8_t color = parser->ConsolePotValue[0];
 
-	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog1_UP)) PowerDistrubution.Weapons++;
-	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog1_DOWN)) PowerDistrubution.Weapons--;
+	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog1_UP)) PowerDistribution.Weapons++;
+	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog1_DOWN)) PowerDistribution.Weapons--;
 
-	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog2_UP)) PowerDistrubution.Engines++;
-	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog2_DOWN)) PowerDistrubution.Engines--;
+	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog2_UP)) PowerDistribution.Engines++;
+	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog2_DOWN)) PowerDistribution.Engines--;
 
-	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog3_UP)) PowerDistrubution.Shields++;
-	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog3_DOWN)) PowerDistrubution.Shields--;
+	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog3_UP)) PowerDistribution.Shields++;
+	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog3_DOWN)) PowerDistribution.Shields--;
 
-	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog4_UP)) PowerDistrubution.System++;
-	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog4_DOWN)) PowerDistrubution.System--;
+	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog4_UP)) PowerDistribution.System++;
+	if(parser->InputPressed(Typeof_ConsoleInputs::DoubleTog4_DOWN)) PowerDistribution.System--;
 
 	if(parser->InputPressed(Typeof_ConsoleInputs::LEDButton1)) parser->ConsoleDataSend.ContolButtons[0] = !parser->ConsoleDataSend.ContolButtons[0];
 	//if (parser->InputPressed(Typeof_ConsoleInputs::LEDButton2, true)) parser->ConsoleDataSend.ContolButtons[1] = !parser->ConsoleDataSend.ContolButtons[1];
@@ -52,16 +52,16 @@ void PCShip::UpdateConsole(VTSerialPhraser* parser) {
 		parser->ConsoleDataSend.BLED[x] = false;
 
 	//Set lights for power
-	for(int x = 4; x > 4 - PowerDistrubution.System; x--)
+	for(int x = 4; x > 4 - PowerDistribution.System; x--)
 		parser->ConsoleDataSend.BLED[x] = true;
 
-	for(int x = 0; x < PowerDistrubution.Shields; x++)
+	for(int x = 0; x < PowerDistribution.Shields; x++)
 		parser->ConsoleDataSend.BLED[x + 5] = true;
 
-	for(int x = 4; x > 4 - PowerDistrubution.Engines; x--)
+	for(int x = 4; x > 4 - PowerDistribution.Engines; x--)
 		parser->ConsoleDataSend.BLED[x + 20] = true;
 
-	for(int x = 0; x < PowerDistrubution.Weapons; x++)
+	for(int x = 0; x < PowerDistribution.Weapons; x++)
 		parser->ConsoleDataSend.BLED[x + 25] = true;
 
 

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "DiceRoller.h"
+#include <DiceRoller.h>
 
 using namespace std;
 

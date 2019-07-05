@@ -12,5 +12,6 @@
 -IC:\Users\Toad\Documents\VT49\bullet3-2.88\Extras\Serialize\BulletWorldImporter
 -IC:\Users\Toad\Documents\VT49\bullet3-2.88\src\Bullet3Serialize\Bullet2FileLoader
 -IC:\Users\Toad\Documents\VT49\bullet3-2.88\src\BulletCollision\CollisionDispatch
+-IC:\Users\Toad\Documents\VT49\VT49\include
 -target
 x86_64-pc-windows-gnu

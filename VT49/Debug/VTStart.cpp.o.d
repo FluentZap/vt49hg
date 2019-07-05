@@ -200,8 +200,8 @@ Debug/VTStart.cpp.o: VTStart.cpp \
  C:\Users\Toad\Documents\VT49\bullet3-2.88\src/Bullet3Common/b3StackAlloc.h \
  C:\Users\Toad\Documents\VT49\bullet3-2.88\Extras\Serialize\BulletWorldImporter/btBulletWorldImporter.h \
  C:\Users\Toad\Documents\VT49\bullet3-2.88\Extras\Serialize\BulletWorldImporter/btWorldImporter.h \
- VTStart.h VTSerialPhraser.h VTNetwork.h SWSimulation.h \
- C:\Users\Toad\Documents\VT49\VT49/VTSerialPhraser.h DiceRoller.h
+ VTStart.h VTSerialParser.h VTNetwork.h SWSimulation.h \
+ C:\Users\Toad\Documents\VT49\VT49/VTSerialParser.h DiceRoller.h
 
 C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2/SDL.h:
 
@@ -607,12 +607,12 @@ C:\Users\Toad\Documents\VT49\bullet3-2.88\Extras\Serialize\BulletWorldImporter/b
 
 VTStart.h:
 
-VTSerialPhraser.h:
+VTSerialParser.h:
 
 VTNetwork.h:
 
 SWSimulation.h:
 
-C:\Users\Toad\Documents\VT49\VT49/VTSerialPhraser.h:
+C:\Users\Toad\Documents\VT49\VT49/VTSerialParser.h:
 
 DiceRoller.h:
