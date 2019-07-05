@@ -1,4 +1,4 @@
-#include "PanelData.h"
+#include <PanelData.h>
 
 PanelData::PanelData() {
 }

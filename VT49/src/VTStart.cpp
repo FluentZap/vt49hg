@@ -21,7 +21,7 @@
 #include <btBulletWorldImporter.h>
 
 #include "VTStart.h"
-#include "VTSerialPhraser.h"
+#include "VTSerialParser.h"
 #include "VTNetwork.h"
 #include "SWSimulation.h"
 #include "DiceRoller.h"
@@ -62,7 +62,7 @@ double dist1;
 serial::Serial* console;
 serial::Serial* consolePot;
 
-VTSerialPhraser* parser;
+VTSerialParser* parser;
 
 
 //Current OS Windows Or Linux
@@ -105,7 +105,7 @@ void init_setup() {
 
 	//Serial Connection
 
-	parser = new VTSerialPhraser();
+	parser = new VTSerialParser();
 	Serial_Connect();
 }
 
@@ -137,10 +137,10 @@ void Serial_Read() {
 	{
 		if (console->available() > 0 && console->available() >= 12)
 		{
-			//phraser->DataBuffer = {};
+			//parser->DataBuffer = {};
 			console->readline(buff, 100, "VT");
-			console->read(phraser->DataBuffer, 12);
-			phraser->ReadDataStream();
+			console->read(parser->DataBuffer, 12);
+			parser->ReadDataStream();
 
 			//buff = "";
 
@@ -393,14 +393,14 @@ void render() {
 	 */
 	/*
 
-		if (phraser->ConsoleButtons.LTog[0]) render_text(gRenderer, 0, 200, "0", gFontAG, &color);
-		if (phraser->ConsoleButtons.LTog[1]) render_text(gRenderer, 20, 200, "0", gFontAG, &color);
-		if (phraser->ConsoleButtons.LTog[2]) render_text(gRenderer, 40, 200, "0", gFontAG, &color);
-		if (phraser->ConsoleButtons.LTog[3]) render_text(gRenderer, 60, 200, "0", gFontAG, &color);
-		if (phraser->ConsoleButtons.LTog[4]) render_text(gRenderer, 0, 220, "0", gFontAG, &color);
-		if (phraser->ConsoleButtons.LTog[5]) render_text(gRenderer, 20, 220, "0", gFontAG, &color);
-		if (phraser->ConsoleButtons.LTog[6]) render_text(gRenderer, 40, 220, "0", gFontAG, &color);
-		if (phraser->ConsoleButtons.LTog[7]) render_text(gRenderer, 60, 220, "0", gFontAG, &color);
+		if (parser->ConsoleButtons.LTog[0]) render_text(gRenderer, 0, 200, "0", gFontAG, &color);
+		if (parser->ConsoleButtons.LTog[1]) render_text(gRenderer, 20, 200, "0", gFontAG, &color);
+		if (parser->ConsoleButtons.LTog[2]) render_text(gRenderer, 40, 200, "0", gFontAG, &color);
+		if (parser->ConsoleButtons.LTog[3]) render_text(gRenderer, 60, 200, "0", gFontAG, &color);
+		if (parser->ConsoleButtons.LTog[4]) render_text(gRenderer, 0, 220, "0", gFontAG, &color);
+		if (parser->ConsoleButtons.LTog[5]) render_text(gRenderer, 20, 220, "0", gFontAG, &color);
+		if (parser->ConsoleButtons.LTog[6]) render_text(gRenderer, 40, 220, "0", gFontAG, &color);
+		if (parser->ConsoleButtons.LTog[7]) render_text(gRenderer, 60, 220, "0", gFontAG, &color);
 
 		//if (tempb[0] == 1) render_text(gRenderer, 60, 220, "Woopadoop", gFontAG, &color);
 		if (tempb[2] & 0b0000'0001) render_text(gRenderer, 00, 220, "1", gFontAG, &color);
@@ -515,7 +515,8 @@ bool init() {
 
 
 	SDL_Rect DispayBounds;
-	SDL_GetDisplayBounds(0, &DispayBounds);
+	//SDL_GetDisplayBounds(0, &DispayBounds);
+	SDL_GetDisplayBounds(3, &DispayBounds);
 	//SDL_SetWindowPosition( gWindow, DispayBounds.x + ( DispayBounds.w - 900 ) / 2, DispayBounds.y + ( DispayBounds.h - 1440 ) / 2 );
 
 	SDL_SetWindowPosition(gWindow, DispayBounds.x + (DispayBounds.w - 900) / 2, DispayBounds.y);

@@ -1,5 +1,5 @@
-#ifndef VTSERIALPHRASER_H
-#define VTSERIALPHRASER_H
+#ifndef VTSERIALPARSER_H
+#define VTSERIALPARSER_H
 #include <stdio.h>
 #include <serial/serial.h>
 #include <unordered_set>
@@ -52,10 +52,10 @@ enum class Typeof_ConsoleInputs : int {
 	FlightStickRIGHT
 };
 
-class VTSerialPhraser {
+class VTSerialParser {
 public:
-	VTSerialPhraser();
-	~VTSerialPhraser();
+	VTSerialParser();
+	~VTSerialParser();
 
 	uint8_t Marker = 0;
 	const static size_t BufferSize = 256;
@@ -79,7 +79,7 @@ public:
 
 
 
-	struct ConsoleRecievedData_Type {
+	struct ConsoleReceivedData_Type {
 		uint8_t DoubleTog = 0;
 		uint8_t LEDTog = 0;
 		uint8_t TopTog = 0;
@@ -89,7 +89,7 @@ public:
 		uint8_t FlightStick = 0;
 	};
 
-	ConsoleRecievedData_Type ConsoleRecievedData;
+	ConsoleReceivedData_Type ConsoleReceivedData;
 
 	uint8_t CylinderCode[15] = {};
 
@@ -104,7 +104,7 @@ public:
 	};
 
 
-	struct ConsoleRecievedDataType {
+	struct ConsoleReceivedDataType {
 		bool DoubleTog[8] = {};
 		bool LEDTog[5] = {};
 		bool TopTog[4] = {};
@@ -125,10 +125,10 @@ public:
 		LedData OffColor = {};
 	};
 
-//ConsoleRecievedDataType ConsoleData;
+//ConsoleReceivedDataType ConsoleData;
 	ConsoleSendDataType ConsoleDataSend;
 
-//ConsoleRecievedDataType LastConsoleData;
+//ConsoleReceivedDataType LastConsoleData;
 	ConsoleSendDataType LastConsoleDataSend;
 
 
@@ -147,4 +147,4 @@ public:
 
 };
 
-#endif // VTSERIALPHRASER_H
+#endif // VTSERIALPARSER_H

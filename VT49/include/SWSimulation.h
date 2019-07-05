@@ -1,10 +1,10 @@
 #ifndef SWSIMULATION_H
 #define SWSIMULATION_H
 #include <stdio.h>
-#include <VTSerialPhraser.h>
+#include <VTSerialParser.h>
 #include "SDL.h"
 
-struct Type_PowerDistrubution
+struct Type_PowerDistribution
 {
 	int Engines = 0, Shields = 0, Weapons = 0, System = 0;
 };
@@ -27,9 +27,9 @@ class PCShip
 public:
 	string Callsign;
 	string TransponderID;
-	Type_PowerDistrubution PowerDistrubution;
+	Type_PowerDistribution PowerDistribution;
 	float x, y, z;
-	void UpdateConsole(VTSerialPhraser * parser);
+	void UpdateConsole(VTSerialParser * parser);
 	SDL_Point Sector_Location;
 };
 
