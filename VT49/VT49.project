@@ -22,10 +22,10 @@
     <File Name="src/SWSimulation.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
+    <File Name="include/VTPhysics.h"/>
     <File Name="include/VTMain.h"/>
     <File Name="include/VTMap.h"/>
     <File Name="include/VTSerial.h"/>
-    <File Name="src/VTPhysics.h"/>
     <File Name="include/SerialConnection.h"/>
     <File Name="include/VTRender.h"/>
     <File Name="include/VTNetwork.h"/>

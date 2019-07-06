@@ -1,34 +1,17 @@
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
-#include "SDL_mixer.h"
-#include "SDL_net.h"
-#include "SDL_thread.h"
-#include <stdio.h>
-
 #include <unistd.h>
 #include <string>
 #include <tinyxml2.h>
 #include <VTMap.h>
-#include <SDL_FontCache.h>
 #include <thread>
-
-
-#include <btBulletDynamicsCommon.h>
-#include <btCollisionObject.h>
-#include <b3BulletFile.h>
-#include <btBulletWorldImporter.h>
+#include <stdio.h>
 
 #include "VTMain.h"
 #include "VTSerial.h"
 #include "VTNetwork.h"
-#include "SWSimulation.h"
 #include "DiceRoller.h"
-
 
 using namespace std;
 using namespace tinyxml2;
-using namespace bParse;
 
 const int SCREEN_WIDTH = 900;
 const int SCREEN_HEIGHT = 1440;
@@ -36,8 +19,6 @@ const int SCREEN_FPS = 70;
 const float SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 //const float SCREEN_TICKS_PER_FRAME = 0;
 const float SERIAL_TICKS_PER_FRAME = 1000 / 60;
-
-
 
 int FPS_Adjust = 0;
 
@@ -48,21 +29,22 @@ size_t fpsTicks;
 size_t fpsStart;
 size_t serialTicks;
 size_t serialStart;
-VTNetwork* _net;
-
+VTNetwork *_net;
 
 //DynamicsWorld* world;
 //RigidBody* body;
 
-
-SDL_Rect rect1, rect2;
+//SDL_Rect rect1, rect2;
 double dist1;
 
 //VTSerialParser* parser;
 
-
 //Current OS Windows Or Linux
-enum OS_Types {WIN, LINUX};
+enum OS_Types
+{
+	WIN,
+	LINUX
+};
 OS_Types CurrentOS;
 string buff;
 
@@ -71,22 +53,15 @@ double Zoom = 1;
 
 int count;
 bool lit = false;
-int speed=0;
+int speed = 0;
 
-const char* pName;
-VTMap * StarMap;
-SWSimulation SWS;
+const char *pName;
+VTMap *StarMap;
+SWSimulation *_sws;
 diceResult greendie;
 
-void init_setup() {
-#ifdef _WIN32 || _WIN64
-	CurrentOS = WIN;
-#endif
-#ifdef __linux__
-	CurrentOS = LINUX;
-#endif
-	loadResources();
-
+void init_setup()
+{
 	//rp3d::Vector3 gravity(0.0, -9.81, 0.0);
 	//Vector3 gravity(0.0, 0.0, 0.0);
 
@@ -101,24 +76,23 @@ void init_setup() {
 
 	//Serial Connection
 
-//	parser = new VTSerialParser();
-//	Serial_Connect();
+	//	parser = new VTSerialParser();
+	//	Serial_Connect();
 }
 
-void Serial_Connect() {
-
+void Serial_Connect()
+{
 
 	//serial::Serial console("/dev/ttyACM0", 9600, serial::Timeout::simpleTimeout(1000));
 	//try
 	//{
 
-//		if(CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 28800, serial::Timeout::simpleTimeout(10));
-//	if(CurrentOS == WIN) console = new serial::Serial("COM4", 28800, serial::Timeout::simpleTimeout(10));
-//	if(CurrentOS == WIN) consolePot = new serial::Serial("COM6", 28800, serial::Timeout::simpleTimeout(10));
+	//		if(CurrentOS == LINUX) console = new serial::Serial("/dev/ttyACM0", 28800, serial::Timeout::simpleTimeout(10));
+	//	if(CurrentOS == WIN) console = new serial::Serial("COM4", 28800, serial::Timeout::simpleTimeout(10));
+	//	if(CurrentOS == WIN) consolePot = new serial::Serial("COM6", 28800, serial::Timeout::simpleTimeout(10));
 
-
-//	if(CurrentOS == WIN) RS232_OpenComport(3, 28800, "8N1", 1)
-//	if(CurrentOS == WIN) RS232_OpenComport(5, 28800, "8N1", 1)
+	//	if(CurrentOS == WIN) RS232_OpenComport(3, 28800, "8N1", 1)
+	//	if(CurrentOS == WIN) RS232_OpenComport(5, 28800, "8N1", 1)
 
 	//console->setTimeout(10, 10, 10, 10, 10);
 	//}
@@ -126,12 +100,12 @@ void Serial_Connect() {
 	//{
 
 	//}
-
 }
 
-void Serial_Read() {
-//	parser->ConsoleUpdate(console);
-//	parser->ConsolePotUpdate(consolePot);
+void Serial_Read()
+{
+	//	parser->ConsoleUpdate(console);
+	//	parser->ConsolePotUpdate(consolePot);
 	/*
 	if (console->isOpen())
 	{
@@ -155,17 +129,19 @@ void Serial_Read() {
 
 //uint8_t ConsolePacketSend = 0;
 
-int Serial_Write() {
+int Serial_Write()
+{
 	//while (!quit)
 	//{
-	if(serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks()) {
-//		ConsoleSerialSend(1);
+	if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
+	{
+		//		ConsoleSerialSend(1);
 		serialTicks = SDL_GetTicks();
 	}
 
-//		long currenttick = SDL_GetTicks();
-//			if ((serialTicks + SERIAL_TICKS_PER_FRAME) - currenttick > 0)
-//				SDL_Delay((serialTicks + SERIAL_TICKS_PER_FRAME) - currenttick);
+	//		long currenttick = SDL_GetTicks();
+	//			if ((serialTicks + SERIAL_TICKS_PER_FRAME) - currenttick > 0)
+	//				SDL_Delay((serialTicks + SERIAL_TICKS_PER_FRAME) - currenttick);
 	//}
 }
 
@@ -215,19 +191,20 @@ int Serial_Write() {
 //		}
 //	}
 
-
-
-	//if (change)
-	//parser->ConsoleSend(console, Buffer, 16);
+//if (change)
+//parser->ConsoleSend(console, Buffer, 16);
 
 //	parser->ConsoleSend(console, Buffer, 16);
 
-	//memcpy(parser->LastConsoleDataSend.LED, parser->ConsoleDataSend.LED, 50);
+//memcpy(parser->LastConsoleDataSend.LED, parser->ConsoleDataSend.LED, 50);
 //}
 
-void handleUI(SDL_Event e) {
-	if(e.type == SDL_KEYDOWN) {
-		if(e.key.keysym.sym == SDLK_1) {
+void handleUI(SDL_Event e)
+{
+	if (e.type == SDL_KEYDOWN)
+	{
+		if (e.key.keysym.sym == SDLK_1)
+		{
 			//Mix_PlayChannel( 2, sfx1, 0 );
 			//Mix_SetPanning(2, 120, 0);
 			//pName = planetMap->FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "Placemark" )->FirstChildElement( "name" )->GetText();
@@ -237,21 +214,21 @@ void handleUI(SDL_Event e) {
 
 			//count++;
 
-//			parser->ConsoleDataSend.OnColor.g++;
-
+			//			parser->ConsoleDataSend.OnColor.g++;
 		}
-		if(e.key.keysym.sym == SDLK_2) {
+		if (e.key.keysym.sym == SDLK_2)
+		{
 			//Mix_PlayChannel( 1, sfx2, 0 );
 			//Mix_SetPanning(1, 0, 120);
 
-//			parser->ConsoleDataSend.LED[count].r = 255;
-//			parser->ConsoleDataSend.LED[count].g = 0;
-//			parser->ConsoleDataSend.LED[count].b = 0;
-//			count--;
+			//			parser->ConsoleDataSend.LED[count].r = 255;
+			//			parser->ConsoleDataSend.LED[count].g = 0;
+			//			parser->ConsoleDataSend.LED[count].b = 0;
+			//			count--;
 		}
 
-
-		if(e.key.keysym.sym == SDLK_LEFT) {
+		if (e.key.keysym.sym == SDLK_LEFT)
+		{
 			//Vector3 force(-10000.0, 0.0, 0.0);
 			//body->applyForceToCenterOfMass(force);
 			/*
@@ -266,531 +243,134 @@ void handleUI(SDL_Event e) {
 			Scroll.x = Scroll.x + 10 * Zoom;
 		}
 
-		if(e.key.keysym.sym == SDLK_RIGHT) {
+		if (e.key.keysym.sym == SDLK_RIGHT)
+		{
 			//Vector3 force(10000.0, 0.0, 0.0);
 			//body->applyForceToCenterOfMass(force);
 			//rect1.x++;
 			Scroll.x = Scroll.x - 10 * Zoom;
 		}
 
-		if(e.key.keysym.sym == SDLK_UP) {
+		if (e.key.keysym.sym == SDLK_UP)
+		{
 			//Vector3 force(0.0, -10000.0, 0.0);
 			//body->applyForceToCenterOfMass(force);
 			//rect1.x++;
 			Scroll.y = Scroll.y + 10 * Zoom;
 		}
 
-		if(e.key.keysym.sym == SDLK_DOWN) {
+		if (e.key.keysym.sym == SDLK_DOWN)
+		{
 			//Vector3 force(0.0, 10000.0, 0.0);
 			//body->applyForceToCenterOfMass(force);
 			//rect1.x++;
 			Scroll.y = Scroll.y - 10 * Zoom;
 		}
 
-
-		if(e.key.keysym.sym == SDLK_KP_PLUS) {
+		if (e.key.keysym.sym == SDLK_KP_PLUS)
+		{
 			Zoom = Zoom + 0.1;
-			if(Zoom > 10) Zoom = 10;
+			if (Zoom > 10)
+				Zoom = 10;
 		}
 
-		if(e.key.keysym.sym == SDLK_KP_MINUS) {
+		if (e.key.keysym.sym == SDLK_KP_MINUS)
+		{
 			Zoom = Zoom - 0.1;
-			if(Zoom < 0.01) Zoom = 0.01;
+			if (Zoom < 0.01)
+				Zoom = 0.01;
 		}
-
 	}
 
-	if(e.type == SDL_KEYUP) {
-		if(e.key.keysym.sym == SDLK_2) {
+	if (e.type == SDL_KEYUP)
+	{
+		if (e.key.keysym.sym == SDLK_2)
+		{
 			lit = false;
 		}
-
 	}
 
-
-	if(e.type == SDL_KEYDOWN) if(e.key.keysym.sym == SDLK_ESCAPE) quit = true;
+	if (e.type == SDL_KEYDOWN)
+		if (e.key.keysym.sym == SDLK_ESCAPE)
+			quit = true;
 
 	//Quit if escape is detected
-	if(e.type == SDL_QUIT)
+	if (e.type == SDL_QUIT)
 		quit = true;
 }
 
-void render() {
-	SDL_SetRenderDrawColor(gRenderer, 10, 10, 10, 255);
-	SDL_RenderClear(gRenderer);
+bool init()
+{
+	#ifdef _WIN32 || _WIN64
+		CurrentOS = WIN;
+	#endif
+	#ifdef __linux__
+		CurrentOS = LINUX;
+	#endif
 
-	setRenderColor(80, 130, 240, 255);  //Blue (50, 160, 240, 255);
-	//Orange (220, 140, 40, 255);
-
-	FC_Draw(gFontAG, gRenderer, 0, 0, to_string(framsPerSec).c_str());
-	FC_Draw(gFontAG, gRenderer, 0, 20, to_string(FPS_Adjust).c_str());
-
-	//setRenderColor(255, 255, 255, 255);
-	SDL_Color color = setColor(80, 130, 240, 255);
-	color = setColor(220, 140, 40, 255);
-
-	//color = setColor(50, 160, 240, 255);
-
-	SDL_Rect rect = {100, 100, 200, 200};
-	//SDL_RenderDrawRect(gRenderer, &rect);
-	//SDL_RenderDrawRect(gRenderer, &rect1);
-
-	//for (int x = 0; x < count; x++)
-	//{
-	//pName = planetMap->FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "Placemark" )->NextSiblingElement( "Placemark" )->FirstChildElement( "name" )->GetText();
-	//}
-
-
-	color = setColor(220, 140, 40, 255);
-	//render_text(gRenderer, 0, 0, "p", gFontAure, &color);
-
-	color = setColor(50, 160, 240, 255);
-	//render_text(gRenderer, 40, 0, "vt-49 os test build 0.0.1", gFontAure, &color);
-	//render_text(gRenderer, 80, 30, "VT-49 OS TEST BUILD 0.0.1", gFontAG, &color);
-	//render_text(gRenderer, 0, 0, to_string(fpsStart).c_str(), gFontAG, &color);
-	//render_text(gRenderer, 0, 60, to_string(SDL_GetTicks()).c_str(), gFontAG, &color);
-
-	//render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
-	color = setColor(130, 60, 60, 255);
-
-	if(StarMap->StarMap.find(count) != StarMap->StarMap.end()) {
-		if(StarMap->StarMap.find(count)->second->Name != nullptr) {
-			FC_Draw(gFontAG, gRenderer, 100, 100, StarMap->StarMap.find(count)->second->Name);
-		}
-	}
-
-//	FC_Draw(gFontAG, gRenderer, 100, 100, to_string(parser->ConsolePotValue[0]).c_str());
-//	FC_Draw(gFontAG, gRenderer, 100, 120, to_string(parser->ConsolePotValue[1]).c_str());
-//	FC_Draw(gFontAG, gRenderer, 100, 140, to_string(parser->ConsolePotValue[2]).c_str());
-//	FC_Draw(gFontAG, gRenderer, 100, 160, to_string(parser->ConsolePotValue[3]).c_str());
-
-
-
-
-	FC_Draw(gFontAG, gRenderer, 100, 20, ("Success: " + to_string(greendie.success)).c_str());
-	FC_Draw(gFontAG, gRenderer, 100, 40, ("Advantage: " + to_string(greendie.advantage)).c_str());
-
-	string id = "";
-	for(int x = 0; x < 15; x++) {
-//		id += to_string(parser->CylinderCode[x]) + ": ";
-	}
-
-	FC_Draw(gFontAG, gRenderer, 100, 60, id.c_str());
-
-
-	//render_text(gRenderer, 600, 600, to_string(dist1).c_str(), gFontAG, &color);
-	/*
-	FC_Draw(gFontAG, gRenderer, 100, 0, to_string(count).c_str());
-	FC_Draw(gFontAG, gRenderer, 150, 0, to_string(speed).c_str());
-	if (parser->ConsoleButtons.LeftBoxTog[0]) FC_Draw(gFontAG, gRenderer, 0, 200, "0");
-	if (parser->ConsoleButtons.LeftBoxTog[1]) FC_Draw(gFontAG, gRenderer, 20, 200, "0");
-	if (parser->ConsoleButtons.LeftBoxTog[2]) FC_Draw(gFontAG, gRenderer, 40, 200, "0");
-	if (parser->ConsoleButtons.LeftBoxTog[3]) FC_Draw(gFontAG, gRenderer, 60, 200, "0");
-	if (parser->ConsoleButtons.LeftBoxTog[4]) FC_Draw(gFontAG, gRenderer, 0, 250, "0");
-	if (parser->ConsoleButtons.LeftBoxTog[5]) FC_Draw(gFontAG, gRenderer, 20, 250, "0");
-	if (parser->ConsoleButtons.LeftBoxTog[6]) FC_Draw(gFontAG, gRenderer, 40, 250, "0");
-	if (parser->ConsoleButtons.LeftBoxTog[7]) FC_Draw(gFontAG, gRenderer, 60, 250, "0");
-	 */
-	/*
-
-		if (parser->ConsoleButtons.LTog[0]) render_text(gRenderer, 0, 200, "0", gFontAG, &color);
-		if (parser->ConsoleButtons.LTog[1]) render_text(gRenderer, 20, 200, "0", gFontAG, &color);
-		if (parser->ConsoleButtons.LTog[2]) render_text(gRenderer, 40, 200, "0", gFontAG, &color);
-		if (parser->ConsoleButtons.LTog[3]) render_text(gRenderer, 60, 200, "0", gFontAG, &color);
-		if (parser->ConsoleButtons.LTog[4]) render_text(gRenderer, 0, 220, "0", gFontAG, &color);
-		if (parser->ConsoleButtons.LTog[5]) render_text(gRenderer, 20, 220, "0", gFontAG, &color);
-		if (parser->ConsoleButtons.LTog[6]) render_text(gRenderer, 40, 220, "0", gFontAG, &color);
-		if (parser->ConsoleButtons.LTog[7]) render_text(gRenderer, 60, 220, "0", gFontAG, &color);
-
-		//if (tempb[0] == 1) render_text(gRenderer, 60, 220, "Woopadoop", gFontAG, &color);
-		if (tempb[2] & 0b0000'0001) render_text(gRenderer, 00, 220, "1", gFontAG, &color);
-		if (tempb[2] & 0b0000'0010) render_text(gRenderer, 20, 220, "2", gFontAG, &color);
-		if (tempb[2] & 0b0000'0100) render_text(gRenderer, 40, 220, "3", gFontAG, &color);
-		if (tempb[2] & 0b0000'1000) render_text(gRenderer, 60, 220, "4", gFontAG, &color);
-
-		if (tempb[3] & 0b0000'0001) render_text(gRenderer, 00, 260, "1", gFontAG, &color);
-		if (tempb[3] & 0b0000'0010) render_text(gRenderer, 20, 260, "2", gFontAG, &color);
-		if (tempb[3] & 0b0000'0100) render_text(gRenderer, 40, 260, "3", gFontAG, &color);
-		if (tempb[3] & 0b0000'1000) render_text(gRenderer, 60, 260, "4", gFontAG, &color);
-		//if (buff.length() > 1) render_text(gRenderer, 00, 220, buff.c_str(), gFontAG, &color);
-
-	*/
-	/*
-	if (consol->isOpen())
-	{
-		render_text(gRenderer, 40, 300, "Open", gFontAG, &color);
-	}
-	else
-	{
-		render_text(gRenderer, 40, 300, "Closed", gFontAG, &color);
-	}
-	*/
-	int x = 500, y = 500;
-
-	rect = {Scroll.x, Scroll.y, 850 * Zoom, 1250 * Zoom};
-	SDL_SetTextureColorMod(gTexture, 0, 0, 255);
-	SDL_RenderCopy(gRenderer, gTexture, NULL, &rect);
-
-	rect = {int (SWS.Ship->x) - 5 + x, int (SWS.Ship->z) - 5 + y, 10, 10};
-	SDL_RenderDrawRect(gRenderer, &rect);
-
-	rect = {0 + x, 30 + y, 2, 2};
-	SDL_RenderDrawRect(gRenderer, &rect);
-	rect = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
-	SDL_RenderCopy(gRenderer, UITexture, NULL, &rect);
-
-
-
-	//SDL_Point * UIPoints = new SDL_Point[30];
-	//SDL_Point p = {50, 50};
-
-	//UIPoints[0] = SDL_Point{0, 0};
-
-	//SDL_RenderDrawLines(gRenderer,  UIPoints, 7);
-
-	dist1 += 0.000001;
-	if(dist1 > 10000) dist1 = -10000;
-
-
-	//q3Vec3 vec;
-	//body->GetWorldVector(vec);
-	//body->enableGravity(false);
-	//Transform transform = body->getTransform();
-	//Vector3 vec = transform.getPosition();
-	//render_text(gRenderer, vec.x + SCREEN_WIDTH / 2, vec.y + SCREEN_HEIGHT / 2, "0", gFontAG, &color);
-
-
-	SDL_RenderPresent(gRenderer);
-}
-
-void renderGalaxyMap(int renderX, int renderY) {
-	SDL_SetRenderDrawColor(gRenderer, 10, 10, 10, 255);
-	SDL_RenderClear(gRenderer);
-
-	setRenderColor(80, 130, 240, 255);	//Blue (50, 160, 240, 255);
-	//Orange (220, 140, 40, 255);
-	SDL_Color color = setColor(80, 130, 240, 255);
-	color = setColor(220, 140, 40, 255);
-
-	FC_Draw(gFontAG, gRenderer, 0, 0, to_string(framsPerSec).c_str());
-	//render_text(gRenderer, 900, 0, to_string(framsPerSec).c_str(), gFontAG, &color);
-	color = setColor(130, 60, 60, 255);
-
-	for(pair<int, StarMapData_Type*> e : StarMap->StarMap) {
-		//if (e.second->Grid)
-		//if (strcmp(e.second->Grid, "L9") == 0)
-		//{
-		double x, y;
-		y = -e.second->y;
-		x = e.second->x;
-		x = x * Zoom + Scroll.x;
-		y = y * Zoom + Scroll.y;
-
-		if(x > 0 && y > 0 && x < 1920 && y < 1080) {
-			SDL_Rect rect = {x, y, 10, 20};
-			SDL_RenderDrawRect(gRenderer, &rect);
-			FC_Draw(gFontAG, gRenderer, x, y + 10, e.second->Name);
-		}
-		//}
-
-	}
-
-
-	SDL_RenderPresent(gRenderer);
-}
-
-bool init() {
-	//Init SDL
-	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
-		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
-		return false;
-	}
-
-
-	gWindow = SDL_CreateWindow("Screen App", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_BORDERLESS);
-	if(gWindow == NULL) {
-		printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
-		return false;
-	}
-
-
-	SDL_Rect DispayBounds;
-	//SDL_GetDisplayBounds(0, &DispayBounds);
-	SDL_GetDisplayBounds(3, &DispayBounds);
-	//SDL_SetWindowPosition( gWindow, DispayBounds.x + ( DispayBounds.w - 900 ) / 2, DispayBounds.y + ( DispayBounds.h - 1440 ) / 2 );
-
-	SDL_SetWindowPosition(gWindow, DispayBounds.x + (DispayBounds.w - 900) / 2, DispayBounds.y);
-
-	//gRenderer = SDL_CreateRenderer(gWindow, -1, NULL);
-	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
-	if(gRenderer == NULL) {
-		printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
-		return false;
-	}
-
-	TTF_Init();
-
-	gScreenSurface = SDL_GetWindowSurface(gWindow);
-
-	//if (Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0 ) {printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() ); return false;}
-
-	//Setup Network
-	_net = new VTNetwork();
+	_sws = new SWSimulation();
+	_physics = new VTPhysics(_sws);
+	_render = new VTRender(_sws);
+	_net = new VTNetwork();	
+	StarMap = new VTMap();
+	
+	StarMap->LoadMapFile("planets.kml");
+	_physics->Init();
+	_render->Init(900, 1440, 3);
 	_net->init_Network();
 	//SDLNet_Init();
-
-	//Diable Cursor
-	SDL_ShowCursor(SDL_DISABLE);
 	return true;
 }
 
-bool loadResources() {
-	bool success = true;
-	//Load Fonts
-	//gFontAure = TTF_OpenFont("Aurebesh.ttf", 22);
-	//gFontAG = TTF_OpenFont("AG-Stencil.ttf", 22);
-	gFontAure = FC_CreateFont();
-	gFontAG = FC_CreateFont();
-
-	FC_LoadFont(gFontAure, gRenderer, "Aurebesh.ttf", 22, FC_MakeColor(220, 140, 40, 255), TTF_STYLE_NORMAL);
-	FC_LoadFont(gFontAG, gRenderer, "AG-Stencil.ttf", 22, FC_MakeColor(80, 130, 240, 255), TTF_STYLE_NORMAL);
-
-
-	//Load Images
-	//gXOut = imageLoader("x.png");
-	gTexture = loadTexture("VT49-2.png");
-	UITexture = loadTexture("UI.png");
-	//gTexture = loadTexture("elf.png");
-	//gTexture = loadTexture("elf.jpg");
-	//if( gTexture == NULL ) {printf( "Unable to load image %s! SDL Error: %s\n", "x.png", SDL_GetError() ); success = false;}
-
-	//Load Music/SFX
-	//gMusic = Mix_LoadMUS( "BEEP.mp3" );
-	sfx1 = Mix_LoadWAV("BEEP.wav");
-	sfx2 = Mix_LoadWAV("WELD2.wav");
-
-
-
-	//planetMap = new XMLDocument();
-	//Load Map Files
-
-	//planetMap->LoadFile("planets.kml");
-
-	//XMLHandle * pRoot
-	//XMLNode * pRoot = planetMap.FirstChild();
-	//if (pRoot == nullptr) return XML_ERROR_FILE_READ_ERROR;
-
-	//XMLElement * pElement = pRoot.FirstChildElement("planets");
-	//const char* pName = planetMap.FirstChildElement( "Folder" )->FirstChildElement( "name" )->GetText();
-
-
-	//XMLElement * pElement = planetMap.FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "Placemark" )->FirstChildElement( "name" )->GetText();
-	//const char * name = planetMap.FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "name" )->GetText();
-
-	//XMLText* textNode = planetMap->FirstChildElement( "kml" )->FirstChildElement( "Document" )->FirstChildElement( "Folder" )->FirstChildElement( "name" )->FirstChild()->ToText();
-	//pName = textNode->Value();
-	StarMap = new VTMap();
-
-	StarMap->LoadMapFile("planets.kml");
-
-
-	//StarMap.StarMap.insert()
-
-	//if (name)
-	//strcpy(pName, name);
-	//else
-	//pName = "goose";
-
-
-	//if (pElement)
-//		pName = "dood";
-//	else
-	//pName = "pood";
-
-	//->FirstChildElement( "Placemark" )
-
-
-	return success;
-}
-
-void close() {
+void close()
+{
 	//Deallocate surface
-	SDL_DestroyTexture(gTexture);
-	gTexture = NULL;
+	// SDL_DestroyTexture(gTexture);
+	// gTexture = NULL;
 
 	//Destroy window
-	SDL_DestroyRenderer(gRenderer);
-	SDL_DestroyWindow(gWindow);
+	// SDL_DestroyRenderer(gRenderer);
+	// SDL_DestroyWindow(gWindow);
 
-	gWindow = NULL;
-	gRenderer = NULL;
+	// gWindow = NULL;
+	// gRenderer = NULL;
 	//net = NULL;
 
-	Mix_FreeChunk(sfx1);
-	Mix_FreeChunk(sfx2);
-	sfx1 = NULL;
-	sfx2 = NULL;
-	gMusic = NULL;
-	FC_FreeFont(gFontAure);
-	FC_FreeFont(gFontAG);
+	// Mix_FreeChunk(sfx1);
+	// Mix_FreeChunk(sfx2);
+	// sfx1 = NULL;
+	// sfx2 = NULL;
+	// gMusic = NULL;
+	// FC_FreeFont(gFontAure);
+	// FC_FreeFont(gFontAG);
 
-	//Quit SDL subsystems
-	Mix_Quit();
-	IMG_Quit();
-	TTF_Quit();
-	SDL_Quit();
-
+	// //Quit SDL subsystems
+	// Mix_Quit();
+	// IMG_Quit();
+	// TTF_Quit();
+	// SDL_Quit();
 }
 
-int main(int argc, char **argv) {
-	if(init()) {
+int main(int argc, char **argv)
+{
+	if (init())
+	{
 		init_setup();
-
 		int fps;
-
 		fpsTicks = SDL_GetTicks();
-		//While application is running
-
 		//std::thread serialThread(Serial_Write);
 		//SDL_Thread *serialThread = SDL_CreateThread(Serial_Write, "Serial_Write", (void *)NULL);
 
-
-
-		btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
-		btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
-		btBroadphaseInterface* overlappingPairCache = new btDbvtBroadphase();
-		btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
-		//btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-		btDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-		dynamicsWorld->setGravity(btVector3(0, 0, 0));
-		btAlignedObjectArray<btCollisionShape*> collisionShapes;
-
-
-
-		btCollisionShape* VT49Mesh;
-		btCollisionShape* VT49Mesh2;
-		btBulletWorldImporter import(0);  //don't store info into the world
-		if(import.loadFile("Box.bullet")) {
-			int numShape = import.getNumCollisionShapes();
-			if(numShape) {
-				VT49Mesh = (btConvexHullShape*) import.getCollisionShapeByIndex(0);
-				//VT49Mesh2 = (btConvexHullShape*)import.getCollisionShapeByIndex(0);
-			}
-		}
-		collisionShapes.push_back(VT49Mesh);
-		//collisionShapes.push_back(VT49Mesh2);
-
-
+		
+		while (!quit)
 		{
-			btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(1.), btScalar(1.), btScalar(1.)));
-
-
-			collisionShapes.push_back(groundShape);
-
-			btTransform groundTransform;
-			groundTransform.setIdentity();
-			groundTransform.setOrigin(btVector3(0, 0, 30));
-
-			btScalar mass(0.);
-
-			//rigidbody is dynamic if and only if mass is non zero, otherwise static
-			bool isDynamic = (mass != 0.f);
-
-			btVector3 localInertia(0, 0, 0);
-			if(isDynamic)
-				groundShape->calculateLocalInertia(mass, localInertia);
-
-			//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
-			btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
-			//btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
-			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, VT49Mesh, localInertia);
-
-
-			btRigidBody* body = new btRigidBody(rbInfo);
-
-			//add the body to the dynamics world
-			dynamicsWorld->addRigidBody(body);
-
-		}
-
-		{
-			//create a dynamic rigidbody
-
-			btCollisionShape* colShape = new btBoxShape(btVector3(5, 5, 5));
-			//btCollisionShape* colShape = new btSphereShape(btScalar(5.));
-			collisionShapes.push_back(colShape);
-
-			/// Create Dynamic Objects
-			btTransform startTransform;
-			startTransform.setIdentity();
-
-			btScalar mass(1.f);
-
-			//rigidbody is dynamic if and only if mass is non zero, otherwise static
-			bool isDynamic = (mass != 0.f);
-
-			btVector3 localInertia(0, 0, 0);
-			if(isDynamic)
-				colShape->calculateLocalInertia(mass, localInertia);
-
-			startTransform.setOrigin(btVector3(0, 0, 0));
-
-			//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-			btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, VT49Mesh, localInertia);
-			btRigidBody* body = new btRigidBody(rbInfo);
-
-			dynamicsWorld->addRigidBody(body);
-
-			//btHingeConstraint* hinge = new btHingeConstraint(*body, btVector3(1, 0, 0), btVector3(1, 0, 0), true);
-			//hinge->setAngularOnly(true);
-			//dynamicsWorld->addConstraint(hinge);
-
-		}
-
-		//b3BulletFile* fileloader = new b3BulletFile("VT49.bullet");
-		//fileloader->parseData();
-		//fileloader.m_rigidBodies[0];
-		//fileloader.m_collisionObjects[]
-		//btcol
-
-		//btBulletWorldImporter* fileloader = new btBulletWorldImporter(dynamicsWorld);
-		//fileloader->loadFile("VT49.bullet");
-
-
-		//print positions of all objects
-
-		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray() [1];
-		btRigidBody* body = btRigidBody::upcast(obj);
-		btTransform trans;
-
-
-
-
-
-
-
-		if(body && body->getMotionState()) {
-			body->getMotionState()->getWorldTransform(trans);
-		} else {
-			trans = obj->getWorldTransform();
-		}
-
-		printf("world pos object %d = %f,%f,%f\n", float (trans.getOrigin().getX()), float (trans.getOrigin().getY()), float (trans.getOrigin().getZ()));
-
-
-		while(!quit) {
 			//startTicks = SDL_GetTicks();
 
-
-			while(SDL_PollEvent(&e) != 0) {
+			while (SDL_PollEvent(&e) != 0)
+			{
 				handleUI(e);
-			}
-			//scene->Step();
-			//world->update( 1.0 / 60.0 );
+			}			
 
-//			Serial_Read();
-//			Serial_Write();
 			//if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
 			//{
 
@@ -798,49 +378,43 @@ int main(int argc, char **argv) {
 			//serialTicks = SDL_GetTicks();
 			//}
 
+			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
+			{				
 
-			if(fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks()) {
-				dynamicsWorld->stepSimulation(1.f / 60.f, 10);
-				body->setActivationState(DISABLE_DEACTIVATION);
-				body->activate(true);
-
-//				_net->update_Network(SWS);
+				//				_net->update_Network(SWS);
 				//fpsTicks = SDL_GetTicks();
 
-
-
 				//parser->ConsolePressed.insert((int)Typeof_ConsoleInputs::FlightStickUP);
-//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) Scroll.y = Scroll.y + 5 * Zoom;
-//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) Scroll.y = Scroll.y - 5 * Zoom;
-//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) Scroll.x = Scroll.x + 5 * Zoom;
-//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) Scroll.x = Scroll.x - 5 * Zoom;
-//
-//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) body->applyCentralImpulse(btVector3(0, -0.1, 0));
-//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) body->applyCentralImpulse(btVector3(0, 0.1, 0));
-//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) body->applyCentralImpulse(btVector3(0, 0, -0.1));
-//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) body->applyCentralImpulse(btVector3(0, 0, 0.1));
-//
-//				if(parser->InputDown(Typeof_ConsoleInputs::LEDButton3)) body->applyCentralImpulse(btVector3(0, 0, 1));
-//
-//
-//				if(parser->InputDown(Typeof_ConsoleInputs::LEDButton1)) {
-//					printf(to_string(DiceRoller::diceRoll(10, 0, 0, 0, 0, 0, 0).success).c_str());
-//
-//					//printf(to_string(rollGreen().success).c_str());
-//
-//				}
-//
-//				if(parser->InputPressed(Typeof_ConsoleInputs::LEDButton4, true)) {
-////					ConsoleSerialSend(2);
-//				}
+				//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) Scroll.y = Scroll.y + 5 * Zoom;
+				//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) Scroll.y = Scroll.y - 5 * Zoom;
+				//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) Scroll.x = Scroll.x + 5 * Zoom;
+				//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) Scroll.x = Scroll.x - 5 * Zoom;
+				//
+				//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickUP)) body->applyCentralImpulse(btVector3(0, -0.1, 0));
+				//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickDOWN)) body->applyCentralImpulse(btVector3(0, 0.1, 0));
+				//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickLEFT)) body->applyCentralImpulse(btVector3(0, 0, -0.1));
+				//				if(parser->InputDown(Typeof_ConsoleInputs::FlightStickRIGHT)) body->applyCentralImpulse(btVector3(0, 0, 0.1));
+				//
+				//				if(parser->InputDown(Typeof_ConsoleInputs::LEDButton3)) body->applyCentralImpulse(btVector3(0, 0, 1));
+				//
+				//
+				//				if(parser->InputDown(Typeof_ConsoleInputs::LEDButton1)) {
+				//					printf(to_string(DiceRoller::diceRoll(10, 0, 0, 0, 0, 0, 0).success).c_str());
+				//
+				//					//printf(to_string(rollGreen().success).c_str());
+				//
+				//				}
+				//
+				//				if(parser->InputPressed(Typeof_ConsoleInputs::LEDButton4, true)) {
+				////					ConsoleSerialSend(2);
+				//				}
 
-//				SWS.Ship->UpdateConsole(parser);
+				//				SWS.Ship->UpdateConsole(parser);
+				
 
-				body->getMotionState()->getWorldTransform(trans);
-
-				SWS.Ship->x = float (trans.getOrigin().getX());
-				SWS.Ship->y = float (trans.getOrigin().getY());
-				SWS.Ship->z = float (trans.getOrigin().getZ());
+				//				SWS.Ship->x = float (trans.getOrigin().getX());
+				//				SWS.Ship->y = float (trans.getOrigin().getY());
+				//				SWS.Ship->z = float (trans.getOrigin().getZ());
 
 				//trans.getRotation()
 
@@ -848,7 +422,9 @@ int main(int argc, char **argv) {
 
 				//printf("world pos object %d = %f,%f,%f\n", float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
 
-				render();
+				//render();
+				_physics->Update();
+				_render->Render();
 				//renderGalaxyMap(0, 0);
 				fps++;
 				fpsTicks = SDL_GetTicks();
@@ -856,10 +432,10 @@ int main(int argc, char **argv) {
 
 			long currenttick = SDL_GetTicks();
 			//if((fpsTicks + SCREEN_TICKS_PER_FRAME) - currenttick > 0)
-				//SDL_Delay((fpsTicks + SCREEN_TICKS_PER_FRAME) - currenttick);
+			//SDL_Delay((fpsTicks + SCREEN_TICKS_PER_FRAME) - currenttick);
 
-
-			if(fpsStart + 1000 < SDL_GetTicks()) {
+			if (fpsStart + 1000 < SDL_GetTicks())
+			{
 
 				//if (FPS_Adjust > SCREEN_TICKS_PER_FRAME * 100)
 				//FPS_Adjust = SCREEN_TICKS_PER_FRAME * 100;
@@ -873,8 +449,6 @@ int main(int argc, char **argv) {
 				fpsStart = SDL_GetTicks();
 			}
 
-
-
 			//int frameTicks = SDL_GetTicks() - startTicks;
 			//if (frameTicks < SCREEN_TICKS_PER_FRAME)
 			//{
@@ -882,66 +456,11 @@ int main(int argc, char **argv) {
 			//}
 		}
 
-		quit = true;
-		//SDL_WaitThread(serialThread, NULL);
-
-	} else printf("Failed to initialize!\n");
+		quit = true;		
+	}
+	else
+		printf("Failed to initialize!\n");
 
 	close();
 	return 0;
-}
-
-void setRenderColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
-	if(gRenderer != NULL)
-		SDL_SetRenderDrawColor(gRenderer, r, g, b, a);
-}
-
-void setRenderColor(SDL_Color c) {
-	if(gRenderer != NULL)
-		SDL_SetRenderDrawColor(gRenderer, c.r, c.g, c.b, c.a);
-}
-
-SDL_Color setColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a) {
-	SDL_Color color;
-	color.a = a;
-	color.r = r;
-	color.g = g;
-	color.b = b;
-	return color;
-}
-
-void render_text(SDL_Renderer *renderer, int x, int y, const char *text, TTF_Font *font, SDL_Color *color) {
-	if(text) {
-		SDL_Surface *surface;
-		SDL_Texture *texture;
-		SDL_Rect rect;
-
-		surface = TTF_RenderText_Solid(font, text, *color);
-		texture = SDL_CreateTextureFromSurface(renderer, surface);
-		rect.x = x;
-		rect.y = y;
-		rect.w = surface->w;
-		rect.h = surface->h;
-		SDL_RenderCopy(renderer, texture, NULL, &rect);
-		SDL_FreeSurface(surface);
-		SDL_DestroyTexture(texture);
-	}
-}
-
-SDL_Texture* loadTexture(std::string path) {
-	SDL_Texture* newTexture = NULL;
-	SDL_Surface* surface = IMG_Load(path.c_str());
-	if(surface == NULL)
-		return NULL;
-
-	newTexture = SDL_CreateTextureFromSurface(gRenderer, surface);
-	if(newTexture == NULL) {
-		printf("Unable to load image %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
-		SDL_FreeSurface(surface);
-		return NULL;
-	}
-
-	SDL_FreeSurface(surface);
-
-	return newTexture;
 }
