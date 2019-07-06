@@ -55,7 +55,7 @@ VTNetwork* _net;
 //RigidBody* body;
 
 
-SDL_Rect rect1, rect2;
+// SDL_Rect rect1, rect2;
 double dist1;
 
 //VTSerialParser* parser;
