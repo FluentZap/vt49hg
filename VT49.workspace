@@ -12,25 +12,25 @@
     <Include Path="C:\Users\Toad\Documents\bullet3-2.87\src\Bullet3Common"/>
   </WorkspaceParserPaths>
   <Project Name="VT49" Path="VT49/VT49.project" Active="Yes"/>
-  <Project Name="serial" Path="serial/serial.project" Active="No"/>
   <Project Name="NetTest" Path="NetTest/NetTest.project" Active="No"/>
   <Project Name="Bullet3" Path="Bullet3/Bullet3.project" Active="No"/>
+  <Project Name="SerialNew" Path="SerialNew/SerialNew.project"/>
   <BuildMatrix>
     <WorkspaceConfiguration Name="Debug" Selected="yes">
       <Environment/>
       <Project Name="VT49" ConfigName="Debug"/>
-      <Project Name="serial" ConfigName="Debug"/>
       <Project Name="NetTest" ConfigName="Debug"/>
       <Project Name="Bullet3" ConfigName="Debug"/>
       <Project Name="Bullet3" ConfigName="Debug"/>
+      <Project Name="SerialNew" ConfigName="Debug"/>
     </WorkspaceConfiguration>
     <WorkspaceConfiguration Name="Release" Selected="no">
       <Environment/>
       <Project Name="VT49" ConfigName="Release"/>
-      <Project Name="serial" ConfigName="Release"/>
       <Project Name="NetTest" ConfigName="Release"/>
       <Project Name="Bullet3" ConfigName="Release"/>
       <Project Name="Bullet3" ConfigName="Release"/>
+      <Project Name="SerialNew" ConfigName="Release"/>
     </WorkspaceConfiguration>
   </BuildMatrix>
 </CodeLite_Workspace>

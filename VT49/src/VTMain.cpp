@@ -19,7 +19,7 @@
 #include <b3BulletFile.h>
 #include <btBulletWorldImporter.h>
 
-#include "VTStart.h"
+#include "VTMain.h"
 #include "VTSerial.h"
 #include "VTNetwork.h"
 #include "SWSimulation.h"
