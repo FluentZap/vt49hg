@@ -5,7 +5,6 @@
 
 VTNetwork::VTNetwork() {
 
-
 }
 
 VTNetwork::~VTNetwork() {

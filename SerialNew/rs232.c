@@ -95,6 +95,8 @@ int RS232_OpenComport(int comport_number, int baudrate, const char *mode, int fl
                    break;
     case   19200 : baudr = B19200;
                    break;
+		case   28800 : baudr = B28800;
+                   break;
     case   38400 : baudr = B38400;
                    break;
     case   57600 : baudr = B57600;
@@ -539,6 +541,8 @@ int RS232_OpenComport(int comport_number, int baudrate, const char *mode, int fl
     case    9600 : strcpy(mode_str, "baud=9600");
                    break;
     case   19200 : strcpy(mode_str, "baud=19200");
+                   break;
+		case   28800 : strcpy(mode_str, "baud=28800");
                    break;
     case   38400 : strcpy(mode_str, "baud=38400");
                    break;

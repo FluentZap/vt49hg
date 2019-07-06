@@ -1,8 +1,10 @@
 #ifndef SWSIMULATION_H
 #define SWSIMULATION_H
 #include <stdio.h>
-#include <VTSerial.h>
+#include <string>
 #include "SDL.h"
+
+using namespace std;
 
 struct Type_PowerDistribution
 {
@@ -11,6 +13,7 @@ struct Type_PowerDistribution
 
 class PlayerStats {
 public:
+
 	string name;
 	uint8_t brawn, agility, intelect, cunning, willpower, presence;
 	uint8_t astrogation, athletics, brawl, charm, coercion, computers, cool, coordination, coreWorlds,
@@ -25,21 +28,21 @@ public:
 class PCShip
 {
 public:
-	string Callsign;
-	string TransponderID;
-	Type_PowerDistribution PowerDistribution;
+	// string Callsign;
+	// string TransponderID;
+	// Type_PowerDistribution PowerDistribution;
 	float x, y, z;
-	void UpdateConsole(VTSerialParser * parser);
-	SDL_Point Sector_Location;
+	// void UpdateConsole(VTSerialParser * parser);
+	// SDL_Point Sector_Location;
 };
 
 
 class SWSimulation
-{
+{	
 public:
 	SWSimulation();
 	~SWSimulation();
-
+	int FPS;
 	PCShip* Ship = new PCShip();
 
 };

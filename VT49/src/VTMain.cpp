@@ -45,6 +45,7 @@ enum OS_Types
 	WIN,
 	LINUX
 };
+
 OS_Types CurrentOS;
 string buff;
 
@@ -59,26 +60,6 @@ const char *pName;
 VTMap *StarMap;
 SWSimulation *_sws;
 diceResult greendie;
-
-void init_setup()
-{
-	//rp3d::Vector3 gravity(0.0, -9.81, 0.0);
-	//Vector3 gravity(0.0, 0.0, 0.0);
-
-	//world = new DynamicsWorld(gravity);
-
-	//Vector3 initPosition(0.0, 3.0, 0.0);
-	//Quaternion initOrientation = Quaternion::identity();
-	//Transform transform(initPosition, initOrientation);
-	//body = world->createRigidBody(transform);
-
-	//body->setType(BodyType::DYNAMIC);
-
-	//Serial Connection
-
-	//	parser = new VTSerialParser();
-	//	Serial_Connect();
-}
 
 void Serial_Connect()
 {
@@ -311,11 +292,13 @@ bool init()
 	_sws = new SWSimulation();
 	_physics = new VTPhysics(_sws);
 	_render = new VTRender(_sws);
-	_net = new VTNetwork();	
+	_serial = new VTSerial(_sws);
+	_net = new VTNetwork();
 	StarMap = new VTMap();
-	
+
 	StarMap->LoadMapFile("planets.kml");
 	_physics->Init();
+	_serial->Init();
 	_render->Init(900, 1440, 3);
 	_net->init_Network();
 	//SDLNet_Init();
@@ -355,13 +338,12 @@ int main(int argc, char **argv)
 {
 	if (init())
 	{
-		init_setup();
 		int fps;
 		fpsTicks = SDL_GetTicks();
 		//std::thread serialThread(Serial_Write);
 		//SDL_Thread *serialThread = SDL_CreateThread(Serial_Write, "Serial_Write", (void *)NULL);
 
-		
+
 		while (!quit)
 		{
 			//startTicks = SDL_GetTicks();
@@ -369,7 +351,7 @@ int main(int argc, char **argv)
 			while (SDL_PollEvent(&e) != 0)
 			{
 				handleUI(e);
-			}			
+			}
 
 			//if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
 			//{
@@ -379,7 +361,7 @@ int main(int argc, char **argv)
 			//}
 
 			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
-			{				
+			{
 
 				//				_net->update_Network(SWS);
 				//fpsTicks = SDL_GetTicks();
@@ -410,7 +392,7 @@ int main(int argc, char **argv)
 				//				}
 
 				//				SWS.Ship->UpdateConsole(parser);
-				
+
 
 				//				SWS.Ship->x = float (trans.getOrigin().getX());
 				//				SWS.Ship->y = float (trans.getOrigin().getY());
@@ -425,6 +407,7 @@ int main(int argc, char **argv)
 				//render();
 				_physics->Update();
 				_render->Render();
+				// _serial->Update();
 				//renderGalaxyMap(0, 0);
 				fps++;
 				fpsTicks = SDL_GetTicks();
@@ -442,8 +425,7 @@ int main(int argc, char **argv)
 
 				//if (FPS_Adjust < 0)
 				//FPS_Adjust = 0;
-
-				framsPerSec = fps;
+				_sws->FPS = fps;
 				fps = 0;
 
 				fpsStart = SDL_GetTicks();
@@ -456,7 +438,7 @@ int main(int argc, char **argv)
 			//}
 		}
 
-		quit = true;		
+		quit = true;
 	}
 	else
 		printf("Failed to initialize!\n");
