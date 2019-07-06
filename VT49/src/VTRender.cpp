@@ -80,7 +80,7 @@ void VTRender::Render()
     setRenderColor(80, 130, 240, 255); //Blue (50, 160, 240, 255);
                                        //Orange (220, 140, 40, 255);
 
-    //FC_Draw(gFontAG, gRenderer, 0, 0, to_string(framsPerSec).c_str());
+    FC_Draw(gFontAG, gRenderer, 0, 0, to_string(SWS->FPS).c_str());
     // FC_Draw(gFontAG, gRenderer, 0, 20, to_string(FPS_Adjust).c_str());
 
     //setRenderColor(255, 255, 255, 255);

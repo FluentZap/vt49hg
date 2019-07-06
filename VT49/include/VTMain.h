@@ -1,14 +1,17 @@
-#ifndef VTSTART
-#define VTSTART
+#ifndef VTMAIN_H
+#define VTMAIN_H
 
 #include "VTRender.h"
 #include "VTPhysics.h"
+#include "VTSerial.h"
 // #include "SDL.h"
 // #include <SDL_FontCache.h>
 
 using namespace std;
 
 typedef unsigned char byte;
+
+// enum OS_Types;
 
 bool init();
 void close();
@@ -21,20 +24,15 @@ void ConsoleSerialSend(byte ConsolePacketSend);
 
 VTRender* _render;
 VTPhysics* _physics;
+VTSerial *_serial;
+
+
 
 void handleUI(SDL_Event);
 //void render_text(SDL_Renderer, int, int, const char, TTF_Font, SDL_Color);
 
 
-
-
 SDL_Event e;
 SDL_Color textcolor = { 0, 0, 0, 255 };
-
-//TTF_Font *gFontAure = NULL;
-//TTF_Font *gFontAG = NULL;
-
-void init_setup();
-
 
 #endif

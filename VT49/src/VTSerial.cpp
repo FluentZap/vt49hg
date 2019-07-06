@@ -2,8 +2,27 @@
 #include "COBS.h"
 #include <unordered_set>
 
+VTSerial::VTSerial(SWSimulation *SWS)
+{
+	VTSerial::SWS = SWS;
+	//RecievedData_Type ConsoleReceivedData;
+	//uint8_t ConsoleDataBuffer[12];
+}
 
-void VTSerialParser::addToSet(unordered_set<int>& itemset, Typeof_ConsoleInputs item, bool pressed = true) {
+VTSerial::~VTSerial()
+{
+}
+
+void VTSerial::Init()
+{
+	RS232_OpenComport(3, 28800, "8N1", 1);
+	RS232_OpenComport(5, 28800, "8N1", 1);
+	// if(CurrentOS == WIN) RS232_OpenComport(3, 28800, "8N1", 1);
+	// if(CurrentOS == WIN) RS232_OpenComport(5, 28800, "8N1", 1);
+}
+
+
+void VTSerial::addToSet(unordered_set<int>& itemset, Typeof_ConsoleInputs item, bool pressed = true) {
 	if(pressed) {
 		if(itemset.find((int) item) == itemset.end()) {
 			itemset.insert((int) item);
@@ -16,18 +35,18 @@ void VTSerialParser::addToSet(unordered_set<int>& itemset, Typeof_ConsoleInputs 
 	}
 }
 
-void VTSerialParser::ConsolePressButton(Typeof_ConsoleInputs item) {
+void VTSerial::ConsolePressButton(Typeof_ConsoleInputs item) {
 	if(ConsoleKeyPressed.find((int) item) == ConsoleKeyPressed.end())
 		ConsoleKeyPressed.insert((int) item);
 }
 
-bool VTSerialParser::InputDown(Typeof_ConsoleInputs key) {
+bool VTSerial::InputDown(Typeof_ConsoleInputs key) {
 	if(ConsolePressed.find((int) key) != ConsolePressed.end())
 		return true;
 	return false;
 }
 
-bool VTSerialParser::InputPressed(Typeof_ConsoleInputs key, bool remove) {
+bool VTSerial::InputPressed(Typeof_ConsoleInputs key, bool remove) {
 	if(ConsoleKeyPressed.find((int) key) != ConsoleKeyPressed.end()) {
 		if(remove)
 			ConsoleKeyPressed.erase((int) key);
@@ -48,7 +67,7 @@ const unsigned char option7 = 0b10000000; // represents bit 7
 
 //#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
 
-void VTSerialParser::ConsoleReadDataStream(uint8_t* Buffer) {
+void VTSerial::ConsoleReadDataStream(uint8_t* Buffer) {
 	if(Buffer[0] == 1) {
 		ConsoleReceivedData.DoubleTog = Buffer[1];
 		ConsoleReceivedData.LEDTog = Buffer[2];
@@ -117,14 +136,14 @@ void VTSerialParser::ConsoleReadDataStream(uint8_t* Buffer) {
 	}
 }
 
-//void VTSerialParser::ConsolePotReadDataStream(uint8_t* Buffer) {
+//void VTSerial::ConsolePotReadDataStream(uint8_t* Buffer) {
 //	ConsolePotValue[0] = Buffer[0];
 //	ConsolePotValue[1] = Buffer[1];
 //	ConsolePotValue[2] = Buffer[2];
 //	ConsolePotValue[3] = Buffer[3];
 //}
 
-//void VTSerialParser::ConsoleSend(const int port, const uint8_t* buffer, size_t size) {
+//void VTSerial::ConsoleSend(const int port, const uint8_t* buffer, size_t size) {
 //	uint8_t EncodeBuffer[COBS::getEncodedBufferSize(size)];
 //	size_t numEncoded = COBS::encode(buffer, size, EncodeBuffer);
 //	//EncodeBuffer[numEncoded] = Marker;
@@ -137,7 +156,7 @@ void VTSerialParser::ConsoleReadDataStream(uint8_t* Buffer) {
 ////		stream->write(data, 1);
 //}
 
-//void VTSerialParser::ConsoleUpdate(const int port) {
+//void VTSerial::ConsoleUpdate(const int port) {
 //
 //	do {
 //		uint8_t data[255] = {};
@@ -169,7 +188,7 @@ void VTSerialParser::ConsoleReadDataStream(uint8_t* Buffer) {
 
 
 
-//void VTSerialParser::ConsolePotUpdate(serial::Serial* stream) {
+//void VTSerial::ConsolePotUpdate(serial::Serial* stream) {
 //	if(stream->isOpen()) {
 //		while(stream->available() > 0) {
 //			uint8_t data[1] = {};
@@ -197,12 +216,7 @@ void VTSerialParser::ConsoleReadDataStream(uint8_t* Buffer) {
 //}
 
 
-
-VTSerialParser::VTSerialParser() {
-	//RecievedData_Type ConsoleReceivedData;
-	//uint8_t ConsoleDataBuffer[12];
-}
-
-VTSerialParser::~VTSerialParser() {
+void VTSerial::Update()
+{
 
 }

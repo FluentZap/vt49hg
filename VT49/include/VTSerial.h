@@ -1,12 +1,14 @@
-#ifndef VTSERIALPARSER_H
-#define VTSERIALPARSER_H
+#ifndef VTSERIAL_H
+#define VTSERIAL_H
 #include <stdio.h>
 #include <rs232.h>
 #include <unordered_set>
+#include "SWSimulation.h"
 
 using namespace std;
 
-enum class Typeof_ConsoleInputs : int {
+enum class Typeof_ConsoleInputs : int
+{
 	DoubleTog1_UP,
 	DoubleTog1_DOWN,
 	DoubleTog2_UP,
@@ -52,10 +54,13 @@ enum class Typeof_ConsoleInputs : int {
 	FlightStickRIGHT
 };
 
-class VTSerialParser {
+class VTSerial
+{
 public:
-	VTSerialParser();
-	~VTSerialParser();
+	VTSerial(SWSimulation *SWS);
+	~VTSerial();
+	void Init();
+	void Update();
 
 	uint8_t Marker = 0;
 	const static size_t BufferSize = 256;
@@ -64,22 +69,20 @@ public:
 	int ConsoleDataBufferIndex = 0;
 	uint8_t ConsoleDataBuffer[BufferSize] = {};
 
-	void ConsoleReadDataStream(uint8_t*);
-//	void ConsoleUpdate(serial::Serial*);
+	void ConsoleReadDataStream(uint8_t *);
+	//	void ConsoleUpdate(serial::Serial*);
 
-//	void ConsoleSend(serial::Serial* Stream, const uint8_t* Buffer, size_t Size);
+	//	void ConsoleSend(serial::Serial* Stream, const uint8_t* Buffer, size_t Size);
 
 	//Console Pot Serial Varables
 	int ConsolePotDataBufferIndex = 0;
 	uint8_t ConsolePotDataBuffer[BufferSize] = {};
 
-//	void ConsolePotReadDataStream(uint8_t*);
-//	void ConsolePotUpdate(serial::Serial*);
+	//	void ConsolePotReadDataStream(uint8_t*);
+	//	void ConsolePotUpdate(serial::Serial*);
 
-
-
-
-	struct ConsoleReceivedData_Type {
+	struct ConsoleReceivedData_Type
+	{
 		uint8_t DoubleTog = 0;
 		uint8_t LEDTog = 0;
 		uint8_t TopTog = 0;
@@ -93,18 +96,20 @@ public:
 
 	uint8_t CylinderCode[15] = {};
 
-	struct LedData {
+	struct LedData
+	{
 		uint8_t r = 0, g = 0, b = 0;
 
-		void Clear() {
+		void Clear()
+		{
 			r = 0;
 			g = 0;
 			b = 0;
 		}
 	};
 
-
-	struct ConsoleReceivedDataType {
+	struct ConsoleReceivedDataType
+	{
 		bool DoubleTog[8] = {};
 		bool LEDTog[5] = {};
 		bool TopTog[4] = {};
@@ -116,35 +121,35 @@ public:
 		bool FlightStick[4] = {};
 	};
 
-	struct ConsoleSendDataType {
+	struct ConsoleSendDataType
+	{
 		LedData LED[50] = {};
-		bool	BLED[50] = {};
-		bool	ContolButtons[4] = {};
-		bool	FlightStick = false;
+		bool BLED[50] = {};
+		bool ContolButtons[4] = {};
+		bool FlightStick = false;
 		LedData OnColor = {};
 		LedData OffColor = {};
 	};
 
-//ConsoleReceivedDataType ConsoleData;
+	//ConsoleReceivedDataType ConsoleData;
 	ConsoleSendDataType ConsoleDataSend;
 
-//ConsoleReceivedDataType LastConsoleData;
+	//ConsoleReceivedDataType LastConsoleData;
 	ConsoleSendDataType LastConsoleDataSend;
-
 
 	unordered_set<int> ConsolePressed;
 	uint8_t ConsolePotValue[4];
 
-//unordered_set<int> ConsoleKeyProcessed;
+	//unordered_set<int> ConsoleKeyProcessed;
 	unordered_set<int> ConsoleKeyPressed;
-
-
 
 	bool InputDown(Typeof_ConsoleInputs key);
 	bool InputPressed(Typeof_ConsoleInputs key, bool remove = true);
-	void addToSet(unordered_set<int>& itemset, Typeof_ConsoleInputs item, bool pressed);
+	void addToSet(unordered_set<int> &itemset, Typeof_ConsoleInputs item, bool pressed);
 	void ConsolePressButton(Typeof_ConsoleInputs item);
 
+private:
+	SWSimulation *SWS;
 };
 
-#endif // VTSERIALPARSER_H
+#endif // VTSERIAL_H
