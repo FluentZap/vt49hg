@@ -5,12 +5,6 @@
 -IC:\TDM-GCC-64\include
 -IC:\TDM-GCC-64\lib\gcc\x86_64-w64-mingw32\5.1.0\include-fixed
 -IC:\TDM-GCC-64\x86_64-w64-mingw32\include
--IC:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2
--IC:\Users\Toad\Documents\VT49\bullet3-2.88\src
--IC:\Users\Toad\Documents\VT49\bullet3-2.88\Extras\Serialize\BulletWorldImporter
--IC:\Users\Toad\Documents\VT49\bullet3-2.88\src\Bullet3Serialize\Bullet2FileLoader
--IC:\Users\Toad\Documents\VT49\bullet3-2.88\src\BulletCollision\CollisionDispatch
--IC:\Users\Toad\Documents\VT49\VT49\include
 -IC:\Users\Toad\Documents\VT49\SerialNew
 -target
 x86_64-pc-windows-gnu

@@ -8,27 +8,30 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
+    <File Name="src/VTMain.cpp"/>
+    <File Name="src/VTSerial.cpp"/>
+    <File Name="src/VTPhysics.cpp"/>
+    <File Name="include/SerialConnection.cpp"/>
     <File Name="src/VTRender.cpp"/>
     <File Name="src/SDL_FontCache.c"/>
     <File Name="src/PanelData.cpp"/>
     <File Name="src/DiceRoller.cpp"/>
-    <File Name="src/VTStart.cpp"/>
-    <File Name="src/VTSerialParser.cpp"/>
     <File Name="src/VTNetwork.cpp"/>
     <File Name="src/VTMap.cpp"/>
     <File Name="src/tinyxml2.cpp"/>
     <File Name="src/SWSimulation.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
-    <File Name="include/VTStart.h"/>
+    <File Name="include/VTMain.h"/>
+    <File Name="include/VTMap.h"/>
+    <File Name="include/VTSerial.h"/>
+    <File Name="src/VTPhysics.h"/>
+    <File Name="include/SerialConnection.h"/>
     <File Name="include/VTRender.h"/>
-    <File Name="include/VTSerialParser.h"/>
     <File Name="include/VTNetwork.h"/>
-    <File Name="include/vtMap.h"/>
     <File Name="include/tinyxml2.h"/>
     <File Name="include/SWSimulation.h"/>
     <File Name="include/SDL_FontCache.h"/>
-    <File Name="include/rs232.h"/>
     <File Name="include/PanelData.h"/>
     <File Name="include/DiceRoller.h"/>
     <File Name="include/COBS.h"/>
@@ -39,19 +42,18 @@
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
         <IncludePath Value="C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\include\SDL2"/>
-        <IncludePath Value="C:\Users\Toad\Documents\VT49\VT49\q3"/>
-        <IncludePath Value="C:\Users\Toad\Documents\VT49\VT49"/>
         <IncludePath Value="C:\Users\Toad\Documents\VT49\bullet3-2.88\src"/>
         <IncludePath Value="C:\Users\Toad\Documents\VT49\bullet3-2.88\Extras\Serialize\BulletWorldImporter"/>
         <IncludePath Value="C:\Users\Toad\Documents\VT49\bullet3-2.88\src\Bullet3Serialize\Bullet2FileLoader"/>
         <IncludePath Value="C:\Users\Toad\Documents\VT49\bullet3-2.88\src\BulletCollision\CollisionDispatch"/>
         <IncludePath Value="C:\Users\Toad\Documents\VT49\VT49\include"/>
+        <IncludePath Value="C:\Users\Toad\Documents\VT49\SerialNew"/>
       </Compiler>
       <Linker Options="">
         <LibraryPath Value="C:\Users\Toad\Documents\SDL2\SDL2Base\x86_64-w64-mingw32\lib"/>
         <LibraryPath Value="C:\Users\Toad\Documents\SDL2\SDL2Extra\x86_64-w64-mingw32\lib"/>
-        <LibraryPath Value="C:\Users\Toad\Documents\VT49\VT49\lib"/>
         <LibraryPath Value="C:\Users\Toad\Documents\VT49\Bullet3\Release"/>
+        <LibraryPath Value="C:\Users\Toad\Documents\VT49\SerialNew\Release"/>
         <Library Value="mingw32"/>
         <Library Value="SDL2main"/>
         <Library Value="SDL2"/>
@@ -64,7 +66,7 @@
       </Linker>
       <ResourceCompiler Options=""/>
     </GlobalSettings>
-    <Configuration Name="Debug" CompilerType="MinGW ( TDM-GCC-32 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+    <Configuration Name="Debug" CompilerType="MinGW ( TDM-GCC-64 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
       <Compiler Options="-g;-O0;-std=c++17;-std=c++14;-std=c++11;-Wall" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0"/>
       <Linker Options="" Required="yes"/>
       <ResourceCompiler Options="" Required="no"/>

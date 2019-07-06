@@ -1,7 +1,7 @@
 #ifndef VTSERIALPARSER_H
 #define VTSERIALPARSER_H
 #include <stdio.h>
-#include <serial/serial.h>
+#include <rs232.h>
 #include <unordered_set>
 
 using namespace std;
@@ -65,16 +65,16 @@ public:
 	uint8_t ConsoleDataBuffer[BufferSize] = {};
 
 	void ConsoleReadDataStream(uint8_t*);
-	void ConsoleUpdate(serial::Serial*);
+//	void ConsoleUpdate(serial::Serial*);
 
-	void ConsoleSend(serial::Serial* Stream, const uint8_t* Buffer, size_t Size);
+//	void ConsoleSend(serial::Serial* Stream, const uint8_t* Buffer, size_t Size);
 
 	//Console Pot Serial Varables
 	int ConsolePotDataBufferIndex = 0;
 	uint8_t ConsolePotDataBuffer[BufferSize] = {};
 
-	void ConsolePotReadDataStream(uint8_t*);
-	void ConsolePotUpdate(serial::Serial*);
+//	void ConsolePotReadDataStream(uint8_t*);
+//	void ConsolePotUpdate(serial::Serial*);
 
 
 

@@ -1,7 +1,7 @@
 #ifndef SWSIMULATION_H
 #define SWSIMULATION_H
 #include <stdio.h>
-#include <VTSerialParser.h>
+#include <VTSerial.h>
 #include "SDL.h"
 
 struct Type_PowerDistribution
@@ -13,7 +13,7 @@ class PlayerStats {
 public:
 	string name;
 	uint8_t brawn, agility, intelect, cunning, willpower, presence;
-	uint8_t astrogation, athletics, brawl, charm, coercion, computers, cool, coordination, coreWorlds, 
+	uint8_t astrogation, athletics, brawl, charm, coercion, computers, cool, coordination, coreWorlds,
 	deception, discipline, education, gunnery, leadership, lightsaber, lore, mechanics, medicine,
 	melee, negotiation, outerRim, perception, pilotingPlanetary, pilotingSpace, rangedHeavy,
 	rangedLight, resilience, skulduggery, stealth, streetwise, survival, underworld, vigilance,
@@ -39,7 +39,7 @@ class SWSimulation
 public:
 	SWSimulation();
 	~SWSimulation();
-	
+
 	PCShip* Ship = new PCShip();
 
 };

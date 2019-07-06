@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="Bullet3" Version="10.0.0" InternalType="Console">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
+    </Plugin>
+  </Plugins>
   <VirtualDirectory Name="BulletFileLoader">
     <File Name="../bullet3-2.88/Extras/Serialize/BulletFileLoader/btBulletFile.h"/>
     <File Name="../bullet3-2.88/Extras/Serialize/BulletFileLoader/btBulletFile.cpp"/>
@@ -23,11 +28,6 @@
     <File Name="../bullet3-2.88/Extras/Serialize/BulletWorldImporter/btBulletWorldImporter.h"/>
     <File Name="../bullet3-2.88/Extras/Serialize/BulletWorldImporter/btBulletWorldImporter.cpp"/>
   </VirtualDirectory>
-  <Plugins>
-    <Plugin Name="qmake">
-      <![CDATA[00020001N0005Debug0000000000000001N0007Release000000000000]]>
-    </Plugin>
-  </Plugins>
   <VirtualDirectory Name="src">
     <File Name="../bullet3-2.88/src/btBulletDynamicsCommon.h"/>
     <File Name="../bullet3-2.88/src/btBulletCollisionCommon.h"/>
@@ -704,4 +704,6 @@
       </Completion>
     </Configuration>
   </Settings>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
 </CodeLite_Project>

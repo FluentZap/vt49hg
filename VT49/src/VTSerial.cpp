@@ -1,4 +1,4 @@
-#include "VTSerialParser.h"
+#include "VTSerial.h"
 #include "COBS.h"
 #include <unordered_set>
 
@@ -117,84 +117,84 @@ void VTSerialParser::ConsoleReadDataStream(uint8_t* Buffer) {
 	}
 }
 
-void VTSerialParser::ConsolePotReadDataStream(uint8_t* Buffer) {
-	ConsolePotValue[0] = Buffer[0];
-	ConsolePotValue[1] = Buffer[1];
-	ConsolePotValue[2] = Buffer[2];
-	ConsolePotValue[3] = Buffer[3];
-}
+//void VTSerialParser::ConsolePotReadDataStream(uint8_t* Buffer) {
+//	ConsolePotValue[0] = Buffer[0];
+//	ConsolePotValue[1] = Buffer[1];
+//	ConsolePotValue[2] = Buffer[2];
+//	ConsolePotValue[3] = Buffer[3];
+//}
 
-void VTSerialParser::ConsoleSend(serial::Serial* stream, const uint8_t* buffer, size_t size) {
-	if(stream->isOpen()) {
-		uint8_t EncodeBuffer[COBS::getEncodedBufferSize(size)];
-		size_t numEncoded = COBS::encode(buffer, size, EncodeBuffer);
-		//EncodeBuffer[numEncoded] = Marker;
-		stream->write(EncodeBuffer, numEncoded);
+//void VTSerialParser::ConsoleSend(const int port, const uint8_t* buffer, size_t size) {
+//	uint8_t EncodeBuffer[COBS::getEncodedBufferSize(size)];
+//	size_t numEncoded = COBS::encode(buffer, size, EncodeBuffer);
+//	//EncodeBuffer[numEncoded] = Marker;
+//	RS232_SendBuf(port, EncodeBuffer, numEncoded);
+////		stream->write(EncodeBuffer, numEncoded);
+//
+////		uint8_t data[1];
+////		data[0] = Marker;
+//	RS232_SendByte(port, Marker)
+////		stream->write(data, 1);
+//}
 
-		uint8_t data[1];
-		data[0] = Marker;
-		stream->write(data, 1);
-	}
-}
-
-void VTSerialParser::ConsoleUpdate(serial::Serial* stream) {
-	if(stream->isOpen()) {
-		while(stream->available() > 0) {
-			uint8_t data[1] = {};
-			stream->read(data, 1);
-
-			if(data[0] == Marker) {
-				//if (ConsoleDataBufferIndex == 13)
-				//{
-				uint8_t DecodeBuffer[ConsoleDataBufferIndex];
-				size_t numDecoded = COBS::decode(ConsoleDataBuffer, ConsoleDataBufferIndex, DecodeBuffer);
-				if(numDecoded == 16) {
-					ConsoleReadDataStream(DecodeBuffer);
-					ConsoleDataBufferIndex = 0;
-				} else
-					ConsoleDataBufferIndex = 0;
-				//if (ConsoleDataBufferIndex > 13) ConsoleDataBufferIndex = 0;
-			} else {
-				if((ConsoleDataBufferIndex + 1)  < BufferSize) {
-					ConsoleDataBuffer[ConsoleDataBufferIndex++] = data[0];
-				} else {
-					ConsoleDataBufferIndex = 0;
-				}
-
-			}
-
-		}
-	}
-}
+//void VTSerialParser::ConsoleUpdate(const int port) {
+//
+//	do {
+//		uint8_t data[255] = {};
+//		int received = RS232_PollComport(port, data, 256);
+//		for(int i = 0; i < received; i++) {
+//			if(data[i] == Marker) {
+//				//if (ConsoleDataBufferIndex == 13)
+//				//{
+//				uint8_t DecodeBuffer[ConsoleDataBufferIndex];
+//				size_t numDecoded = COBS::decode(ConsoleDataBuffer, ConsoleDataBufferIndex, DecodeBuffer);
+//				if(numDecoded == 16) {
+//					ConsoleReadDataStream(DecodeBuffer);
+//					ConsoleDataBufferIndex = 0;
+//				} else
+//					ConsoleDataBufferIndex = 0;
+//				//if (ConsoleDataBufferIndex > 13) ConsoleDataBufferIndex = 0;
+//			} else {
+//				if((ConsoleDataBufferIndex + 1) < BufferSize) {
+//					ConsoleDataBuffer[ConsoleDataBufferIndex++] = data[i];
+//				} else {
+//					ConsoleDataBufferIndex = 0;
+//				}
+//
+//			}
+//		}
+//
+//	} while(received > 0)
+//	}
 
 
 
-void VTSerialParser::ConsolePotUpdate(serial::Serial* stream) {
-	if(stream->isOpen()) {
-		while(stream->available() > 0) {
-			uint8_t data[1] = {};
-			stream->read(data, 1);
-
-			if(data[0] == Marker) {
-				uint8_t DecodeBuffer[ConsolePotDataBufferIndex];
-				size_t numDecoded = COBS::decode(ConsolePotDataBuffer, ConsolePotDataBufferIndex, DecodeBuffer);
-				if(numDecoded == 4) {
-					ConsolePotReadDataStream(DecodeBuffer);
-					ConsolePotDataBufferIndex = 0;
-				} else
-					ConsolePotDataBufferIndex = 0;
-			} else {
-				if((ConsolePotDataBufferIndex + 1)  < BufferSize) {
-					ConsolePotDataBuffer[ConsolePotDataBufferIndex++] = data[0];
-				} else {
-					ConsolePotDataBufferIndex = 0;
-				}
-
-			}
-
-		}
-	}
-}
+//void VTSerialParser::ConsolePotUpdate(serial::Serial* stream) {
+//	if(stream->isOpen()) {
+//		while(stream->available() > 0) {
+//			uint8_t data[1] = {};
+//			stream->read(data, 1);
+//
+//			if(data[0] == Marker) {
+//				uint8_t DecodeBuffer[ConsolePotDataBufferIndex];
+//				size_t numDecoded = COBS::decode(ConsolePotDataBuffer, ConsolePotDataBufferIndex, DecodeBuffer);
+//				if(numDecoded == 4) {
+//					ConsolePotReadDataStream(DecodeBuffer);
+//					ConsolePotDataBufferIndex = 0;
+//				} else
+//					ConsolePotDataBufferIndex = 0;
+//			} else {
+//				if((ConsolePotDataBufferIndex + 1)  < BufferSize) {
+//					ConsolePotDataBuffer[ConsolePotDataBufferIndex++] = data[0];
+//				} else {
+//					ConsolePotDataBufferIndex = 0;
+//				}
+//
+//			}
+//
+//		}
+//	}
+//}
 
 
 
@@ -204,4 +204,5 @@ VTSerialParser::VTSerialParser() {
 }
 
 VTSerialParser::~VTSerialParser() {
+
 }
