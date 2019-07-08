@@ -29,7 +29,7 @@ public:
 	ListOf_DeviceTypes Type;
 	int BufferIndex = 0;
 	uint8_t Buffer[];
-	void Send(const uint8_t *Buffer, size_t Size);
+	void Send(const vector<uint8_t> data);
 	vector<uint8_t> ReadAvailable();
 };
 
