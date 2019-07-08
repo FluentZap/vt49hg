@@ -62,8 +62,8 @@ AS       := C:/TDM-GCC-64/bin/as.exe
 ## User defined environment variables
 ##
 CodeLiteDir:=C:\Program Files\CodeLite
-Objects0=$(IntermediateDirectory)/src_SWSimulation.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_VTPhysics.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_PanelData.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_VTRender.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_VTMain.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_SerialConnection.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_tinyxml2.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_VTSerial.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_DiceRoller.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_VTNetwork.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/src_VTMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_SDL_FontCache.c$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/src_VTSerial.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_VTRender.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_VTMain.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_VTPhysics.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_PanelData.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_SWSimulation.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_VTNetwork.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_VTMap.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_SerialConnection.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_tinyxml2.cpp$(ObjectSuffix) \
+	$(IntermediateDirectory)/src_DiceRoller.cpp$(ObjectSuffix) $(IntermediateDirectory)/src_SDL_FontCache.c$(ObjectSuffix) 
 
 
 
@@ -94,29 +94,13 @@ PreBuild:
 ##
 ## Objects
 ##
-$(IntermediateDirectory)/src_SWSimulation.cpp$(ObjectSuffix): src/SWSimulation.cpp $(IntermediateDirectory)/src_SWSimulation.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/SWSimulation.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_SWSimulation.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/src_SWSimulation.cpp$(DependSuffix): src/SWSimulation.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_SWSimulation.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_SWSimulation.cpp$(DependSuffix) -MM src/SWSimulation.cpp
+$(IntermediateDirectory)/src_VTSerial.cpp$(ObjectSuffix): src/VTSerial.cpp $(IntermediateDirectory)/src_VTSerial.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/VTSerial.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_VTSerial.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/src_VTSerial.cpp$(DependSuffix): src/VTSerial.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_VTSerial.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_VTSerial.cpp$(DependSuffix) -MM src/VTSerial.cpp
 
-$(IntermediateDirectory)/src_SWSimulation.cpp$(PreprocessSuffix): src/SWSimulation.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_SWSimulation.cpp$(PreprocessSuffix) src/SWSimulation.cpp
-
-$(IntermediateDirectory)/src_VTPhysics.cpp$(ObjectSuffix): src/VTPhysics.cpp $(IntermediateDirectory)/src_VTPhysics.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/VTPhysics.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_VTPhysics.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/src_VTPhysics.cpp$(DependSuffix): src/VTPhysics.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_VTPhysics.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_VTPhysics.cpp$(DependSuffix) -MM src/VTPhysics.cpp
-
-$(IntermediateDirectory)/src_VTPhysics.cpp$(PreprocessSuffix): src/VTPhysics.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_VTPhysics.cpp$(PreprocessSuffix) src/VTPhysics.cpp
-
-$(IntermediateDirectory)/src_PanelData.cpp$(ObjectSuffix): src/PanelData.cpp $(IntermediateDirectory)/src_PanelData.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/PanelData.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_PanelData.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/src_PanelData.cpp$(DependSuffix): src/PanelData.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_PanelData.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_PanelData.cpp$(DependSuffix) -MM src/PanelData.cpp
-
-$(IntermediateDirectory)/src_PanelData.cpp$(PreprocessSuffix): src/PanelData.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_PanelData.cpp$(PreprocessSuffix) src/PanelData.cpp
+$(IntermediateDirectory)/src_VTSerial.cpp$(PreprocessSuffix): src/VTSerial.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_VTSerial.cpp$(PreprocessSuffix) src/VTSerial.cpp
 
 $(IntermediateDirectory)/src_VTRender.cpp$(ObjectSuffix): src/VTRender.cpp $(IntermediateDirectory)/src_VTRender.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/VTRender.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_VTRender.cpp$(ObjectSuffix) $(IncludePath)
@@ -134,37 +118,29 @@ $(IntermediateDirectory)/src_VTMain.cpp$(DependSuffix): src/VTMain.cpp
 $(IntermediateDirectory)/src_VTMain.cpp$(PreprocessSuffix): src/VTMain.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_VTMain.cpp$(PreprocessSuffix) src/VTMain.cpp
 
-$(IntermediateDirectory)/src_SerialConnection.cpp$(ObjectSuffix): src/SerialConnection.cpp $(IntermediateDirectory)/src_SerialConnection.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/SerialConnection.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_SerialConnection.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/src_SerialConnection.cpp$(DependSuffix): src/SerialConnection.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_SerialConnection.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_SerialConnection.cpp$(DependSuffix) -MM src/SerialConnection.cpp
+$(IntermediateDirectory)/src_VTPhysics.cpp$(ObjectSuffix): src/VTPhysics.cpp $(IntermediateDirectory)/src_VTPhysics.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/VTPhysics.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_VTPhysics.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/src_VTPhysics.cpp$(DependSuffix): src/VTPhysics.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_VTPhysics.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_VTPhysics.cpp$(DependSuffix) -MM src/VTPhysics.cpp
 
-$(IntermediateDirectory)/src_SerialConnection.cpp$(PreprocessSuffix): src/SerialConnection.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_SerialConnection.cpp$(PreprocessSuffix) src/SerialConnection.cpp
+$(IntermediateDirectory)/src_VTPhysics.cpp$(PreprocessSuffix): src/VTPhysics.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_VTPhysics.cpp$(PreprocessSuffix) src/VTPhysics.cpp
 
-$(IntermediateDirectory)/src_tinyxml2.cpp$(ObjectSuffix): src/tinyxml2.cpp $(IntermediateDirectory)/src_tinyxml2.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/tinyxml2.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_tinyxml2.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/src_tinyxml2.cpp$(DependSuffix): src/tinyxml2.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_tinyxml2.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_tinyxml2.cpp$(DependSuffix) -MM src/tinyxml2.cpp
+$(IntermediateDirectory)/src_PanelData.cpp$(ObjectSuffix): src/PanelData.cpp $(IntermediateDirectory)/src_PanelData.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/PanelData.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_PanelData.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/src_PanelData.cpp$(DependSuffix): src/PanelData.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_PanelData.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_PanelData.cpp$(DependSuffix) -MM src/PanelData.cpp
 
-$(IntermediateDirectory)/src_tinyxml2.cpp$(PreprocessSuffix): src/tinyxml2.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_tinyxml2.cpp$(PreprocessSuffix) src/tinyxml2.cpp
+$(IntermediateDirectory)/src_PanelData.cpp$(PreprocessSuffix): src/PanelData.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_PanelData.cpp$(PreprocessSuffix) src/PanelData.cpp
 
-$(IntermediateDirectory)/src_VTSerial.cpp$(ObjectSuffix): src/VTSerial.cpp $(IntermediateDirectory)/src_VTSerial.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/VTSerial.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_VTSerial.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/src_VTSerial.cpp$(DependSuffix): src/VTSerial.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_VTSerial.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_VTSerial.cpp$(DependSuffix) -MM src/VTSerial.cpp
+$(IntermediateDirectory)/src_SWSimulation.cpp$(ObjectSuffix): src/SWSimulation.cpp $(IntermediateDirectory)/src_SWSimulation.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/SWSimulation.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_SWSimulation.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/src_SWSimulation.cpp$(DependSuffix): src/SWSimulation.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_SWSimulation.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_SWSimulation.cpp$(DependSuffix) -MM src/SWSimulation.cpp
 
-$(IntermediateDirectory)/src_VTSerial.cpp$(PreprocessSuffix): src/VTSerial.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_VTSerial.cpp$(PreprocessSuffix) src/VTSerial.cpp
-
-$(IntermediateDirectory)/src_DiceRoller.cpp$(ObjectSuffix): src/DiceRoller.cpp $(IntermediateDirectory)/src_DiceRoller.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/DiceRoller.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_DiceRoller.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/src_DiceRoller.cpp$(DependSuffix): src/DiceRoller.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_DiceRoller.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_DiceRoller.cpp$(DependSuffix) -MM src/DiceRoller.cpp
-
-$(IntermediateDirectory)/src_DiceRoller.cpp$(PreprocessSuffix): src/DiceRoller.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_DiceRoller.cpp$(PreprocessSuffix) src/DiceRoller.cpp
+$(IntermediateDirectory)/src_SWSimulation.cpp$(PreprocessSuffix): src/SWSimulation.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_SWSimulation.cpp$(PreprocessSuffix) src/SWSimulation.cpp
 
 $(IntermediateDirectory)/src_VTNetwork.cpp$(ObjectSuffix): src/VTNetwork.cpp $(IntermediateDirectory)/src_VTNetwork.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/VTNetwork.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_VTNetwork.cpp$(ObjectSuffix) $(IncludePath)
@@ -181,6 +157,30 @@ $(IntermediateDirectory)/src_VTMap.cpp$(DependSuffix): src/VTMap.cpp
 
 $(IntermediateDirectory)/src_VTMap.cpp$(PreprocessSuffix): src/VTMap.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_VTMap.cpp$(PreprocessSuffix) src/VTMap.cpp
+
+$(IntermediateDirectory)/src_SerialConnection.cpp$(ObjectSuffix): src/SerialConnection.cpp $(IntermediateDirectory)/src_SerialConnection.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/SerialConnection.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_SerialConnection.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/src_SerialConnection.cpp$(DependSuffix): src/SerialConnection.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_SerialConnection.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_SerialConnection.cpp$(DependSuffix) -MM src/SerialConnection.cpp
+
+$(IntermediateDirectory)/src_SerialConnection.cpp$(PreprocessSuffix): src/SerialConnection.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_SerialConnection.cpp$(PreprocessSuffix) src/SerialConnection.cpp
+
+$(IntermediateDirectory)/src_tinyxml2.cpp$(ObjectSuffix): src/tinyxml2.cpp $(IntermediateDirectory)/src_tinyxml2.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/tinyxml2.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_tinyxml2.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/src_tinyxml2.cpp$(DependSuffix): src/tinyxml2.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_tinyxml2.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_tinyxml2.cpp$(DependSuffix) -MM src/tinyxml2.cpp
+
+$(IntermediateDirectory)/src_tinyxml2.cpp$(PreprocessSuffix): src/tinyxml2.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_tinyxml2.cpp$(PreprocessSuffix) src/tinyxml2.cpp
+
+$(IntermediateDirectory)/src_DiceRoller.cpp$(ObjectSuffix): src/DiceRoller.cpp $(IntermediateDirectory)/src_DiceRoller.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/DiceRoller.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_DiceRoller.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/src_DiceRoller.cpp$(DependSuffix): src/DiceRoller.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/src_DiceRoller.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/src_DiceRoller.cpp$(DependSuffix) -MM src/DiceRoller.cpp
+
+$(IntermediateDirectory)/src_DiceRoller.cpp$(PreprocessSuffix): src/DiceRoller.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/src_DiceRoller.cpp$(PreprocessSuffix) src/DiceRoller.cpp
 
 $(IntermediateDirectory)/src_SDL_FontCache.c$(ObjectSuffix): src/SDL_FontCache.c $(IntermediateDirectory)/src_SDL_FontCache.c$(DependSuffix)
 	$(CC) $(SourceSwitch) "C:/Users/Toad/Documents/VT49/VT49/src/SDL_FontCache.c" $(CFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/src_SDL_FontCache.c$(ObjectSuffix) $(IncludePath)
