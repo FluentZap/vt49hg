@@ -2,6 +2,7 @@
 #define SWSIMULATION_H
 #include <stdio.h>
 #include <string>
+#include <unordered_set>
 #include "SDL.h"
 
 using namespace std;
@@ -46,6 +47,10 @@ public:
 	int SPS;
 	PCShip* Ship = new PCShip();
 	bool testFlag;
+
+	unordered_set<int> ConsolePressed;
+	uint8_t ConsoleAnalogValue[4];
+	unordered_set<int> ConsoleKeyPressed;
 };
 
 #endif // SWSIMULATION_H

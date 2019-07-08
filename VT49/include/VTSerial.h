@@ -78,11 +78,8 @@ public:
 
 	//	void ConsoleSend(serial::Serial* Stream, const uint8_t* Buffer, size_t Size);
 
-	//Console Pot Serial Varables
-	int ConsolePotDataBufferIndex = 0;
-	uint8_t ConsolePotDataBuffer[BufferSize] = {};
-
-	//void ConsolePotReadDataStream(uint8_t*);
+	//Console Pot Serial Varables	
+	void ConsoleAnalogReadDataStream(vector<uint8_t> Buffer);
 	//void ConsolePotUpdate(serial::Serial*);
 
 	struct ConsoleReceivedData_Type
@@ -140,12 +137,9 @@ public:
 
 	//ConsoleReceivedDataType LastConsoleData;
 	ConsoleSendDataType LastConsoleDataSend;
+	
 
-	unordered_set<int> ConsolePressed;
-	uint8_t ConsolePotValue[4];
-
-	//unordered_set<int> ConsoleKeyProcessed;
-	unordered_set<int> ConsoleKeyPressed;
+	//unordered_set<int> ConsoleKeyProcessed;	
 
 	bool InputDown(Typeof_ConsoleInputs key);
 	bool InputPressed(Typeof_ConsoleInputs key, bool remove = true);
@@ -154,7 +148,7 @@ public:
 
 private:
 	SWSimulation *SWS;
-	vector<SerialConnection> _panel;	
+	vector<SerialConnection*> _panel;	
 };
 
 #endif // VTSERIAL_H

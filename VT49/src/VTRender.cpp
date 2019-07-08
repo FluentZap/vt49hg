@@ -122,10 +122,10 @@ void VTRender::Render()
     //     }
     // }
 
-    //	FC_Draw(gFontAG, gRenderer, 100, 100, to_string(parser->ConsolePotValue[0]).c_str());
-    //	FC_Draw(gFontAG, gRenderer, 100, 120, to_string(parser->ConsolePotValue[1]).c_str());
-    //	FC_Draw(gFontAG, gRenderer, 100, 140, to_string(parser->ConsolePotValue[2]).c_str());
-    //	FC_Draw(gFontAG, gRenderer, 100, 160, to_string(parser->ConsolePotValue[3]).c_str());
+    FC_Draw(gFontAG, gRenderer, 100, 100, to_string(SWS->ConsoleAnalogValue[0]).c_str());
+    FC_Draw(gFontAG, gRenderer, 100, 120, to_string(SWS->ConsoleAnalogValue[1]).c_str());
+    FC_Draw(gFontAG, gRenderer, 100, 140, to_string(SWS->ConsoleAnalogValue[2]).c_str());
+    FC_Draw(gFontAG, gRenderer, 100, 160, to_string(SWS->ConsoleAnalogValue[3]).c_str());
 
     // FC_Draw(gFontAG, gRenderer, 100, 20, ("Success: " + to_string(greendie.success)).c_str());
     // FC_Draw(gFontAG, gRenderer, 100, 40, ("Advantage: " + to_string(greendie.advantage)).c_str());
