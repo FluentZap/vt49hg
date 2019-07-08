@@ -8,10 +8,11 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
+    <File Name="src/SWSimulation.cpp"/>
+    <File Name="src/SerialConnection.cpp"/>
     <File Name="src/VTMain.cpp"/>
     <File Name="src/VTSerial.cpp"/>
     <File Name="src/VTPhysics.cpp"/>
-    <File Name="include/SerialConnection.cpp"/>
     <File Name="src/VTRender.cpp"/>
     <File Name="src/SDL_FontCache.c"/>
     <File Name="src/PanelData.cpp"/>
@@ -19,7 +20,6 @@
     <File Name="src/VTNetwork.cpp"/>
     <File Name="src/VTMap.cpp"/>
     <File Name="src/tinyxml2.cpp"/>
-    <File Name="src/SWSimulation.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/VTPhysics.h"/>
