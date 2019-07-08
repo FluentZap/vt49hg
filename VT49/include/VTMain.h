@@ -1,9 +1,14 @@
 #ifndef VTMAIN_H
 #define VTMAIN_H
 
+#include <stdio.h>
+#include "SWSimulation.h"
 #include "VTRender.h"
 #include "VTPhysics.h"
 #include "VTSerial.h"
+#include "VTNetwork.h"
+#include "DiceRoller.h"
+
 // #include "SDL.h"
 // #include <SDL_FontCache.h>
 
@@ -22,10 +27,10 @@ int Serial_Write(void *data);
 
 void ConsoleSerialSend(byte ConsolePacketSend);
 
-VTRender* _render;
+VTRender *_render;
 VTPhysics* _physics;
 VTSerial *_serial;
-
+SWSimulation *_sws;
 
 
 void handleUI(SDL_Event);

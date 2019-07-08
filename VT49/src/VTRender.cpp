@@ -81,6 +81,10 @@ void VTRender::Render()
                                        //Orange (220, 140, 40, 255);
 
     FC_Draw(gFontAG, gRenderer, 0, 0, to_string(SWS->FPS).c_str());
+    FC_Draw(gFontAG, gRenderer, 0, 60, to_string(SWS->SPS).c_str());
+    if (SWS->testFlag)
+        FC_Draw(gFontAG, gRenderer, 0, 120, "Working");
+
     // FC_Draw(gFontAG, gRenderer, 0, 20, to_string(FPS_Adjust).c_str());
 
     //setRenderColor(255, 255, 255, 255);

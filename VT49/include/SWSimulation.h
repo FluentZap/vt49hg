@@ -43,8 +43,9 @@ public:
 	SWSimulation();
 	~SWSimulation();
 	int FPS;
+	int SPS;
 	PCShip* Ship = new PCShip();
-
+	bool testFlag;
 };
 
 #endif // SWSIMULATION_H

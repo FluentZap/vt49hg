@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <rs232.h>
 #include <unordered_set>
+#include <array>
+#include <vector>
+#include "SerialConnection.h"
 #include "SWSimulation.h"
 
 using namespace std;
@@ -69,8 +72,9 @@ public:
 	int ConsoleDataBufferIndex = 0;
 	uint8_t ConsoleDataBuffer[BufferSize] = {};
 
-	void ConsoleReadDataStream(uint8_t *);
-	//	void ConsoleUpdate(serial::Serial*);
+	void ConsoleReadDataStream(vector<uint8_t> Buffer);
+
+	void ConsoleUpdate();
 
 	//	void ConsoleSend(serial::Serial* Stream, const uint8_t* Buffer, size_t Size);
 
@@ -78,8 +82,8 @@ public:
 	int ConsolePotDataBufferIndex = 0;
 	uint8_t ConsolePotDataBuffer[BufferSize] = {};
 
-	//	void ConsolePotReadDataStream(uint8_t*);
-	//	void ConsolePotUpdate(serial::Serial*);
+	//void ConsolePotReadDataStream(uint8_t*);
+	//void ConsolePotUpdate(serial::Serial*);
 
 	struct ConsoleReceivedData_Type
 	{
@@ -150,6 +154,7 @@ public:
 
 private:
 	SWSimulation *SWS;
+	vector<SerialConnection> _panel;	
 };
 
 #endif // VTSERIAL_H

@@ -1,32 +1,35 @@
+#include "VTMain.h"
+
 #include <unistd.h>
 #include <string>
 #include <tinyxml2.h>
 #include <VTMap.h>
 #include <thread>
-#include <stdio.h>
-
-#include "VTMain.h"
-#include "VTSerial.h"
-#include "VTNetwork.h"
-#include "DiceRoller.h"
 
 using namespace std;
 using namespace tinyxml2;
 
 const int SCREEN_WIDTH = 900;
 const int SCREEN_HEIGHT = 1440;
-const int SCREEN_FPS = 70;
-const float SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
+const int SCREEN_FPS = 60;
+const double SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 //const float SCREEN_TICKS_PER_FRAME = 0;
-const float SERIAL_TICKS_PER_FRAME = 1000 / 60;
+const double SERIAL_TICKS_PER_FRAME = 1000 / 60;
+
+int TickTime = 0;
 
 int FPS_Adjust = 0;
 
 bool quit = false;
-int framsPerSec;
+//int framsPerSec;
+//int serialPerSec;
 
 size_t fpsTicks;
 size_t fpsStart;
+
+size_t spsTicks;
+size_t spsStart;
+
 size_t serialTicks;
 size_t serialStart;
 VTNetwork *_net;
@@ -58,7 +61,6 @@ int speed = 0;
 
 const char *pName;
 VTMap *StarMap;
-SWSimulation *_sws;
 diceResult greendie;
 
 void Serial_Connect()
@@ -339,29 +341,40 @@ int main(int argc, char **argv)
 	if (init())
 	{
 		int fps;
+		int sps;
 		fpsTicks = SDL_GetTicks();
+		spsTicks = SDL_GetTicks();
 		//std::thread serialThread(Serial_Write);
 		//SDL_Thread *serialThread = SDL_CreateThread(Serial_Write, "Serial_Write", (void *)NULL);
 
+		float frameTime;
 
 		while (!quit)
 		{
-			//startTicks = SDL_GetTicks();
-
 			while (SDL_PollEvent(&e) != 0)
 			{
 				handleUI(e);
 			}
 
-			//if (serialTicks + SERIAL_TICKS_PER_FRAME < SDL_GetTicks())
-			//{
-
-			//Serial_Write();
-			//serialTicks = SDL_GetTicks();
-			//}
-
-			if (fpsTicks + SCREEN_TICKS_PER_FRAME < SDL_GetTicks())
+			if (serialTicks + SERIAL_TICKS_PER_FRAME <= SDL_GetTicks())
 			{
+				_serial->Update();
+				//Serial_Write();
+				serialTicks = SDL_GetTicks();
+				sps++;
+				spsTicks = SDL_GetTicks();
+			}
+
+			if (fpsTicks + SCREEN_TICKS_PER_FRAME <= SDL_GetTicks())
+			{
+				if (_serial->InputDown(Typeof_ConsoleInputs::FlightStickUP))
+				{
+					_sws->testFlag = true;
+				}
+				else
+				{
+					_sws->testFlag = false;
+				}
 
 				//				_net->update_Network(SWS);
 				//fpsTicks = SDL_GetTicks();
@@ -407,13 +420,11 @@ int main(int argc, char **argv)
 				//render();
 				_physics->Update();
 				_render->Render();
-				// _serial->Update();
 				//renderGalaxyMap(0, 0);
 				fps++;
 				fpsTicks = SDL_GetTicks();
 			}
 
-			long currenttick = SDL_GetTicks();
 			//if((fpsTicks + SCREEN_TICKS_PER_FRAME) - currenttick > 0)
 			//SDL_Delay((fpsTicks + SCREEN_TICKS_PER_FRAME) - currenttick);
 
@@ -425,13 +436,17 @@ int main(int argc, char **argv)
 
 				//if (FPS_Adjust < 0)
 				//FPS_Adjust = 0;
+
 				_sws->FPS = fps;
 				fps = 0;
+
+				_sws->SPS = sps;				
+				sps = 0;
 
 				fpsStart = SDL_GetTicks();
 			}
 
-			//int frameTicks = SDL_GetTicks() - startTicks;
+
 			//if (frameTicks < SCREEN_TICKS_PER_FRAME)
 			//{
 			//SDL_Delay(10);

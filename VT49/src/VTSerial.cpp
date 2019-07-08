@@ -4,7 +4,7 @@
 
 VTSerial::VTSerial(SWSimulation *SWS)
 {
-	VTSerial::SWS = SWS;
+	VTSerial::SWS = SWS;	
 	//RecievedData_Type ConsoleReceivedData;
 	//uint8_t ConsoleDataBuffer[12];
 }
@@ -16,45 +16,53 @@ VTSerial::~VTSerial()
 void VTSerial::Init()
 {
 	RS232_OpenComport(3, 28800, "8N1", 1);
-	RS232_OpenComport(5, 28800, "8N1", 1);
+	//RS232_OpenComport(5, 28800, "8N1", 1);
+	_panel.push_back(SerialConnection(3, ListOf_DeviceTypes::Console));
+	//_panel.push_back(SerialConnection(5, ListOf_DeviceTypes::Console));
 	// if(CurrentOS == WIN) RS232_OpenComport(3, 28800, "8N1", 1);
 	// if(CurrentOS == WIN) RS232_OpenComport(5, 28800, "8N1", 1);
 }
 
-
-void VTSerial::addToSet(unordered_set<int>& itemset, Typeof_ConsoleInputs item, bool pressed = true) {
-	if(pressed) {
-		if(itemset.find((int) item) == itemset.end()) {
-			itemset.insert((int) item);
+void VTSerial::addToSet(unordered_set<int> &itemset, Typeof_ConsoleInputs item, bool pressed = true)
+{
+	if (pressed)
+	{
+		if (itemset.find((int)item) == itemset.end())
+		{
+			itemset.insert((int)item);
 			ConsolePressButton(item);
 		}
-
-	} else {
-		if(itemset.find((int) item) != itemset.end())
-			itemset.erase((int) item);
+	}
+	else
+	{
+		if (itemset.find((int)item) != itemset.end())
+			itemset.erase((int)item);
 	}
 }
 
-void VTSerial::ConsolePressButton(Typeof_ConsoleInputs item) {
-	if(ConsoleKeyPressed.find((int) item) == ConsoleKeyPressed.end())
-		ConsoleKeyPressed.insert((int) item);
+void VTSerial::ConsolePressButton(Typeof_ConsoleInputs item)
+{
+	if (ConsoleKeyPressed.find((int)item) == ConsoleKeyPressed.end())
+		ConsoleKeyPressed.insert((int)item);
 }
 
-bool VTSerial::InputDown(Typeof_ConsoleInputs key) {
-	if(ConsolePressed.find((int) key) != ConsolePressed.end())
+bool VTSerial::InputDown(Typeof_ConsoleInputs key)
+{
+	if (ConsolePressed.find((int)key) != ConsolePressed.end())
 		return true;
 	return false;
 }
 
-bool VTSerial::InputPressed(Typeof_ConsoleInputs key, bool remove) {
-	if(ConsoleKeyPressed.find((int) key) != ConsoleKeyPressed.end()) {
-		if(remove)
-			ConsoleKeyPressed.erase((int) key);
+bool VTSerial::InputPressed(Typeof_ConsoleInputs key, bool remove)
+{
+	if (ConsoleKeyPressed.find((int)key) != ConsoleKeyPressed.end())
+	{
+		if (remove)
+			ConsoleKeyPressed.erase((int)key);
 		return true;
 	}
 	return false;
 }
-
 
 const unsigned char option0 = 0b00000001; // represents bit 0
 const unsigned char option1 = 0b00000010; // represents bit 1
@@ -67,8 +75,10 @@ const unsigned char option7 = 0b10000000; // represents bit 7
 
 //#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
 
-void VTSerial::ConsoleReadDataStream(uint8_t* Buffer) {
-	if(Buffer[0] == 1) {
+void VTSerial::ConsoleReadDataStream(vector<uint8_t> Buffer)
+{
+	if (Buffer[0] == 1)
+	{
 		ConsoleReceivedData.DoubleTog = Buffer[1];
 		ConsoleReceivedData.LEDTog = Buffer[2];
 		ConsoleReceivedData.TopTog = Buffer[3];
@@ -129,8 +139,10 @@ void VTSerial::ConsoleReadDataStream(uint8_t* Buffer) {
 		addToSet(ConsolePressed, Typeof_ConsoleInputs::FlightStickRIGHT, (ConsoleReceivedData.FlightStick & option3));
 	}
 
-	if(Buffer[0] == 2) {
-		for(int x = 0; x < 15; x++) {
+	if (Buffer[0] == 2)
+	{
+		for (int x = 0; x < 15; x++)
+		{
 			CylinderCode[x] = Buffer[x + 1];
 		}
 	}
@@ -186,8 +198,6 @@ void VTSerial::ConsoleReadDataStream(uint8_t* Buffer) {
 //	} while(received > 0)
 //	}
 
-
-
 //void VTSerial::ConsolePotUpdate(serial::Serial* stream) {
 //	if(stream->isOpen()) {
 //		while(stream->available() > 0) {
@@ -215,8 +225,28 @@ void VTSerial::ConsoleReadDataStream(uint8_t* Buffer) {
 //	}
 //}
 
-
 void VTSerial::Update()
 {
-
+	//check all panels and decode buffers
+	vector<uint8_t> buffer;
+	for (size_t i = 0; i < _panel.size(); i++)
+	{				
+		do
+		{
+			buffer = _panel[i].ReadAvailable();
+			if (buffer.size() > 0)
+			{
+				switch (_panel[i].Type)
+				{
+				case ListOf_DeviceTypes::Console:
+					ConsoleReadDataStream(buffer);
+					break;
+				
+				default:
+					break;
+				}
+				
+			}
+		} while (buffer.size() > 0);
+	}	
 }
