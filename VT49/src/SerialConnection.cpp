@@ -55,3 +55,11 @@ vector<uint8_t> SerialConnection::ReadAvailable()
     vector<uint8_t> empty;
     return empty;
 }
+
+void SerialConnection::Send(const vector<uint8_t> data)
+{
+    uint8_t EncodeBuffer[COBS::getEncodedBufferSize(data.size())];
+    size_t numEncoded = COBS::encode(&data[0], data.size(), EncodeBuffer);	
+	RS232_SendBuf(Port, EncodeBuffer, numEncoded);
+	RS232_SendByte(Port, Marker);
+}

@@ -254,4 +254,39 @@ void VTSerial::Update()
 			}
 		} while (buffer.size() > 0);
 	}
+
+		vector<uint8_t> sendBuffer (16);
+		sendBuffer[0] = 1;
+		if (true) sendBuffer[1] |= 0x1 << 0;
+		if(false) sendBuffer[1] |= 0x1 << 1;
+		if (true) sendBuffer[1] |= 0x1 << 2;
+		if (true) sendBuffer[1] |= 0x1 << 3;
+
+		//flight stick
+		if(true) sendBuffer[1] |= 0x1 << 4;
+
+
+		for(int x=0; x < 50; x++) {
+			if(true) {
+				sendBuffer[2 + (x / 8)] |= 0x1 << (x % 8);
+			}
+		}
+
+		sendBuffer[9] = SWS->ConsoleAnalogValue[0];
+		sendBuffer[10] = SWS->ConsoleAnalogValue[1];
+		sendBuffer[11] = SWS->ConsoleAnalogValue[2];
+
+		sendBuffer[12] = 30;
+		sendBuffer[13] = 0;
+		sendBuffer[14] = 0;
+
+		///sendBuffer[9] = parser->ConsoleDataSend.OnColor.r;
+		///sendBuffer[10] = parser->ConsoleDataSend.OnColor.g;
+		// sendBuffer[11] = parser->ConsoleDataSend.OnColor.b;
+
+		// sendBuffer[12] = parser->ConsoleDataSend.OffColor.r;
+		// sendBuffer[13] = parser->ConsoleDataSend.OffColor.g;
+		// sendBuffer[14] = parser->ConsoleDataSend.OffColor.b;
+		sendBuffer[15] = SWS->ConsoleAnalogValue[0];
+		_panel[0]->Send(sendBuffer);
 }
